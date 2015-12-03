@@ -134,6 +134,12 @@
     <Folder Include="Models\Requests\" />
     <Folder Include="Models\Responses\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Migree.Core\Migree.Core.csproj">
+      <Project>{00cb8c5b-e367-422f-b619-4ff6ba7b8e01}</Project>
+      <Name>Migree.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GIt", "GIt", "{EB2E23CA-E66
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{2CE18A94-15B1-4462-8736-62C5AA2A7414}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Core", "Migree.Core\Migree.Core.csproj", "{00CB8C5B-E367-422F-B619-4FF6BA7B8E01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00CB8C5B-E367-422F-B619-4FF6BA7B8E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00CB8C5B-E367-422F-B619-4FF6BA7B8E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00CB8C5B-E367-422F-B619-4FF6BA7B8E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00CB8C5B-E367-422F-B619-4FF6BA7B8E01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
