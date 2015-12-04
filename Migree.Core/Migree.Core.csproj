@@ -46,14 +46,19 @@
   <ItemGroup>
     <Compile Include="Autofac\CoreRegistrationModule.cs" />
     <Compile Include="Definitions\ApplicationType.cs" />
+    <Compile Include="Exceptions\DataModelException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Interfaces\IContentRepository.cs" />
+    <Compile Include="Interfaces\IDataRepository.cs" />
     <Compile Include="Interfaces\ISettingsServant.cs" />
+    <Compile Include="Interfaces\IUserServant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AzureBlobRepository.cs" />
+    <Compile Include="Repositories\AzureTableRepository.cs" />
     <Compile Include="Servants\SettingsServant.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Exceptions\" />
     <Folder Include="Models\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

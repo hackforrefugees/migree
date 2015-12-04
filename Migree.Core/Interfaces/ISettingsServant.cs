@@ -2,5 +2,6 @@
 {
     public interface ISettingsServant
     {
+        string StorageConnectionString { get; }
     }
 }
