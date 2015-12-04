@@ -11,7 +11,7 @@ module.exports = function(grunt) {
           optimization: 2
         },
         files: {
-          "css/main.css": "less/main.less"
+          "static/css/main.css": "static/less/main.less"
         }
       }  
     },
@@ -27,15 +27,15 @@ module.exports = function(grunt) {
         browsers: ['last 2 versions', 'ie 8', 'ie 9']
       },
       main: {
-        src: 'css/main.css'
+        src: 'static/css/main.css'
       }
     },
-    concat: {
+  /*  concat: {
       js: {
         src: ['js/modules/*.js', 'js/components/*.js'],
         dest: 'js/main.js',
       },
-    },
+    },*/
     watch: {
       html: {
         files: ['views/*.html'],
@@ -44,16 +44,16 @@ module.exports = function(grunt) {
         }
       },
       less: {
-        files: ['less/**/*'],
+        files: ['static/less/**/*'],
         tasks: ['less'],
         options: {
           livereload: true,
         }
       },
-      concat: {
-        files: ['js/modules/*.js', 'js/components/*.js'],
+    /*  concat: {
+        files: ['public/js/modules/*.js', 'js/components/*.js'],
         tasks: ['concat']
-      },
+      },*/
       autoprefixer: {
         files: ['css/main.css'],
         tasks: ['autoprefixer']
@@ -75,6 +75,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).
-  grunt.registerTask('default', ['less', 'concat', 'autoprefixer']);
+  grunt.registerTask('default', ['express:dev','less', 'autoprefixer','watch']);
 
 };
