@@ -30,12 +30,16 @@ module.exports = function(grunt) {
         src: 'static/css/main.css'
       }
     },
-  /*  concat: {
+    concat: {
+      angular: {
+        src: ['bower_components/angular/angular.min.js', 'bower_components/angular-ui-router/release/angular-ui-router.min.js'],
+        dest: 'static/js/angular-build.js',
+      },
       js: {
         src: ['js/modules/*.js', 'js/components/*.js'],
-        dest: 'js/main.js',
+        dest: 'static/js/main.js',
       },
-    },*/
+    },
     watch: {
       html: {
         files: ['views/*.html'],
@@ -50,12 +54,12 @@ module.exports = function(grunt) {
           livereload: true,
         }
       },
-    /*  concat: {
-        files: ['public/js/modules/*.js', 'js/components/*.js'],
-        tasks: ['concat']
-      },*/
+      concat: {
+        files: ['static/js/modules/*.js', 'js/components/*.js'],
+        tasks: ['concat:js']
+      },
       autoprefixer: {
-        files: ['css/main.css'],
+        files: ['static/css/main.css'],
         tasks: ['autoprefixer']
       },
       express: {
@@ -75,6 +79,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).
-  grunt.registerTask('default', ['express:dev','less', 'autoprefixer','watch']);
+  grunt.registerTask('default', ['express:dev','less', 'autoprefixer','watch', 'concat']);
 
 };
