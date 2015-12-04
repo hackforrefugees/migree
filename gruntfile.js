@@ -15,6 +15,13 @@ module.exports = function(grunt) {
         }
       }  
     },
+    express: {
+      dev: {
+        options: {
+          script: 'server.js'
+        }
+      }
+    },
     autoprefixer: {
       options: {
         browsers: ['last 2 versions', 'ie 8', 'ie 9']
@@ -30,6 +37,12 @@ module.exports = function(grunt) {
       },
     },
     watch: {
+      html: {
+        files: ['views/*.html'],
+        options: {
+          livereload: true,
+        }
+      },
       less: {
         files: ['less/**/*'],
         tasks: ['less'],
@@ -44,10 +57,18 @@ module.exports = function(grunt) {
       autoprefixer: {
         files: ['css/main.css'],
         tasks: ['autoprefixer']
+      },
+      express: {
+        files:  [ '*' ],
+        tasks:  [ 'express:dev' ],
+        options: {
+          spawn: false
+        }
       }
     }
   });
 
+  grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
