@@ -1,5 +1,6 @@
 ﻿using Migree.Core.Definitions;
 using Newtonsoft.Json;
+using System;
 
 namespace Migree.Web.Models.Requests
 {

@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Migree.Core.Servants
@@ -48,7 +46,7 @@ namespace Migree.Core.Servants
             user.Email = email;
             user.Password = PasswordServant.CreateHash(password);
             user.FirstName = firstName;
-            user.LastName = lastName;
+            user.LastName = lastName;            
             user.UserType = userType;
             user.UserLocation = userLocation;
             DataRepository.AddOrUpdate(user);

@@ -1,24 +1,26 @@
 
-<div class="register">
+<div class="register page">
 	<div class="active step">
 		<input type="text" placeholder="Firstname" ng-model="firstname" /><br/>
 		<input type="text" placeholder="Lastname" ng-model="lastname"  /><br/>
 		<input type="text" placeholder="Email" ng-model="email"  /><br/>
-		<input type="password" placeholder="Password" ng-model="password" />
-		<input type="password" placeholder="Reenter Password" ng-model="repassword" />
-
+		<input type="password" placeholder="Password" ng-model="password" /><br/>
+		<input type="password" placeholder="Reenter Password" ng-model="repassword" /><br/>
+		<label for="city" class="select">
+			<span class="title" >{{label}}</span>
+			<select ng-model="city" id="city" ng-options="c as c.label for c in cities" onchange="setLabel(c)">
+			</select>
+		</label><br/>
 		<div class="avatar-upload">
 			<i class="icon icon_image"></i>
-			
 			<input type="file" name="avatar" file-upload-change handler="avatarUpload(params)" />
 		</div>
 
-		<button class="button red" ng-click="gotonext()">Continue</button>
+		<button class="button red" ng-click="goToNext()">Continue</button>
 	</div>
 	<div class="step">
 
-
-		<button class="button red" ng-click="gotonext()">Continue</button>
+		<button class="button red" ng-click="goToNext()">Register</button>
 	</div>
 	<br/>
 	<a href="/" class="button">Back</a>

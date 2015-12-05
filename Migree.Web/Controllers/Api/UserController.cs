@@ -14,11 +14,15 @@ namespace Migree.Web.Controllers.Api
     [RoutePrefix("api/user")]
     public class UserController : MigreeApiController
     {
-        private IUserServant UserServant { get; }
+        private const int NUMBER_OF_MATCHES_TO_TAKE = 50;
 
-        public UserController(IUserServant userServant)
+        private IUserServant UserServant { get; }
+        private ICompetenceServant CompetenceServant { get; }
+
+        public UserController(IUserServant userServant, ICompetenceServant comptenceServant)
         {
             UserServant = userServant;
+            CompetenceServant = comptenceServant;
         }
 
         [HttpPost]
@@ -81,6 +85,13 @@ namespace Migree.Web.Controllers.Api
             {
                 return CreateApiResponse(HttpStatusCode.BadRequest);
             }
+        }
+
+        [HttpPost, Route("{userId:guid}/matches")]
+        public HttpResponseMessage FindMatches(Guid userId, FindMatchesRequest request)
+        {
+            var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);
+            return CreateApiResponse(HttpStatusCode.NoContent);
         }
     }
 }
