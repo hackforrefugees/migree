@@ -19,7 +19,6 @@ namespace Migree.Core.Servants
             var competences = DataRepository.GetAll<Competence>(Competence.GetPartitionKey());
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
-
         public Guid AddCompetence(string name)
         {
             var competence = new Competence
@@ -30,6 +29,57 @@ namespace Migree.Core.Servants
             DataRepository.AddOrUpdate(competence);
 
             return competence.Id;
+        }
+        public ICollection<IUser> GetMatches(Guid userToMatchId, ICollection<Guid> competenceIds, int take)
+        {
+            var userToMatch = DataRepository.GetAllByRowKey<User>(User.GetRowKey(userToMatchId)).First();
+            var matchedUsers = new Dictionary<Guid, MatchedUser>();
+            var users = DataRepository.GetAll<User>();            
+            int competenceCount = 1;
+
+            foreach (var competenceId in competenceIds)
+            {
+                var usersWithCompetence = DataRepository.GetAll<UserCompetence>(UserCompetence.GetPartitionKey(competenceId));
+
+                foreach (var userWithCompetence in usersWithCompetence)
+                {
+                    if (!matchedUsers.ContainsKey(userWithCompetence.UserId))
+                    {
+                        var user = users.FirstOrDefault(p => p.Id.Equals(userWithCompetence.UserId));
+
+                        if (user == null)
+                        {
+                            continue;
+                        }
+
+                        matchedUsers.Add(userWithCompetence.UserId, new MatchedUser
+                        {
+                            UserId = userWithCompetence.UserId,
+                            User = user,
+                            IsOnSameLocation = user.UserLocation.Equals(userToMatch.UserLocation)
+                        });
+                    }
+
+                    if (competenceCount == 1)
+                    {
+                        matchedUsers[userWithCompetence.UserId].HasPrimaryCompetence = true;
+                    }
+                    else if (competenceCount == 2)
+                    {
+                        matchedUsers[userWithCompetence.UserId].HasSecondaryCompetence = true;
+                    }
+                    else if (competenceCount == 3)
+                    {
+                        matchedUsers[userWithCompetence.UserId].HasThirdCompetence = true;
+                    }
+                }
+
+                competenceCount++;
+            }
+
+            var matchedUsersList = matchedUsers.Select(p => p.Value).ToList();
+            matchedUsersList.Sort();
+            return matchedUsersList.Select(p => p.User).Take(take).ToList();
         }
     }
 }

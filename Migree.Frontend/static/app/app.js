@@ -1,6 +1,7 @@
 var app = angular.module('migreeApp', [
     'ngRoute',
-    'ui.router'
+    'ui.router',
+    'LocalStorageModule'
 ]);
 
 app.constant('config', {
@@ -8,7 +9,6 @@ app.constant('config', {
 })
 
 app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
-
 
     //routing DOESN'T work without html5Mode
     $locationProvider.html5Mode({
@@ -21,7 +21,7 @@ app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRout
     .state('login', {
 			url: '/login',
 			templateUrl: '/views/login.html',
-			controller: 'LoginController'
+			controller: 'loginController'
 	  })
     .state('home', {
       url: '/',
@@ -54,6 +54,19 @@ app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRout
     $urlRouterProvider.otherwise('/404');
 });
 
+var serviceBase = 'http://migree.azurewebsites.net/';
+app.constant('ngAuthSettings', {
+    apiServiceBaseUri: serviceBase,
+    clientId: 'ngAuthApp'
+});
+
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+});
+
+app.run(['authService', function (authService) {
+    authService.fillAuthData();
+}]);
 
 app.directive('fileUploadChange', [function() {
         'use strict';
@@ -83,30 +96,6 @@ app.directive('fileUploadChange', [function() {
 
 app.controller('MasterController', function($scope, $http){
 
-
-
-
-});
-
-
-app.controller('LoginController', function($scope, $http, $location){
-
-
-  $scope.login = function(){
-    $http({
-      method: 'GET',
-      url: 'ajax/login.json'
-    }).then(function successCallback(response) {
-      if(!response.error)
-        $location.path('/dashboard');
-      else
-        $scope.message = "Invalid login.";
-    }, function errorCallback(response) {
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
-    });
-
-  }
 
 
 

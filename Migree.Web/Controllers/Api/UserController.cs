@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Migree.Web.Controllers.Api
@@ -13,11 +14,15 @@ namespace Migree.Web.Controllers.Api
     [RoutePrefix("api/user")]
     public class UserController : MigreeApiController
     {
-        private IUserServant UserServant { get; }
+        private const int NUMBER_OF_MATCHES_TO_TAKE = 50;
 
-        public UserController(IUserServant userServant)
+        private IUserServant UserServant { get; }
+        private ICompetenceServant CompetenceServant { get; }
+
+        public UserController(IUserServant userServant, ICompetenceServant comptenceServant)
         {
             UserServant = userServant;
+            CompetenceServant = comptenceServant;
         }
 
         [HttpPost]
@@ -54,8 +59,39 @@ namespace Migree.Web.Controllers.Api
         [Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
         {
-            var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
+            var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType, request.UserLocation);
             return CreateApiResponse(HttpStatusCode.OK, new RegisterResponse { UserId = user.Id });
+        }
+
+        [HttpPost, Route("{userId:guid}/upload", Name = "userimageupload")]
+        public async Task<HttpResponseMessage> UploadProfileImage(Guid userId)
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new Exception("Unsupported media");
+                }
+
+                var content = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
+                using (var imageStream = await content.Contents.First().ReadAsStreamAsync())
+                {
+                    await UserServant.UploadProfileImageAsync(userId, imageStream);
+                }
+
+                return CreateApiResponse(HttpStatusCode.Accepted);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpPost, Route("{userId:guid}/matches")]
+        public HttpResponseMessage FindMatches(Guid userId, FindMatchesRequest request)
+        {
+            var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);
+            return CreateApiResponse(HttpStatusCode.NoContent);
         }
     }
 }

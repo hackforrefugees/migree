@@ -12,6 +12,11 @@ namespace Migree.Core.Models
             return userType.ToString().ToLower();
         }
 
+        public static string GetRowKey(Guid userId)
+        {
+            return userId.ToString();
+        }
+
         /// <summary>
         /// Default, used by Azure
         /// </summary>
@@ -37,9 +42,10 @@ namespace Migree.Core.Models
         }
 
         public string Email { get; set; }
-        public string Password { get; set; }        
+        public string Password { get; set; }
         public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string LastName { get; set; }        
         public UserType UserType { get; set; }
+        public UserLocation UserLocation { get; set; }
     }
 }

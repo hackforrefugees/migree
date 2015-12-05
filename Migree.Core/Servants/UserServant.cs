@@ -5,22 +5,25 @@ using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Migree.Core.Servants
 {
     public class UserServant : IUserServant
     {
+        private const int PROFILE_IMAGE_SIZE_PIXELS = 100;
         private IDataRepository DataRepository { get; }
+        private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
         private ICompetenceServant CompetenceServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant)
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             CompetenceServant = competenceServant;
+            ContentRepository = contentRepository;
         }
 
         public IUser FindUser(string email, string password)
@@ -36,15 +39,16 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
+        public IUser Register(string email, string password, string firstName, string lastName, UserType userType, UserLocation userLocation)
         {
             email = email.ToLower();
             var user = new User(userType);
             user.Email = email;
             user.Password = PasswordServant.CreateHash(password);
             user.FirstName = firstName;
-            user.LastName = lastName;
+            user.LastName = lastName;            
             user.UserType = userType;
+            user.UserLocation = userLocation;
             DataRepository.AddOrUpdate(user);
             return user;
         }
@@ -67,10 +71,27 @@ namespace Migree.Core.Servants
         }
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
-        {            
+        {
             var competences = CompetenceServant.GetCompetences();
             var userCompetences = DataRepository.GetAllByRowKey<UserCompetence>(UserCompetence.GetRowKey(userId));
             return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
+        }
+
+        public async Task UploadProfileImageAsync(Guid userId, Stream imageStream)
+        {
+            imageStream.Position = 0;
+
+            using (var img = System.Drawing.Image.FromStream(imageStream))
+            {
+                using (var bitmap = new System.Drawing.Bitmap(img, PROFILE_IMAGE_SIZE_PIXELS, PROFILE_IMAGE_SIZE_PIXELS))
+                {
+                    using (var profileImageStream = new MemoryStream())
+                    {
+                        bitmap.Save(profileImageStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        await ContentRepository.PutImageAsync(userId, profileImageStream, ImageType.Profile);
+                    }
+                }
+            }
         }
     }
 }
