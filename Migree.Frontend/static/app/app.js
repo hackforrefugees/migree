@@ -123,9 +123,9 @@ app.controller('ForgotController', function($scope, $http, $location){
 app.controller('RegisterController', function($scope, $http){
 
   $scope.cities = [
-    { value: 'e81eb744-bace-4b9c-a5d1-99f039b8bcd7', label: 'Gothenburg' },
-    { value: 'b5b1060c-357e-408b-8b9d-fa73d390f264', label: 'Stockholm' },
-    { value: 'b5f32a20-c660-4089-9ffd-185f30aecf0e', label: 'Malmo' }
+    { value: '2', label: 'Gothenburg' },
+    { value: '1', label: 'Stockholm' },
+    { value: '3', label: 'Malmo' }
 ];
 
 
