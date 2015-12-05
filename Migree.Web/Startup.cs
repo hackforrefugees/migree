@@ -16,6 +16,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Microsoft.Owin.Cors;
+using System.Threading.Tasks;
+using System.Web.Cors;
 
 [assembly: OwinStartup(typeof(Migree.Web.Startup))]
 namespace Migree.Web
@@ -24,15 +27,34 @@ namespace Migree.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            ConfigureCors(app);
+            
             HttpConfiguration config = new HttpConfiguration();
 
             ConfigureAutofac(app, config);
             ConfigureOAuth(app);
             ConfigureRoutesAndFilters();
-            
+
             WebApiConfig.Register(config);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+        }
+
+        private void ConfigureCors(IAppBuilder app)
+        {
+            app.UseCors(new CorsOptions
+            {
+                PolicyProvider = new CorsPolicyProvider
+                {
+                    PolicyResolver = context => Task.FromResult(new CorsPolicy
+                    {
+                        AllowAnyHeader = true,
+                        AllowAnyMethod = true,
+                        AllowAnyOrigin = true,
+                        SupportsCredentials = false,
+                        PreflightMaxAge = Int32.MaxValue
+                    })
+                }
+            }); ;
         }
 
         private void ConfigureRoutesAndFilters()
