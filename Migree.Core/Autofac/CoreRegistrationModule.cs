@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Migree.Core.Definitions;
 using Migree.Core.Interfaces;
+using Migree.Core.Repositories;
 using Migree.Core.Servants;
 
 namespace Migree.Core.Autofac
@@ -17,6 +18,7 @@ namespace Migree.Core.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             Register<SettingsServant, ISettingsServant>(builder);
+            Register<AzureTableRepository, IDataRepository>(builder);
             base.Load(builder);
         }
 
