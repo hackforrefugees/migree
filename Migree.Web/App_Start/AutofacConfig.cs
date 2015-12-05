@@ -16,6 +16,7 @@ namespace Migree.Web
             var builder = new ContainerBuilder();
             Assembly executingAssembly = Assembly.GetExecutingAssembly();            
             builder.RegisterModule(new CoreRegistrationModule(ApplicationType.Web));
+
             builder.RegisterControllers(executingAssembly);
             builder.RegisterApiControllers(executingAssembly);
             
