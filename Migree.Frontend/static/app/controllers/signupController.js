@@ -1,31 +1,23 @@
 'use strict';
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
+migree.controller('signupController', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
 
     $scope.registration = {
-        firstName: "",
-        lastName: "",
+        userName: "",
         password: "",
-        confirmPassword: "",
-        email: "",
-        city: "",
-        userType: 1
+        confirmPassword: ""
     };
 
-    $scope.cities = [
-    { value: '2', label: 'Gothenburg' },
-    { value: '1', label: 'Stockholm' },
-    { value: '3', label: 'Malmo' }
-    ];
+    $scope.signUp = function () {
 
-    $scope.goToNext = function(){
-      authService.saveRegistration($scope.registration).then(function (response) {
+        authService.saveRegistration($scope.registration).then(function (response) {
+
             $scope.savedSuccessfully = true;
             $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-            $('.step').prev().hide();
-            $('.step').next().show();
+            startTimer();
+
         },
          function (response) {
              var errors = [];
@@ -35,8 +27,9 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
                  }
              }
              $scope.message = "Failed to register user due to:" + errors.join(' ');
-         });  
-    }
+         });
+    };
+
     var startTimer = function () {
         var timer = $timeout(function () {
             $timeout.cancel(timer);

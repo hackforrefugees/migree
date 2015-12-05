@@ -9,6 +9,7 @@ namespace Migree.Core.Interfaces.Models
         string Email { get; }
         string FirstName { get; }
         string LastName { get; }
+        string Description { get; }        
         UserType UserType { get; }
         UserLocation UserLocation { get; }
     }

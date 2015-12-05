@@ -39,18 +39,27 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public IUser Register(string email, string password, string firstName, string lastName, UserType userType, UserLocation userLocation)
+        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
         {
             email = email.ToLower();
             var user = new User(userType);
             user.Email = email;
             user.Password = PasswordServant.CreateHash(password);
             user.FirstName = firstName;
-            user.LastName = lastName;            
+            user.LastName = lastName;
             user.UserType = userType;
-            user.UserLocation = userLocation;
+            user.UserLocation = UserLocation.None;
+            user.Description = string.Empty;
             DataRepository.AddOrUpdate(user);
             return user;
+        }
+
+        public void UpdateUser(Guid userId, UserLocation userLocation, string description)
+        {
+            var user = DataRepository.Get<User>(User.GetRowKey(userId));
+            user.UserLocation = userLocation;
+            user.Description = description;
+            DataRepository.AddOrUpdate(user);
         }
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
