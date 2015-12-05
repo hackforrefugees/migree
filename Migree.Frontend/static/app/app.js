@@ -111,6 +111,22 @@ app.controller('ForgotController', function($scope, $http, $location){
 
 app.controller('RegisterController', function($scope, $http){
 
+  $scope.cities = [
+    { value: '2', label: 'Gothenburg' },
+    { value: '1', label: 'Stockholm' },
+    { value: '3', label: 'Malmo' }
+];
+
+
+  $scope.setLabel = function(c){
+    console.log(c)
+  };
+
+  $scope.goToNext = function(){
+
+    $('.step').prev().hide();
+    $('.step').next().show();
+  }
 
  $scope.register = function(){
 
@@ -144,7 +160,8 @@ app.controller('RegisterController', function($scope, $http){
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      $('.avatar-upload').empty();
+      $('.avatar-upload i').remove();
+      $('.avatar-upload img').remove();
       $('.avatar-upload').append('<img width="100%" src="'+e.target.result+'" />')
      
     }
@@ -153,9 +170,6 @@ app.controller('RegisterController', function($scope, $http){
 
   };
 
-  $scope.goToNext = function(slide){
-
-  }
 
 });
 
@@ -169,13 +183,8 @@ app.controller('StartController', function($scope, $http){
 app.controller('DashboardController', function($scope, $http){
 
     new ElastiStack( document.getElementById('stack'), {
-      // distDragBack: if the user stops dragging the image in a area that does not exceed [distDragBack]px
-      // for either x or y then the image goes back to the stack
       distDragBack : 50,
-      // distDragMax: if the user drags the image in a area that exceeds [distDragMax]px
-      // for either x or y then the image moves away from the stack
       distDragMax : 150,
-      // callback
       onUpdateStack : function( current ) { return false; }
     } );
 
