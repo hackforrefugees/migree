@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-.ds_store
 
-bower_components
-node_modules
-=======
 # Include your project-specific ignores in this file
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
@@ -227,4 +222,3 @@ FakesAssemblies/
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
->>>>>>> 5176a1e08924984e18f7a9392ba1053455a39061
