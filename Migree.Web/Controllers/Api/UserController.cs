@@ -21,10 +21,29 @@ namespace Migree.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("competences")]
+        public HttpResponseMessage AddCompetencesToUser(AddCompetencesToUserRequest request)
+        {
+            UserServant.AddCompetencesToUser(request.UserId, request.CompetenceIds);
+            return CreateApiResponse(HttpStatusCode.OK);
+        }
+
+        [HttpGet]
+        [Route("{userId:guid}/competences")]
+        public HttpResponseMessage GetUserCompetences(Guid userId)
+        {
+            var competences = UserServant.GetUserCompetences(userId);
+            var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+            return CreateApiResponse(HttpStatusCode.OK, response);
+        }
+
+        [HttpPost]
         [Route("login")]
         public HttpResponseMessage Login(LoginRequest request)
         {
-            if (UserServant.ValidateUser(request.Email, request.Password))
+            var user = UserServant.FindUser(request.Email, request.Password);
+
+            if (user != null)
             {
                 return CreateApiResponse(HttpStatusCode.OK);
             }

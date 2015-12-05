@@ -10,11 +10,16 @@ namespace Migree.Core.Models
             return competenceId.ToString();
         }
 
+        public static string GetRowKey(Guid userId)
+        {
+            return userId.ToString();
+        }
+
         public UserCompetence() { }
 
         public UserCompetence(Guid userId, Guid competenceId)
         {
-            RowKey = userId.ToString();
+            RowKey = GetRowKey(userId);
             PartitionKey = GetPartitionKey(competenceId);
         }
 

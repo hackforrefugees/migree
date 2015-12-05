@@ -84,6 +84,7 @@
     <Compile Include="Interfaces\ICompetenceServant.cs" />
     <Compile Include="Interfaces\IContentRepository.cs" />
     <Compile Include="Interfaces\IDataRepository.cs" />
+    <Compile Include="Interfaces\IPasswordServant.cs" />
     <Compile Include="Interfaces\ISettingsServant.cs" />
     <Compile Include="Interfaces\IUserServant.cs" />
     <Compile Include="Interfaces\Models\ICompetence.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Repositories\AzureBlobRepository.cs" />
     <Compile Include="Repositories\AzureTableRepository.cs" />
     <Compile Include="Servants\CompetenceServant.cs" />
+    <Compile Include="Servants\PasswordServant.cs" />
     <Compile Include="Servants\SettingsServant.cs" />
     <Compile Include="Servants\UserServant.cs" />
     <Compile Include="Utilities\HttpStatusCodeExtension.cs" />
