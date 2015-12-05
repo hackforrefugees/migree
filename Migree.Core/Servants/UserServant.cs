@@ -43,7 +43,7 @@ namespace Migree.Core.Servants
             user.UserType = userType;
             DataRepository.AddOrUpdate(user);
             return user;
-        }        
+        }
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
         {
@@ -52,10 +52,10 @@ namespace Migree.Core.Servants
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
         {
-            return new List<Competence>
+            return new List<IdAndName>
             {
-                new Competence { Name = "C#" },
-                new Competence {Name = "C" }
+                new IdAndName { Name = "C#" },
+                new IdAndName {Name = "C" }
             }.ToList<ICompetence>();
         }
 
