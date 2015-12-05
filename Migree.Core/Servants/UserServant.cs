@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Migree.Core.Servants
 {
@@ -19,9 +18,23 @@ namespace Migree.Core.Servants
             DataRepository = dataRepository;
         }
 
-        public void Register(string email, string password, string firstName, string lastName, UserType userType)
+        public bool ValidateUser(string email, string password)
         {
-            var user = new User();
+            return true;
+        }
+
+        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
+        {
+            //TODO: remove this
+            return new User(userType)
+            {
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                UserType = userType
+            };
+
+            var user = new User(userType);
             user.Email = email;
             user.PasswordSalt = DateTime.UtcNow.Ticks.ToString();
             user.Password = EncodePassword(password, user.PasswordSalt);
@@ -29,6 +42,21 @@ namespace Migree.Core.Servants
             user.LastName = lastName;
             user.UserType = userType;
             DataRepository.AddOrUpdate(user);
+            return user;
+        }        
+
+        public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
+        {
+
+        }
+
+        public ICollection<ICompetence> GetUserCompetences(Guid userId)
+        {
+            return new List<Competence>
+            {
+                new Competence { Name = "C#" },
+                new Competence {Name = "C" }
+            }.ToList<ICompetence>();
         }
 
         private string EncodePassword(string password, string salt)
