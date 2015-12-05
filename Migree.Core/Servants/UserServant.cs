@@ -3,11 +3,8 @@ using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Migree.Core.Servants
 {
@@ -19,9 +16,16 @@ namespace Migree.Core.Servants
             DataRepository = dataRepository;
         }
 
-        public void Register(string email, string password, string firstName, string lastName, UserType userType)
+        public bool ValidateUser(string email, string password)
         {
-            var user = new User();
+            return true;
+        }
+
+        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
+        {
+            throw new NotImplementedException("Can´t be used yet");
+
+            var user = new User(userType);            
             user.Email = email;
             user.PasswordSalt = DateTime.UtcNow.Ticks.ToString();
             user.Password = EncodePassword(password, user.PasswordSalt);
@@ -29,6 +33,7 @@ namespace Migree.Core.Servants
             user.LastName = lastName;
             user.UserType = userType;
             DataRepository.AddOrUpdate(user);
+            return user;
         }
 
         private string EncodePassword(string password, string salt)
@@ -41,6 +46,6 @@ namespace Migree.Core.Servants
             var algorithm = HashAlgorithm.Create("SHA1");
             var inArray = algorithm.ComputeHash(destinationBytes);
             return Convert.ToBase64String(inArray);
-        }
+        }       
     }
 }
