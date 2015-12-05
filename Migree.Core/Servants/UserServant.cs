@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Migree.Core.Servants
 {
@@ -77,7 +78,7 @@ namespace Migree.Core.Servants
             return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
 
-        public void UploadProfileImage(Guid userId, Stream imageStream)
+        public async Task UploadProfileImageAsync(Guid userId, Stream imageStream)
         {
             imageStream.Position = 0;
 
@@ -88,7 +89,7 @@ namespace Migree.Core.Servants
                     using (var profileImageStream = new MemoryStream())
                     {
                         bitmap.Save(profileImageStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        ContentRepository.PutImage(userId, profileImageStream, ImageType.Profile);
+                        await ContentRepository.PutImageAsync(userId, profileImageStream, ImageType.Profile);
                     }
                 }
             }

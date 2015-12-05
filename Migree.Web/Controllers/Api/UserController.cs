@@ -53,7 +53,7 @@ namespace Migree.Web.Controllers.Api
         }
 
         [HttpPost, Route("{userId:guid}/upload", Name = "userimageupload")]
-        public async virtual Task<HttpResponseMessage> UploadProfileImage(Guid userId)
+        public async Task<HttpResponseMessage> UploadProfileImage(Guid userId)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Migree.Web.Controllers.Api
                 var content = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
                 using (var imageStream = await content.Contents.First().ReadAsStreamAsync())
                 {
-                    UserServant.UploadProfileImage(userId, imageStream);
+                    await UserServant.UploadProfileImageAsync(userId, imageStream);
                 }
 
                 return CreateApiResponse(HttpStatusCode.Accepted);

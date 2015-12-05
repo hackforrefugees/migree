@@ -4,6 +4,7 @@ using Migree.Core.Definitions;
 using Migree.Core.Interfaces;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Migree.Core.Repositories
 {
@@ -17,10 +18,10 @@ namespace Migree.Core.Repositories
             SettingsServant = settingsServant;
         }
 
-        public void PutImage(Guid userId, Stream fileStream, ImageType imageType)
+        public async Task PutImageAsync(Guid userId, Stream fileStream, ImageType imageType)
         {
             fileStream.Position = 0;
-            GetImageBlobReference(userId, imageType).UploadFromStream(fileStream);
+            await GetImageBlobReference(userId, imageType).UploadFromStreamAsync(fileStream);
         }
 
         public string GetImageUrl(Guid userId, ImageType imageType)
