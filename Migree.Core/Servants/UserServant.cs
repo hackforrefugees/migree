@@ -15,16 +15,18 @@ namespace Migree.Core.Servants
     {
         private IDataRepository DataRepository { get; }
         private IPasswordServant PasswordServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant)
+        private ICompetenceServant CompetenceServant { get; }
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
-        }        
+            CompetenceServant = competenceServant;
+        }
 
         public IUser FindUser(string email, string password)
         {
             email = email.ToLower();
-            var user = DataRepository.GetAll<User>().FirstOrDefault(p => p.Email.Equals(email));            
+            var user = DataRepository.GetAll<User>().FirstOrDefault(p => p.Email.Equals(email));
 
             if (user == null || !PasswordServant.ValidatePassword(password, user.Password))
             {
@@ -38,7 +40,7 @@ namespace Migree.Core.Servants
         {
             email = email.ToLower();
             var user = new User(userType);
-            user.Email = email;            
+            user.Email = email;
             user.Password = PasswordServant.CreateHash(password);
             user.FirstName = firstName;
             user.LastName = lastName;
@@ -65,14 +67,10 @@ namespace Migree.Core.Servants
         }
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
-        {
-            //DataRepository.GetAllByRowKey()
-
-            return new List<IdAndName>
-            {
-                new IdAndName { Name = "C#" },
-                new IdAndName {Name = "C" }
-            }.ToList<ICompetence>();
+        {            
+            var competences = CompetenceServant.GetCompetences();
+            var userCompetences = DataRepository.GetAllByRowKey<UserCompetence>(UserCompetence.GetRowKey(userId));
+            return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
     }
 }
