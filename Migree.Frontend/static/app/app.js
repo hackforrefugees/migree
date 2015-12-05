@@ -15,9 +15,18 @@ app.config(function ($routeProvider, $locationProvider) {
     });
 
 	$routeProvider.when('/',  {
-	            templateUrl:'/views/login.html', 
-	            controller: 'LoginController'
-	        }).otherwise({
+	            templateUrl:'/views/start.html', 
+	            controller: 'StartController'
+	        }).when('/login',  {
+              templateUrl:'/views/login.html', 
+              controller: 'LoginController'
+          }).when('/register/:who',  {
+              templateUrl:'/views/register.html', 
+              controller: 'RegisterController'
+          }).when('/dashboard',  {
+              templateUrl:'/views/dashboard.html', 
+              controller: 'DashboardController'
+          }).otherwise({
 	            templateUrl: '/views/404.html',
 	        }); 
 });
@@ -32,9 +41,27 @@ app.controller('MasterController', function($scope, $http){
 });
 
 
-
 app.controller('LoginController', function($scope, $http){
 
+
+  $scope.login = function(){
+    console.log('login')
+    $location.path('/dashboard');
+  }
+
+
+
+});
+
+app.controller('RegisterController', function($scope, $http){
+
+
+
+
+});
+
+
+app.controller('StartController', function($scope, $http){
 
 
 
