@@ -25,14 +25,6 @@ namespace Migree.Web.Controllers.Api
             CompetenceServant = comptenceServant;
         }
 
-        [HttpPost]
-        [Route("competences")]
-        public HttpResponseMessage AddCompetencesToUser(AddCompetencesToUserRequest request)
-        {
-            UserServant.AddCompetencesToUser(request.UserId, request.CompetenceIds);
-            return CreateApiResponse(HttpStatusCode.OK);
-        }
-
         [HttpGet]
         [Route("{userId:guid}/competences")]
         public HttpResponseMessage GetUserCompetences(Guid userId)
@@ -106,6 +98,7 @@ namespace Migree.Web.Controllers.Api
         public HttpResponseMessage Update(Guid userId, UpdateUserRequest request)
         {
             UserServant.UpdateUser(userId, request.UserLocation, request.Description);
+            UserServant.AddCompetencesToUser(userId, request.CompetenceIds);
             return CreateApiResponse(HttpStatusCode.NoContent);
         }
     }
