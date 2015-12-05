@@ -7,11 +7,11 @@ namespace Migree.Web.Models.Responses
     {
         [JsonProperty(PropertyName = "userId")]
         public Guid UserId { get; set; }
-        [JsonProperty(PropertyName = "fullName")]
+        [JsonProperty(PropertyName = "name")]
         public string FullName { get; set; }
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
-        [JsonProperty(PropertyName = "userLocation")]
+        [JsonProperty(PropertyName = "userocation")]
         public string UserLocation { get; set; }
     }
 }

@@ -110,8 +110,8 @@ namespace Migree.Core.Servants
             var fromUser = DataRepository.Get<User>(User.GetRowKey(fromUserId));
             var toUser = DataRepository.Get<User>(User.GetRowKey(toUserId));
             var subject = $"You got a Migree-mail from {fromUser.FullName}";
-            var body = message;
-            await MailServant.SendMailAsync(subject, message, toUser.Email, fromUser.Email, fromUser.FullName, fromUser.Email);
+            var body = message + "\n\n" + $"Reply to this e-mail or send a mail directly to {fromUser.Email}, to get in touch with {fromUser.FullName}";
+            await MailServant.SendMailAsync(subject, message, toUser.Email, "no-reply@migree.se", fromUser.FullName, fromUser.Email);
         }
     }
 }
