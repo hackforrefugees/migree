@@ -23,8 +23,14 @@ namespace Migree.Core.Servants
 
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
         {
-            throw new NotImplementedException("Can´t be used yet");
-
+            return new User(userType)
+            {
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                UserType = userType
+            };
+                        
             var user = new User(userType);            
             user.Email = email;
             user.PasswordSalt = DateTime.UtcNow.Ticks.ToString();
