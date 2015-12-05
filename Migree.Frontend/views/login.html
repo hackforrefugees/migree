@@ -1,6 +1,6 @@
 <p>{{message}}</p>
-<input type="text" placeholder="email" /><br/>
-<input type="password" placeholder="Password" /><br/>
+<input type="text" data-ng-model="loginData.userName" placeholder="email" required autofocus /><br/>
+<input type="password" data-ng-model="loginData.password" required placeholder="Password" /><br/>
 <button ng-click="login()" class="button red">Sign in</button><br/><br/>
 <a href="/" class="button">Back</a>
 <br/><br/>
