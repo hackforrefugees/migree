@@ -68,26 +68,6 @@ migree.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
 
-migree.directive('fileUploadChange', [function() {
-    'use strict';
-    return {
-        restrict: "A",
-        scope: {
-            handler: '&'
-        },
-        link: function(scope, element) {
-            element.change(function(event) {
-                scope.$apply(function() {
-                 // console.log(event);
-                    var params = {event: event, el: element};
-                    scope.handler({params: params});
-                });
-            });
-        }
-    };
-}]);
-
-
 /*===functions===*/
 
 function validateEmail(email) {
