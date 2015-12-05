@@ -10,7 +10,7 @@ namespace Migree.Core.Interfaces
             where Model : StorageModel, new();
         Model Get<Model>(string partitionKey, string rowKey)
             where Model : StorageModel, new();                
-        Guid AddOrUpdate<Model>(Model model)
+        void AddOrUpdate<Model>(Model model)
             where Model : StorageModel, new();
         void Delete<Model>(Model model)
             where Model : StorageModel, new();

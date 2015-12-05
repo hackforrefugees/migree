@@ -64,13 +64,17 @@ namespace Migree.Core.Repositories
             }
         }
 
-        public Guid AddOrUpdate<Model>(Model model)
+        public void AddOrUpdate<Model>(Model model)
             where Model : StorageModel, new()
         {
             try
             {
                 var result = GetTableReference<Model>().Execute(TableOperation.InsertOrReplace(model));
-                return ((StorageModel)result.Result).Id;
+
+                if (!result.HttpStatusCode.IsSuccess())
+                {
+                    throw new Exception();
+                }
             }
             catch (MigreeException exception)
             {
@@ -78,7 +82,7 @@ namespace Migree.Core.Repositories
             }
             catch
             {
-                throw new DataModelException($"Add or update failed for {model?.Id}");
+                throw new DataModelException("Add or update failed");
             }
         }
 
