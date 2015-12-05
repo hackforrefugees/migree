@@ -122,6 +122,22 @@ app.controller('ForgotController', function($scope, $http, $location){
 
 app.controller('RegisterController', function($scope, $http){
 
+  $scope.cities = [
+    { value: 'e81eb744-bace-4b9c-a5d1-99f039b8bcd7', label: 'Gothenburg' },
+    { value: 'b5b1060c-357e-408b-8b9d-fa73d390f264', label: 'Stockholm' },
+    { value: 'b5f32a20-c660-4089-9ffd-185f30aecf0e', label: 'Malmo' }
+];
+
+
+  $scope.setLabel = function(c){
+    console.log(c)
+  };
+
+  $scope.goToNext = function(){
+
+    $('.step').prev().hide();
+    $('.step').next().show();
+  }
 
  $scope.register = function(){
 
@@ -155,7 +171,8 @@ app.controller('RegisterController', function($scope, $http){
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      $('.avatar-upload').empty();
+      $('.avatar-upload i').remove();
+      $('.avatar-upload img').remove();
       $('.avatar-upload').append('<img width="100%" src="'+e.target.result+'" />')
      
     }
@@ -164,9 +181,6 @@ app.controller('RegisterController', function($scope, $http){
 
   };
 
-  $scope.goToNext = function(slide){
-
-  }
 
 });
 
@@ -180,13 +194,8 @@ app.controller('StartController', function($scope, $http){
 app.controller('DashboardController', function($scope, $http){
 
     new ElastiStack( document.getElementById('stack'), {
-      // distDragBack: if the user stops dragging the image in a area that does not exceed [distDragBack]px
-      // for either x or y then the image goes back to the stack
       distDragBack : 50,
-      // distDragMax: if the user drags the image in a area that exceeds [distDragMax]px
-      // for either x or y then the image moves away from the stack
       distDragMax : 150,
-      // callback
       onUpdateStack : function( current ) { return false; }
     } );
 
