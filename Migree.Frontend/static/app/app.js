@@ -23,6 +23,14 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
 			templateUrl: '/views/login.html',
 			controller: 'loginController'
 	  })
+    .state('logout', {
+			url: '/logout',
+			templateUrl: '/views/404.html',
+			controller: function() {
+        // this is where you logout :)
+        console.log('Logout controller');
+      }
+	  })
     .state('home', {
       url: '/',
       templateUrl: '/views/start.html',
@@ -50,6 +58,27 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
         // do something here?
       }
     })
+    .state('inbox', {
+      url: '/inbox',
+      templateUrl: '/views/404.html',
+      controller: function($scope) {
+        console.log('No separate controller');
+      }
+    })
+    .state('matches', {
+      url: '/matches',
+      templateUrl: '/views/404.html',
+      controller: function($scope) {
+        console.log('No separate controller');
+      }
+    })
+    .state('about', {
+      url: '/about',
+      templateUrl: '/views/404.html',
+      controller: function($scope) {
+        console.log('No separate controller');
+      }
+    });
 
     $urlRouterProvider.otherwise('/404');
 });
