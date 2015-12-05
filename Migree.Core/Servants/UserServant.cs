@@ -1,4 +1,5 @@
 ﻿using Migree.Core.Definitions;
+using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
@@ -18,19 +19,27 @@ namespace Migree.Core.Servants
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
-        }
+        }        
 
-        public bool ValidateUser(string email, string password)
+        public IUser FindUser(string email, string password)
         {
-            return true;
+            email = email.ToLower();
+            var user = DataRepository.GetAll<User>().FirstOrDefault(p => p.Email.Equals(email));            
+
+            if (user == null || !PasswordServant.ValidatePassword(password, user.Password))
+            {
+                throw new ValidationException("Invalid credentials");
+            }
+
+            return user;
         }
 
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
-        {            
+        {
+            email = email.ToLower();
             var user = new User(userType);
-            user.Email = email;
-            user.PasswordSalt = PasswordServant.CreateSalt();
-            user.Password = PasswordServant.CreateHash(password, user.PasswordSalt);
+            user.Email = email;            
+            user.Password = PasswordServant.CreateHash(password);
             user.FirstName = firstName;
             user.LastName = lastName;
             user.UserType = userType;
@@ -64,6 +73,6 @@ namespace Migree.Core.Servants
                 new IdAndName { Name = "C#" },
                 new IdAndName {Name = "C" }
             }.ToList<ICompetence>();
-        }        
+        }
     }
 }

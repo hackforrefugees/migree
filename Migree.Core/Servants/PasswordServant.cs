@@ -43,27 +43,21 @@ namespace Migree.Core.Servants
         private const int PBKDF2_INDEX = 2;
 
         /// <summary>
-        /// Generate a random salt
-        /// </summary>
-        /// <returns></returns>
-        public string CreateSalt()
-        {
-            var csprng = new RNGCryptoServiceProvider();
-            byte[] salt = new byte[SALT_BYTE_SIZE];
-            csprng.GetBytes(salt);
-            return Convert.ToBase64String(salt);
-        }
-
-        /// <summary>
         /// Creates a salted PBKDF2 hash of the password.
         /// </summary>
         /// <param name="password">The password to hash.</param>
         /// <returns>The hash of the password.</returns>
-        public string CreateHash(string password, string salt)
+        public string CreateHash(string password)
         {
-            var saltBytes = Encoding.Unicode.GetBytes(salt);            
-            byte[] hash = PBKDF2(password, saltBytes, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
-            return PBKDF2_ITERATIONS + ":" + salt + ":" + Convert.ToBase64String(hash);
+            RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
+            byte[] salt = new byte[SALT_BYTE_SIZE];
+            csprng.GetBytes(salt);
+
+            // Hash the password and encode the parameters
+            byte[] hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
+            return PBKDF2_ITERATIONS + ":" +
+                Convert.ToBase64String(salt) + ":" +
+                Convert.ToBase64String(hash);
         }
 
         /// <summary>

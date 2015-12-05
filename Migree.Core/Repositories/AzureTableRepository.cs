@@ -31,6 +31,20 @@ namespace Migree.Core.Repositories
             }
         }
 
+        public ICollection<Model> GetAll<Model>()
+            where Model : StorageModel, new()
+        {
+            try
+            {
+                var queryableResult = GetTableReference<Model>().CreateQuery<Model>();
+                return queryableResult.ToList();
+            }
+            catch
+            {
+                throw new DataModelException("Get all failed");
+            }
+        }
+
         /// <summary>
         /// Avoid, because searching over all partitions
         /// </summary>

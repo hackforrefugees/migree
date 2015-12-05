@@ -1,9 +1,8 @@
 ﻿namespace Migree.Core.Interfaces
 {
     public interface IPasswordServant
-    {
-        string CreateSalt();
-        string CreateHash(string password, string salt);
+    {        
+        string CreateHash(string password);
         bool ValidatePassword(string password, string correctHash);
     }
 }
