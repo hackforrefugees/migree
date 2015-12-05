@@ -36,7 +36,7 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
+        public IUser Register(string email, string password, string firstName, string lastName, UserType userType, UserLocation userLocation)
         {
             email = email.ToLower();
             var user = new User(userType);
@@ -45,6 +45,7 @@ namespace Migree.Core.Servants
             user.FirstName = firstName;
             user.LastName = lastName;
             user.UserType = userType;
+            user.UserLocation = userLocation;
             DataRepository.AddOrUpdate(user);
             return user;
         }

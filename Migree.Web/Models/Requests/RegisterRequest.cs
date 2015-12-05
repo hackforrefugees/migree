@@ -15,6 +15,7 @@ namespace Migree.Web.Models.Requests
         public string Password { get; set; }
         [JsonProperty(PropertyName = "userType")]
         public UserType UserType { get; set; }
-        
+        [JsonProperty(PropertyName = "userLocation")]
+        public UserLocation UserLocation { get; set; }
     }
 }
