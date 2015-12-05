@@ -26,9 +26,6 @@ namespace Migree.Web.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
             try
             {
                 var user = UserServant.FindUser(context.UserName, context.Password);
