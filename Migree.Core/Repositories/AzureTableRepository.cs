@@ -20,8 +20,15 @@ namespace Migree.Core.Repositories
         public ICollection<Model> GetAll<Model>(string partitionKey)
             where Model : StorageModel, new()
         {
-            var queryableResult = GetTableReference<Model>().CreateQuery<Model>().Where(p => p.PartitionKey.Equals(partitionKey));
-            return queryableResult.ToList();
+            try
+            {
+                var queryableResult = GetTableReference<Model>().CreateQuery<Model>().Where(p => p.PartitionKey.Equals(partitionKey));
+                return queryableResult.ToList();
+            }
+            catch
+            {
+                throw new DataModelException("Get all failed");
+            }
         }
 
         public void Delete<Model>(Model model)
@@ -45,9 +52,16 @@ namespace Migree.Core.Repositories
         public Model Get<Model>(string partitionKey, string rowKey)
              where Model : StorageModel, new()
         {
-            var queryableResult = GetTableReference<Model>().CreateQuery<Model>()
+            try
+            {
+                var queryableResult = GetTableReference<Model>().CreateQuery<Model>()
                 .Where(p => p.PartitionKey.Equals(partitionKey) && p.RowKey.Equals(rowKey));
-            return queryableResult.FirstOrDefault();
+                return queryableResult.FirstOrDefault();
+            }
+            catch
+            {
+                throw new DataModelException("Get failed");
+            }
         }
 
         public Guid AddOrUpdate<Model>(Model model)

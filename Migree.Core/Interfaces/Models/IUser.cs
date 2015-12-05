@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Migree.Core.Definitions;
+using System;
 
 namespace Migree.Core.Interfaces.Models
 {
     public interface IUser
     {
         Guid Id { get; }
-        string Email { get; set; }
-        string FirstName { get; set; }
-        string LastName { get; set; }
+        string Email { get; }
+        string FirstName { get; }
+        string LastName { get; }
+        UserType UserType { get; }
     }
 }

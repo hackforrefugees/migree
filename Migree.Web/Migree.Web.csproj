@@ -138,10 +138,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\SystemController.cs" />
     <Compile Include="Controllers\Api\MigreeApiController.cs" />
+    <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\MigreeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Requests\LoginRequest.cs" />
     <Compile Include="Models\Dictionary.cs" />
     <Compile Include="Models\DictionaryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -159,7 +161,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
-    <Folder Include="Models\NewFolder1\" />
     <Folder Include="Models\Requests\" />
     <Folder Include="Models\Responses\" />
   </ItemGroup>
