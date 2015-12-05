@@ -3,6 +3,8 @@ using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -23,6 +25,7 @@ namespace Migree.Core.Servants
 
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
         {
+            //TODO: remove this
             return new User(userType)
             {
                 Email = email,
@@ -30,8 +33,8 @@ namespace Migree.Core.Servants
                 LastName = lastName,
                 UserType = userType
             };
-                        
-            var user = new User(userType);            
+
+            var user = new User(userType);
             user.Email = email;
             user.PasswordSalt = DateTime.UtcNow.Ticks.ToString();
             user.Password = EncodePassword(password, user.PasswordSalt);
@@ -40,6 +43,20 @@ namespace Migree.Core.Servants
             user.UserType = userType;
             DataRepository.AddOrUpdate(user);
             return user;
+        }        
+
+        public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
+        {
+
+        }
+
+        public ICollection<ICompetence> GetUserCompetences(Guid userId)
+        {
+            return new List<Competence>
+            {
+                new Competence { Name = "C#" },
+                new Competence {Name = "C" }
+            }.ToList<ICompetence>();
         }
 
         private string EncodePassword(string password, string salt)
@@ -52,6 +69,6 @@ namespace Migree.Core.Servants
             var algorithm = HashAlgorithm.Create("SHA1");
             var inArray = algorithm.ComputeHash(destinationBytes);
             return Convert.ToBase64String(inArray);
-        }       
+        }
     }
 }
