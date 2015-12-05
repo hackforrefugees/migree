@@ -41,6 +41,7 @@ namespace Migree.Web.Controllers.Api
             return CreateApiResponse(HttpStatusCode.Unauthorized);
         }
         [HttpPost]
+        [Authorize]
         [Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
         {
