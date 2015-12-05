@@ -1,12 +1,13 @@
 var app = angular.module('migreeApp', [
-    'ngRoute'
+    'ngRoute',
+    'ui.router'
 ]);
 
 app.constant('config', {
   api: '/'
 })
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 
     //routing DOESN'T work without html5Mode
     $locationProvider.html5Mode({
@@ -14,24 +15,42 @@ app.config(function ($routeProvider, $locationProvider) {
       requireBase: false
     });
 
-	$routeProvider.when('/',  {
-	            templateUrl:'/views/start.html', 
-	            controller: 'StartController'
-	        }).when('/login',  {
-              templateUrl:'/views/login.html', 
-              controller: 'LoginController'
-          }).when('/register/:who',  {
-              templateUrl:'/views/register.html', 
-              controller: 'RegisterController'
-          }).when('/dashboard',  {
-              templateUrl:'/views/dashboard.html', 
-              controller: 'DashboardController'
-          }).when('/forgot',  {
-              templateUrl:'/views/forgot.html', 
-              controller: 'ForgotController'
-          }).otherwise({
-	            templateUrl: '/views/404.html',
-	        }); 
+
+  $stateProvider
+    .state('login', {
+			url: '/login',
+			templateUrl: '/views/login.html',
+			controller: 'LoginController'
+	  })
+    .state('home', {
+      url: '/',
+      templateUrl: '/views/start.html',
+      controller: 'StartController'
+    })
+    .state('register', {
+      url: '/register/:who',
+      templateUrl: '/views/register.html',
+      controller: 'RegisterController'
+    })
+    .state('dashboard', {
+      url: '/dashboard',
+      templateUrl: '/views/dashboard.html',
+      controller: 'DashboardController'
+    })
+    .state('forgot', {
+      url: '/forgot',
+      templateUrl: '/views/forgot.html',
+      controller: 'ForgotController'
+    })
+    .state('404', {
+      url: '/notfound',
+      templateUrl: '/views/404.html',
+      controller: function($scope) {
+        // do something here?
+      }
+    })
+
+    $urlRouterProvider.otherwise('/404');
 });
 
 
@@ -60,7 +79,7 @@ app.controller('LoginController', function($scope, $http, $location){
       // called asynchronously if an error occurs
       // or server returns response with an error status.
     });
-    
+
   }
 
 
@@ -93,11 +112,11 @@ app.controller('DashboardController', function($scope, $http){
 
 
     new ElastiStack( document.getElementById('stack'), {
-      // distDragBack: if the user stops dragging the image in a area that does not exceed [distDragBack]px 
-      // for either x or y then the image goes back to the stack 
+      // distDragBack: if the user stops dragging the image in a area that does not exceed [distDragBack]px
+      // for either x or y then the image goes back to the stack
       distDragBack : 50,
-      // distDragMax: if the user drags the image in a area that exceeds [distDragMax]px 
-      // for either x or y then the image moves away from the stack 
+      // distDragMax: if the user drags the image in a area that exceeds [distDragMax]px
+      // for either x or y then the image moves away from the stack
       distDragMax : 150,
       // callback
       onUpdateStack : function( current ) { return false; }
