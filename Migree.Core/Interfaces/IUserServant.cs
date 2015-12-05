@@ -8,6 +8,6 @@ namespace Migree.Core.Interfaces
 {
     public interface IUserServant
     {
-        Guid RegisterUser();
+        
     }
 }
