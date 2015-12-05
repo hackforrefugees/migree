@@ -95,17 +95,9 @@ app.directive('fileUploadChange', [function() {
 
 
 app.controller('MasterController', function($scope, $http){
-
-
-
-
 });
 
 app.controller('ForgotController', function($scope, $http, $location){
-
-
-
-
 });
 
 
