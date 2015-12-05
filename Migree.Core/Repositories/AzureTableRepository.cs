@@ -98,6 +98,21 @@ namespace Migree.Core.Repositories
             }
         }
 
+        public Model Get<Model>(string rowKey)
+             where Model : StorageModel, new()
+        {
+            try
+            {
+                var queryableResult = GetTableReference<Model>().CreateQuery<Model>()
+                .Where(p => p.RowKey.Equals(rowKey));
+                return queryableResult.FirstOrDefault();
+            }
+            catch
+            {
+                throw new DataModelException("Get failed");
+            }
+        }
+
         public void AddOrUpdate<Model>(Model model)
             where Model : StorageModel, new()
         {

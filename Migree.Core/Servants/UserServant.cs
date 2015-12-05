@@ -49,8 +49,17 @@ namespace Migree.Core.Servants
             user.LastName = lastName;
             user.UserType = userType;
             user.UserLocation = UserLocation.None;
+            user.Description = string.Empty;
             DataRepository.AddOrUpdate(user);
             return user;
+        }
+
+        public void UpdateUser(Guid userId, UserLocation userLocation, string description)
+        {
+            var user = DataRepository.Get<User>(User.GetRowKey(userId));
+            user.UserLocation = userLocation;
+            user.Description = description;
+            DataRepository.AddOrUpdate(user);
         }
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)

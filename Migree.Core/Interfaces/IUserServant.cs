@@ -14,5 +14,6 @@ namespace Migree.Core.Interfaces
         void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds);
         ICollection<ICompetence> GetUserCompetences(Guid userId);
         Task UploadProfileImageAsync(Guid userId, Stream imageStream);
+        void UpdateUser(Guid userId, UserLocation userLocation, string description);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Migree.Core
+namespace Migree
 {
     public static class HttpStatusCodeExtension
     {
