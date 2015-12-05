@@ -108,7 +108,7 @@ namespace Migree.Core.Repositories
 
         private CloudTable GetTableReference<Model>()
         {
-            var tableName = nameof(Model).ToLower();
+            var tableName = typeof(Model).Name.ToLower();
             var storageAccount = CloudStorageAccount.Parse(SettingsServant.StorageConnectionString);
             var tableClient = storageAccount.CreateCloudTableClient();
 
