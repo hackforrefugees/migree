@@ -15,7 +15,7 @@ namespace Migree.Core.Servants
             }
             catch
             {
-                throw new EnvironmentException($"ConnectionStrings.config is probably missing! Project startup failed");
+                throw new EnvironmentException("ConnectionStrings.config is probably missing! Project startup failed");
             }
         }
 
