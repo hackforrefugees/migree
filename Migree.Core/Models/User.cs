@@ -1,4 +1,5 @@
-﻿using Migree.Core.Definitions;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using Migree.Core.Definitions;
 using Migree.Core.Interfaces.Models;
 using System;
 
@@ -24,6 +25,15 @@ namespace Migree.Core.Models
         {
             RowKey = Guid.NewGuid().ToString();
             PartitionKey = GetPartitionKey(userType);
+        }
+
+        [IgnoreProperty]
+        public Guid Id
+        {
+            get
+            {
+                return new Guid(RowKey);
+            }
         }
 
         public string Email { get; set; }
