@@ -1,13 +1,13 @@
-var app = angular.module('migreeApp', [
+var migree = angular.module('migreeApp', [
     'ngRoute',
     'ui.router'
 ]);
 
-app.constant('config', {
+migree.constant('config', {
   api: '/'
 })
 
-app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
+migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 
     //routing DOESN'T work without html5Mode
     $locationProvider.html5Mode({
@@ -42,7 +42,7 @@ app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRout
       templateUrl: '/views/forgot.html',
       controller: 'ForgotController'
     })
-    .state('404', {
+    .state('notfound', {
       url: '/notfound',
       templateUrl: '/views/404.html',
       controller: function($scope) {
@@ -53,16 +53,7 @@ app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRout
     $urlRouterProvider.otherwise('/404');
 });
 
-
-
-app.controller('MasterController', function($scope, $http){
-
-
-
-
-});
-
-
+/*
 app.controller('LoginController', function($scope, $http, $location){
 
 
@@ -81,8 +72,6 @@ app.controller('LoginController', function($scope, $http, $location){
     });
 
   }
-
-
 
 });
 
@@ -123,3 +112,4 @@ app.controller('DashboardController', function($scope, $http){
     } );
 
 });
+*/

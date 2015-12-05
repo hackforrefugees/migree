@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         files: {
           "static/css/main.css": "static/less/main.less"
         }
-      }  
+      }
     },
     express: {
       dev: {
@@ -32,8 +32,8 @@ module.exports = function(grunt) {
     },
     concat: {
       angular: {
-        src: ['bower_components/angular/angular.min.js', 
-              'bower_components/angular-ui-router/release/angular-ui-router.min.js', 
+        src: ['bower_components/angular/angular.min.js',
+              'bower_components/angular-ui-router/release/angular-ui-router.min.js',
               'bower_components/angular-route/angular-route.min.js'
               ],
         dest: 'static/vendor/angular-build.js',
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         }
       },
       js: {
-        files: ['static/app/*.js', 'static/js/app/*.js'],
+        files: ['static/app/*.js', 'static/js/app/*.js', 'static/js/app/controllers/*.js'],
         //tasks: ['concat:app']
         options: {
           livereload: true,
