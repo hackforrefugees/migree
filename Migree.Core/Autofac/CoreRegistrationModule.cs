@@ -19,6 +19,7 @@ namespace Migree.Core.Autofac
         {
             Register<SettingsServant, ISettingsServant>(builder);
             Register<AzureTableRepository, IDataRepository>(builder);
+            Register<AzureBlobRepository, IContentRepository>(builder);
             base.Load(builder);
         }
 
