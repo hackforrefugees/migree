@@ -20,6 +20,15 @@ namespace Migree.Web.Controllers.Api
             UserServant = userServant;
         }
 
+        [HttpGet]
+        [Route("{userId:guid}/competences")]
+        public HttpResponseMessage GetUserCompetences(Guid userId)
+        {
+            var competences = UserServant.GetUserCompetences(userId);
+            var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+            return CreateApiResponse(HttpStatusCode.OK, response);
+        }
+
         [HttpPost]
         [Route("login")]
         public HttpResponseMessage Login(LoginRequest request)

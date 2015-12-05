@@ -1,21 +1,48 @@
 <header class="header">
 	<button class="toggle-menu" ng-click="active = ! active"><i class="icon icon_menu"></i></button>
 	<div class="menu" ng-class="{'active': active}">
+		<h1>migree</h1>
 		<button class="close-menu" ng-click="active = ! active"><i class="icon icon_close"></i></button>
 		<ul>
 			<li><a href="/inbox">Inbox</a>
 			<li><a href="/matches">Matches</a>
 			<li><a href="/about">What is this?</a>
-			<li><a href="/logout">Logout</a>
+			<li><a href="/">Logout</a>
 		</ul>
 	</div>
 </li>
-<div class="box profile">
-	<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div>
-	<div class="name">Erik Knutsson</div>
-	<ul class="competence-list">
-		<li>1. HTML & CSS</li>
-		<li>2. C#</li>
-		<li>3. NODE.js</li>
-	</ul>
-</div>
+<ul class="box profile elasticstack" id="stack">
+	<li>
+		<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div>
+		<div class="name">Erik Knutsson</div>
+		<ul class="competence-list">
+			<li>1. HTML & CSS</li>
+			<li>2. C#</li>
+			<li>3. NODE.js</li>
+		</ul>
+		<button class="icon icon_dislike button"></button>
+		<button class="icon icon_like button red"></button>
+	</li>
+	<li>
+		<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div>
+		<div class="name">Name Namesson</div>
+		<ul class="competence-list">
+			<li>1. DO STUFF</li>
+			<li>2. C#</li>
+			<li>3. NODE.js</li>
+		</ul>
+		<button class="icon icon_dislike button"></button>
+		<button class="icon icon_like button red"></button>
+	</li>
+	<li>
+		<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div>
+		<div class="name">HEJ!</div>
+		<ul class="competence-list">
+			<li>1. HTML & CSS</li>
+			<li>2. C#</li>
+			<li>3. NODE.js</li>
+		</ul>
+		<button class="icon icon_dislike button"></button>
+		<button class="icon icon_like button red"></button>
+	</li>
+</ul>
