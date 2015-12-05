@@ -13,9 +13,11 @@ namespace Migree.Core.Servants
     public class UserServant : IUserServant
     {
         private IDataRepository DataRepository { get; }
-        public UserServant(IDataRepository dataRepository)
+        private IPasswordServant PasswordServant { get; }
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant)
         {
             DataRepository = dataRepository;
+            PasswordServant = passwordServant;
         }
 
         public bool ValidateUser(string email, string password)
@@ -24,20 +26,11 @@ namespace Migree.Core.Servants
         }
 
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
-        {
-            //TODO: remove this
-            return new User(userType)
-            {
-                Email = email,
-                FirstName = firstName,
-                LastName = lastName,
-                UserType = userType
-            };
-
+        {            
             var user = new User(userType);
             user.Email = email;
-            user.PasswordSalt = DateTime.UtcNow.Ticks.ToString();
-            user.Password = EncodePassword(password, user.PasswordSalt);
+            user.PasswordSalt = PasswordServant.CreateSalt();
+            user.Password = PasswordServant.CreateHash(password, user.PasswordSalt);
             user.FirstName = firstName;
             user.LastName = lastName;
             user.UserType = userType;
@@ -47,28 +40,30 @@ namespace Migree.Core.Servants
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
         {
-            
+            var rowKey = userId.ToString();
+            var oldCompetences = DataRepository.GetAllByRowKey<UserCompetence>(rowKey);
+
+            foreach (var oldCompetence in oldCompetences)
+            {
+                DataRepository.Delete(oldCompetence);
+            }
+
+            foreach (var competenceId in competenceIds)
+            {
+                var userCompetence = new UserCompetence(userId, competenceId);
+                DataRepository.AddOrUpdate(userCompetence);
+            }
         }
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
         {
+            //DataRepository.GetAllByRowKey()
+
             return new List<IdAndName>
             {
                 new IdAndName { Name = "C#" },
                 new IdAndName {Name = "C" }
             }.ToList<ICompetence>();
-        }
-
-        private string EncodePassword(string password, string salt)
-        {
-            var bytes = Encoding.Unicode.GetBytes(password);
-            var saltBytes = Convert.FromBase64String(salt);
-            var destinationBytes = new byte[saltBytes.Length + bytes.Length];
-            Buffer.BlockCopy(saltBytes, 0, destinationBytes, 0, saltBytes.Length);
-            Buffer.BlockCopy(bytes, 0, destinationBytes, saltBytes.Length, bytes.Length);
-            var algorithm = HashAlgorithm.Create("SHA1");
-            var inArray = algorithm.ComputeHash(destinationBytes);
-            return Convert.ToBase64String(inArray);
-        }
+        }        
     }
 }
