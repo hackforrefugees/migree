@@ -143,6 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Requests\RegisterRequest.cs" />
     <Compile Include="Models\Requests\LoginRequest.cs" />
     <Compile Include="Models\Dictionary.cs" />
     <Compile Include="Models\DictionaryItem.cs" />
@@ -161,7 +162,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
-    <Folder Include="Models\Requests\" />
     <Folder Include="Models\Responses\" />
   </ItemGroup>
   <ItemGroup>

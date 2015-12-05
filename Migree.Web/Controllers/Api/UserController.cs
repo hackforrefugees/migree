@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Migree.Web.Controllers.Api
 {
-    [RoutePrefix("~/api/user")]
+    [RoutePrefix("api/user")]
     public class UserController : MigreeApiController
     {
         private IUserServant UserServant { get; }
@@ -29,6 +29,12 @@ namespace Migree.Web.Controllers.Api
             }
 
             return CreateApiResponse(HttpStatusCode.Unauthorized);
+        }
+        [HttpPost]
+        [Route("register")]
+        public HttpResponseMessage Register(RegisterRequest request)
+        {
+            return CreateApiResponse(HttpStatusCode.OK);
         }
     }
 }
