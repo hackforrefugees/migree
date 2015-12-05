@@ -18,6 +18,7 @@ namespace Migree.Web
             builder.RegisterModule(new CoreRegistrationModule(ApplicationType.Web));
             builder.RegisterControllers(executingAssembly);
             builder.RegisterApiControllers(executingAssembly);
+            
             var container = builder.Build();
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);

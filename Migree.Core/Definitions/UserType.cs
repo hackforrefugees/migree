@@ -2,7 +2,7 @@
 {
     public enum UserType
     {
-        NeedsHelp,
-        Helper
+        NeedsHelp=1,
+        Helper=2
     }
 }
