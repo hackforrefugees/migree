@@ -1,5 +1,4 @@
 ﻿using Migree.Core.Models;
-using System;
 using System.Collections.Generic;
 
 namespace Migree.Core.Interfaces
@@ -8,8 +7,10 @@ namespace Migree.Core.Interfaces
     {
         ICollection<Model> GetAll<Model>(string partitionKey)
             where Model : StorageModel, new();
+        ICollection<Model> GetAll<Model>()
+            where Model : StorageModel, new();
         Model Get<Model>(string partitionKey, string rowKey)
-            where Model : StorageModel, new();                
+            where Model : StorageModel, new();
         void AddOrUpdate<Model>(Model model)
             where Model : StorageModel, new();
         void Delete<Model>(Model model)
