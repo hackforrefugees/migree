@@ -48,5 +48,8 @@ namespace Migree.Core.Models
         public string Description { get; set; }
         public UserType UserType { get; set; }
         public UserLocation UserLocation { get; set; }
+
+        [IgnoreProperty]
+        public string FullName { get { return $"{FirstName} {LastName}"; } }
     }
 }
