@@ -144,6 +144,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Requests\AddCompetenceRequest.cs" />
     <Compile Include="Models\Requests\RegisterRequest.cs" />
     <Compile Include="Models\Requests\LoginRequest.cs" />
     <Compile Include="Models\Dictionary.cs" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="ConnectionStrings.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

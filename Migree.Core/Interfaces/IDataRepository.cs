@@ -14,5 +14,7 @@ namespace Migree.Core.Interfaces
             where Model : StorageModel, new();
         void Delete<Model>(Model model)
             where Model : StorageModel, new();
+        ICollection<Model> GetAllByRowKey<Model>(string rowKey)
+             where Model : StorageModel, new();
     }
 }

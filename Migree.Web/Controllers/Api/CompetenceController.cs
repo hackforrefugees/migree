@@ -1,4 +1,5 @@
 ﻿using Migree.Core.Interfaces;
+using Migree.Web.Models.Requests;
 using Migree.Web.Models.Responses;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,14 @@ namespace Migree.Web.Controllers.Api
             var competences = CompetenceServant.GetCompetences();
             var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
             return CreateApiResponse(HttpStatusCode.OK, response);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public HttpResponseMessage AddCompetences(AddCompetenceRequest request)
+        {
+            CompetenceServant.AddCompetence(request.Name);
+            return CreateApiResponse(HttpStatusCode.NoContent);
         }
     }
 }
