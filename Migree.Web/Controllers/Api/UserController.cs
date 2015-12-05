@@ -21,6 +21,14 @@ namespace Migree.Web.Controllers.Api
             UserServant = userServant;
         }
 
+        [HttpPost]
+        [Route("competences")]
+        public HttpResponseMessage AddCompetencesToUser(AddCompetencesToUserRequest request)
+        {
+            UserServant.AddCompetencesToUser(request.UserId, request.CompetenceIds);
+            return CreateApiResponse(HttpStatusCode.OK);
+        }
+
         [HttpGet]
         [Route("{userId:guid}/competences")]
         public HttpResponseMessage GetUserCompetences(Guid userId)
@@ -44,7 +52,6 @@ namespace Migree.Web.Controllers.Api
             return CreateApiResponse(HttpStatusCode.Unauthorized);
         }
         [HttpPost]
-        [Authorize]
         [Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
         {
