@@ -47,7 +47,7 @@ namespace Migree.Core.Servants
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
         {
-
+            
         }
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)

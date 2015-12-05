@@ -24,5 +24,15 @@ namespace Migree.Core.Servants
             var competences = DataRepository.GetAll<Competence>(Competence.GetPartitionKey());
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
+
+        public void AddCompetence(string name)
+        {
+            var competence = new Competence
+            {
+                Name = name
+            };
+
+            DataRepository.AddOrUpdate(competence);
+        }
     }
 }
