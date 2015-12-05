@@ -55,6 +55,7 @@ namespace Migree.Core.Repositories
         {
             try
             {
+                model.PartitionKey = GetPartitionKey(model);
                 var result = GetTableReference<Model>().Execute(TableOperation.InsertOrReplace(model));
                 return ((StorageModel)result.Result).Id;
             }
@@ -65,6 +66,24 @@ namespace Migree.Core.Repositories
             catch
             {
                 throw new DataModelException($"Add or update failed for {model?.Id}");
+            }
+        }
+
+        private string GetPartitionKey<Model>(Model model)
+            where Model : StorageModel, new()
+        {
+            if (string.IsNullOrWhiteSpace(model.RowKey))
+            {
+                throw new ValidationException("Id is missing on model");
+            }
+
+            if (model is User)
+            {
+                return (model as User).UserType.ToString().ToLower();
+            }
+            else
+            {
+                throw new ValidationException("Model has no partition key");
             }
         }
 

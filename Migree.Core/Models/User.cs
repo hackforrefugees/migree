@@ -1,16 +1,21 @@
-﻿using Migree.Core.Interfaces.Models;
+﻿using Migree.Core.Definitions;
+using Migree.Core.Interfaces.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Migree.Core.Models
 {
     public class User : StorageModel, IUser
     {        
+        public User()
+        {
+            RowKey = Guid.NewGuid().ToString();
+        }
+
         public string Email { get; set; }
+        public string Password { get; set; }
+        public string PasswordSalt { get; set; }
         public string FirstName { get; set; }        
         public string LastName { get; set; }
+        public UserType UserType { get; set; }
     }
 }
