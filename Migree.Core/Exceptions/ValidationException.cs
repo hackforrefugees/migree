@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Migree.Core.Exceptions
+﻿namespace Migree.Core.Exceptions
 {
-    public class ValidationException : Exception
+    public class ValidationException : MigreeException
     {
         public ValidationException(string message)
             : base(message)

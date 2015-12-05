@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Migree.Core.Exceptions
+﻿namespace Migree.Core.Exceptions
 {
-    public class DataModelException : Exception
+    public class DataModelException : MigreeException
     {
         public DataModelException(string message)
             : base(message)

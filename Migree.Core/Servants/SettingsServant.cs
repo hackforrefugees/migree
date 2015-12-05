@@ -6,7 +6,7 @@ namespace Migree.Core.Servants
     {
         public SettingsServant()
         {
-            StorageConnectionString = "sdsdsdf==";
+            StorageConnectionString = "";
         }
 
         public string StorageConnectionString { get; }

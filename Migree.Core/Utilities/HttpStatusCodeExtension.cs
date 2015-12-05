@@ -8,7 +8,12 @@ namespace Migree.Core
         public static bool IsSuccess(this HttpStatusCode statusCode)
         {
             var statusAsInteger = Convert.ToInt32(statusCode);
-            return statusAsInteger >= 200 && statusAsInteger < 300;
+            return statusAsInteger.IsSuccess();            
+        }
+
+        public static bool IsSuccess(this int statusCode)
+        {
+            return statusCode >= 200 && statusCode < 300;
         }
     }
 }

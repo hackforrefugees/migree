@@ -9,5 +9,6 @@ namespace Migree.Core.Repositories
 {
     public class AzureBlobRepository : IContentRepository
     {
+
     }
 }
