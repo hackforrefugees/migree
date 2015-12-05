@@ -1,4 +1,5 @@
 ﻿using Migree.Core.Definitions;
+using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
@@ -13,31 +14,34 @@ namespace Migree.Core.Servants
     public class UserServant : IUserServant
     {
         private IDataRepository DataRepository { get; }
-        public UserServant(IDataRepository dataRepository)
+        private IPasswordServant PasswordServant { get; }
+        private ICompetenceServant CompetenceServant { get; }
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant)
         {
             DataRepository = dataRepository;
+            PasswordServant = passwordServant;
+            CompetenceServant = competenceServant;
         }
 
-        public bool ValidateUser(string email, string password)
+        public IUser FindUser(string email, string password)
         {
-            return true;
+            email = email.ToLower();
+            var user = DataRepository.GetAll<User>().FirstOrDefault(p => p.Email.Equals(email));
+
+            if (user == null || !PasswordServant.ValidatePassword(password, user.Password))
+            {
+                throw new ValidationException("Invalid credentials");
+            }
+
+            return user;
         }
 
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
         {
-            //TODO: remove this
-            return new User(userType)
-            {
-                Email = email,
-                FirstName = firstName,
-                LastName = lastName,
-                UserType = userType
-            };
-
+            email = email.ToLower();
             var user = new User(userType);
             user.Email = email;
-            user.PasswordSalt = DateTime.UtcNow.Ticks.ToString();
-            user.Password = EncodePassword(password, user.PasswordSalt);
+            user.Password = PasswordServant.CreateHash(password);
             user.FirstName = firstName;
             user.LastName = lastName;
             user.UserType = userType;
@@ -47,28 +51,26 @@ namespace Migree.Core.Servants
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
         {
-            
+            var rowKey = userId.ToString();
+            var oldCompetences = DataRepository.GetAllByRowKey<UserCompetence>(rowKey);
+
+            foreach (var oldCompetence in oldCompetences)
+            {
+                DataRepository.Delete(oldCompetence);
+            }
+
+            foreach (var competenceId in competenceIds)
+            {
+                var userCompetence = new UserCompetence(userId, competenceId);
+                DataRepository.AddOrUpdate(userCompetence);
+            }
         }
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
-        {
-            return new List<IdAndName>
-            {
-                new IdAndName { Name = "C#" },
-                new IdAndName {Name = "C" }
-            }.ToList<ICompetence>();
-        }
-
-        private string EncodePassword(string password, string salt)
-        {
-            var bytes = Encoding.Unicode.GetBytes(password);
-            var saltBytes = Convert.FromBase64String(salt);
-            var destinationBytes = new byte[saltBytes.Length + bytes.Length];
-            Buffer.BlockCopy(saltBytes, 0, destinationBytes, 0, saltBytes.Length);
-            Buffer.BlockCopy(bytes, 0, destinationBytes, saltBytes.Length, bytes.Length);
-            var algorithm = HashAlgorithm.Create("SHA1");
-            var inArray = algorithm.ComputeHash(destinationBytes);
-            return Convert.ToBase64String(inArray);
+        {            
+            var competences = CompetenceServant.GetCompetences();
+            var userCompetences = DataRepository.GetAllByRowKey<UserCompetence>(UserCompetence.GetRowKey(userId));
+            return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
     }
 }

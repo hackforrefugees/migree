@@ -41,7 +41,9 @@ namespace Migree.Web.Controllers.Api
         [Route("login")]
         public HttpResponseMessage Login(LoginRequest request)
         {
-            if (UserServant.ValidateUser(request.Email, request.Password))
+            var user = UserServant.FindUser(request.Email, request.Password);
+
+            if (user != null)
             {
                 return CreateApiResponse(HttpStatusCode.OK);
             }
