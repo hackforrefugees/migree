@@ -31,6 +31,26 @@ namespace Migree.Core.Repositories
             }
         }
 
+        /// <summary>
+        /// Avoid, because searching over all partitions
+        /// </summary>
+        /// <typeparam name="Model"></typeparam>
+        /// <param name="rowKey"></param>
+        /// <returns></returns>
+        public ICollection<Model> GetAllByRowKey<Model>(string rowKey)
+            where Model : StorageModel, new()
+        {
+            try
+            {
+                var queryableResult = GetTableReference<Model>().CreateQuery<Model>().Where(p => p.RowKey.Equals(rowKey));
+                return queryableResult.ToList();
+            }
+            catch
+            {
+                throw new DataModelException("Get all failed");
+            }
+        }
+
         public void Delete<Model>(Model model)
             where Model : StorageModel, new()
         {
