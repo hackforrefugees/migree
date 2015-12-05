@@ -22,6 +22,7 @@ namespace Migree.Web.Controllers.Api
 
         [HttpGet]
         [Route("")]
+        [Authorize]
         public HttpResponseMessage GetCompetences()
         {
             var competences = CompetenceServant.GetCompetences();
