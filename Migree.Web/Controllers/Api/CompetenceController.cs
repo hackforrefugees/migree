@@ -22,7 +22,7 @@ namespace Migree.Web.Controllers.Api
 
         [HttpGet]
         [Route("")]
-        public HttpResponseMessage Index()
+        public HttpResponseMessage GetCompetences()
         {
             var competences = CompetenceServant.GetCompetences();
             var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
