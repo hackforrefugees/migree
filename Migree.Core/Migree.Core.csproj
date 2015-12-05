@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Autofac\CoreRegistrationModule.cs" />
     <Compile Include="Definitions\ApplicationType.cs" />
+    <Compile Include="Definitions\UserLocation.cs" />
     <Compile Include="Definitions\ImageType.cs" />
     <Compile Include="Definitions\UserType.cs" />
     <Compile Include="Exceptions\DataModelException.cs" />

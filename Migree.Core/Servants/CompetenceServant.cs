@@ -56,7 +56,7 @@ namespace Migree.Core.Servants
                         {
                             UserId = userWithCompetence.UserId,
                             User = user,
-                            IsOnSameLocation = user.LocationId.Equals(userToMatch.LocationId)
+                            IsOnSameLocation = user.UserLocation.Equals(userToMatch.UserLocation)
                         });
                     }
 
