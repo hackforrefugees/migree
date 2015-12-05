@@ -13,6 +13,7 @@ namespace Migree.Web.Models.Requests
         public string Email { get; set; }
         [JsonProperty(PropertyName = "password")]
         public string Password { get; set; }
+        [JsonProperty(PropertyName = "usertype")]
         public UserType UserType { get; set; }
         
     }

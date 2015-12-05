@@ -35,7 +35,7 @@ namespace Migree.Web.Controllers.Api
         public HttpResponseMessage Register(RegisterRequest request)
         {
             var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
-            return CreateApiResponse(HttpStatusCode.OK, user);
+            return CreateApiResponse(HttpStatusCode.OK, user.Id);
         }
     }
 }
