@@ -32,13 +32,20 @@ module.exports = function(grunt) {
     },
     concat: {
       angular: {
-        src: ['bower_components/angular/angular.min.js', 'bower_components/angular-ui-router/release/angular-ui-router.min.js'],
-        dest: 'static/js/angular-build.js',
+        src: ['bower_components/angular/angular.min.js', 
+              'bower_components/angular-ui-router/release/angular-ui-router.min.js', 
+              'bower_components/angular-route/angular-route.min.js'
+              ],
+        dest: 'static/vendor/angular-build.js',
       },
-      js: {
+     /* app:{
+        src: ['static/app/routes/*.js'],
+        dest: 'static/app/app.js'
+      }*/
+     /* js,: {
         src: ['js/modules/*.js', 'js/components/*.js'],
         dest: 'static/js/main.js',
-      },
+      },*/
     },
     watch: {
       html: {
@@ -54,9 +61,12 @@ module.exports = function(grunt) {
           livereload: true,
         }
       },
-      concat: {
-        files: ['static/js/modules/*.js', 'js/components/*.js'],
-        tasks: ['concat:js']
+      js: {
+        files: ['static/app/*.js', 'static/js/app/*.js'],
+        //tasks: ['concat:app']
+        options: {
+          livereload: true,
+        }
       },
       autoprefixer: {
         files: ['static/css/main.css'],
