@@ -35,6 +35,6 @@ namespace Migree.Web.Controllers.Api
         {
             CompetenceServant.AddCompetence(request.Name);
             return CreateApiResponse(HttpStatusCode.NoContent);
-        }
+        }        
     }
 }

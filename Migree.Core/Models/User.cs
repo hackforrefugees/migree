@@ -45,6 +45,7 @@ namespace Migree.Core.Models
         public string Password { get; set; }        
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public Guid LocationId { get; set; }
         public UserType UserType { get; set; }
     }
 }

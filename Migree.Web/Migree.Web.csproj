@@ -178,6 +178,7 @@
     <Compile Include="Controllers\MigreeController.cs" />
     <Compile Include="Models\Requests\AddCompetenceRequest.cs" />
     <Compile Include="Models\Requests\AddCompetencesToUserRequest.cs" />
+    <Compile Include="Models\Requests\FindMatchesRequest.cs" />
     <Compile Include="Models\Requests\RegisterRequest.cs" />
     <Compile Include="Models\Requests\LoginRequest.cs" />
     <Compile Include="Models\Dictionary.cs" />
