@@ -18,12 +18,14 @@ namespace Migree.Core.Servants
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
         private ICompetenceServant CompetenceServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository)
+        private IMailRepository MailServant { get; }
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             CompetenceServant = competenceServant;
             ContentRepository = contentRepository;
+            MailServant = mailServant;
         }
 
         public IUser FindUser(string email, string password)
@@ -101,6 +103,15 @@ namespace Migree.Core.Servants
                     }
                 }
             }
+        }
+
+        public async Task SendMessageToUserAsync(Guid fromUserId, Guid toUserId, string message)
+        {
+            var fromUser = DataRepository.Get<User>(User.GetRowKey(fromUserId));
+            var toUser = DataRepository.Get<User>(User.GetRowKey(toUserId));
+            var subject = $"You got a Migree-mail from {fromUser.FullName}";
+            var body = message;
+            await MailServant.SendMailAsync(subject, message, toUser.Email, fromUser.Email, fromUser.FullName, fromUser.Email);
         }
     }
 }
