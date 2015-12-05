@@ -222,3 +222,6 @@ FakesAssemblies/
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
+
+# No connection strings in open source ffs
+ConnectionStrings.config
