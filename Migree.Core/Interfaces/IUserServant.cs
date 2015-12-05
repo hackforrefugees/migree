@@ -10,7 +10,7 @@ namespace Migree.Core.Interfaces
     public interface IUserServant
     {
         IUser FindUser(string email, string password);
-        IUser Register(string email, string password, string firstName, string lastName, UserType userType, UserLocation userLocation);
+        IUser Register(string email, string password, string firstName, string lastName, UserType userType);
         void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds);
         ICollection<ICompetence> GetUserCompetences(Guid userId);
         Task UploadProfileImageAsync(Guid userId, Stream imageStream);

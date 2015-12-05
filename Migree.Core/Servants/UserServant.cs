@@ -39,16 +39,16 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public IUser Register(string email, string password, string firstName, string lastName, UserType userType, UserLocation userLocation)
+        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
         {
             email = email.ToLower();
             var user = new User(userType);
             user.Email = email;
             user.Password = PasswordServant.CreateHash(password);
             user.FirstName = firstName;
-            user.LastName = lastName;            
+            user.LastName = lastName;
             user.UserType = userType;
-            user.UserLocation = userLocation;
+            user.UserLocation = UserLocation.None;
             DataRepository.AddOrUpdate(user);
             return user;
         }
