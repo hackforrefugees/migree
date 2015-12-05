@@ -2,6 +2,8 @@
 using Migree.Core.Interfaces.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Migree.Core.Interfaces
 {
@@ -11,5 +13,6 @@ namespace Migree.Core.Interfaces
         IUser Register(string email, string password, string firstName, string lastName, UserType userType, UserLocation userLocation);
         void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds);
         ICollection<ICompetence> GetUserCompetences(Guid userId);
+        Task UploadProfileImageAsync(Guid userId, Stream imageStream);
     }
 }

@@ -11,6 +11,11 @@ namespace Migree.Core.Models
             return "systemdevelopers";
         }
 
+        public static string GetRowKey(Guid competenceId)
+        {
+            return competenceId.ToString();
+        }
+
         /// <summary>
         /// Default, used by Azure
         /// </summary>

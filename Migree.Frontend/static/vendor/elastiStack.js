@@ -86,20 +86,26 @@
 		if( item1 ) {
 			item1.style.opacity = 1;
 			item1.style.zIndex = 4;
+
 			setTransformStyle( item1, is3d ? 'translate3d(0,0,0)' : 'translate(0,0)' );
 		}
 
 		if( item2 ) {
 			item2.style.opacity = 1;
 			item2.style.zIndex = 3;
-			setTransformStyle( item2, is3d ? 'translate3d(0,0,-60px)' : 'translate(0,0)' );
+
+			setTransformStyle( item2, is3d ? 'translate3d(0,0,-50px)' : 'translate(0,0)' );
 		}
 
 		if( item3 ) {
 			item3.style.opacity = 1;
 			item3.style.zIndex = 2;
-			setTransformStyle( item3, is3d ? 'translate3d(0,0,-120px)' : 'translate(0,0)' );
+
+			setTransformStyle( item3, is3d ? 'translate3d(0,0,-100px)' : 'translate(0,0)' );
 		}
+
+
+
 	};
 
 	ElastiStack.prototype._moveAway = function( instance ) {
@@ -115,6 +121,8 @@
 		// apply it	
 		setTransformStyle( instance.element, is3d ? 'translate3d(' + tVal.x + 'px,' + tVal.y + 'px, 0px)' : 'translate(' + tVal.x + 'px,' + tVal.y + 'px)' );
 		
+		classie.remove(instance.element, 'first');
+
 		// item also fades out
 		instance.element.style.opacity = 0;
 
@@ -124,12 +132,14 @@
 		if( item2 ) {
 			classie.add( item2, 'move-back' );
 			classie.add( item2, 'animate' );
-			setTransformStyle( item2, is3d ? 'translate3d(0,0,-60px)' : 'translate(0,0)' );
+			classie.add( item2, 'first');
+			setTransformStyle( item2, is3d ? 'translate3d(0,0,-50px)' : 'translate(0,0)' );
 		}
 		if( item3 ) {
 			classie.add( item3, 'move-back' );
 			classie.add( item3, 'animate' );
-			setTransformStyle( item3, is3d ? 'translate3d(0,0,-120px)' : 'translate(0,0)' );
+			classie.remove( item3, 'first');
+			setTransformStyle( item3, is3d ? 'translate3d(0,0,-100px)' : 'translate(0,0)' );
 		}
 
 		// after transition ends..
@@ -149,6 +159,7 @@
 				var item1 = self._firstItem(),
 					item2 = self._secondItem(),
 					item3 = self._thirdItem();
+
 
 				// reset transition timing function
 				classie.remove( item1, 'move-back' );
@@ -192,13 +203,15 @@
 		if( item2 ) {
 			classie.add( item2, 'move-back' );
 			classie.add( item2, 'animate' );
-			setTransformStyle( item2, is3d ? 'translate3d(0,0,-60px)' : 'translate(0,0)' );
+			setTransformStyle( item2, is3d ? 'translate3d(0,0,-50px)' : 'translate(0,0)' );
 		}
 		if( item3 ) {
 			classie.add( item3, 'move-back' );
 			classie.add( item3, 'animate' );
-			setTransformStyle( item3, is3d ? 'translate3d(0,0,-120px)' : 'translate(0,0)' );
+			setTransformStyle( item3, is3d ? 'translate3d(0,0,-100px)' : 'translate(0,0)' );
 		}
+
+
 	};
 
 	ElastiStack.prototype._onDragStart = function( instance, event, pointer ) {
@@ -226,10 +239,10 @@
 			// the second and third items also move
 			var item2 = this._secondItem(), item3 = this._thirdItem();
 			if( item2 ) {
-				setTransformStyle( item2, is3d ? 'translate3d(' + ( instance.position.x * .6 ) + 'px,' + ( instance.position.y * .6 ) + 'px, -60px)' : 'translate(' + ( instance.position.x * .6 ) + 'px,' + ( instance.position.y * .6 ) + 'px)' );
+				setTransformStyle( item2, is3d ? 'translate3d(' + ( instance.position.x * .6 ) + 'px,' + ( instance.position.y * .6 ) + 'px, -50px)' : 'translate(' + ( instance.position.x * .6 ) + 'px,' + ( instance.position.y * .6 ) + 'px)' );
 			}
 			if( item3 ) {
-				setTransformStyle( item3, is3d ? 'translate3d(' + ( instance.position.x * .3 ) + 'px,' + ( instance.position.y * .3 ) + 'px, -120px)' : 'translate(' + ( instance.position.x * .3 ) + 'px,' + ( instance.position.y * .3 ) + 'px)' );
+				setTransformStyle( item3, is3d ? 'translate3d(' + ( instance.position.x * .3 ) + 'px,' + ( instance.position.y * .3 ) + 'px, -100px)' : 'translate(' + ( instance.position.x * .3 ) + 'px,' + ( instance.position.y * .3 ) + 'px)' );
 			}
 		}
 	};
@@ -279,7 +292,7 @@
 
 	// returns the first item in the stack
 	ElastiStack.prototype._firstItem = function() {
-		return this.items[ this.current ];
+		return this.items[ this.current ];	
 	};
 	
 	// returns the second item in the stack
