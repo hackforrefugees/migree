@@ -31,7 +31,7 @@ app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRout
     .state('register', {
       url: '/register/:who',
       templateUrl: '/views/register.html',
-      controller: 'RegisterController'
+      controller: 'registerController'
     })
     .state('dashboard', {
       url: '/dashboard',
