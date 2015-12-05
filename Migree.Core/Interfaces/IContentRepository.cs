@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Migree.Core.Definitions;
+using System;
+using System.IO;
 
 namespace Migree.Core.Interfaces
 {
     public interface IContentRepository
     {
+        void PutImage(Guid userId, Stream fileStream, ImageType imageType);
+        string GetImageUrl(Guid userId, ImageType imageType);
     }
 }

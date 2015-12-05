@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Migree.Web.Controllers.Api
@@ -49,6 +50,30 @@ namespace Migree.Web.Controllers.Api
         {
             var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
             return CreateApiResponse(HttpStatusCode.OK, new RegisterResponse { UserId = user.Id });
+        }
+
+        [HttpPost, Route("{userId:guid}/upload", Name = "userimageupload")]
+        public async virtual Task<HttpResponseMessage> UploadProfileImage(Guid userId)
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new Exception("Unsupported media");
+                }
+
+                var content = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
+                using (var imageStream = await content.Contents.First().ReadAsStreamAsync())
+                {
+                    UserServant.UploadProfileImage(userId, imageStream);
+                }
+
+                return CreateApiResponse(HttpStatusCode.Accepted);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.BadRequest);
+            }
         }
     }
 }

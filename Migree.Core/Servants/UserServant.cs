@@ -5,6 +5,7 @@ using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,14 +14,17 @@ namespace Migree.Core.Servants
 {
     public class UserServant : IUserServant
     {
+        private const int PROFILE_IMAGE_SIZE_PIXELS = 100;
         private IDataRepository DataRepository { get; }
+        private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
         private ICompetenceServant CompetenceServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant)
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             CompetenceServant = competenceServant;
+            ContentRepository = contentRepository;
         }
 
         public IUser FindUser(string email, string password)
@@ -67,10 +71,27 @@ namespace Migree.Core.Servants
         }
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
-        {            
+        {
             var competences = CompetenceServant.GetCompetences();
             var userCompetences = DataRepository.GetAllByRowKey<UserCompetence>(UserCompetence.GetRowKey(userId));
             return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
+        }
+
+        public void UploadProfileImage(Guid userId, Stream imageStream)
+        {
+            imageStream.Position = 0;
+
+            using (var img = System.Drawing.Image.FromStream(imageStream))
+            {
+                using (var bitmap = new System.Drawing.Bitmap(img, PROFILE_IMAGE_SIZE_PIXELS, PROFILE_IMAGE_SIZE_PIXELS))
+                {
+                    using (var profileImageStream = new MemoryStream())
+                    {
+                        bitmap.Save(profileImageStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        ContentRepository.PutImage(userId, profileImageStream, ImageType.Profile);
+                    }
+                }
+            }
         }
     }
 }
