@@ -1,3 +1,1 @@
-If you're looking for more people to help out with the project
-If there is someone else who will be managing the project, or if there's any organization involved
-Contact info to those parties in CONTACT.md
+We need people that can get the app out to the refugees when they arrive. Also to spread the word among developer communities all over the world. Marketing strategies to get the app out in the public.
