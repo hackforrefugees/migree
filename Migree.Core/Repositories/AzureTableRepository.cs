@@ -44,13 +44,7 @@ namespace Migree.Core.Repositories
                 throw new DataModelException("Get all failed");
             }
         }
-
-        /// <summary>
-        /// Avoid, because searching over all partitions
-        /// </summary>
-        /// <typeparam name="Model"></typeparam>
-        /// <param name="rowKey"></param>
-        /// <returns></returns>
+        
         public ICollection<Model> GetAllByRowKey<Model>(string rowKey)
             where Model : StorageModel, new()
         {
@@ -74,7 +68,7 @@ namespace Migree.Core.Repositories
 
                 if (!result.HttpStatusCode.IsSuccess())
                 {
-                    throw new Exception("No success deleting model");
+                    throw new Exception();
                 }
             }
             catch
@@ -83,7 +77,7 @@ namespace Migree.Core.Repositories
             }
         }
 
-        public Model Get<Model>(string partitionKey, string rowKey)
+        public Model GetFirstOrDefault<Model>(string partitionKey, string rowKey)
              where Model : StorageModel, new()
         {
             try
@@ -98,7 +92,7 @@ namespace Migree.Core.Repositories
             }
         }
 
-        public Model Get<Model>(string rowKey)
+        public Model GetFirstOrDefaultByRowKey<Model>(string rowKey)
              where Model : StorageModel, new()
         {
             try
