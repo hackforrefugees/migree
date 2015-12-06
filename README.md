@@ -1,3 +1,5 @@
+![ScreenShot](https://raw.githubusercontent.com/hackforrefugees/migree/develop/Github%20Resources/migree-logo-240.png)
+
 # migree
 Connecting refugees with swedes based on their work experiences.
 
