@@ -29,7 +29,7 @@ namespace Migree.Web.Controllers.Api
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage AddCompetences(AddCompetenceRequest request)
+        public HttpResponseMessage AddCompetence(AddCompetenceRequest request)
         {
             CompetenceServant.AddCompetence(request.Name);
             return CreateApiResponse(HttpStatusCode.NoContent);

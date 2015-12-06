@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Core", "Migree.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Core.Test", "Migree.Core.Test\Migree.Core.Test.csproj", "{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.AddCompetences", "Migree.AddCompetences\Migree.AddCompetences.csproj", "{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
