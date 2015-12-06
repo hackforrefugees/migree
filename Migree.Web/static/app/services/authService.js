@@ -27,10 +27,12 @@ migree.factory('authService', ['$http', '$q', 'localStorageService', function ($
 
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
+            console.log(response);
+            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, userId: response.userId });
 
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
+            _authentication.userId = response.userId;
 
             deferred.resolve(response);
 
