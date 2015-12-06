@@ -74,6 +74,11 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
       templateUrl: '/views/profile.html',
       controller: 'profileController'
     })
+    .state('messages', {
+      url: '/messages/:id',
+      templateUrl: '/views/messages.html',
+      controller: 'messagesController'
+    })
     .state('about', {
       url: '/about',
       templateUrl: '/views/404.html',

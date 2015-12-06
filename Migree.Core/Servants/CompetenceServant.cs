@@ -47,7 +47,7 @@ namespace Migree.Core.Servants
                     {
                         var user = users.FirstOrDefault(p => p.Id.Equals(userWithCompetence.UserId));
 
-                        if (user == null)
+                        if (user == null || user.Id.Equals(userToMatchId))
                         {
                             continue;
                         }
