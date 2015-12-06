@@ -1,8 +1,7 @@
-﻿using Migree.Core.Interfaces;
-using Migree.Api.Models.Requests;
+﻿using Migree.Api.Models.Requests;
 using Migree.Api.Models.Responses;
+using Migree.Core.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -24,9 +23,8 @@ namespace Migree.Api.Controllers.Api
             UserServant = userServant;
             CompetenceServant = comptenceServant;
         }
-
-        [HttpGet]
-        [Route("{userId:guid}/competences")]
+        
+        [HttpGet, Route("{userId:guid}/competences")]
         public HttpResponseMessage GetUserCompetences(Guid userId)
         {
             try
@@ -40,9 +38,8 @@ namespace Migree.Api.Controllers.Api
                 return CreateApiResponse(HttpStatusCode.InternalServerError);
             }
         }
-
-        [HttpPost]
-        [Route("register")]
+        
+        [HttpPost, Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
         {
             try
@@ -66,7 +63,7 @@ namespace Migree.Api.Controllers.Api
             }
         }
 
-        [HttpPost, Route("{userId:guid}/upload", Name = "userimageupload")]
+        [HttpPost, Route("{userId:guid}/upload")]
         public async Task<HttpResponseMessage> UploadProfileImage(Guid userId)
         {
             try

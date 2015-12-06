@@ -17,9 +17,8 @@ namespace Migree.Api.Controllers.Api
         {
             CompetenceServant = competenceServant;
         }
-
-        [HttpGet]
-        [Route("")]
+        
+        [HttpGet, Route("")]
         public HttpResponseMessage GetCompetences()
         {
             try
@@ -33,9 +32,8 @@ namespace Migree.Api.Controllers.Api
                 return CreateApiResponse(HttpStatusCode.InternalServerError);
             }
         }
-
-        [HttpPost]
-        [Route("")]
+        
+        [HttpPost, Route("")]
         public HttpResponseMessage AddCompetence(AddCompetenceRequest request)
         {
             try

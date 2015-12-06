@@ -7,9 +7,8 @@ namespace Migree.Api.Controllers.Api
 {
     [RoutePrefix("system")]
     public class SystemController : MigreeApiController
-    {
-        [HttpGet]
-        [Route("language")]
+    {       
+        [HttpGet, Route("language")]
         public virtual HttpResponseMessage Language()
         {
             try
