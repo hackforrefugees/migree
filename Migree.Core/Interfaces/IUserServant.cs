@@ -17,5 +17,6 @@ namespace Migree.Core.Interfaces
         Task UploadProfileImageAsync(Guid userId, Stream imageStream);
         void UpdateUser(Guid userId, UserLocation userLocation, string description);
         Task SendMessageToUserAsync(Guid fromUserId, Guid toUserId, string message);
+        string GetProfileImageUrl(Guid userId);
     }
 }

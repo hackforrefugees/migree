@@ -18,7 +18,7 @@ namespace Migree.Core.Servants
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
         private ICompetenceServant CompetenceServant { get; }
-        private IMailRepository MailServant { get; }
+        private IMailRepository MailServant { get; }        
         public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
@@ -118,6 +118,11 @@ namespace Migree.Core.Servants
             var subject = $"You got a Migree-mail from {fromUser.FullName}";
             message += "\n\n" + $"Reply to this e-mail or send a mail directly to {fromUser.Email}, to get in touch with {fromUser.FullName}";
             await MailServant.SendMailAsync(subject, message, toUser.Email, "no-reply@migree.se", $"{fromUser.FullName} thru Migree" , fromUser.Email);
+        }
+
+        public string GetProfileImageUrl(Guid userId)
+        {
+            return ContentRepository.GetImageUrl(userId, ImageType.Profile);
         }
     }
 }
