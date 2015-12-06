@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Web", "Migree.Web\Migree.Web.csproj", "{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Api", "Migree.Api\Migree.Api.csproj", "{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git", "Git", "{EB2E23CA-E663-4BCB-B7D1-F65C54A180A1}"
 	ProjectSection(SolutionItems) = preProject

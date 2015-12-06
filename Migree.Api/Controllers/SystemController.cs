@@ -1,9 +1,9 @@
-﻿using Migree.Web.Models;
+﻿using Migree.Api.Models;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Migree.Web.Controllers.Api
+namespace Migree.Api.Controllers.Api
 {
     [RoutePrefix("system")]
     public class SystemController : MigreeApiController

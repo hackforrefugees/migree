@@ -6,7 +6,7 @@ using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Migree.Core.Autofac;
 using Migree.Core.Definitions;
-using Migree.Web.Providers;
+using Migree.Api.Providers;
 using Owin;
 using System;
 using System.Reflection;
@@ -17,8 +17,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-[assembly: OwinStartup(typeof(Migree.Web.Startup))]
-namespace Migree.Web
+[assembly: OwinStartup(typeof(Migree.Api.Startup))]
+namespace Migree.Api
 {
     public class Startup
     {

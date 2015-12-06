@@ -1,4 +1,4 @@
-﻿namespace Migree.Web.Models
+﻿namespace Migree.Api.Models
 {
     public class LanguageDictionaryItem
     {

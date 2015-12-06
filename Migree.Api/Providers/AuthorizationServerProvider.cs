@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace Migree.Web.Providers
+namespace Migree.Api.Providers
 {
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {

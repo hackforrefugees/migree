@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace Migree.Web.Models.Requests
+namespace Migree.Api.Models.Requests
 {
     public class UpdateUserRequest
     {

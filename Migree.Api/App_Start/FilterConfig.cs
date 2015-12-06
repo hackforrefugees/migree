@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Migree.Web
+namespace Migree.Api
 {
     public class FilterConfig
     {

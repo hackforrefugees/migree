@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Migree.Web.Models.Requests
+namespace Migree.Api.Models.Requests
 {
     public class LoginRequest
     {

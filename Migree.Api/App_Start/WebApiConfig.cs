@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace Migree.Web
+namespace Migree.Api
 {
     public static class WebApiConfig
     {

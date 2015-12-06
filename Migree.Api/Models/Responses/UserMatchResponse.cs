@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Migree.Web.Models.Responses
+namespace Migree.Api.Models.Responses
 {
     public class UserMatchResponse
     {

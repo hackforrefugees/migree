@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Migree.Web.Models.Requests
+namespace Migree.Api.Models.Requests
 {
     public class PostMessageRequest
     {

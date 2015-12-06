@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Migree.Web.Models
+namespace Migree.Api.Models
 {
     public class LanguageDictionary : Dictionary<string, LanguageDictionaryItem>
     {

@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Migree.Web
+namespace Migree.Api
 {
     public class AutofacConfig
     {

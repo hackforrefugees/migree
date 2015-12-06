@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Migree.Web.Controllers.Api
+namespace Migree.Api.Controllers.Api
 {
     public abstract class MigreeApiController : ApiController
     {                

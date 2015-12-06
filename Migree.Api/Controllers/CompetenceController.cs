@@ -1,12 +1,12 @@
 ﻿using Migree.Core.Interfaces;
-using Migree.Web.Models.Requests;
-using Migree.Web.Models.Responses;
+using Migree.Api.Models.Requests;
+using Migree.Api.Models.Responses;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Migree.Web.Controllers.Api
+namespace Migree.Api.Controllers.Api
 {
     [RoutePrefix("competence")]
     public class CompetenceController : MigreeApiController

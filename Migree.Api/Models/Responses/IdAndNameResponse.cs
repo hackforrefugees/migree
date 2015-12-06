@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Migree.Web.Models.Responses
+namespace Migree.Api.Models.Responses
 {
     public class IdAndNameResponse
     {
