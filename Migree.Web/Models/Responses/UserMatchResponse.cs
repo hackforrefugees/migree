@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Migree.Web.Models.Responses
 {
@@ -11,7 +12,9 @@ namespace Migree.Web.Models.Responses
         public string FullName { get; set; }
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
-        [JsonProperty(PropertyName = "userocation")]
+        [JsonProperty(PropertyName = "userLocation")]
         public string UserLocation { get; set; }
+        [JsonProperty(PropertyName = "competences")]
+        public ICollection<IdAndNameResponse> Competences { get; set; }
     }
 }

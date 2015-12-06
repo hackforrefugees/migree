@@ -82,17 +82,18 @@ namespace Migree.Web.Controllers.Api
         [HttpPost, Route("{userId:guid}/matches")]
         public HttpResponseMessage FindMatches(Guid userId, FindMatchesRequest request)
         {
-            var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);
+            var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);            
 
-            var users = matchedUsers.Select(p => new UserMatchResponse
+            var users = matchedUsers.Select(user => new UserMatchResponse
             {
-                UserId = p.Id,
-                FullName = $"{p.FirstName} {p.LastName}",
-                Description = p.Description,
-                UserLocation = p.UserLocation.ToDescription()
+                UserId = user.Id,
+                FullName = $"{user.FirstName} {user.LastName}",
+                Description = user.Description,
+                UserLocation = user.UserLocation.ToDescription(),
+                Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
             }).ToList();
 
-            return CreateApiResponse(HttpStatusCode.NoContent, users);
+            return CreateApiResponse(HttpStatusCode.OK, users);
         }
         [HttpPut, Route("{userId:guid}")]
         public HttpResponseMessage Update(Guid userId, UpdateUserRequest request)
