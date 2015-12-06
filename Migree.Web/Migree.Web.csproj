@@ -72,6 +72,7 @@
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="static\ajax\login.json" />
+    <Content Include="static\app\services\userService.js" />
     <Content Include="static\fonts\ElegantIcons.eot" />
     <Content Include="static\fonts\ElegantIcons.ttf" />
     <Content Include="static\fonts\ElegantIcons.woff" />
