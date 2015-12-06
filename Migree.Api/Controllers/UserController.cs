@@ -102,17 +102,13 @@ namespace Migree.Api.Controllers.Api
             }
         }
 
-        [HttpPost, Route("{userId:guid}/matches")]
-        public HttpResponseMessage FindMatches(Guid userId, FindMatchesRequest request)
+        [HttpGet, Route("{userId:guid}/matches")]
+        public HttpResponseMessage GetMatches(Guid userId)
         {
             try
             {
-                if (request.CompetenceIds?.Count < 1)
-                {
-                    return CreateApiResponse(HttpStatusCode.BadRequest);
-                }
-
-                var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);
+                var userMatches = UserServant.GetUserCompetences(userId).Select(p => p.Id).ToList();
+                var matchedUsers = CompetenceServant.GetMatches(userId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
                 var users = matchedUsers.Select(user => GetUserResponse(user)).ToList();
 
                 return CreateApiResponse(HttpStatusCode.OK, users);
