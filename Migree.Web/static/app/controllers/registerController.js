@@ -1,5 +1,6 @@
 'use strict';
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', function ($scope, $location, $timeout, authService, fileReader, $http) {
+migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService',
+  function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService) {
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
@@ -45,21 +46,10 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
             $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
             $('.step').prev().hide();
             $('.step').next().show();
-            var userId = response.data.userId;
-            var fd = new FormData();
-            fd.append('Content', profileFile);
-            var url = 'https://migree.azurewebsites.net/user/'+userId+'/upload';
-            $http.post(
-              url,
-              fd,
-              {
-                transformRequest: angular.identity,
-                headers: {'Content-Type':undefined}
-              }
-            ).success(function(response) {
-              console.log('Success: ', response);
-            }).error(function(fail) {
-              console.log('Failure: ', fail);
+            fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
+
+            }, function(err) {
+
             });
 
         },
