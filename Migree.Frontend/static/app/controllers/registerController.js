@@ -20,6 +20,14 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     { value: '3', label: 'Malmo' }
     ];
 
+    $scope.getFile = function () {
+      $scope.progress = 0;
+      var fileReader = new FileReader();
+      var file = fileReader.readAsDataUrl($scope.file);
+      $scope.imageSrc = file;
+    };
+
+
     $scope.goToNext = function(){
       authService.saveRegistration($scope.registration).then(function (response) {
             $scope.savedSuccessfully = true;
@@ -35,7 +43,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
                  }
              }
              $scope.message = "Failed to register user due to:" + errors.join(' ');
-         });  
+         });
     }
     var startTimer = function () {
         var timer = $timeout(function () {
