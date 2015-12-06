@@ -218,6 +218,16 @@
 		// remove transition classes if any
 		var item2 = this._secondItem(), item3 = this._thirdItem();
 
+		if($(event.target).hasClass('more-btn') || $(event.target).parent('button').hasClass('more-btn')){
+			if(classie.has(this._firstItem(), 'change'))
+				classie.remove(this._firstItem(), 'change');
+			else
+				classie.add(this._firstItem(), 'change');
+		}
+
+
+
+
 		classie.remove( instance.element, 'move-back' );
 		classie.remove( instance.element, 'animate' );
 
@@ -258,7 +268,7 @@
 	};
 
 	ElastiStack.prototype._initDragg = function() {
-		this.draggie = new Draggabilly( this.items[ this.current ] );
+		this.draggie = new Draggabilly( this.items[ this.current ], {defaultPrevented: false} );
 	};
 
 	ElastiStack.prototype._disableDragg = function() {

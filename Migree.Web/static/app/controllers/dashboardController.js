@@ -6,4 +6,5 @@ migree.controller('DashboardController', ['$scope', function($scope) {
     onUpdateStack : function( current ) { return false; }
   });
 
+
 }]);
