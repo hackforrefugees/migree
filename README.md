@@ -1,5 +1,7 @@
-# linkedin
-Description: 1) A kind of LinkedIn where refugees can describe their skills and companies can advertise jobs. 2) A platform where refugees who are developers can sign up, add their skills and test their skills through a programmingskill tool like HoneyComb or similar. 3) A way for municipalities to find refugees to work for them as e.g. social workers
+![ScreenShot](https://raw.githubusercontent.com/hackforrefugees/migree/develop/Github%20Resources/migree-logo-240.png)
+
+# migree
+A skill based matching and social discovery application which facilitates meetings in real life between refuges and local developers who share similar professional interests. Via the platform, refugee developers can contact local developers in Sweden, arrange meetings, immerse into the Swedish development community and get career tips and suggestions.
 
 # Instructions
 * Remember to only use libraries, content etc that is compatible with an open source license.
