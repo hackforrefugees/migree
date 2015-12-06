@@ -21,6 +21,26 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     { value: '3', label: 'Malmo' }
     ];
 
+    $scope.competence = [
+      {id: null, name: 'I am specialized in..'},
+      {id: null, name: 'My first priority skill'},
+      {id: null, name: 'My second priority skill'},
+      {id: null, name: 'My third priority skill'}
+    ]
+
+    $http({
+      url: 'https://migree.azurewebsites.net/competence',
+      method: 'GET'
+    }).then(function(response) {
+      $('.step').prev().hide();
+      $('.step').next().show();
+
+      $scope.competencies = response.data;
+    }, function() {
+
+    });
+    $scope.selectedSkillz = [];
+
     var profileFile = null;
     $scope.getFile = function () {
       $scope.progress = 0;
@@ -42,15 +62,26 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
 
     $scope.goToNext = function(){
       authService.saveRegistration($scope.registration).then(function (response) {
-            $scope.savedSuccessfully = true;
-            $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-            $('.step').prev().hide();
-            $('.step').next().show();
-            fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
+        $scope.savedSuccessfully = true;
+        $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
 
-            }, function(err) {
+        $http({
+          url: 'https://migree.azurewebsites.net/competence',
+          method: 'GET'
+        }).then(function(response) {
+          $('.step').prev().hide();
+          $('.step').next().show();
 
-            });
+          $scope.competencies = response.data;
+        }, function() {
+
+        });
+
+        fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
+
+        }, function(err) {
+
+        });
 
         },
          function (response) {
@@ -69,5 +100,9 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
             $location.path('/login');
         }, 2000);
     }
+
+    $scope.updateSkills = function() {
+      console.log($scope.competence);
+    };
 
 }]);
