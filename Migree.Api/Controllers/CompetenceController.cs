@@ -40,6 +40,11 @@ namespace Migree.Api.Controllers.Api
         {
             try
             {
+                if (string.IsNullOrEmpty(request.Name))
+                {
+                    return CreateApiResponse(HttpStatusCode.BadRequest);
+                }
+
                 CompetenceServant.AddCompetence(request.Name);
                 return CreateApiResponse(HttpStatusCode.NoContent);
             }
