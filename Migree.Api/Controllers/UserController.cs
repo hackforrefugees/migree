@@ -33,20 +33,7 @@ namespace Migree.Api.Controllers.Api
             var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
-
-        [HttpPost]
-        [Route("login")]
-        public HttpResponseMessage Login(LoginRequest request)
-        {
-            var user = UserServant.FindUser(request.Email, request.Password);
-
-            if (user != null)
-            {
-                return CreateApiResponse(HttpStatusCode.OK);
-            }
-
-            return CreateApiResponse(HttpStatusCode.Unauthorized);
-        }
+       
         [HttpPost]
         [Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
