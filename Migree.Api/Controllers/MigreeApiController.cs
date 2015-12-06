@@ -6,7 +6,7 @@ using System.Web.Http;
 namespace Migree.Api.Controllers.Api
 {
     public abstract class MigreeApiController : ApiController
-    {                
+    {
         protected virtual HttpResponseMessage CreateApiResponse(HttpStatusCode statusCode, object content = null, Uri locationUrl = null)
         {
             var response = ControllerContext.Request.CreateResponse(statusCode, content);
@@ -15,12 +15,12 @@ namespace Migree.Api.Controllers.Api
                 response.Headers.Location = locationUrl;
 
             return response;
-        }        
+        }
 
         protected Uri GetLocationUri(string attributeRouteName, object route = null)
         {
-            string uri = Url.Link(attributeRouteName, route);            
+            string uri = Url.Link(attributeRouteName, route);
             return new Uri(uri);
-        }               
+        }
     }
 }
