@@ -81,7 +81,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('about', {
       url: '/about',
-      templateUrl: '/views/404.html',
+      templateUrl: '/views/about.html',
       controller: function($scope) {
         console.log('No separate controller');
       }
