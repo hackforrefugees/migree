@@ -1,35 +1,34 @@
 ﻿using Autofac;
+using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Migree.Core.Autofac;
 using Migree.Core.Definitions;
 using Migree.Web.Providers;
 using Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
+using System.Threading.Tasks;
+using System.Web.Cors;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Autofac.Integration.Mvc;
-using Autofac.Integration.WebApi;
-using Microsoft.Owin.Cors;
-using System.Threading.Tasks;
-using System.Web.Cors;
 
 [assembly: OwinStartup(typeof(Migree.Web.Startup))]
 namespace Migree.Web
 {
     public class Startup
     {
+        private const int TOKEN_EXPIRE_DAYS = 30;
+
         public void Configuration(IAppBuilder app)
         {
             ConfigureCors(app);
-            
-            HttpConfiguration config = new HttpConfiguration();
+
+            var config = new HttpConfiguration();
 
             ConfigureAutofac(app, config);
             ConfigureOAuth(app);
@@ -72,11 +71,10 @@ namespace Migree.Web
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(TOKEN_EXPIRE_DAYS),
                 Provider = new AuthorizationServerProvider()
             };
 
-            // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
@@ -90,10 +88,8 @@ namespace Migree.Web
             builder.RegisterApiControllers(executingAssembly);
 
             var container = builder.Build();
-
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
             app.UseAutofacMiddleware(container);
         }
     }
