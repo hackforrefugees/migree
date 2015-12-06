@@ -4,9 +4,6 @@ var migree = angular.module('migreeApp', [
     'LocalStorageModule'
 ]);
 
-migree.constant('config', {
-  api: '/'
-})
 
 migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 

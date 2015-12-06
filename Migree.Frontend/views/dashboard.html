@@ -1,16 +1,4 @@
-<header class="header">
-	<button class="toggle-menu" ng-click="active = ! active"><i class="icon icon_menu"></i></button>
-	<div class="menu" ng-class="{'active': active}">
-		<h1>migree</h1>
-		<button class="close-menu" ng-click="active = ! active"><i class="icon icon_close"></i></button>
-		<ul>
-			<li><a ui-sref="inbox">Inbox</a>
-			<li><a ui-sref="matches">Matches</a>
-			<li><a ui-sref="about">What is this?</a>
-			<li><a ui-sref="home">Logout</a>
-		</ul>
-	</div>
-</li>
+<div ng-include="'/views/_shared/header.html'"></div>
 <ul class="box profile elasticstack" id="stack">
 	<li class="first">
 		<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div>
