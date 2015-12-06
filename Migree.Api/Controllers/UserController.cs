@@ -29,17 +29,31 @@ namespace Migree.Api.Controllers.Api
         [Route("{userId:guid}/competences")]
         public HttpResponseMessage GetUserCompetences(Guid userId)
         {
-            var competences = UserServant.GetUserCompetences(userId);
-            var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
-            return CreateApiResponse(HttpStatusCode.OK, response);
+            try
+            {
+                var competences = UserServant.GetUserCompetences(userId);
+                var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+                return CreateApiResponse(HttpStatusCode.OK, response);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
-       
+
         [HttpPost]
         [Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
         {
-            var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
-            return CreateApiResponse(HttpStatusCode.OK, new RegisterResponse { UserId = user.Id });
+            try
+            {
+                var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
+                return CreateApiResponse(HttpStatusCode.OK, new RegisterResponse { UserId = user.Id });
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPost, Route("{userId:guid}/upload", Name = "userimageupload")]
@@ -62,40 +76,61 @@ namespace Migree.Api.Controllers.Api
             }
             catch
             {
-                return CreateApiResponse(HttpStatusCode.BadRequest);
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
             }
         }
 
         [HttpPost, Route("{userId:guid}/matches")]
         public HttpResponseMessage FindMatches(Guid userId, FindMatchesRequest request)
         {
-            var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);            
-
-            var users = matchedUsers.Select(user => new UserMatchResponse
+            try
             {
-                UserId = user.Id,
-                FullName = $"{user.FirstName} {user.LastName}",
-                Description = user.Description,
-                UserLocation = user.UserLocation.ToDescription(),
-                Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
-            }).ToList();
+                var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);
 
-            return CreateApiResponse(HttpStatusCode.OK, users);
+                var users = matchedUsers.Select(user => new UserMatchResponse
+                {
+                    UserId = user.Id,
+                    FullName = $"{user.FirstName} {user.LastName}",
+                    Description = user.Description,
+                    UserLocation = user.UserLocation.ToDescription(),
+                    Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+                }).ToList();
+
+                return CreateApiResponse(HttpStatusCode.OK, users);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPut, Route("{userId:guid}")]
         public HttpResponseMessage Update(Guid userId, UpdateUserRequest request)
         {
-            UserServant.UpdateUser(userId, request.UserLocation, request.Description);
-            UserServant.AddCompetencesToUser(userId, request.CompetenceIds);
-            return CreateApiResponse(HttpStatusCode.NoContent);
+            try
+            {
+                UserServant.UpdateUser(userId, request.UserLocation, request.Description);
+                UserServant.AddCompetencesToUser(userId, request.CompetenceIds);
+                return CreateApiResponse(HttpStatusCode.NoContent);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPost, Route("{userId:guid}/message")]
         public async Task<HttpResponseMessage> PostMessage(Guid userId, PostMessageRequest request)
         {
-            await UserServant.SendMessageToUserAsync(userId, request.ReceiverUserId, request.Message);
-            return CreateApiResponse(HttpStatusCode.Accepted);
+            try
+            {
+                await UserServant.SendMessageToUserAsync(userId, request.ReceiverUserId, request.Message);
+                return CreateApiResponse(HttpStatusCode.Accepted);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

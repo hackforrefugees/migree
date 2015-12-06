@@ -22,17 +22,31 @@ namespace Migree.Api.Controllers.Api
         [Route("")]
         public HttpResponseMessage GetCompetences()
         {
-            var competences = CompetenceServant.GetCompetences();
-            var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
-            return CreateApiResponse(HttpStatusCode.OK, response);
+            try
+            {
+                var competences = CompetenceServant.GetCompetences();
+                var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+                return CreateApiResponse(HttpStatusCode.OK, response);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPost]
         [Route("")]
         public HttpResponseMessage AddCompetence(AddCompetenceRequest request)
         {
-            CompetenceServant.AddCompetence(request.Name);
-            return CreateApiResponse(HttpStatusCode.NoContent);
-        }        
+            try
+            {
+                CompetenceServant.AddCompetence(request.Name);
+                return CreateApiResponse(HttpStatusCode.NoContent);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
+        }
     }
 }
