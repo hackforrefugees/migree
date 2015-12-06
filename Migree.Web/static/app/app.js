@@ -69,6 +69,11 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
         console.log('No separate controller');
       }
     })
+    .state('profile', {
+      url: '/profile',
+      templateUrl: '/views/profile.html',
+      controller: 'profileController'
+    })
     .state('about', {
       url: '/about',
       templateUrl: '/views/404.html',
