@@ -1,9 +1,10 @@
 'use strict';
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService',
-  function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService) {
+migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService', '$state',
+  function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state) {
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
+    $scope.aboutText = "";
 
     $scope.registration = {
         firstName: "",
@@ -28,20 +29,9 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       {id: null, name: 'My third priority skill'}
     ]
 
-    $http({
-      url: 'https://migree.azurewebsites.net/competence',
-      method: 'GET'
-    }).then(function(response) {
-      $('.step').prev().hide();
-      $('.step').next().show();
-
-      $scope.competencies = response.data;
-    }, function() {
-
-    });
-    $scope.selectedSkillz = [];
-
+    var userId = null;
     var profileFile = null;
+
     $scope.getFile = function () {
       $scope.progress = 0;
       fileReader.readAsDataUrl($scope.file, $scope).then(function(result) {
@@ -76,6 +66,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         }, function() {
 
         });
+        userId = response.data.userId;
 
         fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
 
@@ -102,7 +93,25 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     }
 
     $scope.updateSkills = function() {
-      console.log($scope.competence);
+      var ids = $scope.competence.map(function(item) {
+        return item.id;
+      });
+
+      $http({
+        url: 'https://migree.azurewebsites.net/user/'+userId,
+        method: 'PUT',
+        data: {
+          userLocation: $scope.registration.city.value,
+          description: $scope.aboutText,
+          competenceIds: ids
+        }
+      }).then(function(response) {
+        console.log('Got OK when updating user: ', response);
+        $state.go('dashboard');
+
+      }, function(err) {
+        console.log('Got error when updating user: ', err);
+      });
     };
 
 }]);

@@ -18,11 +18,11 @@
 	<div class="step">
 		<label for="city" class="select">
 			<span class="title" ng-init="registration.city.label = 'Select city'" >{{registration.city.label}}</span>
-			<select ng-model="registration.city" id="city" ng-options="c as c.label for c in cities">
+			<select ng-model="registration.city" id="city" ng-options="c as c.label for c in cities track by c.value">
 			 	<option style="display:none" value="">select a city</option>
 			</select>
 		</label><br/>
-		
+
 		<div ng-repeat="comp in competence">
 			<label for="comp-{{$index}}" class="select">
 				<span class="title" ng-init="comp.name">{{comp.name}}</span>
@@ -32,8 +32,8 @@
 
 		</div>
 
+		<textarea ng-model="aboutText"/>
+
 		<button class="button red" ng-click="updateSkills()">Register</button><br/><br/>
 	</div>
-
-
 </div>
