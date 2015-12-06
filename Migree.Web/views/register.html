@@ -11,18 +11,29 @@
 			<input type="file" name="avatar" ng-model="profileImageSrc" file-select />
 		</div>
 
-		<button class="button red" ng-click="goToNext()">Continue</button>	<br/><br/>
+		<button class="button red" ng-click="goToNext()">Continue</button><br/><br/>
 		<a ui-sref="home" class="button">Back</a>
 	</div>
+
 	<div class="step">
 		<label for="city" class="select">
 			<span class="title" ng-init="registration.city.label = 'Select city'" >{{registration.city.label}}</span>
-			<select ng-model="registration.city" id="city" ng-options="c as c.label for c in cities">
+			<select ng-model="registration.city" id="city" ng-options="c as c.label for c in cities track by c.value">
 			 	<option style="display:none" value="">select a city</option>
 			</select>
 		</label><br/>
-		<button class="button red" ng-click="goToNext()">Register</button><br/><br/>
+
+		<div ng-repeat="comp in competence">
+			<label for="comp-{{$index}}" class="select">
+				<span class="title" ng-init="comp.name">{{comp.name}}</span>
+				<select ng-model="competence[$index]" id="comp-{{$index}}" ng-options="c.name for c in competencies track by c.id">
+				</select>
+			</label><br/>
+
+		</div>
+
+		<textarea ng-model="aboutText"/>
+
+		<button class="button red" ng-click="updateSkills()">Register</button><br/><br/>
 	</div>
-
-
 </div>
