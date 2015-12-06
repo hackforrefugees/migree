@@ -182,7 +182,7 @@
     <Compile Include="Models\LanguageDictionaryItem.cs" />
     <Compile Include="Models\Requests\UpdateUserRequest.cs" />
     <Compile Include="Models\Responses\IdAndNameResponse.cs" />
-    <Compile Include="Models\Responses\UserMatchResponse.cs" />
+    <Compile Include="Models\Responses\UserResponse.cs" />
     <Compile Include="Models\Responses\RegisterResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />

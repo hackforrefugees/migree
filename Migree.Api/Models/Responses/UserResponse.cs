@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Migree.Api.Models.Responses
 {
-    public class UserMatchResponse
+    public class UserResponse
     {
         [JsonProperty(PropertyName = "userId")]
         public Guid UserId { get; set; }
