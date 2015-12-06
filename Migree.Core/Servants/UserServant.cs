@@ -58,7 +58,7 @@ namespace Migree.Core.Servants
 
         public void UpdateUser(Guid userId, UserLocation userLocation, string description)
         {
-            var user = DataRepository.Get<User>(User.GetRowKey(userId));
+            var user = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(userId));
             user.UserLocation = userLocation;
             user.Description = description;
             DataRepository.AddOrUpdate(user);
@@ -107,11 +107,11 @@ namespace Migree.Core.Servants
 
         public async Task SendMessageToUserAsync(Guid fromUserId, Guid toUserId, string message)
         {
-            var fromUser = DataRepository.Get<User>(User.GetRowKey(fromUserId));
-            var toUser = DataRepository.Get<User>(User.GetRowKey(toUserId));
+            var fromUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(fromUserId));
+            var toUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(toUserId));
             var subject = $"You got a Migree-mail from {fromUser.FullName}";
-            var body = message + "\n\n" + $"Reply to this e-mail or send a mail directly to {fromUser.Email}, to get in touch with {fromUser.FullName}";
-            await MailServant.SendMailAsync(subject, message, toUser.Email, "no-reply@migree.se", fromUser.FullName, fromUser.Email);
+            message += "\n\n" + $"Reply to this e-mail or send a mail directly to {fromUser.Email}, to get in touch with {fromUser.FullName}";
+            await MailServant.SendMailAsync(subject, message, toUser.Email, "no-reply@migree.se", $"{fromUser.FullName} thru Migree" , fromUser.Email);
         }
     }
 }

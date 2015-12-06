@@ -21,6 +21,7 @@ namespace Migree.Core.Autofac
             Register<AzureTableRepository, IDataRepository>(builder);
             Register<AzureBlobRepository, IContentRepository>(builder);
             Register<PasswordServant, IPasswordServant>(builder);
+            Register<SendGridMailRepository, IMailRepository>(builder);
             Register<UserServant, IUserServant>(builder);
             Register<CompetenceServant, ICompetenceServant>(builder);
             base.Load(builder);

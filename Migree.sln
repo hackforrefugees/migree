@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Web", "Migree.Web\Migree.Web.csproj", "{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Api", "Migree.Api\Migree.Api.csproj", "{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git", "Git", "{EB2E23CA-E663-4BCB-B7D1-F65C54A180A1}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Core", "Migree.Core\Migree.Core.csproj", "{00CB8C5B-E367-422F-B619-4FF6BA7B8E01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Core.Test", "Migree.Core.Test\Migree.Core.Test.csproj", "{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.AddCompetences", "Migree.AddCompetences\Migree.AddCompetences.csproj", "{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Web", "Migree.Web\Migree.Web.csproj", "{9617A77C-6C89-4F35-888E-CF118B683B89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,14 @@ Global
 		{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{228F3FBA-2AC6-4E77-A6CF-F492D869E8C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1518DDD8-185C-4C78-9BBC-D91B414E4B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9617A77C-6C89-4F35-888E-CF118B683B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9617A77C-6C89-4F35-888E-CF118B683B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9617A77C-6C89-4F35-888E-CF118B683B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9617A77C-6C89-4F35-888E-CF118B683B89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

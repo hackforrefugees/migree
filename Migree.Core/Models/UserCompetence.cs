@@ -15,6 +15,9 @@ namespace Migree.Core.Models
             return userId.ToString();
         }
 
+        /// <summary>
+        /// Default, used by Azure
+        /// </summary>
         public UserCompetence() { }
 
         public UserCompetence(Guid userId, Guid competenceId)
