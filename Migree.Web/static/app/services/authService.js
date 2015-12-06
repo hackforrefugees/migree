@@ -6,7 +6,8 @@ migree.factory('authService', ['$http', '$q', 'localStorageService', function ($
 
     var _authentication = {
         isAuth: false,
-        userName : ""
+        userName: "",
+        userId: ""
     };
 
     var _saveRegistration = function (registration) {
@@ -26,8 +27,6 @@ migree.factory('authService', ['$http', '$q', 'localStorageService', function ($
         var deferred = $q.defer();
 
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-
-            console.log(response);
             localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, userId: response.userId });
 
             _authentication.isAuth = true;
