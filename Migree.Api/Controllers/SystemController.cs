@@ -7,15 +7,22 @@ namespace Migree.Api.Controllers.Api
 {
     [RoutePrefix("system")]
     public class SystemController : MigreeApiController
-    {        
+    {
         [HttpGet]
         [Route("language")]
         public virtual HttpResponseMessage Language()
         {
-            var dictionary = new LanguageDictionary();
-            dictionary.Add("login", new LanguageDictionaryItem { en = "Login", sv = "Logga in" });
-            dictionary.Add("password", new LanguageDictionaryItem { en = "Password", sv = "Lösenord" });
-            return CreateApiResponse(HttpStatusCode.OK, dictionary);
+            try
+            {
+                var dictionary = new LanguageDictionary();
+                dictionary.Add("login", new LanguageDictionaryItem { en = "Login", sv = "Logga in" });
+                dictionary.Add("password", new LanguageDictionaryItem { en = "Password", sv = "Lösenord" });
+                return CreateApiResponse(HttpStatusCode.OK, dictionary);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }
