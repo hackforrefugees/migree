@@ -13,7 +13,7 @@ migree.factory('authService', ['$http', '$q', 'localStorageService', function ($
 
         _logOut();
 
-        return $http.post(serviceBase + 'api/user/register', registration).then(function (response) {
+        return $http.post(serviceBase + 'user/register', registration).then(function (response) {
             return response;
         });
 
