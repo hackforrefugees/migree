@@ -5,22 +5,24 @@
 		<input type="text" placeholder="Email" ng-model="registration.email"  /><br/>
 		<input type="password" placeholder="Password" ng-model="registration.password" /><br/>
 		<input type="password" placeholder="Reenter Password" ng-model="registration.confirmPassword" /><br/>
-		<label for="city" class="select">
-			<span class="title" >{{label}}</span>
-			<select ng-model="registration.city" id="city" ng-options="c as c.label for c in cities" onchange="setLabel(c)">
-			</select>
-		</label><br/>
+
 		<div class="avatar-upload">
 			<i class="icon icon_image"></i>
-			<input type="file" name="avatar" file-upload-change handler="avatarUpload(params)" />
+			<input type="file" name="avatar" ng-src="{{imageSrc}}" file-select />
 		</div>
 
-		<button class="button red" ng-click="goToNext()">Continue</button>
+		<button class="button red" ng-click="goToNext()">Continue</button>	<br/><br/>
+		<a ui-sref="home" class="button">Back</a>
 	</div>
 	<div class="step">
-
-		<button class="button red" ng-click="goToNext()">Register</button>
+		<label for="city" class="select">
+			<span class="title" ng-init="registration.city.label = 'Select city'" >{{registration.city.label}}</span>
+			<select ng-model="registration.city" id="city" ng-options="c as c.label for c in cities">
+			 	<option style="display:none" value="">select a city</option>
+			</select>
+		</label><br/>
+		<button class="button red" ng-click="goToNext()">Register</button><br/><br/>
 	</div>
-	<br/>
-	<a ui-sref="home" class="button">Back</a>
+
+	
 </div>
