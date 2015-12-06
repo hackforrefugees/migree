@@ -58,9 +58,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('inbox', {
       url: '/inbox',
       templateUrl: '/views/inbox.html',
-      controller: function($scope) {
-        console.log('No separate controller');
-      }
+       controller: 'inboxController'
     })
     .state('matches', {
       url: '/matches',
