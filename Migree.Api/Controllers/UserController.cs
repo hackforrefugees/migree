@@ -1,6 +1,7 @@
 ﻿using Migree.Api.Models.Requests;
 using Migree.Api.Models.Responses;
 using Migree.Core.Interfaces;
+using Migree.Core.Interfaces.Models;
 using System;
 using System.Linq;
 using System.Net;
@@ -23,7 +24,7 @@ namespace Migree.Api.Controllers.Api
             UserServant = userServant;
             CompetenceServant = comptenceServant;
         }
-        
+
         [HttpGet, Route("{userId:guid}/competences")]
         public HttpResponseMessage GetUserCompetences(Guid userId)
         {
@@ -38,7 +39,7 @@ namespace Migree.Api.Controllers.Api
                 return CreateApiResponse(HttpStatusCode.InternalServerError);
             }
         }
-        
+
         [HttpPost, Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
         {
@@ -48,7 +49,7 @@ namespace Migree.Api.Controllers.Api
                     string.IsNullOrEmpty(request.Email) ||
                     string.IsNullOrEmpty(request.Password) ||
                     string.IsNullOrEmpty(request.FirstName) ||
-                    string.IsNullOrEmpty(request.LastName) 
+                    string.IsNullOrEmpty(request.LastName)
                     )
                 {
                     return CreateApiResponse(HttpStatusCode.BadRequest);
@@ -69,18 +70,7 @@ namespace Migree.Api.Controllers.Api
             try
             {
                 var user = UserServant.GetUser(userId);
-
-                var response = new UserResponse
-                {
-                    UserId = user.Id,
-                    FullName = $"{user.FirstName} {user.LastName}",
-                    Description = user.Description,
-                    UserLocation = user.UserLocation.ToDescription(),
-                    ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id),
-                    Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
-                };
-
-                return CreateApiResponse(HttpStatusCode.OK, response);
+                return CreateApiResponse(HttpStatusCode.OK, GetUserResponse(user));
             }
             catch
             {
@@ -123,15 +113,7 @@ namespace Migree.Api.Controllers.Api
                 }
 
                 var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);
-
-                var users = matchedUsers.Select(user => new UserResponse
-                {
-                    UserId = user.Id,
-                    FullName = $"{user.FirstName} {user.LastName}",
-                    Description = user.Description,
-                    UserLocation = user.UserLocation.ToDescription(),
-                    Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
-                }).ToList();
+                var users = matchedUsers.Select(user => GetUserResponse(user)).ToList();
 
                 return CreateApiResponse(HttpStatusCode.OK, users);
             }
@@ -178,6 +160,21 @@ namespace Migree.Api.Controllers.Api
             {
                 return CreateApiResponse(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private UserResponse GetUserResponse(IUser user)
+        {
+            var response = new UserResponse
+            {
+                UserId = user.Id,
+                FullName = $"{user.FirstName} {user.LastName}",
+                Description = user.Description,
+                UserLocation = user.UserLocation.ToDescription(),
+                ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id),
+                Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+            };
+
+            return response;
         }
     }
 }
