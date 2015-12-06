@@ -1,11 +1,7 @@
 ﻿using Microsoft.Owin.Security.OAuth;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -17,7 +13,7 @@ namespace Migree.Web.Providers
 
         public AuthorizationServerProvider()
         {
-            UserServant = DependencyResolver.Current.GetService<IUserServant>();  
+            UserServant = DependencyResolver.Current.GetService<IUserServant>();
         }
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
@@ -45,9 +41,6 @@ namespace Migree.Web.Providers
                 context.SetError("invalid_grant", "General error");
                 return;
             }
-            
-            
-
         }
     }
 }

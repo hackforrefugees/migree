@@ -5,7 +5,7 @@ using System.Web.Http;
 
 namespace Migree.Web.Controllers.Api
 {
-    [RoutePrefix("api/system")]
+    [RoutePrefix("system")]
     public class SystemController : MigreeApiController
     {        
         [HttpGet]
@@ -13,8 +13,8 @@ namespace Migree.Web.Controllers.Api
         public virtual HttpResponseMessage Language()
         {
             var dictionary = new LanguageDictionary();
-            dictionary.Add("login", new DictionaryItem { en = "Login", sv = "Logga in" });
-            dictionary.Add("password", new DictionaryItem { en = "Password", sv = "Lösenord" });
+            dictionary.Add("login", new LanguageDictionaryItem { en = "Login", sv = "Logga in" });
+            dictionary.Add("password", new LanguageDictionaryItem { en = "Password", sv = "Lösenord" });
             return CreateApiResponse(HttpStatusCode.OK, dictionary);
         }
     }

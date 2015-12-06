@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Migree.Web.Controllers.Api
 {
-    [RoutePrefix("api/user")]
+    [RoutePrefix("user")]
     public class UserController : MigreeApiController
     {
         private const int NUMBER_OF_MATCHES_TO_TAKE = 50;

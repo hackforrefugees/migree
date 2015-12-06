@@ -4,7 +4,7 @@ namespace Migree.Web.Models.Requests
 {
     public class AddCompetenceRequest
     {
-        [JsonProperty(PropertyName = "competence")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
     }
 }
