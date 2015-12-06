@@ -13,35 +13,37 @@ namespace Migree.AddCompetences
     {
         static void Main(string[] args)
         {
-            ///////"Java"
-            //"C"
-            //"C++"
-            //"Python"
-            //"C#"
-            //"PHP"
-            //"Visual Basic.NET"
-            //"JavaScript"
-            //"Perl"
-            //"Ruby"
-            //"Assembly language"
-            //"Visual Basic"
-            //"Delphi / Object Pascal"
-            //"Swift"
-            //"Objective - C"
-            //"MATLAB"
-            //"Pascal"
-            //"R"
-            //"PL / SQL"
-            //"COBOL"
+            var competences = new List<string>();
 
+            //Initial set of competences to add to the DB.
+            competences.Add("C");
+            competences.Add("Python");
+            competences.Add("Visual Basic.NET");
+            competences.Add("Perl");
+            competences.Add("Ruby");
+            competences.Add("Assembly language");
+            competences.Add("Visual Basic");
+            competences.Add("Delphi / Object Pascal");
+            competences.Add("Swift");
+            competences.Add("Objective - C");
+            competences.Add("MATLAB");
+            competences.Add("Pascal");
+            competences.Add("R");
+            competences.Add("SQL");
+            competences.Add("COBOL");
+
+            //Note - We're not checking to see if the competence already exists in the DB!
             using (var client = new WebClient())
             {
-                var values = new NameValueCollection();
-                values["name"] = "Java";
+                foreach (var competence in competences)
+                {
+                    var values = new NameValueCollection();
+                    values["name"] = competence;
 
-                var response = client.UploadValues("http://localhost:50402/api/user/competences", values);
+                    var response = client.UploadValues("https://migree.azurewebsites.net/api/competence", values);
 
-                var responseString = Encoding.Default.GetString(response);
+                    var responseString = Encoding.Default.GetString(response);
+                }
             }
         }
     }
