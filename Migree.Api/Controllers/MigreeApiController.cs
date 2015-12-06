@@ -7,7 +7,7 @@ namespace Migree.Api.Controllers.Api
 {
     public abstract class MigreeApiController : ApiController
     {
-        protected virtual HttpResponseMessage CreateApiResponse(HttpStatusCode statusCode, object content = null, Uri locationUrl = null)
+        protected HttpResponseMessage CreateApiResponse(HttpStatusCode statusCode, object content = null, Uri locationUrl = null)
         {
             var response = ControllerContext.Request.CreateResponse(statusCode, content);
 

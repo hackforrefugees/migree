@@ -68,6 +68,54 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="bower.json" />
+    <Content Include="package.json" />
+    <Content Include="static\ajax\login.json" />
+    <Content Include="static\fonts\ElegantIcons.eot" />
+    <Content Include="static\fonts\ElegantIcons.ttf" />
+    <Content Include="static\fonts\ElegantIcons.woff" />
+    <Content Include="static\less\components\buttons.less" />
+    <Content Include="static\less\components\footer.less" />
+    <Content Include="static\less\components\header.less" />
+    <Content Include="static\less\components\icons.less" />
+    <Content Include="static\less\components\input.less" />
+    <Content Include="static\less\components\scaffolding.less" />
+    <Content Include="static\less\components\vars.less" />
+    <Content Include="static\less\main.less" />
+    <Content Include="static\less\views\profile.less" />
+    <Content Include="static\less\views\register.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="gruntfile.js" />
+    <Content Include="server.js" />
+    <Content Include="static\app\app.js" />
+    <Content Include="static\app\controllers\dashboardController.js" />
+    <Content Include="static\app\controllers\forgotController.js" />
+    <Content Include="static\app\controllers\loginController.js" />
+    <Content Include="static\app\controllers\registerController.js" />
+    <Content Include="static\app\controllers\signupController.js" />
+    <Content Include="static\app\controllers\startController.js" />
+    <Content Include="static\app\directives\fileSelect.js" />
+    <Content Include="static\app\directives\fileUploadChange.js" />
+    <Content Include="static\app\services\authInterceptorService.js" />
+    <Content Include="static\app\services\authService.js" />
+    <Content Include="static\css\main.css" />
+    <Content Include="static\fonts\ElegantIcons.svg" />
+    <Content Include="static\vendor\angular-build.js" />
+    <Content Include="static\vendor\angular-local-storage.min.js" />
+    <Content Include="static\vendor\draggabilly.pkgd.min.js" />
+    <Content Include="static\vendor\elastiStack.js" />
+    <Content Include="static\vendor\modernizr.custom.js" />
+    <Content Include="views\404.html" />
+    <Content Include="views\dashboard.html" />
+    <Content Include="views\forgot.html" />
+    <Content Include="views\login.html" />
+    <Content Include="views\register.html" />
+    <Content Include="views\start.html" />
+    <Content Include="views\_shared\header.html" />
+    <Content Include="views\_shared\Master.html" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

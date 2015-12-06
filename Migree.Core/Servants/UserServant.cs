@@ -41,6 +41,12 @@ namespace Migree.Core.Servants
             return user;
         }
 
+        public IUser GetUser(Guid userId)
+        {
+            var user = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(userId));
+            return user;            
+        }
+
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
         {
             email = email.ToLower();

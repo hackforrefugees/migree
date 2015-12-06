@@ -18,5 +18,6 @@ app.get('*', function (req, res) {
 
 });
 
-app.listen('3000');
-console.log('Server started on: localhost:3000');
+var port = process.env.PORT || 3000
+app.listen(port);
+console.log('Server started on: localhost:' + port);

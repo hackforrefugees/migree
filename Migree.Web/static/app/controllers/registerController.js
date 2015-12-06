@@ -1,5 +1,6 @@
 'use strict';
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
+migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService',
+  function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService) {
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
@@ -20,13 +21,24 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     { value: '3', label: 'Malmo' }
     ];
 
+    var profileFile = null;
     $scope.getFile = function () {
       $scope.progress = 0;
-      var fileReader = new FileReader();
-      var file = fileReader.readAsDataUrl($scope.file);
-      $scope.imageSrc = file;
-    };
+      fileReader.readAsDataUrl($scope.file, $scope).then(function(result) {
+        profileFile = $scope.file;
 
+        /* TODO: scale
+        var canvas = document.createElement('canvas');
+        var w = 100, h = 100;
+        canvas.width = w;
+        canvas.height = h;
+        var ctx = canvas.getContext('2d').putImageData(result, 0, 0);
+        ctx.drawImage(result, 0, 0, w, h);
+        $scope.imageSrc = canvas.toDataUrl('image/jpeg');
+        */
+        $scope.profileImageSrc = result;
+      });
+    };
 
     $scope.goToNext = function(){
       authService.saveRegistration($scope.registration).then(function (response) {
@@ -34,6 +46,12 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
             $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
             $('.step').prev().hide();
             $('.step').next().show();
+            fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
+
+            }, function(err) {
+
+            });
+
         },
          function (response) {
              var errors = [];

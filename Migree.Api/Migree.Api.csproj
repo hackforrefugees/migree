@@ -182,7 +182,7 @@
     <Compile Include="Models\LanguageDictionaryItem.cs" />
     <Compile Include="Models\Requests\UpdateUserRequest.cs" />
     <Compile Include="Models\Responses\IdAndNameResponse.cs" />
-    <Compile Include="Models\Responses\UserMatchResponse.cs" />
+    <Compile Include="Models\Responses\UserResponse.cs" />
     <Compile Include="Models\Responses\RegisterResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
@@ -197,9 +197,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Filters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Migree.Core\Migree.Core.csproj">
       <Project>{00cb8c5b-e367-422f-b619-4ff6ba7b8e01}</Project>

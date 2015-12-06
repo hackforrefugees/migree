@@ -1,8 +1,7 @@
-﻿using Migree.Core.Interfaces;
-using Migree.Api.Models.Requests;
+﻿using Migree.Api.Models.Requests;
 using Migree.Api.Models.Responses;
+using Migree.Core.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -24,9 +23,8 @@ namespace Migree.Api.Controllers.Api
             UserServant = userServant;
             CompetenceServant = comptenceServant;
         }
-
-        [HttpGet]
-        [Route("{userId:guid}/competences")]
+        
+        [HttpGet, Route("{userId:guid}/competences")]
         public HttpResponseMessage GetUserCompetences(Guid userId)
         {
             try
@@ -40,9 +38,8 @@ namespace Migree.Api.Controllers.Api
                 return CreateApiResponse(HttpStatusCode.InternalServerError);
             }
         }
-
-        [HttpPost]
-        [Route("register")]
+        
+        [HttpPost, Route("register")]
         public HttpResponseMessage Register(RegisterRequest request)
         {
             try
@@ -66,7 +63,31 @@ namespace Migree.Api.Controllers.Api
             }
         }
 
-        [HttpPost, Route("{userId:guid}/upload", Name = "userimageupload")]
+        [HttpGet, Route("{userId:guid}")]
+        public HttpResponseMessage GetUser(Guid userId)
+        {
+            try
+            {
+                var user = UserServant.GetUser(userId);
+
+                var response = new UserResponse
+                {
+                    UserId = user.Id,
+                    FullName = $"{user.FirstName} {user.LastName}",
+                    Description = user.Description,
+                    UserLocation = user.UserLocation.ToDescription(),
+                    Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+                };
+
+                return CreateApiResponse(HttpStatusCode.OK, response);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpPost, Route("{userId:guid}/upload")]
         public async Task<HttpResponseMessage> UploadProfileImage(Guid userId)
         {
             try
@@ -102,7 +123,7 @@ namespace Migree.Api.Controllers.Api
 
                 var matchedUsers = CompetenceServant.GetMatches(userId, request.CompetenceIds, NUMBER_OF_MATCHES_TO_TAKE);
 
-                var users = matchedUsers.Select(user => new UserMatchResponse
+                var users = matchedUsers.Select(user => new UserResponse
                 {
                     UserId = user.Id,
                     FullName = $"{user.FirstName} {user.LastName}",
