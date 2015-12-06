@@ -18,18 +18,18 @@ namespace Migree.Core.Repositories
             var mailMessage = new SendGridMessage();
             mailMessage.AddTo(mailTo);
             mailMessage.From = new MailAddress(mailFrom, fromName);
-            mailMessage.Subject = subject;
-            mailMessage.Html = message;
+            mailMessage.Subject = subject;            
+            mailMessage.Text = message;            
 
-            if (string.IsNullOrWhiteSpace( replyTo ))
+            if (!string.IsNullOrWhiteSpace(replyTo))
             {
                 mailMessage.ReplyTo = new List<MailAddress> { new MailAddress(replyTo, fromName) }.ToArray();
-            }            
+            }
 
             var transportREST = new Web(SettingsServant.SendGridCredentials);
             await transportREST.DeliverAsync(mailMessage);
         }
     }
 
-   
+
 }

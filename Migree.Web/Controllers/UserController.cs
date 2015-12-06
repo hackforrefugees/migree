@@ -95,12 +95,20 @@ namespace Migree.Web.Controllers.Api
 
             return CreateApiResponse(HttpStatusCode.OK, users);
         }
+
         [HttpPut, Route("{userId:guid}")]
         public HttpResponseMessage Update(Guid userId, UpdateUserRequest request)
         {
             UserServant.UpdateUser(userId, request.UserLocation, request.Description);
             UserServant.AddCompetencesToUser(userId, request.CompetenceIds);
             return CreateApiResponse(HttpStatusCode.NoContent);
+        }
+
+        [HttpPost, Route("{userId:guid}/message")]
+        public async Task<HttpResponseMessage> PostMessage(Guid userId, PostMessageRequest request)
+        {
+            await UserServant.SendMessageToUserAsync(userId, request.ReceiverUserId, request.Message);
+            return CreateApiResponse(HttpStatusCode.Accepted);
         }
     }
 }
