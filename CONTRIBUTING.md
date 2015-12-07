@@ -1,0 +1,1 @@
+We need people that can get the app out to the refugees when they arrive. Also to spread the word among developer communities all over the world. Marketing strategies to get the app out in the public.
