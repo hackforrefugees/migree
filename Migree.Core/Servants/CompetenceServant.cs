@@ -1,4 +1,5 @@
-﻿using Migree.Core.Interfaces;
+﻿using Migree.Core.Definitions;
+using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
 using System;
@@ -16,12 +17,12 @@ namespace Migree.Core.Servants
         }
         public ICollection<ICompetence> GetCompetences()
         {
-            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey()));
+            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(ProfessionGroup.Developers)));
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
         public Guid AddCompetence(string name)
         {
-            var competence = new Competence
+            var competence = new Competence(Definitions.ProfessionGroup.Developers)
             {
                 Name = name
             };

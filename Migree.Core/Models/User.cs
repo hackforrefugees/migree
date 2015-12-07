@@ -9,7 +9,7 @@ namespace Migree.Core.Models
     {
         public static string GetPartitionKey(UserType userType)
         {
-            return userType.ToString().ToLower();
+            return ((int)userType).ToString();
         }
 
         public static string GetRowKey(Guid userId)

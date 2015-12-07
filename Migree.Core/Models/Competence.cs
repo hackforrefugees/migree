@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
+using Migree.Core.Definitions;
 using Migree.Core.Interfaces.Models;
 using System;
 
@@ -6,9 +7,9 @@ namespace Migree.Core.Models
 {
     public class Competence : StorageModel, ICompetence
     {
-        public static string GetPartitionKey()
+        public static string GetPartitionKey(ProfessionGroup professionGroup)
         {
-            return "systemdevelopers";
+            return ((int)professionGroup).ToString();
         }
 
         public static string GetRowKey(Guid competenceId)
@@ -19,10 +20,12 @@ namespace Migree.Core.Models
         /// <summary>
         /// Default, used by Azure
         /// </summary>
-        public Competence()
+        public Competence() { }
+        
+        public Competence(ProfessionGroup professionGroup)
         {
             RowKey = Guid.NewGuid().ToString();
-            PartitionKey = GetPartitionKey();
+            PartitionKey = GetPartitionKey(professionGroup);
         }
 
         [IgnoreProperty]
