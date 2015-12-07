@@ -34,7 +34,7 @@ namespace Migree.Core.Servants
         {
             var userToMatch = DataRepository.GetAllByRowKey<User>(User.GetRowKey(userToMatchId)).First();
             var matchedUsers = new Dictionary<Guid, MatchedUser>();
-            var users = DataRepository.GetAll<User>();            
+            var users = DataRepository.GetAll<User>();
             int competenceCount = 1;
 
             foreach (var competenceId in competenceIds)
@@ -47,7 +47,8 @@ namespace Migree.Core.Servants
                     {
                         var user = users.FirstOrDefault(p => p.Id.Equals(userWithCompetence.UserId));
 
-                        if (user == null || user.Id.Equals(userToMatchId))
+                        //ignore user self and all users within the same usertype
+                        if (user == null || user.Id.Equals(userToMatchId) || user.UserType.Equals(userToMatch.UserType))
                         {
                             continue;
                         }
