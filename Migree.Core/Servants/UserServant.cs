@@ -118,6 +118,14 @@ namespace Migree.Core.Servants
             var subject = $"You got a Migree-mail from {fromUser.FullName}";
             message += "\n\n" + $"Reply to this e-mail or send a mail directly to {fromUser.Email}, to get in touch with {fromUser.FullName}";
             await MailServant.SendMailAsync(subject, message, toUser.Email, "no-reply@migree.se", $"{fromUser.FullName} thru Migree" , fromUser.Email);
+
+            var messageLog = new Message(fromUserId)
+            {
+                Content = message,
+                ReceiverUserId = toUserId
+            };
+
+            DataRepository.AddOrUpdate(messageLog);
         }
 
         public string GetProfileImageUrl(Guid userId)
