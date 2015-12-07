@@ -114,6 +114,7 @@
     <Compile Include="Models\IdAndName.cs" />
     <Compile Include="Models\MatchedUser.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageThread.cs" />
     <Compile Include="Models\StorageModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCompetence.cs" />

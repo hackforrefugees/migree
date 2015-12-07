@@ -5,14 +5,14 @@ namespace Migree.Core.Models
 {
     public class Message : StorageModel
     {
-        public static string GetPartitionKey(Guid senderUserId)
+        public static string GetPartitionKey(Guid userId1, Guid userId2)
         {
-            return senderUserId.ToString();
+            return MessageThread.GetRowKey(userId1, userId2);
         }
 
-        public static string GetRowKey(Guid id)
+        public static string GetRowKey(Guid messageId)
         {
-            return id.ToString();            
+            return messageId.ToString();
         }
 
         /// <summary>
@@ -20,11 +20,10 @@ namespace Migree.Core.Models
         /// </summary>
         public Message() { }
 
-        public Message(Guid senderUserId)
+        public Message(Guid creatorUserId, Guid receiverUserId)
         {
             RowKey = Guid.NewGuid().ToString();
-            PartitionKey = senderUserId.ToString();
-            Sent = DateTime.UtcNow.Ticks;            
+            PartitionKey = GetPartitionKey(creatorUserId, receiverUserId);            
         }
 
         [IgnoreProperty]
@@ -36,19 +35,8 @@ namespace Migree.Core.Models
             }
         }
 
-        [IgnoreProperty]
-        public Guid SenderUserId
-        {
-            get
-            {
-                return new Guid(PartitionKey);
-            }
-        }
-
-        public Guid ReceiverUserId { get; set; }
-
         public string Content { get; set; }
 
-        public long Sent { get; set; }
+        public long Created { get; set; }
     }
 }

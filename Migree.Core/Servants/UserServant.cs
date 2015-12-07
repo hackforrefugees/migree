@@ -18,7 +18,7 @@ namespace Migree.Core.Servants
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
         private ICompetenceServant CompetenceServant { get; }
-        private IMailRepository MailServant { get; }        
+        private IMailRepository MailServant { get; }
         public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
@@ -44,7 +44,7 @@ namespace Migree.Core.Servants
         public IUser GetUser(Guid userId)
         {
             var user = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(userId));
-            return user;            
+            return user;
         }
 
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
@@ -111,26 +111,47 @@ namespace Migree.Core.Servants
             }
         }
 
-        public async Task SendMessageToUserAsync(Guid fromUserId, Guid toUserId, string message)
+        public async Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message)
         {
-            var fromUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(fromUserId));
-            var toUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(toUserId));
-            var subject = $"You got a Migree-mail from {fromUser.FullName}";
-            message += "\n\n" + $"Reply to this e-mail or send a mail directly to {fromUser.Email}, to get in touch with {fromUser.FullName}";
-            await MailServant.SendMailAsync(subject, message, toUser.Email, "no-reply@migree.se", $"{fromUser.FullName} thru Migree" , fromUser.Email);
+            AddMessage(creatorUserId, receiverUserId, message);
 
-            var messageLog = new Message(fromUserId)
-            {
-                Content = message,
-                ReceiverUserId = toUserId
-            };
-
-            DataRepository.AddOrUpdate(messageLog);
+            var creatorUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(creatorUserId));
+            var receiverUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(receiverUserId));
+            var subject = $"You got a Migree-mail from {creatorUser.FullName}";
+            message += "\n\n" + $"Reply to this e-mail or send a mail directly to {creatorUser.Email}, to get in touch with {creatorUser.FullName}";
+            await MailServant.SendMailAsync(subject, message, receiverUser.Email, "no-reply@migree.se", $"{creatorUser.FullName} thru Migree", creatorUser.Email);
         }
 
         public string GetProfileImageUrl(Guid userId)
         {
             return ContentRepository.GetImageUrl(userId, ImageType.Profile);
+        }
+
+        private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
+        {
+            var messageThread = DataRepository.GetFirstOrDefault<MessageThread>(
+                MessageThread.GetPartitionKey(creatorUserId, receiverUserId),
+                MessageThread.GetRowKey(creatorUserId, receiverUserId));
+
+            var messageTimestamp = DateTime.UtcNow.Ticks;
+
+            if (messageThread == null)
+            {
+                messageThread = new MessageThread(creatorUserId, receiverUserId);
+                messageThread.LatestReadUser1 = messageThread.UserId1.Equals(creatorUserId) ? messageTimestamp : 0;
+                messageThread.LatestReadUser2 = messageThread.UserId2.Equals(creatorUserId) ? messageTimestamp : 0;
+            }
+
+            var message = new Message(creatorUserId, receiverUserId)
+            {
+                Content = content,
+                Created = messageTimestamp
+            };
+
+            messageThread.LatestMessageCreated = messageTimestamp;
+
+            DataRepository.AddOrUpdate(message);
+            DataRepository.AddOrUpdate(messageThread);            
         }
     }
 }
