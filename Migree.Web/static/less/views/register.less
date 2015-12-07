@@ -1,0 +1,40 @@
+.step{
+	display: none;
+
+	textarea{
+		display: block;
+	    clear: both;
+	    width: 100%;
+	    position: relative;
+
+	    margin: 40px 0;
+	    background: #333;
+	    border: none;
+	    height: 100px;
+	}
+
+	&.active{
+		display: block;
+	}
+
+	.avatar-upload{
+		background: #eee;
+		width: 100px;
+		height: 100px;
+		position: relative;
+		border-radius: 100px;
+		overflow: hidden;
+		margin: 20px auto;
+		line-height: 100px;
+		font-size: 30px;
+
+		input{
+			opacity: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+	}
+}
