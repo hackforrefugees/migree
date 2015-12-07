@@ -173,7 +173,7 @@
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\MigreeApiController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Models\Requests\AddCompetenceRequest.cs" />
+    <Compile Include="Models\Requests\AddCompetencesRequest.cs" />
     <Compile Include="Models\Requests\PostMessageRequest.cs" />
     <Compile Include="Models\Requests\RegisterRequest.cs" />
     <Compile Include="Models\Requests\LoginRequest.cs" />

@@ -1,4 +1,5 @@
-﻿using Migree.Core.Interfaces;
+﻿using Migree.Core.Definitions;
+using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
 using System;
@@ -16,12 +17,12 @@ namespace Migree.Core.Servants
         }
         public ICollection<ICompetence> GetCompetences()
         {
-            var competences = DataRepository.GetAll<Competence>(Competence.GetPartitionKey());
+            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(ProfessionGroup.Developers)));
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
         public Guid AddCompetence(string name)
         {
-            var competence = new Competence
+            var competence = new Competence(Definitions.ProfessionGroup.Developers)
             {
                 Name = name
             };
@@ -32,14 +33,14 @@ namespace Migree.Core.Servants
         }
         public ICollection<IUser> GetMatches(Guid userToMatchId, ICollection<Guid> competenceIds, int take)
         {
-            var userToMatch = DataRepository.GetAllByRowKey<User>(User.GetRowKey(userToMatchId)).First();
+            var userToMatch = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userToMatchId))).First();
             var matchedUsers = new Dictionary<Guid, MatchedUser>();
-            var users = DataRepository.GetAll<User>();            
+            var users = DataRepository.GetAll<User>();
             int competenceCount = 1;
 
             foreach (var competenceId in competenceIds)
             {
-                var usersWithCompetence = DataRepository.GetAll<UserCompetence>(UserCompetence.GetPartitionKey(competenceId));
+                var usersWithCompetence = DataRepository.GetAll<UserCompetence>(p => p.PartitionKey.Equals(UserCompetence.GetPartitionKey(competenceId)));
 
                 foreach (var userWithCompetence in usersWithCompetence)
                 {
@@ -47,7 +48,8 @@ namespace Migree.Core.Servants
                     {
                         var user = users.FirstOrDefault(p => p.Id.Equals(userWithCompetence.UserId));
 
-                        if (user == null || user.Id.Equals(userToMatchId))
+                        //ignore user self and all users within the same usertype
+                        if (user == null || user.Id.Equals(userToMatchId) || user.UserType.Equals(userToMatch.UserType))
                         {
                             continue;
                         }

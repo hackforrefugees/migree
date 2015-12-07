@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="Autofac\CoreRegistrationModule.cs" />
     <Compile Include="Definitions\ApplicationType.cs" />
+    <Compile Include="Definitions\ProfessionGroup.cs" />
     <Compile Include="Definitions\UserLocation.cs" />
     <Compile Include="Definitions\ImageType.cs" />
     <Compile Include="Definitions\UserType.cs" />
@@ -113,6 +114,8 @@
     <Compile Include="Models\Competence.cs" />
     <Compile Include="Models\IdAndName.cs" />
     <Compile Include="Models\MatchedUser.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageThread.cs" />
     <Compile Include="Models\StorageModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCompetence.cs" />

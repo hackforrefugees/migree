@@ -40,7 +40,7 @@ namespace Migree.AddCompetences
                     var values = new NameValueCollection();
                     values["name"] = competence;
 
-                    var response = client.UploadValues("https://migree.azurewebsites.net/api/competence", values);
+                    var response = client.UploadValues("http://localhost:50402/competence", values);
 
                     var responseString = Encoding.Default.GetString(response);
                 }
