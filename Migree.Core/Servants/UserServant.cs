@@ -50,6 +50,12 @@ namespace Migree.Core.Servants
         public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
         {
             email = email.ToLower();
+
+            if (DataRepository.GetAll<User>().Any(p => p.Email.Equals(email)))
+            {
+                throw new ValidationException("e-mail already exists");
+            }
+
             var user = new User(userType);
             user.Email = email;
             user.Password = PasswordServant.CreateHash(password);
@@ -71,7 +77,7 @@ namespace Migree.Core.Servants
         }
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
-        {            
+        {
             var oldCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
 
             foreach (var oldCompetence in oldCompetences)
@@ -114,7 +120,7 @@ namespace Migree.Core.Servants
         {
             AddMessage(creatorUserId, receiverUserId, message);
 
-            var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault(); 
+            var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault();
             var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
             var subject = $"You got a Migree-mail from {creatorUser.FullName}";
             message += "\n\n" + $"Reply to this e-mail or send a mail directly to {creatorUser.Email}, to get in touch with {creatorUser.FullName}";
@@ -124,7 +130,7 @@ namespace Migree.Core.Servants
         public string GetProfileImageUrl(Guid userId)
         {
             return ContentRepository.GetImageUrl(userId, ImageType.Profile);
-        }        
+        }
 
         private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
         {
@@ -150,7 +156,7 @@ namespace Migree.Core.Servants
             messageThread.LatestMessageCreated = messageTimestamp;
 
             DataRepository.AddOrUpdate(message);
-            DataRepository.AddOrUpdate(messageThread);            
-        }        
+            DataRepository.AddOrUpdate(messageThread);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Migree.Api.Models.Requests;
 using Migree.Api.Models.Responses;
+using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using System;
@@ -57,6 +58,10 @@ namespace Migree.Api.Controllers.Api
 
                 var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
                 return CreateApiResponse(HttpStatusCode.OK, new RegisterResponse { UserId = user.Id });
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.Conflict);
             }
             catch
             {
