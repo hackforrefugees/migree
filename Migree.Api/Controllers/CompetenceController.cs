@@ -34,16 +34,18 @@ namespace Migree.Api.Controllers.Api
         }
         
         [HttpPost, Route("")]
-        public HttpResponseMessage AddCompetence(AddCompetenceRequest request)
+        public HttpResponseMessage AddCompetence(AddCompetencesRequest request)
         {
             try
             {
-                if (string.IsNullOrEmpty(request.Name))
+                foreach (var competence in request.Competences)
                 {
-                    return CreateApiResponse(HttpStatusCode.BadRequest);
+                    if (!string.IsNullOrWhiteSpace(competence))
+                    {
+                        CompetenceServant.AddCompetence(competence);
+                    }
                 }
-
-                CompetenceServant.AddCompetence(request.Name);
+                                
                 return CreateApiResponse(HttpStatusCode.NoContent);
             }
             catch
