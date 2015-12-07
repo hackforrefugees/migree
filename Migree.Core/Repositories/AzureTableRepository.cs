@@ -6,6 +6,7 @@ using Migree.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Migree.Core.Repositories
 {
@@ -17,40 +18,18 @@ namespace Migree.Core.Repositories
             SettingsServant = settingsServant;
         }
 
-        public ICollection<Model> GetAll<Model>(string partitionKey)
-            where Model : StorageModel, new()
-        {
-            try
-            {
-                var queryableResult = GetTableReference<Model>().CreateQuery<Model>().Where(p => p.PartitionKey.Equals(partitionKey));
-                return queryableResult.ToList();
-            }
-            catch
-            {
-                throw new DataModelException("Get all failed");
-            }
-        }
-
-        public ICollection<Model> GetAll<Model>()
+        public ICollection<Model> GetAll<Model>(Expression<Func<Model, bool>> where = null)
             where Model : StorageModel, new()
         {
             try
             {
                 var queryableResult = GetTableReference<Model>().CreateQuery<Model>();
-                return queryableResult.ToList();
-            }
-            catch
-            {
-                throw new DataModelException("Get all failed");
-            }
-        }
-        
-        public ICollection<Model> GetAllByRowKey<Model>(string rowKey)
-            where Model : StorageModel, new()
-        {
-            try
-            {
-                var queryableResult = GetTableReference<Model>().CreateQuery<Model>().Where(p => p.RowKey.Equals(rowKey));
+
+                if (where != null)
+                {
+                    return queryableResult.Where(where).ToList();
+                }
+
                 return queryableResult.ToList();
             }
             catch
@@ -82,30 +61,16 @@ namespace Migree.Core.Repositories
         {
             try
             {
-                var queryableResult = GetTableReference<Model>().CreateQuery<Model>()
-                .Where(p => p.PartitionKey.Equals(partitionKey) && p.RowKey.Equals(rowKey));
+                var queryableResult = GetTableReference<Model>()
+                    .CreateQuery<Model>()
+                    .Where(p => p.PartitionKey.Equals(partitionKey) && p.RowKey.Equals(rowKey));
                 return queryableResult.FirstOrDefault();
             }
             catch
             {
                 throw new DataModelException("Get failed");
             }
-        }
-
-        public Model GetFirstOrDefaultByRowKey<Model>(string rowKey)
-             where Model : StorageModel, new()
-        {
-            try
-            {
-                var queryableResult = GetTableReference<Model>().CreateQuery<Model>()
-                .Where(p => p.RowKey.Equals(rowKey));
-                return queryableResult.FirstOrDefault();
-            }
-            catch
-            {
-                throw new DataModelException("Get failed");
-            }
-        }
+        }        
 
         public void AddOrUpdate<Model>(Model model)
             where Model : StorageModel, new()

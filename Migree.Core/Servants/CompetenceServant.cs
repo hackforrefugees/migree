@@ -16,7 +16,7 @@ namespace Migree.Core.Servants
         }
         public ICollection<ICompetence> GetCompetences()
         {
-            var competences = DataRepository.GetAll<Competence>(Competence.GetPartitionKey());
+            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey()));
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
         public Guid AddCompetence(string name)
@@ -32,14 +32,14 @@ namespace Migree.Core.Servants
         }
         public ICollection<IUser> GetMatches(Guid userToMatchId, ICollection<Guid> competenceIds, int take)
         {
-            var userToMatch = DataRepository.GetAllByRowKey<User>(User.GetRowKey(userToMatchId)).First();
+            var userToMatch = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userToMatchId))).First();
             var matchedUsers = new Dictionary<Guid, MatchedUser>();
             var users = DataRepository.GetAll<User>();
             int competenceCount = 1;
 
             foreach (var competenceId in competenceIds)
             {
-                var usersWithCompetence = DataRepository.GetAll<UserCompetence>(UserCompetence.GetPartitionKey(competenceId));
+                var usersWithCompetence = DataRepository.GetAll<UserCompetence>(p => p.PartitionKey.Equals(UserCompetence.GetPartitionKey(competenceId)));
 
                 foreach (var userWithCompetence in usersWithCompetence)
                 {

@@ -43,7 +43,7 @@ namespace Migree.Core.Servants
 
         public IUser GetUser(Guid userId)
         {
-            var user = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(userId));
+            var user = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userId))).FirstOrDefault();
             return user;
         }
 
@@ -56,7 +56,7 @@ namespace Migree.Core.Servants
             user.FirstName = firstName;
             user.LastName = lastName;
             user.UserType = userType;
-            user.UserLocation = UserLocation.None;
+            user.UserLocation = UserLocation.Unspecified;
             user.Description = string.Empty;
             DataRepository.AddOrUpdate(user);
             return user;
@@ -64,16 +64,15 @@ namespace Migree.Core.Servants
 
         public void UpdateUser(Guid userId, UserLocation userLocation, string description)
         {
-            var user = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(userId));
+            var user = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userId))).FirstOrDefault();
             user.UserLocation = userLocation;
             user.Description = description;
             DataRepository.AddOrUpdate(user);
         }
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
-        {
-            var rowKey = userId.ToString();
-            var oldCompetences = DataRepository.GetAllByRowKey<UserCompetence>(rowKey);
+        {            
+            var oldCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
 
             foreach (var oldCompetence in oldCompetences)
             {
@@ -90,7 +89,7 @@ namespace Migree.Core.Servants
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
         {
             var competences = CompetenceServant.GetCompetences();
-            var userCompetences = DataRepository.GetAllByRowKey<UserCompetence>(UserCompetence.GetRowKey(userId));
+            var userCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
             return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
 
@@ -115,8 +114,8 @@ namespace Migree.Core.Servants
         {
             AddMessage(creatorUserId, receiverUserId, message);
 
-            var creatorUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(creatorUserId));
-            var receiverUser = DataRepository.GetFirstOrDefaultByRowKey<User>(User.GetRowKey(receiverUserId));
+            var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault(); 
+            var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
             var subject = $"You got a Migree-mail from {creatorUser.FullName}";
             message += "\n\n" + $"Reply to this e-mail or send a mail directly to {creatorUser.Email}, to get in touch with {creatorUser.FullName}";
             await MailServant.SendMailAsync(subject, message, receiverUser.Email, "no-reply@migree.se", $"{creatorUser.FullName} thru Migree", creatorUser.Email);
@@ -125,7 +124,7 @@ namespace Migree.Core.Servants
         public string GetProfileImageUrl(Guid userId)
         {
             return ContentRepository.GetImageUrl(userId, ImageType.Profile);
-        }
+        }        
 
         private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
         {
@@ -152,6 +151,6 @@ namespace Migree.Core.Servants
 
             DataRepository.AddOrUpdate(message);
             DataRepository.AddOrUpdate(messageThread);            
-        }
+        }        
     }
 }
