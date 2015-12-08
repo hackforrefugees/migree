@@ -1,9 +1,10 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
+using Migree.Core.Interfaces.Models;
 using System;
 
 namespace Migree.Core.Models
 {
-    public class Message : StorageModel
+    public class Message : StorageModel, IMessage
     {
         public static string GetPartitionKey(Guid userId1, Guid userId2)
         {
