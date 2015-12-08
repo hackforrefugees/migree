@@ -181,6 +181,7 @@
     <Compile Include="Models\LanguageDictionaryItem.cs" />
     <Compile Include="Models\Requests\UpdateUserRequest.cs" />
     <Compile Include="Models\Responses\IdAndNameResponse.cs" />
+    <Compile Include="Models\Responses\MessageThreadResponse.cs" />
     <Compile Include="Models\Responses\UserResponse.cs" />
     <Compile Include="Models\Responses\RegisterResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

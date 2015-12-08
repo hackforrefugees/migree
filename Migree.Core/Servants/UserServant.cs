@@ -134,15 +134,14 @@ namespace Migree.Core.Servants
 
         public ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId)
         {
-            var messageThreads = DataRepository.GetAll<MessageThread>(p => p.PartitionKey.Contains(MessageThread.GetPartialPartitionKey(userId)) && p.RowKey.Contains(MessageThread.GetPartialRowKey(userId))).OrderByDescending(p => p.LatestMessageCreated);
+            var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
+            var messageThreads = DataRepository.GetAll<MessageThread>(p => p.PartitionKey.CompareTo(MessageThread.GetPartialPartitionKey(userId)) >= 0 && p.RowKey.CompareTo(MessageThread.GetPartialRowKey(userId)) > 0).OrderByDescending(p => p.LatestMessageCreated);
 
             var userIdsAsRowKeys = messageThreads.Select(p => User.GetRowKey(p.UserId1)).ToList();
             userIdsAsRowKeys.AddRange(messageThreads.Select(p => User.GetRowKey(p.UserId2)));
             userIdsAsRowKeys = userIdsAsRowKeys.Distinct().ToList();
 
-            var usersInThreads = DataRepository.GetAll<User>(p => userIdsAsRowKeys.Contains(p.RowKey));
-
-            var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
+            var usersInThreads = DataRepository.GetAll<User>().Where(p => userIdsAsRowKeys.Contains(p.RowKey)).ToList();
 
             foreach (var messageThread in messageThreads)
             {
