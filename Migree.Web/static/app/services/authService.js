@@ -60,6 +60,7 @@ migree.factory('authService', ['$http', '$q', 'localStorageService', function ($
         {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
+            _authentication.userId = authData.userId;
         }
 
     }

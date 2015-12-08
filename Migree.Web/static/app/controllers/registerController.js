@@ -10,7 +10,6 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         firstName: "",
         lastName: "",
         password: "",
-        confirmPassword: "",
         email: "",
         city: "",
         userType: 1
@@ -107,7 +106,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         }
       }).then(function(response) {
         console.log('Got OK when updating user: ', response);
-        $state.go('dashboard');
+        $state.go('thankyou');
 
       }, function(err) {
         console.log('Got error when updating user: ', err);
