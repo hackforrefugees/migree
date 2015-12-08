@@ -1,11 +1,11 @@
-'use strict';
 migree.controller('loginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
-
+    'use strict';
+    
     $scope.loginData = {
         userName: "",
         password: ""
     };
-    
+
     $scope.message = "";
 
     $scope.login = function () {
