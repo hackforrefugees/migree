@@ -110,6 +110,8 @@
     <Compile Include="Interfaces\ISettingsServant.cs" />
     <Compile Include="Interfaces\IUserServant.cs" />
     <Compile Include="Interfaces\Models\ICompetence.cs" />
+    <Compile Include="Interfaces\Models\IMessage.cs" />
+    <Compile Include="Interfaces\Models\IMessageThread.cs" />
     <Compile Include="Interfaces\Models\IUser.cs" />
     <Compile Include="Models\Competence.cs" />
     <Compile Include="Models\IdAndName.cs" />

@@ -132,6 +132,34 @@ namespace Migree.Core.Servants
             return ContentRepository.GetImageUrl(userId, ImageType.Profile);
         }
 
+        public ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId)
+        {
+            var messageThreads = DataRepository.GetAll<MessageThread>(p => p.PartitionKey.Contains(MessageThread.GetPartialPartitionKey(userId)) && p.RowKey.Contains(MessageThread.GetPartialRowKey(userId))).OrderByDescending(p => p.LatestMessageCreated);
+
+            var userIdsAsRowKeys = messageThreads.Select(p => User.GetRowKey(p.UserId1)).ToList();
+            userIdsAsRowKeys.AddRange(messageThreads.Select(p => User.GetRowKey(p.UserId2)));
+            userIdsAsRowKeys = userIdsAsRowKeys.Distinct().ToList();
+
+            var usersInThreads = DataRepository.GetAll<User>(p => userIdsAsRowKeys.Contains(p.RowKey));
+
+            var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
+
+            foreach (var messageThread in messageThreads)
+            {
+                var userIdToGet = (messageThread.UserId1.Equals(userId) ? messageThread.UserId2 : messageThread.UserId1);
+                var user = usersInThreads.FirstOrDefault(p => p.Id.Equals(userIdToGet));
+
+                if (user == null)
+                {
+                    continue;
+                }
+
+                messageThreadsWithUser.Add(new KeyValuePair<IMessageThread, IUser>(messageThread, user));
+            }
+
+            return messageThreadsWithUser;
+        }
+
         private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
         {
             var messageThread = DataRepository.GetFirstOrDefault<MessageThread>(
@@ -153,6 +181,7 @@ namespace Migree.Core.Servants
                 Created = messageTimestamp
             };
 
+            messageThread.LatestMessageContent = content;
             messageThread.LatestMessageCreated = messageTimestamp;
 
             DataRepository.AddOrUpdate(message);

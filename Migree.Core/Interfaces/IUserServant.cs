@@ -18,5 +18,6 @@ namespace Migree.Core.Interfaces
         void UpdateUser(Guid userId, UserLocation userLocation, string description);
         Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message);
         string GetProfileImageUrl(Guid userId);
+        ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId);
     }
 }
