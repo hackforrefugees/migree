@@ -9,7 +9,8 @@ migree.factory('userService', ['$http', '$q', function ($http, $q) {
             return response;
         });
     }
-  }
+  };
+  
   userServiceFactory.getMatches = _getMatches;
   return userServiceFactory;
 
