@@ -1,6 +1,7 @@
-'use strict';
+
 migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService', '$state',
   function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state) {
+    'use strict';
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
@@ -27,7 +28,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       {id: null, name: 'My first priority skill'},
       {id: null, name: 'My second priority skill'},
       {id: null, name: 'My third priority skill'}
-    ]
+    ];
 
     var userId = null;
     var profileFile = null;
@@ -84,13 +85,14 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
              }
              $scope.message = "Failed to register user due to:" + errors.join(' ');
          });
-    }
+    };
+
     var startTimer = function () {
         var timer = $timeout(function () {
             $timeout.cancel(timer);
             $location.path('/login');
         }, 2000);
-    }
+    };
 
     $scope.updateSkills = function() {
       var ids = $scope.competence.map(function(item) {

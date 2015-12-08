@@ -3,6 +3,20 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    s: {
+      src: {
+        m: "static/min/",
+        js: "static/app/",
+        assets: "src/assets/"
+      },
+      prod: {
+        js: "prod/app/js/",
+        sass: "prod/app/css/",
+        assets: "prod/assets/",
+        prod: "prod/"
+      }
+    },
+
     less: {
       development: {
         options: {
@@ -15,13 +29,14 @@ module.exports = function(grunt) {
         }
       }
     },
-    express: {
-      dev: {
-        options: {
-          script: 'server.js'
-        }
+
+    jshint: {
+      client: [ '<%= s.src.js %>'],
+      options: {
+          jshintrc: ".jshintrc"
       }
     },
+
     autoprefixer: {
       options: {
         browsers: ['last 2 versions', 'ie 8', 'ie 9']
@@ -30,6 +45,7 @@ module.exports = function(grunt) {
         src: 'static/css/main.css'
       }
     },
+
     concat: {
       angular: {
         src: ['bower_components/angular/angular.min.js',
@@ -37,48 +53,74 @@ module.exports = function(grunt) {
               'bower_components/angular-route/angular-route.min.js'
               ],
         dest: 'static/vendor/angular-build.js',
-      },
-     /* app:{
-        src: ['static/app/routes/*.js'],
-        dest: 'static/app/app.js'
-      }*/
-     /* js,: {
-        src: ['js/modules/*.js', 'js/components/*.js'],
-        dest: 'static/js/main.js',
-      },*/
+      }
     },
+
+    clean: {
+      prod: ['prod']
+    },
+		copy: {
+      prod: {
+        expand: true, src: ['static/**'], dest: 'prod/'
+      }
+		},
+		// clean + copy = prod / test
+    wiredep: {
+      target: {
+        src: 'static/index.html' // point to your HTML file.
+      }
+    },
+
+    connect: {
+      options: {
+        port: 9000,
+        hostname: 'migree.local',
+        open: 'http://migree.local:9000',
+        base: 'static/',
+        livereload: 35729
+      },
+      livereload: {
+        options: {
+          open: true,
+        }
+      }
+    },
+
     watch: {
       html: {
-        files: ['views/*.html'],
+        files: ['static/views/*.html'],
         options: {
           livereload: true,
         }
       },
       less: {
-        files: ['static/less/**/*'],
+        files: ['static/less/** /*'],
         tasks: ['less'],
         options: {
           livereload: true,
         }
       },
       js: {
-        files: ['static/app/*.js', 'static/js/app/*.js', 'static/js/app/controllers/*.js'],
-        //tasks: ['concat:app']
-        options: {
-          livereload: true,
-        }
-      },
-      autoprefixer: {
-        files: ['static/css/main.css'],
-        tasks: ['autoprefixer']
-      },
-      express: {
-        files:  [ '*' ],
-        tasks:  [ 'express:dev' ],
+        files: ['<%= s.src.js %>**/*.js', 'gruntfile.js'],
+        tasks: ['jshint'],
         options: {
           spawn: false
+          //livereload: true,
         }
       }
+    },
+
+    uglify: {
+      scripts: {
+        files: {
+          '<%= s.src.m %>app.min.js': '<%= s.src.m %>app.js'
+        }
+      }
+    },
+
+    autoprefixer: {
+      files: ['static/css/main.css'],
+      tasks: ['autoprefixer']
     }
   });
 
@@ -86,9 +128,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-wiredep');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).
-  grunt.registerTask('default', ['express:dev','less', 'autoprefixer','watch', 'concat']);
-
+  grunt.registerTask('default', ['clean','less','wiredep', 'autoprefixer', 'concat', /*'uglify',*/ 'connect','watch']); // postcss??
+  //grunt.registerTask('default', ['express:dev','less', 'autoprefixer','watch', 'concat']);
 };
