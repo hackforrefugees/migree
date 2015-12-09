@@ -119,12 +119,7 @@ namespace Migree.Core.Servants
         public async Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message)
         {
             AddMessage(creatorUserId, receiverUserId, message);
-
-            var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault();
-            var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
-            var subject = $"You got a Migree-mail from {creatorUser.FullName}";
-            message += "\n\n" + $"Reply to this e-mail or send a mail directly to {creatorUser.Email}, to get in touch with {creatorUser.FullName}";
-            await MailServant.SendMailAsync(subject, message, receiverUser.Email, "no-reply@migree.se", $"{creatorUser.FullName} thru Migree", creatorUser.Email);
+            await MailServant.SendMessageMailAsync(creatorUserId, receiverUserId, message);
         }
 
         public string GetProfileImageUrl(Guid userId)
@@ -134,15 +129,14 @@ namespace Migree.Core.Servants
 
         public ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId)
         {
-            var messageThreads = DataRepository.GetAll<MessageThread>(p => p.PartitionKey.Contains(MessageThread.GetPartialPartitionKey(userId)) && p.RowKey.Contains(MessageThread.GetPartialRowKey(userId))).OrderByDescending(p => p.LatestMessageCreated);
+            var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
+            var messageThreads = DataRepository.GetAll<MessageThread>(p => p.PartitionKey.CompareTo(MessageThread.GetPartialPartitionKey(userId)) >= 0 && p.RowKey.CompareTo(MessageThread.GetPartialRowKey(userId)) > 0).OrderByDescending(p => p.LatestMessageCreated);
 
             var userIdsAsRowKeys = messageThreads.Select(p => User.GetRowKey(p.UserId1)).ToList();
             userIdsAsRowKeys.AddRange(messageThreads.Select(p => User.GetRowKey(p.UserId2)));
             userIdsAsRowKeys = userIdsAsRowKeys.Distinct().ToList();
 
-            var usersInThreads = DataRepository.GetAll<User>(p => userIdsAsRowKeys.Contains(p.RowKey));
-
-            var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
+            var usersInThreads = DataRepository.GetAll<User>().Where(p => userIdsAsRowKeys.Contains(p.RowKey)).ToList();
 
             foreach (var messageThread in messageThreads)
             {
@@ -186,6 +180,6 @@ namespace Migree.Core.Servants
 
             DataRepository.AddOrUpdate(message);
             DataRepository.AddOrUpdate(messageThread);
-        }
+        }        
     }
 }

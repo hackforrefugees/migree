@@ -4,6 +4,7 @@ using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -163,6 +164,22 @@ namespace Migree.Api.Controllers.Api
             }
         }
 
+        [HttpGet, Route("{userId:guid}/messages")]
+        public HttpResponseMessage GetMessageThreads(Guid userId)
+        {
+            var messageThreads = UserServant.GetMessageThreads(userId);
+            var response = messageThreads.Select(p => new MessageThreadResponse
+            {
+                UserId = p.Value.Id,
+                FullName = $"{p.Value.FirstName} {p.Value.LastName}",
+                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
+                IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(userId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
+                LatestMessageContent = p.Key.LatestMessageContent,
+                LastUpdated = ToRelativeDateTimeString(p.Key.LatestMessageCreated)
+            }).ToList();
+            return CreateApiResponse(HttpStatusCode.OK, response);
+        }
+
         private UserResponse GetUserResponse(IUser user)
         {
             var response = new UserResponse
@@ -176,6 +193,36 @@ namespace Migree.Api.Controllers.Api
             };
 
             return response;
+        }
+
+        private string ToRelativeDateTimeString(long timestamp)
+        {
+            var timeDifference = DateTime.UtcNow - new DateTime(timestamp);
+
+            if (timeDifference.Days > 1)
+            {
+                return $"{timeDifference.Days} days ago";
+            }
+            else if (timeDifference.Days == 1)
+            {
+                return "1 day ago";
+            }
+            else if (timeDifference.Hours > 1)
+            {
+                return $"{timeDifference.Days} hours ago";
+            }
+            else if (timeDifference.Hours == 1)
+            {
+                return "1 hour ago";
+            }
+            else if (timeDifference.Minutes > 5)
+            {
+                return $"{timeDifference.Minutes} hours ago";
+            }
+            else
+            {
+                return "a moment ago";
+            }
         }
     }
 }
