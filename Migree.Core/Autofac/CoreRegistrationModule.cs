@@ -16,8 +16,9 @@ namespace Migree.Core.Autofac
         }
 
         protected override void Load(ContainerBuilder builder)
-        {
+        {            
             Register<SettingsServant, ISettingsServant>(builder);
+            Register<LanguageServant, ILanguageServant>(builder);
             Register<AzureTableRepository, IDataRepository>(builder);
             Register<AzureBlobRepository, IContentRepository>(builder);
             Register<PasswordServant, IPasswordServant>(builder);

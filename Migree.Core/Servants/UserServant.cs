@@ -119,12 +119,7 @@ namespace Migree.Core.Servants
         public async Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message)
         {
             AddMessage(creatorUserId, receiverUserId, message);
-
-            var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault();
-            var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
-            var subject = $"You got a Migree-mail from {creatorUser.FullName}";
-            message += "\n\n" + $"Reply to this e-mail or send a mail directly to {creatorUser.Email}, to get in touch with {creatorUser.FullName}";
-            await MailServant.SendMailAsync(subject, message, receiverUser.Email, "no-reply@migree.se", $"{creatorUser.FullName} thru Migree", creatorUser.Email);
+            await MailServant.SendMessageMailAsync(creatorUserId, receiverUserId, message);
         }
 
         public string GetProfileImageUrl(Guid userId)
@@ -185,6 +180,6 @@ namespace Migree.Core.Servants
 
             DataRepository.AddOrUpdate(message);
             DataRepository.AddOrUpdate(messageThread);
-        }
+        }        
     }
 }
