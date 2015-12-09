@@ -1,5 +1,9 @@
 module.exports = function(grunt) {
-
+  var modRewrite = require('connect-modrewrite');
+  var serveStatic = require('serve-static');
+  var mountFolder = function (connect, dir) {
+    return serveStatic(require('path').resolve(dir));
+};
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -76,12 +80,18 @@ module.exports = function(grunt) {
         port: 9000,
         hostname: 'migree.local',
         open: 'http://migree.local:9000',
-        base: 'static/',
+        base: './static/',
         livereload: 35729
       },
       livereload: {
         options: {
           open: true,
+          middleware: function (connect) {
+              return [
+                  modRewrite (['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf$ /index.html [L]']),
+                  mountFolder(connect, 'static')
+              ];
+          }
         }
       }
     },
