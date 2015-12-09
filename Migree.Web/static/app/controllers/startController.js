@@ -1,3 +1,3 @@
-migree.controller('StartController', ['$scope', function($scope) {
-
+migree.controller('StartController', ['$scope', 'authService', function($scope, authService) {
+	authService.logOut();
 }]);
