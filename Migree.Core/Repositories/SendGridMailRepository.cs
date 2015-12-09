@@ -1,12 +1,12 @@
 ﻿using Migree.Core.Interfaces;
+using Migree.Core.Models;
+using Migree.Core.Models.Language;
 using SendGrid;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using System;
-using Migree.Core.Models;
-using System.Linq;
-using Migree.Core.Models.Language;
 
 namespace Migree.Core.Repositories
 {
@@ -40,7 +40,19 @@ namespace Migree.Core.Repositories
                 creatorUser.Email);
         }
 
-        private async Task SendMailAsync(string subject, string message, string mailTo, string mailFrom, string fromName, string replyTo)
+        public async Task SendRegisterMailAsync(string email, string fullName)
+        {
+            var language = LanguageServant.Get<SendMessageMail>();
+
+            await SendMailAsync(
+                language.Subject,
+                LanguageServant.Get(language.Message, fullName),
+                email,
+                language.FromMail,
+                language.FromName);
+        }
+
+        private async Task SendMailAsync(string subject, string message, string mailTo, string mailFrom, string fromName, string replyTo = "")
         {
             var mailMessage = new SendGridMessage();
             mailMessage.AddTo(mailTo);

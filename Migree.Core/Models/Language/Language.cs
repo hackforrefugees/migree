@@ -6,5 +6,7 @@ namespace Migree.Core.Models.Language
     {
         [JsonProperty("sendMessageMail")]
         public SendMessageMail SendMessageMail { get; set; }
+        [JsonProperty("sendRegistrationMail")]
+        public SendRegistrationMail SendRegistrationMail { get; set; }
     }
 }

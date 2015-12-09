@@ -11,7 +11,7 @@ namespace Migree.Core.Interfaces
     {
         IUser FindUser(string email, string password);
         IUser GetUser(Guid userId);
-        IUser Register(string email, string password, string firstName, string lastName, UserType userType);
+        Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType);
         void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds);
         ICollection<ICompetence> GetUserCompetences(Guid userId);
         Task UploadProfileImageAsync(Guid userId, Stream imageStream);

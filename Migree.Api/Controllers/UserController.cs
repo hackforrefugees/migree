@@ -43,7 +43,7 @@ namespace Migree.Api.Controllers.Api
         }
 
         [HttpPost, Route("register")]
-        public HttpResponseMessage Register(RegisterRequest request)
+        public async Task<HttpResponseMessage> RegisterAsync(RegisterRequest request)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Migree.Api.Controllers.Api
                     return CreateApiResponse(HttpStatusCode.BadRequest);
                 }
 
-                var user = UserServant.Register(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
+                var user = await UserServant.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
                 return CreateApiResponse(HttpStatusCode.OK, new RegisterResponse { UserId = user.Id });
             }
             catch (ValidationException)
@@ -85,7 +85,7 @@ namespace Migree.Api.Controllers.Api
         }
 
         [HttpPost, Route("{userId:guid}/upload")]
-        public async Task<HttpResponseMessage> UploadProfileImage(Guid userId)
+        public async Task<HttpResponseMessage> UploadProfileImageAsync(Guid userId)
         {
             try
             {
@@ -146,7 +146,7 @@ namespace Migree.Api.Controllers.Api
         }
 
         [HttpPost, Route("{userId:guid}/message")]
-        public async Task<HttpResponseMessage> PostMessage(Guid userId, PostMessageRequest request)
+        public async Task<HttpResponseMessage> PostMessageAsync(Guid userId, PostMessageRequest request)
         {
             try
             {

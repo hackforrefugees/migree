@@ -4,6 +4,12 @@
     "fromName": "{0} thru Migree",
     "fromMail": "no-reply@migree.se",
     "message": "{0}\n\nReply to this e-mail or send a mail directly to {1}, to get in touch with {2}"
+  },
+  "sendRegistrationMail": {
+    "subject": "Welcome to Migree",
+    "fromName": "Migree",
+    "fromMail": "no-reply@migree.se",
+    "message": "Thank you for your registration, {0}!\n\nWe will come back to you shortly. We working day and night to get things running!"
   }
 
 }

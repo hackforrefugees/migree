@@ -1,9 +1,8 @@
-﻿using Migree.Core.Interfaces.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Migree.Core.Models.Language
 {
-    public class SendMessageMail : ILanguage
+    public abstract class MailLanguage
     {
         [JsonProperty("subject")]
         public string Subject { get; set; }

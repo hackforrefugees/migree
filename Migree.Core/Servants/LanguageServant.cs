@@ -16,6 +16,10 @@ namespace Migree.Core.Servants
             {
                 return language.SendMessageMail as LanguageItem;
             }
+            else if (typeof(LanguageItem).Name == "SendRegistrationMail")
+            {
+                return language.SendRegistrationMail as LanguageItem;
+            }
 
             return default(LanguageItem);
         }

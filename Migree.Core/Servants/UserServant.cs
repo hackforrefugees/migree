@@ -47,7 +47,7 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
+        public async Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType)
         {
             email = email.ToLower();
 
@@ -65,6 +65,9 @@ namespace Migree.Core.Servants
             user.UserLocation = UserLocation.Unspecified;
             user.Description = string.Empty;
             DataRepository.AddOrUpdate(user);
+
+            await MailServant.SendRegisterMailAsync(email, user.FullName);
+
             return user;
         }
 
