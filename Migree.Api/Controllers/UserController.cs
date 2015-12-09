@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Migree.Api.Controllers.Api
+namespace Migree.Api.Controllers
 {
     [RoutePrefix("user")]
     public class UserController : MigreeApiController

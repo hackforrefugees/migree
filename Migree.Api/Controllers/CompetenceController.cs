@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Migree.Api.Controllers.Api
+namespace Migree.Api.Controllers
 {
     [RoutePrefix("competence")]
     public class CompetenceController : MigreeApiController

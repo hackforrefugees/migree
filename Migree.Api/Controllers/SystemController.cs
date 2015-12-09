@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Migree.Api.Controllers.Api
+namespace Migree.Api.Controllers
 {
     [RoutePrefix("system")]
     public class SystemController : MigreeApiController
