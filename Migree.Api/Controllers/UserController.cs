@@ -42,7 +42,7 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPost, Route("register")]
+        [HttpPost, Route("")]
         public async Task<HttpResponseMessage> RegisterAsync(RegisterRequest request)
         {
             try
