@@ -2,7 +2,7 @@
 
 namespace Migree.Core.Definitions
 {
-    public enum ProfessionGroup
+    public enum BusinessGroup
     {
         [Description("Developers")]
         Developers = 1

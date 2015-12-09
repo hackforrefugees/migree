@@ -17,12 +17,12 @@ namespace Migree.Core.Servants
         }
         public ICollection<ICompetence> GetCompetences()
         {
-            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(ProfessionGroup.Developers)));
+            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(BusinessGroup.Developers)));
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
         public Guid AddCompetence(string name)
         {
-            var competence = new Competence(Definitions.ProfessionGroup.Developers)
+            var competence = new Competence(Definitions.BusinessGroup.Developers)
             {
                 Name = name
             };
