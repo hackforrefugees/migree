@@ -58,7 +58,7 @@ namespace Migree.Core.Servants
 
             var user = new User(userType);
             user.Email = email;
-            user.Password = PasswordServant.CreateHash(password);
+            user.Password = PasswordServant.CreatePasswordHash(password);
             user.FirstName = firstName;
             user.LastName = lastName;
             user.UserType = userType;
