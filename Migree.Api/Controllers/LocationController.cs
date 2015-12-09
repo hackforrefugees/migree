@@ -7,13 +7,13 @@ using System.Web.Http;
 
 namespace Migree.Api.Controllers
 {
-    [RoutePrefix("business")]
-    public class BusinessController : MigreeApiController
+    [RoutePrefix("location")]
+    public class LocationController : MigreeApiController
     {
         [HttpGet, Route("")]
         public HttpResponseMessage GetAll()
         {
-            var business = Enum.GetValues(typeof(BusinessGroup)).Cast<BusinessGroup>().OrderBy(p => p.ToDescription()).Select(p => new IntIdAndNameResponse
+            var business = Enum.GetValues(typeof(UserLocation)).Cast<UserLocation>().OrderBy(p => p.ToDescription()).Select(p => new IntIdAndNameResponse
             {
                 Id = (int)p,
                 Name = p.ToDescription()

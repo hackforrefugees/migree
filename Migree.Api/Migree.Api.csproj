@@ -172,6 +172,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\CompetenceController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\MigreeApiController.cs" />
     <Compile Include="Controllers\UserController.cs" />
