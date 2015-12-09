@@ -78,7 +78,7 @@ module.exports = function(grunt) {
     connect: {
       options: {
         port: 9000,
-        hostname: 'migree.local',
+        hostname: '0.0.0.0',//'migree.local',
         open: 'http://migree.local:9000',
         base: './static/',
         livereload: 35729
@@ -134,7 +134,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
