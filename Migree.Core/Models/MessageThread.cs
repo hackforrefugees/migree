@@ -54,6 +54,8 @@ namespace Migree.Core.Models
         }
         
         [IgnoreProperty]
+        public string MessageThreadId { get { return RowKey; } }
+        [IgnoreProperty]
         public Guid UserId1 { get { return GetUserIdByIndex(0); } }
         [IgnoreProperty]
         public Guid UserId2 { get { return GetUserIdByIndex(1); } }        

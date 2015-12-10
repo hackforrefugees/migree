@@ -1,4 +1,5 @@
-﻿using Migree.Core.Interfaces;
+﻿using Migree.Core.Exceptions;
+using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
 using System;
@@ -28,7 +29,11 @@ namespace Migree.Core.Servants
         public ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId)
         {
             var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
-            var messageThreads = DataRepository.GetAll<MessageThread>(p => p.PartitionKey.CompareTo(MessageThread.GetPartialPartitionKey(userId)) >= 0 && p.RowKey.CompareTo(MessageThread.GetPartialRowKey(userId)) > 0).OrderByDescending(p => p.LatestMessageCreated);
+            var messageThreads = DataRepository
+                .GetAll<MessageThread>(p =>
+                    p.PartitionKey.CompareTo(MessageThread.GetPartialPartitionKey(userId)) >= 0 &&
+                    p.RowKey.CompareTo(MessageThread.GetPartialRowKey(userId)) > 0)
+                .OrderByDescending(p => p.LatestMessageCreated);
 
             var userIdsAsRowKeys = messageThreads.Select(p => User.GetRowKey(p.UserId1)).ToList();
             userIdsAsRowKeys.AddRange(messageThreads.Select(p => User.GetRowKey(p.UserId2)));
@@ -50,6 +55,26 @@ namespace Migree.Core.Servants
             }
 
             return messageThreadsWithUser;
+        }
+
+        public KeyValuePair<IUser, ICollection<IMessage>> GetMessageThread(string messageId, Guid userId)
+        {
+            var userIds = messageId.Split(new char[] { '_' }).Select(p => new Guid(p)).ToList();
+            var otherUserId = userIds.Single(p => !p.Equals(userId)); //single verifies unique
+            var messagesInThread = DataRepository.GetAll<Message>(p => p.PartitionKey.Equals(MessageThread.GetPartitionKey(userIds[0], userIds[1]))).OrderByDescending(p => p.Created).ToList<IMessage>();
+            var otherUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(otherUserId))).FirstOrDefault();
+
+            if (otherUser == null || messagesInThread.Count == 0)
+            {
+                throw new ValidationException("thread doesn´t exist or other user doesn´t exist");
+            }
+
+            return new KeyValuePair<IUser, ICollection<IMessage>>(otherUser, messagesInThread);
+        }
+
+        public void SetMessageThreadAsRead(string messageId, Guid userId)
+        {
+            
         }
 
         private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
