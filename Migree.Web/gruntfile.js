@@ -104,7 +104,7 @@ module.exports = function(grunt) {
         }
       },
       less: {
-        files: ['static/less/** /*'],
+        files: ['static/less/**/*'],
         tasks: ['less'],
         options: {
           livereload: true,

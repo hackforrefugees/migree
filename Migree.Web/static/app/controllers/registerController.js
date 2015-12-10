@@ -64,7 +64,6 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
 
           $scope.competencies = response.data;
         }, function() {
-
         });
         userId = response.data.userId;
 
@@ -77,12 +76,14 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         },
          function (response) {
              var errors = [];
-             for (var key in response.data.modelState) {
+             if(response.data) {
+              for (var key in response.data.modelState) {
                  for (var i = 0; i < response.data.modelState[key].length; i++) {
                      errors.push(response.data.modelState[key][i]);
                  }
              }
-             $scope.message = "Failed to register user due to:" + errors.join(' ');
+             }
+             $scope.message = "Failed to register user due to. " + errors.join(' ');
          });
     };
 
