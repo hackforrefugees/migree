@@ -4,9 +4,9 @@ namespace Migree.Api.Models.Responses
 {
     public class StringIdAndNameResponse
     {
-        [JsonProperty(PropertyName = "id")]
+        [JsonProperty("id")]
         public string Id { get; set; }
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
     }
 }

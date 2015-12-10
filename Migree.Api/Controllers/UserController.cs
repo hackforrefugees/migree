@@ -182,6 +182,22 @@ namespace Migree.Api.Controllers
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
 
+        [HttpGet, Route("{userId:guid}/message/{messageId:regex(^[a-f0-9_\\-]+$)}")]
+        public HttpResponseMessage GetMessageThread(Guid userId, string messageId)
+        {
+            var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, userId);
+            var user = messagesInThreadWithUser.Key;
+
+            var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
+            {
+                MessageId = p.Id,
+                Content = p.Content,
+                Created = ToRelativeDateTimeString(p.Created)
+            });
+
+            return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
+        }
+
         private UserResponse GetUserResponse(IUser user)
         {
             var response = new UserResponse

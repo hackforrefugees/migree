@@ -8,6 +8,7 @@ namespace Migree.Core.Interfaces.Models
 {
     public interface IMessageThread
     {
+        string MessageThreadId { get; }
         Guid UserId1 { get; }
         Guid UserId2 { get; }
         long LatestReadUser1 { get; }

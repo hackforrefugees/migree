@@ -6,17 +6,17 @@ namespace Migree.Api.Models.Responses
 {
     public class UserResponse
     {
-        [JsonProperty(PropertyName = "userId")]
+        [JsonProperty("userId")]
         public Guid UserId { get; set; }
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty("name")]
         public string FullName { get; set; }
-        [JsonProperty(PropertyName = "description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
-        [JsonProperty(PropertyName = "userLocation")]
+        [JsonProperty("userLocation")]
         public string UserLocation { get; set; }
-        [JsonProperty(PropertyName = "profileImageUrl")]
+        [JsonProperty("profileImageUrl")]
         public string ProfileImageUrl { get; set; }
-        [JsonProperty(PropertyName = "competences")]
+        [JsonProperty("competences")]
         public ICollection<GuidIdAndNameResponse> Competences { get; set; }
     }
 }

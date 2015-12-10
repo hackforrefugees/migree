@@ -1,29 +1,23 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Migree.Api.Models.Responses
 {
     public class MessageThreadResponse
     {
-        [JsonProperty(PropertyName = "userId")]
+        [JsonProperty("messageThreadId")]
+        public string MessageThreadId { get; set; }
+        [JsonProperty("userId")]
         public Guid UserId { get; set; }
-
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty("name")]
         public string FullName { get; set; }
-
-        [JsonProperty(PropertyName = "profileImageUrl")]
+        [JsonProperty("profileImageUrl")]
         public string ProfileImageUrl { get; set; }
-
-        [JsonProperty(PropertyName = "message")]
+        [JsonProperty("content")]
         public string LatestMessageContent { get; set; }
-
-        [JsonProperty(PropertyName = "lastUpdate")]
+        [JsonProperty("lastUpdate")]
         public string LastUpdated { get; set; }
-
-        [JsonProperty(PropertyName = "isRead")]
+        [JsonProperty("isRead")]
         public bool IsRead { get; set; }        
     }
 }
