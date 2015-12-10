@@ -169,47 +169,91 @@ namespace Migree.Api.Controllers
         [HttpGet, Route("{userId:guid}/messages")]
         public HttpResponseMessage GetMessageThreads(Guid userId)
         {
-            var messageThreads = MessageServant.GetMessageThreads(userId);
-            var response = messageThreads.Select(p => new MessageThreadResponse
+            try
             {
-                UserId = p.Value.Id,
-                FullName = $"{p.Value.FirstName} {p.Value.LastName}",
-                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
-                IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(userId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
-                LatestMessageContent = p.Key.LatestMessageContent,
-                LastUpdated = ToRelativeDateTimeString(p.Key.LatestMessageCreated)
-            }).ToList();
-            return CreateApiResponse(HttpStatusCode.OK, response);
+                var messageThreads = MessageServant.GetMessageThreads(userId);
+                var response = messageThreads.Select(p => new MessageThreadResponse
+                {
+                    UserId = p.Value.Id,
+                    FullName = $"{p.Value.FirstName} {p.Value.LastName}",
+                    ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
+                    IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(userId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
+                    LatestMessageContent = p.Key.LatestMessageContent,
+                    LastUpdated = ToRelativeDateTimeString(p.Key.LatestMessageCreated)
+                }).ToList();
+                return CreateApiResponse(HttpStatusCode.OK, response);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.BadRequest);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpGet, Route("{userId:guid}/message/{messageId:regex(^[a-f0-9_\\-]+$)}")]
         public HttpResponseMessage GetMessageThread(Guid userId, string messageId)
         {
-            var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, userId);
-            var user = messagesInThreadWithUser.Key;
-
-            var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
+            try
             {
-                MessageId = p.Id,
-                Content = p.Content,
-                Created = ToRelativeDateTimeString(p.Created)
-            });
+                var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, userId);
+                var user = messagesInThreadWithUser.Key;
 
-            return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
+                var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
+                {
+                    MessageId = p.Id,
+                    Content = p.Content,
+                    Created = ToRelativeDateTimeString(p.Created)
+                });
+
+                return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.BadRequest);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPost, Route("resetpassword")]
         public async Task<HttpResponseMessage> InitPasswordReset(InitPasswordResetRequest request)
         {
-            await UserServant.InitPasswordResetAsync(request.Email);
-            return CreateApiResponse(HttpStatusCode.Accepted);
+            try
+            {
+                await UserServant.InitPasswordResetAsync(request.Email);
+                return CreateApiResponse(HttpStatusCode.Accepted);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.BadRequest);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPut, Route("resetpassword")]
         public async Task<HttpResponseMessage> PasswordReset(PasswordResetRequest request)
         {
-            await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);
-            return CreateApiResponse(HttpStatusCode.Accepted);
+            try
+            {
+                await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);
+                return CreateApiResponse(HttpStatusCode.Accepted);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.BadRequest);
+            }
+            catch
+            {
+                return CreateApiResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         private UserResponse GetUserResponse(IUser user)
