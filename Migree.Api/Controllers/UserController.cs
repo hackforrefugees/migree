@@ -198,6 +198,20 @@ namespace Migree.Api.Controllers
             return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
         }
 
+        [HttpPost, Route("resetpassword")]
+        public async Task<HttpResponseMessage> InitPasswordReset(InitPasswordResetRequest request)
+        {
+            await UserServant.InitPasswordResetAsync(request.Email);
+            return CreateApiResponse(HttpStatusCode.Accepted);
+        }
+
+        [HttpPut, Route("resetpassword")]
+        public async Task<HttpResponseMessage> PasswordReset(PasswordResetRequest request)
+        {
+            await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);
+            return CreateApiResponse(HttpStatusCode.Accepted);
+        }
+
         private UserResponse GetUserResponse(IUser user)
         {
             var response = new UserResponse

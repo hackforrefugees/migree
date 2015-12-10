@@ -25,13 +25,21 @@ namespace Migree.Core.Servants
             var languageJson = File.ReadAllText(Path.Combine(SettingsServant.DataDirectory, ENGLISH_LANGUAGE_FILENAME));
             var language = JsonConvert.DeserializeObject<Language>(languageJson);
 
-            if (typeof(LanguageItem).Name == nameof(SendMessageMail))
+            if (typeof(LanguageItem).Name == nameof(MessageMail))
             {
-                return language.SendMessageMail as LanguageItem;
+                return language.MessageMail as LanguageItem;
             }
-            else if (typeof(LanguageItem).Name == nameof(SendRegistrationMail))
+            else if (typeof(LanguageItem).Name == nameof(RegistrationMail))
             {
-                return language.SendRegistrationMail as LanguageItem;
+                return language.RegistrationMail as LanguageItem;
+            }
+            else if (typeof(LanguageItem).Name == nameof(InitPasswordResetMail))
+            {
+                return language.InitPasswordResetMail as LanguageItem;
+            }
+            else if (typeof(LanguageItem).Name == nameof(FinishedPasswordResetMail))
+            {
+                return language.FinishedPasswordResetMail as LanguageItem;
             }
             else if (typeof(LanguageItem).Name == nameof(Client))
             {
@@ -41,7 +49,7 @@ namespace Migree.Core.Servants
             return default(LanguageItem);
         }
 
-        public string Get(string languageString, params string[] args)
+        public string Get(string languageString, params object[] args)
         {
             try
             {
@@ -55,7 +63,7 @@ namespace Migree.Core.Servants
 
         public IDictionary<string, string> GetDictionary<LanguageItem>()
             where LanguageItem : class, ILanguage
-        {            
+        {
             var language = Get<LanguageItem>();
 
             var dictionary = language

@@ -2,7 +2,7 @@
 
 namespace Migree.Core.Models.Language
 {
-    public abstract class MailLanguage
+    public abstract class LanguageMail
     {
         [JsonProperty("subject")]
         public string Subject { get; set; }

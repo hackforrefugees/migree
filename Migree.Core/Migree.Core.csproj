@@ -119,10 +119,12 @@
     <Compile Include="Models\Competence.cs" />
     <Compile Include="Models\IdAndName.cs" />
     <Compile Include="Models\Language\Client.cs" />
+    <Compile Include="Models\Language\FinishedPasswordResetMail.cs" />
     <Compile Include="Models\Language\Language.cs" />
-    <Compile Include="Models\Language\MailLanguage.cs" />
-    <Compile Include="Models\Language\SendMessageMail.cs" />
-    <Compile Include="Models\Language\SendRegistrationMail.cs" />
+    <Compile Include="Models\Language\LanguageMail.cs" />
+    <Compile Include="Models\Language\InitPasswordResetMail.cs" />
+    <Compile Include="Models\Language\MessageMail.cs" />
+    <Compile Include="Models\Language\RegistrationMail.cs" />
     <Compile Include="Models\MatchedUser.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageThread.cs" />
