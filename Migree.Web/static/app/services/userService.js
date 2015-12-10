@@ -1,4 +1,4 @@
-migree.factory('userService', ['$http', '$q', function ($http, $q) {
+migree.factory('userService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
   'use strict';
   var serviceBase = 'https://migree.azurewebsites.net/';
   var userServiceFactory = {};

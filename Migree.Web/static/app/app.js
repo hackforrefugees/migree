@@ -1,9 +1,9 @@
 var migree = angular.module('migreeApp', [
     'ngRoute',
     'ui.router',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'jcs-autoValidate'
 ]);
-
 
 migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 
@@ -141,8 +141,9 @@ migree.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
 
-migree.run(['authService', '$rootScope', function (authService, $rootScope) {
+migree.run(['authService', '$rootScope','bootstrap3ElementModifier', function (authService, $rootScope, bootstrap3ElementModifier) {
     authService.fillAuthData();
+    bootstrap3ElementModifier.enableValidationStateIcons(true);
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
 
