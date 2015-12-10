@@ -20,11 +20,13 @@ namespace Migree.Api.Controllers
 
         private IUserServant UserServant { get; }
         private ICompetenceServant CompetenceServant { get; }
+        private IMessageServant MessageServant { get; }
 
-        public UserController(IUserServant userServant, ICompetenceServant comptenceServant)
+        public UserController(IUserServant userServant, ICompetenceServant comptenceServant, IMessageServant messageServant)
         {
             UserServant = userServant;
             CompetenceServant = comptenceServant;
+            MessageServant = messageServant;
         }
 
         [HttpGet, Route("{userId:guid}/competences")]
@@ -32,7 +34,7 @@ namespace Migree.Api.Controllers
         {
             try
             {
-                var competences = UserServant.GetUserCompetences(userId);
+                var competences = CompetenceServant.GetUserCompetences(userId);
                 var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
                 return CreateApiResponse(HttpStatusCode.OK, response);
             }
@@ -113,7 +115,7 @@ namespace Migree.Api.Controllers
         {
             try
             {
-                var userMatches = UserServant.GetUserCompetences(userId).Select(p => p.Id).ToList();
+                var userMatches = CompetenceServant.GetUserCompetences(userId).Select(p => p.Id).ToList();
                 var matchedUsers = CompetenceServant.GetMatches(userId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
                 var users = matchedUsers.Select(user => GetUserResponse(user)).ToList();
 
@@ -136,7 +138,7 @@ namespace Migree.Api.Controllers
                 }
 
                 UserServant.UpdateUser(userId, request.UserLocation, request.Description ?? string.Empty);
-                UserServant.AddCompetencesToUser(userId, request.CompetenceIds);
+                CompetenceServant.AddCompetencesToUser(userId, request.CompetenceIds);
                 return CreateApiResponse(HttpStatusCode.NoContent);
             }
             catch
@@ -155,7 +157,7 @@ namespace Migree.Api.Controllers
                     return CreateApiResponse(HttpStatusCode.BadRequest);
                 }
 
-                await UserServant.SendMessageToUserAsync(userId, request.ReceiverUserId, request.Message);
+                await MessageServant.SendMessageToUserAsync(userId, request.ReceiverUserId, request.Message);
                 return CreateApiResponse(HttpStatusCode.Accepted);
             }
             catch
@@ -167,7 +169,7 @@ namespace Migree.Api.Controllers
         [HttpGet, Route("{userId:guid}/messages")]
         public HttpResponseMessage GetMessageThreads(Guid userId)
         {
-            var messageThreads = UserServant.GetMessageThreads(userId);
+            var messageThreads = MessageServant.GetMessageThreads(userId);
             var response = messageThreads.Select(p => new MessageThreadResponse
             {
                 UserId = p.Value.Id,
@@ -189,7 +191,7 @@ namespace Migree.Api.Controllers
                 Description = user.Description,
                 UserLocation = user.UserLocation.ToDescription(),
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id),
-                Competences = UserServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
             };
 
             return response;

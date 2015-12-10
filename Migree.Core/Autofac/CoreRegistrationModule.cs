@@ -24,6 +24,7 @@ namespace Migree.Core.Autofac
             Register<PasswordServant, IPasswordServant>(builder);
             Register<SendGridMailRepository, IMailRepository>(builder);
             Register<UserServant, IUserServant>(builder);
+            Register<MessageServant, IMessageServant>(builder);
             Register<CompetenceServant, ICompetenceServant>(builder);
             base.Load(builder);
         }

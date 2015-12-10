@@ -83,5 +83,28 @@ namespace Migree.Core.Servants
             matchedUsersList.Sort();
             return matchedUsersList.Select(p => p.User).Take(take).ToList();
         }
+
+        public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
+        {
+            var oldCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
+
+            foreach (var oldCompetence in oldCompetences)
+            {
+                DataRepository.Delete(oldCompetence);
+            }
+
+            foreach (var competenceId in competenceIds)
+            {
+                var userCompetence = new UserCompetence(userId, competenceId);
+                DataRepository.AddOrUpdate(userCompetence);
+            }
+        }
+
+        public ICollection<ICompetence> GetUserCompetences(Guid userId)
+        {
+            var competences = GetCompetences();
+            var userCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
+            return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
+        }
     }
 }

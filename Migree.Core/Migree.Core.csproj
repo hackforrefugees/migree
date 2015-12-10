@@ -107,6 +107,7 @@
     <Compile Include="Interfaces\IDataRepository.cs" />
     <Compile Include="Interfaces\ILanguageServant.cs" />
     <Compile Include="Interfaces\IMailRepository.cs" />
+    <Compile Include="Interfaces\IMessageServant.cs" />
     <Compile Include="Interfaces\IPasswordServant.cs" />
     <Compile Include="Interfaces\ISettingsServant.cs" />
     <Compile Include="Interfaces\IUserServant.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Repositories\SendGridMailRepository.cs" />
     <Compile Include="Servants\CompetenceServant.cs" />
     <Compile Include="Servants\LanguageServant.cs" />
+    <Compile Include="Servants\MessageServant.cs" />
     <Compile Include="Servants\PasswordServant.cs" />
     <Compile Include="Servants\SettingsServant.cs" />
     <Compile Include="Servants\UserServant.cs" />

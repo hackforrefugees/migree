@@ -16,14 +16,12 @@ namespace Migree.Core.Servants
         private const int PROFILE_IMAGE_SIZE_PIXELS = 100;
         private IDataRepository DataRepository { get; }
         private IContentRepository ContentRepository { get; }
-        private IPasswordServant PasswordServant { get; }
-        private ICompetenceServant CompetenceServant { get; }
+        private IPasswordServant PasswordServant { get; }        
         private IMailRepository MailServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository, IMailRepository mailServant)
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
-            PasswordServant = passwordServant;
-            CompetenceServant = competenceServant;
+            PasswordServant = passwordServant;            
             ContentRepository = contentRepository;
             MailServant = mailServant;
         }
@@ -77,30 +75,7 @@ namespace Migree.Core.Servants
             user.UserLocation = userLocation;
             user.Description = description;
             DataRepository.AddOrUpdate(user);
-        }
-
-        public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
-        {
-            var oldCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
-
-            foreach (var oldCompetence in oldCompetences)
-            {
-                DataRepository.Delete(oldCompetence);
-            }
-
-            foreach (var competenceId in competenceIds)
-            {
-                var userCompetence = new UserCompetence(userId, competenceId);
-                DataRepository.AddOrUpdate(userCompetence);
-            }
-        }
-
-        public ICollection<ICompetence> GetUserCompetences(Guid userId)
-        {
-            var competences = CompetenceServant.GetCompetences();
-            var userCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
-            return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
-        }
+        }        
 
         public async Task UploadProfileImageAsync(Guid userId, Stream imageStream)
         {
@@ -117,72 +92,11 @@ namespace Migree.Core.Servants
                     }
                 }
             }
-        }
-
-        public async Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message)
-        {
-            AddMessage(creatorUserId, receiverUserId, message);
-            await MailServant.SendMessageMailAsync(creatorUserId, receiverUserId, message);
-        }
+        }        
 
         public string GetProfileImageUrl(Guid userId)
         {
             return ContentRepository.GetImageUrl(userId, ImageType.Profile);
-        }
-
-        public ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId)
-        {
-            var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
-            var messageThreads = DataRepository.GetAll<MessageThread>(p => p.PartitionKey.CompareTo(MessageThread.GetPartialPartitionKey(userId)) >= 0 && p.RowKey.CompareTo(MessageThread.GetPartialRowKey(userId)) > 0).OrderByDescending(p => p.LatestMessageCreated);
-
-            var userIdsAsRowKeys = messageThreads.Select(p => User.GetRowKey(p.UserId1)).ToList();
-            userIdsAsRowKeys.AddRange(messageThreads.Select(p => User.GetRowKey(p.UserId2)));
-            userIdsAsRowKeys = userIdsAsRowKeys.Distinct().ToList();
-
-            var usersInThreads = DataRepository.GetAll<User>().Where(p => userIdsAsRowKeys.Contains(p.RowKey)).ToList();
-
-            foreach (var messageThread in messageThreads)
-            {
-                var userIdToGet = (messageThread.UserId1.Equals(userId) ? messageThread.UserId2 : messageThread.UserId1);
-                var user = usersInThreads.FirstOrDefault(p => p.Id.Equals(userIdToGet));
-
-                if (user == null)
-                {
-                    continue;
-                }
-
-                messageThreadsWithUser.Add(new KeyValuePair<IMessageThread, IUser>(messageThread, user));
-            }
-
-            return messageThreadsWithUser;
-        }
-
-        private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
-        {
-            var messageThread = DataRepository.GetFirstOrDefault<MessageThread>(
-                MessageThread.GetPartitionKey(creatorUserId, receiverUserId),
-                MessageThread.GetRowKey(creatorUserId, receiverUserId));
-
-            var messageTimestamp = DateTime.UtcNow.Ticks;
-
-            if (messageThread == null)
-            {
-                messageThread = new MessageThread(creatorUserId, receiverUserId);
-                messageThread.LatestReadUser1 = messageThread.UserId1.Equals(creatorUserId) ? messageTimestamp : 0;
-                messageThread.LatestReadUser2 = messageThread.UserId2.Equals(creatorUserId) ? messageTimestamp : 0;
-            }
-
-            var message = new Message(creatorUserId, receiverUserId)
-            {
-                Content = content,
-                Created = messageTimestamp
-            };
-
-            messageThread.LatestMessageContent = content;
-            messageThread.LatestMessageCreated = messageTimestamp;
-
-            DataRepository.AddOrUpdate(message);
-            DataRepository.AddOrUpdate(messageThread);
         }        
     }
 }
