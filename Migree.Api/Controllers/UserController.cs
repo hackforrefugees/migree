@@ -199,6 +199,7 @@ namespace Migree.Api.Controllers
             try
             {
                 var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, userId);
+                MessageServant.SetMessageThreadAsRead(messageId, userId);
                 var user = messagesInThreadWithUser.Key;
 
                 var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
