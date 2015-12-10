@@ -10,6 +10,9 @@
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
     "message": "Thank you for your registration, {0}!\n\nWe will come back to you shortly. We working day and night to get things running!"
+  },
+  "client": {
+    "login": "Login",
+    "password": "Password"
   }
-
 }

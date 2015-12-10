@@ -1,5 +1,6 @@
 ﻿using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
+using System;
 using System.Configuration;
 using System.Net;
 
@@ -16,6 +17,7 @@ namespace Migree.Core.Servants
                 StorageConnectionString = ConfigurationManager.ConnectionStrings[AZURE_STORAGE_CONNECTION_STRING].ConnectionString;
                 var sendgrid = ConfigurationManager.ConnectionStrings[SENDGRID_CONNECTION_STRING].ConnectionString.Split(new char[] { '|' });
                 SendGridCredentials = new NetworkCredential(sendgrid[0], sendgrid[1]);
+                DataDirectory = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             }
             catch
             {
@@ -25,5 +27,6 @@ namespace Migree.Core.Servants
 
         public string StorageConnectionString { get; }
         public NetworkCredential SendGridCredentials { get; }
+        public string DataDirectory { get; }
     }
 }

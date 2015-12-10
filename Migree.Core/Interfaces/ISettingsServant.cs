@@ -6,5 +6,6 @@ namespace Migree.Core.Interfaces
     {
         string StorageConnectionString { get; }
         NetworkCredential SendGridCredentials { get; }
+        string DataDirectory { get; }
     }
 }

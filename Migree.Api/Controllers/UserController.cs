@@ -35,7 +35,7 @@ namespace Migree.Api.Controllers
             try
             {
                 var competences = CompetenceServant.GetUserCompetences(userId);
-                var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+                var response = competences.Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
                 return CreateApiResponse(HttpStatusCode.OK, response);
             }
             catch
@@ -191,7 +191,7 @@ namespace Migree.Api.Controllers
                 Description = user.Description,
                 UserLocation = user.UserLocation.ToDescription(),
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id),
-                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
             };
 
             return response;

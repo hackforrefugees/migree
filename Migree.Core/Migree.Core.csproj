@@ -118,6 +118,7 @@
     <Compile Include="Interfaces\Models\IUser.cs" />
     <Compile Include="Models\Competence.cs" />
     <Compile Include="Models\IdAndName.cs" />
+    <Compile Include="Models\Language\Client.cs" />
     <Compile Include="Models\Language\Language.cs" />
     <Compile Include="Models\Language\MailLanguage.cs" />
     <Compile Include="Models\Language\SendMessageMail.cs" />

@@ -24,7 +24,7 @@ namespace Migree.Api.Controllers
             try
             {
                 var competences = CompetenceServant.GetCompetences();
-                var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+                var response = competences.Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
                 return CreateApiResponse(HttpStatusCode.OK, response);
             }
             catch

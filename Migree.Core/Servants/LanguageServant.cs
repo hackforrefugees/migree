@@ -2,23 +2,40 @@
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models.Language;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Migree.Core.Servants
 {
     public class LanguageServant : ILanguageServant
     {
+        private const string ENGLISH_LANGUAGE_FILENAME = "lang-en.json";
+
+        private ISettingsServant SettingsServant { get; }
+
+        public LanguageServant(ISettingsServant settingServant)
+        {
+            SettingsServant = settingServant;
+        }
+
         public LanguageItem Get<LanguageItem>()
             where LanguageItem : class, ILanguage
         {
-            var language = JsonConvert.DeserializeObject<Language>("{\"sendMessageMail\": {    \"subject\": \"You got a Migree-mail from {0}\",    \"fromName\": \"{0} thru Migree\",    \"fromMail\": \"no-reply@migree.se\",    \"message\": \"{0}\n\nReply to this e-mail or send a mail directly to {1}, to get in touch with {2}\"  }}");
+            var languageJson = File.ReadAllText(Path.Combine(SettingsServant.DataDirectory, ENGLISH_LANGUAGE_FILENAME));
+            var language = JsonConvert.DeserializeObject<Language>(languageJson);
 
-            if (typeof(LanguageItem).Name == "SendMessageMail")
+            if (typeof(LanguageItem).Name == nameof(SendMessageMail))
             {
                 return language.SendMessageMail as LanguageItem;
             }
-            else if (typeof(LanguageItem).Name == "SendRegistrationMail")
+            else if (typeof(LanguageItem).Name == nameof(SendRegistrationMail))
             {
                 return language.SendRegistrationMail as LanguageItem;
+            }
+            else if (typeof(LanguageItem).Name == nameof(Client))
+            {
+                return language.Client as LanguageItem;
             }
 
             return default(LanguageItem);
@@ -34,6 +51,19 @@ namespace Migree.Core.Servants
             {
                 return string.Empty;
             }
+        }
+
+        public IDictionary<string, string> GetDictionary<LanguageItem>()
+            where LanguageItem : class, ILanguage
+        {            
+            var language = Get<LanguageItem>();
+
+            var dictionary = language
+                .GetType().
+                GetProperties().
+                ToDictionary(p => p.Name, p => p.GetValue(language) as string);
+
+            return dictionary;
         }
     }
 }
