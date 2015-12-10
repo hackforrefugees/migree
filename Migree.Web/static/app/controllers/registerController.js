@@ -3,6 +3,13 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
   function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state) {
     'use strict';
 
+  $http({
+          url: 'https://migree.azurewebsites.net/competence',
+          method: 'GET'
+        }).then(function(response) {
+          $scope.competencies = response.data;
+        }, function() {
+        });
     $scope.savedSuccessfully = false;
     $scope.message = "";
     $scope.aboutText = "";
@@ -22,11 +29,14 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     { value: '3', label: 'Malmo' }
     ];
 
+    $scope.work = [
+    { value: '1', label: 'Developer' }
+    ];
+
     $scope.competence = [
-      {id: null, name: 'I am specialized in..'},
-      {id: null, name: 'My first priority skill'},
-      {id: null, name: 'My second priority skill'},
-      {id: null, name: 'My third priority skill'}
+      {id: null, name: '1. Select a skill'},
+      {id: null, name: '2. Select a skill'},
+      {id: null, name: '3. Select a skill'}
     ];
 
     var userId = null;
@@ -54,17 +64,6 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       authService.saveRegistration($scope.registration).then(function (response) {
         $scope.savedSuccessfully = true;
         $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-
-        $http({
-          url: 'https://migree.azurewebsites.net/competence',
-          method: 'GET'
-        }).then(function(response) {
-          $('.step').prev().hide();
-          $('.step').next().show();
-
-          $scope.competencies = response.data;
-        }, function() {
-        });
         userId = response.data.userId;
 
         fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
