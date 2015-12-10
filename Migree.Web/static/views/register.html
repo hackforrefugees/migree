@@ -1,11 +1,12 @@
 <div class="register page">
 	<div class="active step">
+		<h4>USER INFO</h4>
 		<form name="step1" novalidate="novalidate" ng-submit="goToNext();" >
 			<div class="form-group">
-				<input type="text" placeholder="Firstname" required ng-model="registration.firstName" disable-validation-message="" />
+				<input type="text" placeholder="First name" required ng-model="registration.firstName" disable-validation-message="" />
 			</div>
 			<div class="form-group">
-				<input type="text" placeholder="Lastname" required ng-model="registration.lastName" disable-validation-message=""  />
+				<input type="text" placeholder="Last name" required ng-model="registration.lastName" disable-validation-message=""  />
 			</div>
 			<div class="form-group">
 				<input type="email" placeholder="Email" autocorrect="off" autocapitalize="none" required ng-model="registration.email" disable-validation-message=""  />
@@ -26,11 +27,23 @@
 		</form>
 	</div>
 	<div class="step">
+		<h4>WORK INFO</h4>
+		<p>Please provide some information about your skills. This helps making the matching process more accurate.</p>
 		<form name="step2" novalidate="novalidate" ng-submit="updateSkills()">
+			
 			<div class="form-group">
 				<label for="city" class="select">
-					<span class="title" ng-init="registration.city.label = 'Select city'" >{{registration.city.label}}</span>
-					<select required ng-model="registration.city" id="city" ng-options="c as c.label for c in cities track by c.value">
+					<span class="title" ng-init="registration.work.label = 'I am a ...'" >{{registration.work.label}}</span>
+					<select disable-valid-styling="true" ng-model="registration.work" id="work" ng-options="c as c.label for c in work track by c.value">
+					 	<option style="display:none" value="">I am a ...</option>
+					</select>
+				</label>
+			</div>
+
+			<div class="form-group">
+				<label for="city" class="select">
+					<span class="title" ng-init="registration.city.label = 'I live in/near'" >{{registration.city.label}}</span>
+					<select disable-valid-styling="true" ng-model="registration.city" id="city" ng-options="c as c.label for c in cities track by c.value">
 					 	<option style="display:none" value="">select a city</option>
 					</select>
 				</label>
@@ -40,13 +53,13 @@
 				<div class="form-group">
 					<label for="comp-{{$index}}" class="select">
 						<span class="title" ng-init="comp.name">{{comp.name}}</span>
-						<select required name="competence$index" ng-model="competence[$index]" id="comp-{{$index}}" ng-options="c.name for c in competencies track by c.id">
+						<select disable-valid-styling="true" name="competence$index" ng-model="competence[$index]" id="comp-{{$index}}" ng-options="c.name for c in competencies track by c.id">
 						</select>
 					</label>
 				</div>
 			</div>
-
-			<textarea ng-model="aboutText"/>
+			<p>Add some more information about yourself.</p>
+			<textarea ng-model="aboutText" placeholder="Write something..." />
 
 			<button class="button red" ng-click="updateSkills()">Register</button><br/><br/>
 		</form>

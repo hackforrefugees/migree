@@ -11,8 +11,13 @@ input[type="email"]{
 	-webkit-appearence: none;
 	border-radius: 0;
 }
-form span.glyphicon {
-	top: -10px;
+form {
+	span.glyphicon,
+	span.error-msg {
+		top: -10px;
+		color: #555555 !important;
+		margin: 0 30px;
+	}
 }
 
 .select{
@@ -37,7 +42,7 @@ form span.glyphicon {
 		position: absolute;
 		left: 0;
 		right: 0;
-		top: 0;
+		top: 8px;
 		right: 0;
 		width: 100%;
     	height: 100%;
@@ -51,6 +56,7 @@ form span.glyphicon {
 
 		font-family: 'ElegantIcons';
 		position: absolute;
+		z-index: -1;
 	}
 	&:after{
 		content: '\43';
@@ -59,5 +65,6 @@ form span.glyphicon {
 		bottom: 4px;
 		font-family: 'ElegantIcons';
 		position: absolute;
+		z-index: -1;
 	}
 }
