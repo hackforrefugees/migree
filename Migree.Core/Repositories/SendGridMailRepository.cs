@@ -42,7 +42,7 @@ namespace Migree.Core.Repositories
 
         public async Task SendRegisterMailAsync(string email, string fullName)
         {
-            var language = LanguageServant.Get<SendMessageMail>();
+            var language = LanguageServant.Get<SendRegistrationMail>();
 
             await SendMailAsync(
                 language.Subject,
