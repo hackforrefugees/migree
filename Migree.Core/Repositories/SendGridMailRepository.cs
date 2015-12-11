@@ -24,7 +24,7 @@ namespace Migree.Core.Repositories
 
         public async Task SendMessageMailAsync(Guid creatorUserId, Guid receiverUserId, string message)
         {
-            var language = LanguageServant.Get<SendMessageMail>();
+            var language = LanguageServant.Get<MessageMail>();
             var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault();
             var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
 
@@ -42,11 +42,35 @@ namespace Migree.Core.Repositories
 
         public async Task SendRegisterMailAsync(string email, string fullName)
         {
-            var language = LanguageServant.Get<SendRegistrationMail>();
+            var language = LanguageServant.Get<RegistrationMail>();
 
             await SendMailAsync(
                 language.Subject,
                 LanguageServant.Get(language.Message, fullName),
+                email,
+                language.FromMail,
+                language.FromName);
+        }
+
+        public async Task SendInitPasswordResetAsync(string email, Guid userId, long passwordResetVerificationKey)
+        {
+            var language = LanguageServant.Get<InitPasswordResetMail>();
+
+            await SendMailAsync(
+                language.Subject,
+                LanguageServant.Get(language.Message, userId, passwordResetVerificationKey),
+                email,
+                language.FromMail,
+                language.FromName);
+        }
+
+        public async Task SendFinishedPasswordResetAsync(string email)
+        {
+            var language = LanguageServant.Get<FinishedPasswordResetMail>();
+
+            await SendMailAsync(
+                language.Subject,
+                language.Message,
                 email,
                 language.FromMail,
                 language.FromName);
@@ -68,8 +92,6 @@ namespace Migree.Core.Repositories
             var transportREST = new Web(SettingsServant.SendGridCredentials);
             await transportREST.DeliverAsync(mailMessage);
         }
-
-
     }
 
 

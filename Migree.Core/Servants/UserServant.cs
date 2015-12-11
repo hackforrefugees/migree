@@ -16,12 +16,12 @@ namespace Migree.Core.Servants
         private const int PROFILE_IMAGE_SIZE_PIXELS = 100;
         private IDataRepository DataRepository { get; }
         private IContentRepository ContentRepository { get; }
-        private IPasswordServant PasswordServant { get; }        
+        private IPasswordServant PasswordServant { get; }
         private IMailRepository MailServant { get; }
         public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
-            PasswordServant = passwordServant;            
+            PasswordServant = passwordServant;
             ContentRepository = contentRepository;
             MailServant = mailServant;
         }
@@ -75,7 +75,7 @@ namespace Migree.Core.Servants
             user.UserLocation = userLocation;
             user.Description = description;
             DataRepository.AddOrUpdate(user);
-        }        
+        }
 
         public async Task UploadProfileImageAsync(Guid userId, Stream imageStream)
         {
@@ -92,11 +92,53 @@ namespace Migree.Core.Servants
                     }
                 }
             }
-        }        
+        }
 
         public string GetProfileImageUrl(Guid userId)
         {
             return ContentRepository.GetImageUrl(userId, ImageType.Profile);
-        }        
+        }
+
+        public async Task InitPasswordResetAsync(string email)
+        {
+            email = email.ToLower();
+            var user = DataRepository.GetAll<User>().FirstOrDefault(p => p.Email.Equals(email));
+
+            if (user != null)
+            {
+                user.PasswordResetVerificationKey = DateTime.UtcNow.Ticks;
+                DataRepository.AddOrUpdate(user);
+                await MailServant.SendInitPasswordResetAsync(email, user.Id, user.PasswordResetVerificationKey);
+            }
+        }
+
+        public async Task ResetPasswordAsync(Guid userId, string resetVerificationKey, string newPassword)
+        {
+            if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                throw new ValidationException("Password can´t be empty");
+            }
+
+            var resetTime = Convert.ToInt64(resetVerificationKey);
+
+            if (new DateTime(resetTime).AddHours(3) < DateTime.UtcNow)
+            {
+                throw new ValidationException("Reset message to old");
+            }
+
+            var user = DataRepository.GetAll<User>(p => 
+                p.RowKey.Equals(User.GetRowKey(userId)) && 
+                p.PasswordResetVerificationKey.Equals(resetTime)).FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new ValidationException("invalid request");
+            }
+
+            user.PasswordResetVerificationKey = 0;
+            user.Password = PasswordServant.CreatePasswordHash(newPassword);
+            DataRepository.AddOrUpdate(user);
+            await MailServant.SendFinishedPasswordResetAsync(user.Email);
+        }
     }
 }

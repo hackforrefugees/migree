@@ -17,7 +17,7 @@ namespace Migree.Api.Controllers
             LanguageServant = languageServant;
         }
 
-        [HttpGet, Route("{languageCode:regex(^[a-z]{2}$)}")]
+        [HttpGet, Route("{languageCode:regex(^[a-z]{2}$)}"), AllowAnonymous]
         public HttpResponseMessage Get(string languageCode)
         {
             try

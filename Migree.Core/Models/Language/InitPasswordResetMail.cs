@@ -2,7 +2,7 @@
 
 namespace Migree.Core.Models.Language
 {
-    public class SendMessageMail : MailLanguage, ILanguage
+    public class InitPasswordResetMail : LanguageMail, ILanguage
     {
     }
 }

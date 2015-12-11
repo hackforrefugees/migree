@@ -7,7 +7,7 @@ namespace Migree.Core.Interfaces
     {
         LanguageItem Get<LanguageItem>()
             where LanguageItem : class, ILanguage;
-        string Get(string languageString, params string[] args);
+        string Get(string languageString, params object[] args);
         IDictionary<string, string> GetDictionary<LanguageItem>()
             where LanguageItem : class, ILanguage;
     }

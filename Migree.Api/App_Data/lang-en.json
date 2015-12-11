@@ -1,15 +1,27 @@
 ﻿{
-  "sendMessageMail": {
+  "messageMail": {
     "subject": "You got a Migree-mail from {0}",
     "fromName": "{0} thru Migree",
     "fromMail": "no-reply@migree.se",
     "message": "{0}\n\nReply to this e-mail or send a mail directly to {1}, to get in touch with {2}"
   },
-  "sendRegistrationMail": {
+  "registrationMail": {
     "subject": "Welcome to Migree",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
     "message": "Thank you for your registration, {0}!\n\nWe will come back to you shortly. We working day and night to get things running!"
+  },
+  "initPasswordResetMail": {
+    "subject": "A password reset is requested",
+    "fromName": "Migree",
+    "fromMail": "no-reply@migree.se",
+    "message": "A password reset has been requested. If you wan´t to reset password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you havn´t requested a reset, please ignore this message"
+  },
+  "finishedPasswordResetMail": {
+    "subject": "Your password has been changed",
+    "fromName": "Migree",
+    "fromMail": "no-reply@migree.se",
+    "message": "Your password has been changed for your Migree login"
   },
   "client": {
     "login": "Login",

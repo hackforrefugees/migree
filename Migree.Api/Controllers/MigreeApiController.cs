@@ -5,6 +5,7 @@ using System.Web.Http;
 
 namespace Migree.Api.Controllers
 {
+    [Authorize]
     public abstract class MigreeApiController : ApiController
     {
         protected HttpResponseMessage CreateApiResponse(HttpStatusCode statusCode, object content = null, Uri locationUrl = null)
