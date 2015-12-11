@@ -12,9 +12,11 @@ namespace Migree.Api.Providers
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         private IUserServant UserServant { get; }
+        private ISessionServant SessionServant { get; }
 
         public AuthorizationServerProvider()
         {
+            SessionServant = DependencyResolver.Current.GetService<ISessionServant>();
             UserServant = DependencyResolver.Current.GetService<IUserServant>();
         }
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
