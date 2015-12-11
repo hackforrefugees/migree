@@ -18,12 +18,14 @@ namespace Migree.Core.Servants
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
         private IMailRepository MailServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
+        private ISessionServant SessionServant { get; }
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant, ISessionServant sessionServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             ContentRepository = contentRepository;
             MailServant = mailServant;
+            SessionServant = sessionServant;
         }
 
         public IUser FindUser(string email, string password)

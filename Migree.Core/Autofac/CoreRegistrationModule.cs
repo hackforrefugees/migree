@@ -16,7 +16,8 @@ namespace Migree.Core.Autofac
         }
 
         protected override void Load(ContainerBuilder builder)
-        {            
+        {
+            builder.RegisterType<SessionServant>().As<ISessionServant>().SingleInstance();
             Register<SettingsServant, ISettingsServant>(builder);
             Register<LanguageServant, ILanguageServant>(builder);
             Register<AzureTableRepository, IDataRepository>(builder);
