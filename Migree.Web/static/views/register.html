@@ -32,19 +32,19 @@
 		<form name="step2" novalidate="novalidate" ng-submit="updateSkills()">
 			
 			<div class="form-group">
-				<label for="city" class="select">
-					<span class="title" ng-init="registration.work.label = 'I am a ...'" >{{registration.work.label}}</span>
-					<select disable-valid-styling="true" ng-model="registration.work" id="work" ng-options="c as c.label for c in work track by c.value">
-					 	<option style="display:none" value="">I am a ...</option>
+				<label for="work" class="select">
+					<span class="title" ng-init="registration.work.name = 'I am a ...'" >{{registration.work.name}}</span>
+					<select disable-valid-styling="true" ng-model="registration.work" id="work" ng-options="c as c.name for c in businesses track by c.id">
+					 	
 					</select>
 				</label>
 			</div>
 
 			<div class="form-group">
 				<label for="city" class="select">
-					<span class="title" ng-init="registration.city.label = 'I live in/near'" >{{registration.city.label}}</span>
-					<select disable-valid-styling="true" ng-model="registration.city" id="city" ng-options="c as c.label for c in cities track by c.value">
-					 	<option style="display:none" value="">select a city</option>
+					<span class="title" ng-init="registration.city.name = 'I live in/near'" >{{registration.city.name}}</span>
+					<select disable-valid-styling="true" ng-model="registration.city" id="city" ng-options="c as c.name for c in locations track by c.id">
+					 	
 					</select>
 				</label>
 			</div>
@@ -53,7 +53,7 @@
 				<div class="form-group">
 					<label for="comp-{{$index}}" class="select">
 						<span class="title" ng-init="comp.name">{{comp.name}}</span>
-						<select disable-valid-styling="true" name="competence$index" ng-model="competence[$index]" id="comp-{{$index}}" ng-options="c.name for c in competencies track by c.id">
+						<select disable-valid-styling="true" name="competence$index" ng-model="competence[$index]" id="comp-{{$index}}" ng-options="c.name for c in competences track by c.id">
 						</select>
 					</label>
 				</div>

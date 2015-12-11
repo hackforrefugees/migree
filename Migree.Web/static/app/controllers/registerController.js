@@ -3,13 +3,29 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
   function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state) {
     'use strict';
 
-  $http({
+    $http({
           url: 'https://migree.azurewebsites.net/competence',
           method: 'GET'
         }).then(function(response) {
-          $scope.competencies = response.data;
+          $scope.competences = response.data;
         }, function() {
-        });
+    });
+
+    $http({
+          url: 'https://migree.azurewebsites.net/business',
+          method: 'GET'
+        }).then(function(response) {
+          $scope.businesses = response.data;
+        }, function() {
+    });
+    $http({
+          url: 'https://migree.azurewebsites.net/location',
+          method: 'GET'
+        }).then(function(response) {
+          $scope.locations = response.data;
+        }, function() {
+    });
+
     $scope.savedSuccessfully = false;
     $scope.message = "";
     $scope.aboutText = "";
@@ -27,10 +43,6 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     { value: '2', label: 'Gothenburg' },
     { value: '1', label: 'Stockholm' },
     { value: '3', label: 'Malmo' }
-    ];
-
-    $scope.work = [
-    { value: '1', label: 'Developer' }
     ];
 
     $scope.competence = [
