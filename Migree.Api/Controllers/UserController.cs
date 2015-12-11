@@ -44,7 +44,7 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPost, Route("")]
+        [HttpPost, Route(""), AllowAnonymous]
         public async Task<HttpResponseMessage> RegisterAsync(RegisterRequest request)
         {
             try
@@ -221,7 +221,7 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPost, Route("resetpassword")]
+        [HttpPost, Route("resetpassword"), AllowAnonymous]
         public async Task<HttpResponseMessage> InitPasswordReset(InitPasswordResetRequest request)
         {
             try
@@ -239,11 +239,16 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPut, Route("resetpassword")]
+        [HttpPut, Route("resetpassword"), AllowAnonymous]
         public async Task<HttpResponseMessage> PasswordReset(PasswordResetRequest request)
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(request.NewPassword))
+                {
+                    return CreateApiResponse(HttpStatusCode.BadRequest);
+                }
+
                 await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);
                 return CreateApiResponse(HttpStatusCode.Accepted);
             }
