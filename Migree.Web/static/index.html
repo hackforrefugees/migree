@@ -25,6 +25,11 @@
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
+		<meta property="og:url"           content="http://migree.se" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content="Migree - Let's meet" />
+		<meta property="og:description"   content="Migree is a unique tool for connecting immigrants with swedes based on their professional skills. Register now and help us make this great." />
+		<meta property="og:image"         content="http://www.migree.se/img/migree-share.png" />
 
 
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
@@ -64,6 +69,24 @@
 
 	</head>
 	<body>
+		<script>
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '1658503381099537',
+		      xfbml      : true,
+		      version    : 'v2.5'
+		    });
+		  };
+
+		  (function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "//connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+		</script>
+
 <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 width="170px" height="64px" viewBox="0 0 160 64" fill="#FF0035">
 
@@ -99,7 +122,7 @@
 
 		<div>
 			<div ui-view></div>
-			<footer>Copyright &copy; Migree 2015</footer>
+			<footer></footer>
 		</div>
 	</body>
 </html>
