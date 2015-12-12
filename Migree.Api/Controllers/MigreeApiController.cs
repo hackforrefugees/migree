@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Migree.Api.Configuration;
+using Migree.Core.Exceptions;
+using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Linq;
-using Migree.Core.Exceptions;
 
 namespace Migree.Api.Controllers
 {
@@ -34,7 +35,7 @@ namespace Migree.Api.Controllers
                 {
                     var requestContext = Request.GetRequestContext();
                     var principal = requestContext.Principal as System.Security.Claims.ClaimsPrincipal;
-                    var userIdClaim = principal.Claims.FirstOrDefault(p => p.Type == "userId")?.Value ?? null;
+                    var userIdClaim = principal.Claims.FirstOrDefault(p => p.Type == Global.ClaimUserId)?.Value ?? null;
 
                     if (!string.IsNullOrEmpty(userIdClaim))
                         return Guid.Parse(userIdClaim);

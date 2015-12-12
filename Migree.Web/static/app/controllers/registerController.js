@@ -112,7 +112,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       });
 
       $http({
-        url: 'https://migree.azurewebsites.net/user/'+userId,
+        url: 'https://migree.azurewebsites.net/user/',
         method: 'PUT',
         data: {
           userLocation: $scope.registration.city.value,

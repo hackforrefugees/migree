@@ -5,7 +5,7 @@ migree.factory('userService', ['$http', '$q', 'localStorageService', function ($
   var _getMatches = function () {
     var authData = localStorageService.get('authorizationData');
     if(authData) {
-      return $http.get(serviceBase + 'user/' + authData.userId + '/matches').then(function (response) {
+      return $http.get(serviceBase + 'user/matches').then(function (response) {
             return response;
         });
     }

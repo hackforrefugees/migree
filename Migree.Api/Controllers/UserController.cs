@@ -29,14 +29,18 @@ namespace Migree.Api.Controllers
             MessageServant = messageServant;
         }
 
-        [HttpGet, Route("{userId:guid}/competences")]
-        public HttpResponseMessage GetUserCompetences(Guid userId)
+        [HttpGet, Route("competences")]
+        public HttpResponseMessage GetUserCompetences()
         {
             try
             {                
-                var competences = CompetenceServant.GetUserCompetences(userId);
+                var competences = CompetenceServant.GetUserCompetences(CurrentUserId);
                 var response = competences.Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
                 return CreateApiResponse(HttpStatusCode.OK, response);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.Unauthorized);
             }
             catch
             {
@@ -72,13 +76,17 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpGet, Route("{userId:guid}")]
-        public HttpResponseMessage GetUser(Guid userId)
+        [HttpGet, Route("")]
+        public HttpResponseMessage GetUser()
         {
             try
             {
-                var user = UserServant.GetUser(userId);
+                var user = UserServant.GetUser(CurrentUserId);
                 return CreateApiResponse(HttpStatusCode.OK, GetUserResponse(user));
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.Unauthorized);
             }
             catch
             {
@@ -86,8 +94,8 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPost, Route("{userId:guid}/upload")]
-        public async Task<HttpResponseMessage> UploadProfileImageAsync(Guid userId)
+        [HttpPost, Route("upload")]
+        public async Task<HttpResponseMessage> UploadProfileImageAsync()
         {
             try
             {
@@ -99,10 +107,14 @@ namespace Migree.Api.Controllers
                 var content = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
                 using (var imageStream = await content.Contents.First().ReadAsStreamAsync())
                 {
-                    await UserServant.UploadProfileImageAsync(userId, imageStream);
+                    await UserServant.UploadProfileImageAsync(CurrentUserId, imageStream);
                 }
 
                 return CreateApiResponse(HttpStatusCode.Accepted);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.Unauthorized);
             }
             catch
             {
@@ -110,13 +122,13 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpGet, Route("{userId:guid}/matches")]
-        public HttpResponseMessage GetMatches(Guid userId)
+        [HttpGet, Route("matches")]
+        public HttpResponseMessage GetMatches()
         {
             try
             {
-                var userMatches = CompetenceServant.GetUserCompetences(userId).Select(p => p.Id).ToList();
-                var matchedUsers = CompetenceServant.GetMatches(userId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
+                var userMatches = CompetenceServant.GetUserCompetences(CurrentUserId).Select(p => p.Id).ToList();
+                var matchedUsers = CompetenceServant.GetMatches(CurrentUserId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
                 var users = matchedUsers.Select(user => GetUserResponse(user)).ToList();
 
                 return CreateApiResponse(HttpStatusCode.OK, users);
@@ -127,8 +139,8 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPut, Route("{userId:guid}")]
-        public HttpResponseMessage Update(Guid userId, UpdateUserRequest request)
+        [HttpPut, Route("")]
+        public HttpResponseMessage Update(UpdateUserRequest request)
         {
             try
             {
@@ -137,9 +149,13 @@ namespace Migree.Api.Controllers
                     return CreateApiResponse(HttpStatusCode.BadRequest);
                 }
 
-                UserServant.UpdateUser(userId, request.UserLocation, request.Description ?? string.Empty);
-                CompetenceServant.AddCompetencesToUser(userId, request.CompetenceIds);
+                UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);
+                CompetenceServant.AddCompetencesToUser(CurrentUserId, request.CompetenceIds);
                 return CreateApiResponse(HttpStatusCode.NoContent);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.Unauthorized);
             }
             catch
             {
@@ -147,8 +163,8 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPost, Route("{userId:guid}/message")]
-        public async Task<HttpResponseMessage> PostMessageAsync(Guid userId, PostMessageRequest request)
+        [HttpPost, Route("message")]
+        public async Task<HttpResponseMessage> PostMessageAsync(PostMessageRequest request)
         {
             try
             {
@@ -157,8 +173,12 @@ namespace Migree.Api.Controllers
                     return CreateApiResponse(HttpStatusCode.BadRequest);
                 }
 
-                await MessageServant.SendMessageToUserAsync(userId, request.ReceiverUserId, request.Message);
+                await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);
                 return CreateApiResponse(HttpStatusCode.Accepted);
+            }
+            catch (ValidationException)
+            {
+                return CreateApiResponse(HttpStatusCode.Unauthorized);
             }
             catch
             {
@@ -166,7 +186,7 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpGet, Route("{userId:guid}/messages")]
+        [HttpGet, Route("messages")]
         public HttpResponseMessage GetMessageThreads(Guid userId)
         {
             try
@@ -193,13 +213,13 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpGet, Route("{userId:guid}/message/{messageId:regex(^[a-f0-9_\\-]+$)}")]
-        public HttpResponseMessage GetMessageThread(Guid userId, string messageId)
+        [HttpGet, Route("message/{messageId:regex(^[a-f0-9_\\-]+$)}")]
+        public HttpResponseMessage GetMessageThread(string messageId)
         {
             try
             {
-                var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, userId);
-                MessageServant.SetMessageThreadAsRead(messageId, userId);
+                var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, CurrentUserId);
+                MessageServant.SetMessageThreadAsRead(messageId, CurrentUserId);
                 var user = messagesInThreadWithUser.Key;
 
                 var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
