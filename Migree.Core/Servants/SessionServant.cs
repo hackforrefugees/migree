@@ -1,10 +1,11 @@
 ﻿using Migree.Core.Exceptions;
+using Migree.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace Migree.Core.Servants
 {
-    public class SessionServant
+    public class SessionServant : ISessionServant
     {
         private Dictionary<string, Guid> AuthenticationKeys { get; }
 
