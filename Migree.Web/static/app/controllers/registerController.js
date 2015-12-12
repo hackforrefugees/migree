@@ -77,7 +77,8 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         $scope.savedSuccessfully = true;
         $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
         userId = response.data.userId;
-
+        $('.step').prev().hide();
+        $('.step').next().show();
         fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
 
         }, function(err) {
