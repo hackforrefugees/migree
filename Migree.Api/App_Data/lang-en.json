@@ -9,7 +9,7 @@
     "subject": "Welcome to Migree",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "Thank you for your registration, {0}!\n\nWe will come back to you shortly. We working day and night to get things running!"
+    "message": "Thank you for your registration, {0}!\n\nWe appreciate your initiation and motivation for helping the fellow developers. As a registered member of Migree, we will try our best to match you up with the people who are in need of your help. The match system will ensure that you both share similar expertise and professional background. We encourage you as local developers to initiate chat with the new coming developers, your advices and contacts would be of a great help for the new comers.\n\n(Note*: For now, our developers are working hard to make the match system functions as it should be. Have a few cups of coffee and be patient, it will be online soon. )\n\nSincerely,\nMigree Team"
   },
   "initPasswordResetMail": {
     "subject": "A password reset is requested",
