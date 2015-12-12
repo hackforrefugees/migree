@@ -79,7 +79,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         userId = response.data.userId;
         $('.step').prev().hide();
         $('.step').next().show();
-        fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
+        fileUploadService.upload(profileFile).then(function(response) {
 
         }, function(err) {
 
