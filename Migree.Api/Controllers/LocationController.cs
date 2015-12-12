@@ -10,7 +10,7 @@ namespace Migree.Api.Controllers
     [RoutePrefix("location")]
     public class LocationController : MigreeApiController
     {
-        [HttpGet, Route("")]
+        [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetAll()
         {
             var business = Enum.GetValues(typeof(UserLocation)).Cast<UserLocation>().OrderBy(p => p.ToDescription()).Select(p => new IntIdAndNameResponse

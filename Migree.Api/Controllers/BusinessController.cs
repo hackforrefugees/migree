@@ -10,7 +10,7 @@ namespace Migree.Api.Controllers
     [RoutePrefix("business")]
     public class BusinessController : MigreeApiController
     {
-        [HttpGet, Route("")]
+        [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetAll()
         {
             var business = Enum.GetValues(typeof(BusinessGroup)).Cast<BusinessGroup>().OrderBy(p => p.ToDescription()).Select(p => new IntIdAndNameResponse

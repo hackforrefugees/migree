@@ -18,7 +18,7 @@ namespace Migree.Api.Controllers
             CompetenceServant = competenceServant;
         }
         
-        [HttpGet, Route("")]
+        [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetCompetences()
         {
             try
