@@ -33,7 +33,7 @@ namespace Migree.Api.Controllers
         public HttpResponseMessage GetUserCompetences(Guid userId)
         {
             try
-            {
+            {                
                 var competences = CompetenceServant.GetUserCompetences(userId);
                 var response = competences.Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
                 return CreateApiResponse(HttpStatusCode.OK, response);

@@ -17,15 +17,13 @@ namespace Migree.Core.Servants
         private IDataRepository DataRepository { get; }
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
-        private IMailRepository MailServant { get; }
-        private ISessionServant SessionServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant, ISessionServant sessionServant)
+        private IMailRepository MailServant { get; }        
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             ContentRepository = contentRepository;
-            MailServant = mailServant;
-            SessionServant = sessionServant;
+            MailServant = mailServant;            
         }
 
         public IUser FindUser(string email, string password)

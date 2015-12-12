@@ -1,9 +1,8 @@
 ﻿using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using Migree.Api.Configuration;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
-using Migree.Core.Interfaces.Models;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -13,14 +12,12 @@ namespace Migree.Api.Providers
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         private const string INVALID_GRANT = "invalid_grant";
+        private const string GENERAL_ERROR_MESSAGE = "General error message";
 
         private IUserServant UserServant { get; }
-        private ISessionServant SessionServant { get; }
-        private IUser UserInContext { get; set; }
 
         public AuthorizationServerProvider()
         {
-            SessionServant = DependencyResolver.Current.GetService<ISessionServant>();
             UserServant = DependencyResolver.Current.GetService<IUserServant>();
         }
 
@@ -60,12 +57,11 @@ namespace Migree.Api.Providers
         {
             try
             {
-                UserInContext = UserServant.FindUser(context.UserName, context.Password);
-                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                identity.AddClaim(new Claim("userName", context.UserName));
-                identity.AddClaim(new Claim("userId", UserInContext.Id.ToString()));                
+                var user = UserServant.FindUser(context.UserName, context.Password);
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);                
+                identity.AddClaim(new Claim(Global.ClaimUserId, user.Id.ToString()));
                 var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
-                context.Validated(ticket);                                
+                context.Validated(ticket);
                 await Task.Delay(1);
             }
             catch (ValidationException e)
@@ -75,20 +71,9 @@ namespace Migree.Api.Providers
             }
             catch
             {
-                context.SetError(INVALID_GRANT, "General error");
+                context.SetError(INVALID_GRANT, GENERAL_ERROR_MESSAGE);
                 return;
             }
-        }
-       
-        /// <summary>
-        /// Called before the TokenEndpoint redirects its response to the caller.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public override Task TokenEndpointResponse(OAuthTokenEndpointResponseContext context)
-        {
-            SessionServant.SetAuthenticationKey(context.AccessToken, UserInContext.Id);
-            return base.TokenEndpointResponse(context);           
-        }
+        }        
     }
 }
