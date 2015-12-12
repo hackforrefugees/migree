@@ -24,7 +24,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
       }
     })
     .state('register', {
-      url: '/register/:who',
+      url: '/register',
       templateUrl: '/views/register.html',
       controller: 'registerController',
       data: {
