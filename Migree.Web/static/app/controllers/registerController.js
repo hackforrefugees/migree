@@ -111,22 +111,20 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         return item.id;
       });
       if($scope.registration.city.id && ids[0] && ids[1] && ids[2] && $scope.registration.work.id && $scope.aboutText.length>0) {
-        $http({
-        url: 'https://migree.azurewebsites.net/user',
-        method: 'PUT',
-        async: 'true',
-        contentType: "application/json",
-        data: {
+        var skillsData = {
           userLocation: $scope.registration.city.id,
           description: $scope.aboutText,
           competenceIds: ids
-        }
-      }).then(function(response) {
-        $location.path('/thankyou');
+        };
 
-      }, function(err) {
-        
-      });
+        $http.put('https://migree.azurewebsites.net/user', skillsData)
+            .success(function (data, status, headers) {
+                
+            })
+            .error(function (data, status, header, config) {
+                console.log(data);
+            });
+            $state.go('thankyou');
       }
       else {
         alert('Please complete your registration by selecting a value in each of the dropdown boxes and writing a short description.')
