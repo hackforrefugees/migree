@@ -1,7 +1,8 @@
 var migree = angular.module('migreeApp', [
     'ngRoute',
     'ui.router',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'ngImgCrop'
 ]);
 
 
@@ -51,7 +52,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
 			url: '/logout',
 			templateUrl: '/views/404.html',
 			controller: function() {
-        
+
       },
       data: {
         requireLogin: true

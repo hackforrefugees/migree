@@ -1,4 +1,3 @@
-
 migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService', '$state',
   function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state) {
     'use strict';
@@ -32,21 +31,21 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     var userId = null;
     var profileFile = null;
 
+    $scope.croppedImg = null;
+    $scope.srcImg = null;
+    $scope.avatarCropped = false;
+
+    $scope.crop = function() {
+      $scope.avatarCropped = true;
+    };
+
     $scope.getFile = function () {
       $scope.progress = 0;
+
       fileReader.readAsDataUrl($scope.file, $scope).then(function(result) {
         profileFile = $scope.file;
-
-        /* TODO: scale
-        var canvas = document.createElement('canvas');
-        var w = 100, h = 100;
-        canvas.width = w;
-        canvas.height = h;
-        var ctx = canvas.getContext('2d').putImageData(result, 0, 0);
-        ctx.drawImage(result, 0, 0, w, h);
-        $scope.imageSrc = canvas.toDataUrl('image/jpeg');
-        */
-        $scope.profileImageSrc = result;
+        $scope.srcImg = result;
+        $scope.didSelect = true;
       });
     };
 
