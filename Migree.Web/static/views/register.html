@@ -1,3 +1,13 @@
+<div class="ui-view-image-view" ng-show="didSelect && !avatarCropped">
+	<img-crop
+		image="srcImg"
+		result-image="croppedImg"
+		result-image-size="100"
+		>
+	</img-crop>
+	<br/><br/>
+	<button class="button red" ng-click="crop()">Yes! this is beautiful!</button>
+</div>
 <div class="register page">
 	<div class="active step">
 		<h4>USER INFO</h4>
@@ -15,9 +25,10 @@
 				<input type="password" ng-minlength="6" placeholder="Password" required ng-model="registration.password" />
 			</div>
 			<div class="form-group">
-				<div class="avatar-upload" style="background-image: url({{ profileImageSrc }});">
-					<i class="icon icon_image" ng-show="!profileImageSrc"></i>
-					<input type="file" name="avatar" ng-model="profileImageSrc" disable-valid-styling="true" file-select />
+				<div class="avatar-upload" ng-show="!didSelect || avatarCropped">
+					<i class="icon icon_image" ng-show="!didSelect"></i>
+					<input type="file" name="avatar" ng-model="profileImageSrc" file-select />
+					<img src="{{ croppedImg }}" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -30,12 +41,12 @@
 		<h4>WORK INFO</h4>
 		<p>Please provide some information about your skills. This helps making the matching process more accurate.</p>
 		<form name="step2" novalidate="novalidate" ng-submit="updateSkills()">
-			
+
 			<div class="form-group">
 				<label for="work" class="select">
 					<span class="title" ng-init="registration.work.name = 'I am a ...'" >{{registration.work.name}}</span>
 					<select disable-valid-styling="true" ng-model="registration.work" id="work" ng-options="c as c.name for c in businesses track by c.id">
-					 	
+
 					</select>
 				</label>
 			</div>
@@ -44,7 +55,7 @@
 				<label for="city" class="select">
 					<span class="title" ng-init="registration.city.name = 'I live in/near'" >{{registration.city.name}}</span>
 					<select disable-valid-styling="true" ng-model="registration.city" id="city" ng-options="c as c.name for c in locations track by c.id">
-					 	
+
 					</select>
 				</label>
 			</div>
