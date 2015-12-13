@@ -54,7 +54,7 @@ namespace Migree.Api.Controllers
             try
             {
                 if (
-                    string.IsNullOrEmpty(request.Email) ||
+                    !request.Email.IsValidEmail() ||
                     string.IsNullOrEmpty(request.Password) ||
                     string.IsNullOrEmpty(request.FirstName) ||
                     string.IsNullOrEmpty(request.LastName)
