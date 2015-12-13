@@ -3,7 +3,8 @@ var migree = angular.module('migreeApp', [
     'ui.router',
     'LocalStorageModule',
     'jcs-autoValidate',
-    'ngImgCrop'
+    'ngImgCrop',
+    'frapontillo.bootstrap-switch'
 ]);
 
 migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {

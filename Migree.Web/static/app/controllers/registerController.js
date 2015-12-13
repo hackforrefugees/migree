@@ -35,7 +35,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         password: "",
         email: "",
         city: "",
-        userType: 1
+        userType: 2
     };
 
     $scope.competence = [
