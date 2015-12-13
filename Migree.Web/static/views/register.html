@@ -6,7 +6,7 @@
 		>
 	</img-crop>
 	<br/><br/>
-	<button class="button red" ng-click="crop()">Yes! this is beautiful!</button>
+	<button class="button red cropbutton" ng-click="crop()">Yes! this is beautiful!</button>
 </div>
 <div class="register page">
 	<div class="active step">
@@ -27,7 +27,7 @@
 			<div class="form-group">
 				<div class="avatar-upload" ng-show="!didSelect || avatarCropped">
 					<i class="icon icon_image" ng-show="!didSelect"></i>
-					<input type="file" name="avatar" ng-model="profileImageSrc" file-select />
+					<input type="file" name="avatar" ng-model="profileImageSrc" file-select disable-valid-styling="true" />
 					<img src="{{ croppedImg }}" />
 				</div>
 			</div>

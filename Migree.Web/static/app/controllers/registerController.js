@@ -96,15 +96,12 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         });
         },
          function (response) {
-             var errors = [];
-             if(response.data) {
-              for (var key in response.data.modelState) {
-                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-                     errors.push(response.data.modelState[key][i]);
-                 }
-             }
-             }
-             $scope.message = "Failed to register user due to. " + errors.join(' ');
+            if(response.status == 409) {
+              alert('This email is already registered. Please try again with another email address.')
+            }
+            else {
+              alert('Could not save user due to: ' + response.statusText);
+            }
          });
     };
 
