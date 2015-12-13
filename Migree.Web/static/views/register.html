@@ -71,9 +71,10 @@
 				</div>
 			</div>
 			<p>Add some more information about yourself.</p>
-			<textarea ng-model="aboutText" placeholder="Write something..." />
-
-			<button class="button red" ng-click="updateSkills()">Register</button><br/><br/>
+			<div class="form-group">
+				<textarea ng-model="aboutText" disable-valid-styling="true" placeholder="Write something..." />
+			</div>
+			<button type="submit" class="button red">Register</button><br/><br/>
 		</form>
 	</div>
 </div>

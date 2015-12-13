@@ -38,12 +38,6 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         userType: 1
     };
 
-    $scope.cities = [
-    { value: '2', label: 'Gothenburg' },
-    { value: '1', label: 'Stockholm' },
-    { value: '3', label: 'Malmo' }
-    ];
-
     $scope.competence = [
       {id: null, name: '1. Select a skill'},
       {id: null, name: '2. Select a skill'},
@@ -116,22 +110,29 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       var ids = $scope.competence.map(function(item) {
         return item.id;
       });
-
-      $http({
-        url: 'https://migree.azurewebsites.net/user/',
+      if($scope.registration.city.id && ids[0] && ids[1] && ids[2] && $scope.registration.work.id && $scope.aboutText.length>0) {
+        $http({
+        url: 'https://migree.azurewebsites.net/user',
         method: 'PUT',
+        async: 'true',
+        contentType: "application/json",
         data: {
-          userLocation: $scope.registration.city.value,
+          userLocation: $scope.registration.city.id,
           description: $scope.aboutText,
           competenceIds: ids
         }
       }).then(function(response) {
-        console.log('Got OK when updating user: ', response);
-        $state.go('thankyou');
+        $location.path('/thankyou');
 
       }, function(err) {
-        console.log('Got error when updating user: ', err);
+        
       });
+      }
+      else {
+        alert('Please complete your registration by selecting a value in each of the dropdown boxes and writing a short description.')
+      }
+
+      
     };
 
 }]);
