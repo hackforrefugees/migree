@@ -14,5 +14,7 @@ namespace Migree.Core.Models.Language
         public FinishedPasswordResetMail FinishedPasswordResetMail { get; set; }
         [JsonProperty("client")]
         public Client Client { get; set; }
+        [JsonProperty("relativeDateTimeStrings")]
+        public RelativeDateTimeStrings RelativeDateTimeStrings { get; set; }
     }
 }

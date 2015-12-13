@@ -26,5 +26,13 @@
   "client": {
     "login": "Login",
     "password": "Password"
+  },
+  "relativeDateTimeStrings": {
+    "days": "{0} days ago",
+    "day": "1 day ago",
+    "hours": "{0} hours ago",
+    "hour": "1 hour ago",
+    "minutes": "{0} minutes ago",
+    "now": "a moment ago"
   }
 }

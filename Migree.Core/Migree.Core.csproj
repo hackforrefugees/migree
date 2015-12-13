@@ -125,6 +125,7 @@
     <Compile Include="Models\Language\InitPasswordResetMail.cs" />
     <Compile Include="Models\Language\MessageMail.cs" />
     <Compile Include="Models\Language\RegistrationMail.cs" />
+    <Compile Include="Models\Language\RelativeDateTimeStrings.cs" />
     <Compile Include="Models\MatchedUser.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageThread.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Servants\UserServant.cs" />
     <Compile Include="Utilities\EnumExtensions.cs" />
     <Compile Include="Utilities\HttpStatusCodeExtension.cs" />
+    <Compile Include="Utilities\LongExtensions.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
