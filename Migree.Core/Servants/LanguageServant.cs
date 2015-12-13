@@ -45,6 +45,10 @@ namespace Migree.Core.Servants
             {
                 return language.Client as LanguageItem;
             }
+            else if (typeof(LanguageItem).Name == nameof(RelativeDateTimeStrings))
+            {
+                return language.RelativeDateTimeStrings as LanguageItem;
+            }
 
             return default(LanguageItem);
         }

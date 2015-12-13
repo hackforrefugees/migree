@@ -3,6 +3,7 @@ using Migree.Api.Models.Responses;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
+using Migree.Core.Models.Language;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,14 @@ namespace Migree.Api.Controllers
         private IUserServant UserServant { get; }
         private ICompetenceServant CompetenceServant { get; }
         private IMessageServant MessageServant { get; }
+        private ILanguageServant LanguageServant { get; }
 
-        public UserController(IUserServant userServant, ICompetenceServant comptenceServant, IMessageServant messageServant)
+        public UserController(IUserServant userServant, ICompetenceServant comptenceServant, IMessageServant messageServant, ILanguageServant languageServant)
         {
             UserServant = userServant;
             CompetenceServant = comptenceServant;
             MessageServant = messageServant;
+            LanguageServant = languageServant;
         }
 
         [HttpGet, Route("competences")]
@@ -54,10 +57,10 @@ namespace Migree.Api.Controllers
             try
             {
                 if (
-                    string.IsNullOrEmpty(request.Email) ||
-                    string.IsNullOrEmpty(request.Password) ||
-                    string.IsNullOrEmpty(request.FirstName) ||
-                    string.IsNullOrEmpty(request.LastName)
+                    !request.Email.IsValidEmail() ||
+                    string.IsNullOrWhiteSpace(request.Password) ||
+                    string.IsNullOrWhiteSpace(request.FirstName) ||
+                    string.IsNullOrWhiteSpace(request.LastName)
                     )
                 {
                     return CreateApiResponse(HttpStatusCode.BadRequest);
@@ -130,7 +133,6 @@ namespace Migree.Api.Controllers
                 var userMatches = CompetenceServant.GetUserCompetences(CurrentUserId).Select(p => p.Id).ToList();
                 var matchedUsers = CompetenceServant.GetMatches(CurrentUserId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
                 var users = matchedUsers.Select(user => GetUserResponse(user)).ToList();
-
                 return CreateApiResponse(HttpStatusCode.OK, users);
             }
             catch
@@ -187,20 +189,20 @@ namespace Migree.Api.Controllers
         }
 
         [HttpGet, Route("messages")]
-        public HttpResponseMessage GetMessageThreads(Guid userId)
+        public HttpResponseMessage GetMessageThreads()
         {
             try
             {
-                var messageThreads = MessageServant.GetMessageThreads(userId);
+                var messageThreads = MessageServant.GetMessageThreads(CurrentUserId);
                 var response = messageThreads.Select(p => new MessageThreadResponse
                 {
                     UserId = p.Value.Id,
                     FullName = $"{p.Value.FirstName} {p.Value.LastName}",
                     ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
-                    IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(userId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
+                    IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
                     LatestMessageContent = p.Key.LatestMessageContent,
-                    LastUpdated = ToRelativeDateTimeString(p.Key.LatestMessageCreated)
-                }).ToList();
+                    LastUpdated = p.Key.LatestMessageCreated.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
+                });
                 return CreateApiResponse(HttpStatusCode.OK, response);
             }
             catch (ValidationException)
@@ -226,7 +228,7 @@ namespace Migree.Api.Controllers
                 {
                     MessageId = p.Id,
                     Content = p.Content,
-                    Created = ToRelativeDateTimeString(p.Created)
+                    Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
                 });
 
                 return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
@@ -295,36 +297,6 @@ namespace Migree.Api.Controllers
             };
 
             return response;
-        }
-
-        private string ToRelativeDateTimeString(long timestamp)
-        {
-            var timeDifference = DateTime.UtcNow - new DateTime(timestamp);
-
-            if (timeDifference.Days > 1)
-            {
-                return $"{timeDifference.Days} days ago";
-            }
-            else if (timeDifference.Days == 1)
-            {
-                return "1 day ago";
-            }
-            else if (timeDifference.Hours > 1)
-            {
-                return $"{timeDifference.Days} hours ago";
-            }
-            else if (timeDifference.Hours == 1)
-            {
-                return "1 hour ago";
-            }
-            else if (timeDifference.Minutes > 5)
-            {
-                return $"{timeDifference.Minutes} hours ago";
-            }
-            else
-            {
-                return "a moment ago";
-            }
-        }
+        }        
     }
 }
