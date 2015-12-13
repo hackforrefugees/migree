@@ -47,7 +47,7 @@ namespace Migree.Core.Servants
         /// </summary>
         /// <param name="password">The password to hash.</param>
         /// <returns>The hash of the password.</returns>
-        public string CreateHash(string password)
+        public string CreatePasswordHash(string password)
         {
             RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
             byte[] salt = new byte[SALT_BYTE_SIZE];

@@ -5,7 +5,7 @@ namespace Migree.Api.Models.Responses
 {
     public class RegisterResponse
     {
-        [JsonProperty(PropertyName = "userId")]
+        [JsonProperty("userId")]
         public Guid UserId { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IPasswordServant
     {        
-        string CreateHash(string password);
+        string CreatePasswordHash(string password);
         bool ValidatePassword(string password, string correctHash);
     }
 }

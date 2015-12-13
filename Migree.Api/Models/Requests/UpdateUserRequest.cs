@@ -7,11 +7,11 @@ namespace Migree.Api.Models.Requests
 {
     public class UpdateUserRequest
     {
-        [JsonProperty(PropertyName = "userLocation")]
+        [JsonProperty("userLocation")]
         public UserLocation UserLocation { get; set; }
-        [JsonProperty(PropertyName = "description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
-        [JsonProperty(PropertyName = "competenceIds")]
+        [JsonProperty("competenceIds")]
         public ICollection<Guid> CompetenceIds { get; set; }
     }
 }

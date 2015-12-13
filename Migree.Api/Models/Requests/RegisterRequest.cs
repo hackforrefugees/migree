@@ -6,15 +6,15 @@ namespace Migree.Api.Models.Requests
 {
     public class RegisterRequest
     {
-        [JsonProperty(PropertyName = "firstName")]
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
-        [JsonProperty(PropertyName = "lastName")]
+        [JsonProperty("lastName")]
         public string LastName { get; set; }
-        [JsonProperty(PropertyName = "email")]
+        [JsonProperty("email")]
         public string Email { get; set; }
-        [JsonProperty(PropertyName = "password")]
+        [JsonProperty("password")]
         public string Password { get; set; }
-        [JsonProperty(PropertyName = "userType")]
+        [JsonProperty("userType")]
         public UserType UserType { get; set; }        
     }
 }

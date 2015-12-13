@@ -94,7 +94,7 @@
   <ItemGroup>
     <Compile Include="Autofac\CoreRegistrationModule.cs" />
     <Compile Include="Definitions\ApplicationType.cs" />
-    <Compile Include="Definitions\ProfessionGroup.cs" />
+    <Compile Include="Definitions\BusinessGroup.cs" />
     <Compile Include="Definitions\UserLocation.cs" />
     <Compile Include="Definitions\ImageType.cs" />
     <Compile Include="Definitions\UserType.cs" />
@@ -105,14 +105,26 @@
     <Compile Include="Interfaces\ICompetenceServant.cs" />
     <Compile Include="Interfaces\IContentRepository.cs" />
     <Compile Include="Interfaces\IDataRepository.cs" />
+    <Compile Include="Interfaces\ILanguageServant.cs" />
     <Compile Include="Interfaces\IMailRepository.cs" />
+    <Compile Include="Interfaces\IMessageServant.cs" />
     <Compile Include="Interfaces\IPasswordServant.cs" />
     <Compile Include="Interfaces\ISettingsServant.cs" />
     <Compile Include="Interfaces\IUserServant.cs" />
     <Compile Include="Interfaces\Models\ICompetence.cs" />
+    <Compile Include="Interfaces\Models\ILanguage.cs" />
+    <Compile Include="Interfaces\Models\IMessage.cs" />
+    <Compile Include="Interfaces\Models\IMessageThread.cs" />
     <Compile Include="Interfaces\Models\IUser.cs" />
     <Compile Include="Models\Competence.cs" />
     <Compile Include="Models\IdAndName.cs" />
+    <Compile Include="Models\Language\Client.cs" />
+    <Compile Include="Models\Language\FinishedPasswordResetMail.cs" />
+    <Compile Include="Models\Language\Language.cs" />
+    <Compile Include="Models\Language\LanguageMail.cs" />
+    <Compile Include="Models\Language\InitPasswordResetMail.cs" />
+    <Compile Include="Models\Language\MessageMail.cs" />
+    <Compile Include="Models\Language\RegistrationMail.cs" />
     <Compile Include="Models\MatchedUser.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageThread.cs" />
@@ -124,6 +136,8 @@
     <Compile Include="Repositories\AzureTableRepository.cs" />
     <Compile Include="Repositories\SendGridMailRepository.cs" />
     <Compile Include="Servants\CompetenceServant.cs" />
+    <Compile Include="Servants\LanguageServant.cs" />
+    <Compile Include="Servants\MessageServant.cs" />
     <Compile Include="Servants\PasswordServant.cs" />
     <Compile Include="Servants\SettingsServant.cs" />
     <Compile Include="Servants\UserServant.cs" />

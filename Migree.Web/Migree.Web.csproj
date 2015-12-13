@@ -95,7 +95,6 @@
     <Content Include="static\app\controllers\forgotController.js" />
     <Content Include="static\app\controllers\loginController.js" />
     <Content Include="static\app\controllers\registerController.js" />
-    <Content Include="static\app\controllers\signupController.js" />
     <Content Include="static\app\controllers\startController.js" />
     <Content Include="static\app\directives\fileSelect.js" />
     <Content Include="static\app\directives\fileUploadChange.js" />

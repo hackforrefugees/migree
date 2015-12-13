@@ -17,12 +17,12 @@ namespace Migree.Core.Servants
         }
         public ICollection<ICompetence> GetCompetences()
         {
-            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(ProfessionGroup.Developers)));
+            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(BusinessGroup.Developers)));
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
         public Guid AddCompetence(string name)
         {
-            var competence = new Competence(Definitions.ProfessionGroup.Developers)
+            var competence = new Competence(BusinessGroup.Developers)
             {
                 Name = name
             };
@@ -40,7 +40,7 @@ namespace Migree.Core.Servants
 
             foreach (var competenceId in competenceIds)
             {
-                var usersWithCompetence = DataRepository.GetAll<UserCompetence>(p => p.PartitionKey.Equals(UserCompetence.GetPartitionKey(competenceId)));
+                var usersWithCompetence = DataRepository.GetAll<UserCompetence>(p => p.PartitionKey.Equals(UserCompetence.GetPartitionKey(competenceId))).OrderBy(p => p.SortOrder);
 
                 foreach (var userWithCompetence in usersWithCompetence)
                 {
@@ -82,6 +82,34 @@ namespace Migree.Core.Servants
             var matchedUsersList = matchedUsers.Select(p => p.Value).ToList();
             matchedUsersList.Sort();
             return matchedUsersList.Select(p => p.User).Take(take).ToList();
+        }
+
+        public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
+        {
+            var oldCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
+
+            foreach (var oldCompetence in oldCompetences)
+            {
+                DataRepository.Delete(oldCompetence);
+            }
+
+            int sort = 1;
+
+            foreach (var competenceId in competenceIds)
+            {
+                var userCompetence = new UserCompetence(userId, competenceId)
+                {
+                    SortOrder = sort++
+                };
+                DataRepository.AddOrUpdate(userCompetence);
+            }
+        }
+
+        public ICollection<ICompetence> GetUserCompetences(Guid userId)
+        {
+            var competences = GetCompetences();
+            var userCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId))).OrderBy(p => p.SortOrder);
+            return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
     }
 }

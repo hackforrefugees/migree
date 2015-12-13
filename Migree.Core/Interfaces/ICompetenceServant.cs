@@ -27,5 +27,10 @@ namespace Migree.Core.Interfaces
         /// <param name="take">Number of users to take</param>
         /// <returns></returns>
         ICollection<IUser> GetMatches(Guid userToMatchId, ICollection<Guid> competenceIds, int take);
+
+        void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds);
+
+        ICollection<ICompetence> GetUserCompetences(Guid userId);
+
     }
 }

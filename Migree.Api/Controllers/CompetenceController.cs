@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Migree.Api.Controllers.Api
+namespace Migree.Api.Controllers
 {
     [RoutePrefix("competence")]
     public class CompetenceController : MigreeApiController
@@ -18,13 +18,13 @@ namespace Migree.Api.Controllers.Api
             CompetenceServant = competenceServant;
         }
         
-        [HttpGet, Route("")]
+        [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetCompetences()
         {
             try
             {
                 var competences = CompetenceServant.GetCompetences();
-                var response = competences.Select(x => new IdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+                var response = competences.Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
                 return CreateApiResponse(HttpStatusCode.OK, response);
             }
             catch

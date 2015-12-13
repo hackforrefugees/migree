@@ -7,7 +7,7 @@ namespace Migree.Core.Models
 {
     public class Competence : StorageModel, ICompetence
     {
-        public static string GetPartitionKey(ProfessionGroup professionGroup)
+        public static string GetPartitionKey(BusinessGroup professionGroup)
         {
             return ((int)professionGroup).ToString();
         }
@@ -22,7 +22,7 @@ namespace Migree.Core.Models
         /// </summary>
         public Competence() { }
         
-        public Competence(ProfessionGroup professionGroup)
+        public Competence(BusinessGroup professionGroup)
         {
             RowKey = Guid.NewGuid().ToString();
             PartitionKey = GetPartitionKey(professionGroup);

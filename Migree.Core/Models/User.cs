@@ -45,10 +45,15 @@ namespace Migree.Core.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Description { get; set; }
-        public UserType UserType { get; set; }
+        public string Description { get; set; }        
+        public UserType UserType
+        {
+            get { return (UserType)(Convert.ToInt32(PartitionKey)); }
+            set { PartitionKey = ((int)value).ToString(); }
+        }
 
         public int UserLocationValue { get; set; }
+        public long PasswordResetVerificationKey { get; set; }
 
         [IgnoreProperty]
         public UserLocation UserLocation

@@ -17,15 +17,13 @@ namespace Migree.Core.Servants
         private IDataRepository DataRepository { get; }
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
-        private ICompetenceServant CompetenceServant { get; }
-        private IMailRepository MailServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, ICompetenceServant competenceServant, IContentRepository contentRepository, IMailRepository mailServant)
+        private IMailRepository MailServant { get; }        
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
-            CompetenceServant = competenceServant;
             ContentRepository = contentRepository;
-            MailServant = mailServant;
+            MailServant = mailServant;            
         }
 
         public IUser FindUser(string email, string password)
@@ -47,18 +45,27 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public IUser Register(string email, string password, string firstName, string lastName, UserType userType)
+        public async Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType)
         {
             email = email.ToLower();
+
+            if (DataRepository.GetAll<User>().Any(p => p.Email.Equals(email)))
+            {
+                throw new ValidationException("e-mail already exists");
+            }
+
             var user = new User(userType);
             user.Email = email;
-            user.Password = PasswordServant.CreateHash(password);
+            user.Password = PasswordServant.CreatePasswordHash(password);
             user.FirstName = firstName;
             user.LastName = lastName;
             user.UserType = userType;
             user.UserLocation = UserLocation.Unspecified;
             user.Description = string.Empty;
             DataRepository.AddOrUpdate(user);
+
+            await MailServant.SendRegisterMailAsync(email, user.FullName);
+
             return user;
         }
 
@@ -68,29 +75,6 @@ namespace Migree.Core.Servants
             user.UserLocation = userLocation;
             user.Description = description;
             DataRepository.AddOrUpdate(user);
-        }
-
-        public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
-        {            
-            var oldCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
-
-            foreach (var oldCompetence in oldCompetences)
-            {
-                DataRepository.Delete(oldCompetence);
-            }
-
-            foreach (var competenceId in competenceIds)
-            {
-                var userCompetence = new UserCompetence(userId, competenceId);
-                DataRepository.AddOrUpdate(userCompetence);
-            }
-        }
-
-        public ICollection<ICompetence> GetUserCompetences(Guid userId)
-        {
-            var competences = CompetenceServant.GetCompetences();
-            var userCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId)));
-            return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
 
         public async Task UploadProfileImageAsync(Guid userId, Stream imageStream)
@@ -110,47 +94,51 @@ namespace Migree.Core.Servants
             }
         }
 
-        public async Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message)
-        {
-            AddMessage(creatorUserId, receiverUserId, message);
-
-            var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault(); 
-            var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
-            var subject = $"You got a Migree-mail from {creatorUser.FullName}";
-            message += "\n\n" + $"Reply to this e-mail or send a mail directly to {creatorUser.Email}, to get in touch with {creatorUser.FullName}";
-            await MailServant.SendMailAsync(subject, message, receiverUser.Email, "no-reply@migree.se", $"{creatorUser.FullName} thru Migree", creatorUser.Email);
-        }
-
         public string GetProfileImageUrl(Guid userId)
         {
             return ContentRepository.GetImageUrl(userId, ImageType.Profile);
-        }        
+        }
 
-        private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
+        public async Task InitPasswordResetAsync(string email)
         {
-            var messageThread = DataRepository.GetFirstOrDefault<MessageThread>(
-                MessageThread.GetPartitionKey(creatorUserId, receiverUserId),
-                MessageThread.GetRowKey(creatorUserId, receiverUserId));
+            email = email.ToLower();
+            var user = DataRepository.GetAll<User>().FirstOrDefault(p => p.Email.Equals(email));
 
-            var messageTimestamp = DateTime.UtcNow.Ticks;
-
-            if (messageThread == null)
+            if (user != null)
             {
-                messageThread = new MessageThread(creatorUserId, receiverUserId);
-                messageThread.LatestReadUser1 = messageThread.UserId1.Equals(creatorUserId) ? messageTimestamp : 0;
-                messageThread.LatestReadUser2 = messageThread.UserId2.Equals(creatorUserId) ? messageTimestamp : 0;
+                user.PasswordResetVerificationKey = DateTime.UtcNow.Ticks;
+                DataRepository.AddOrUpdate(user);
+                await MailServant.SendInitPasswordResetAsync(email, user.Id, user.PasswordResetVerificationKey);
+            }
+        }
+
+        public async Task ResetPasswordAsync(Guid userId, string resetVerificationKey, string newPassword)
+        {
+            if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                throw new ValidationException("Password can´t be empty");
             }
 
-            var message = new Message(creatorUserId, receiverUserId)
+            var resetTime = Convert.ToInt64(resetVerificationKey);
+
+            if (new DateTime(resetTime).AddHours(3) < DateTime.UtcNow)
             {
-                Content = content,
-                Created = messageTimestamp
-            };
+                throw new ValidationException("Reset message to old");
+            }
 
-            messageThread.LatestMessageCreated = messageTimestamp;
+            var user = DataRepository.GetAll<User>(p => 
+                p.RowKey.Equals(User.GetRowKey(userId)) && 
+                p.PasswordResetVerificationKey.Equals(resetTime)).FirstOrDefault();
 
-            DataRepository.AddOrUpdate(message);
-            DataRepository.AddOrUpdate(messageThread);            
-        }        
+            if (user == null)
+            {
+                throw new ValidationException("invalid request");
+            }
+
+            user.PasswordResetVerificationKey = 0;
+            user.Password = PasswordServant.CreatePasswordHash(newPassword);
+            DataRepository.AddOrUpdate(user);
+            await MailServant.SendFinishedPasswordResetAsync(user.Email);
+        }
     }
 }

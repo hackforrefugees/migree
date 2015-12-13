@@ -1,9 +1,10 @@
 var migree = angular.module('migreeApp', [
     'ngRoute',
     'ui.router',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'jcs-autoValidate',
+    'ngImgCrop'
 ]);
-
 
 migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 
@@ -15,73 +16,116 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
 
 
   $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: '/views/start.html',
+      controller: 'StartController',
+      data: {
+        requireLogin: false
+      }
+    })
+    .state('register', {
+      url: '/register',
+      templateUrl: '/views/register.html',
+      controller: 'registerController',
+      data: {
+        requireLogin: false
+      }
+    })
+    .state('thankyou', {
+      url: '/thankyou',
+      templateUrl: '/views/thankyou.html',
+      controller: 'thankYouController',
+      data: {
+        requireLogin: false
+      }
+    })
     .state('login', {
 			url: '/login',
 			templateUrl: '/views/login.html',
-			controller: 'loginController'
+			controller: 'loginController',
+      data: {
+        requireLogin: false
+      }
 	  })
     .state('logout', {
 			url: '/logout',
 			templateUrl: '/views/404.html',
 			controller: function() {
-        // this is where you logout :)
-        console.log('Logout controller');
+
+      },
+      data: {
+        requireLogin: true
       }
 	  })
-    .state('home', {
-      url: '/',
-      templateUrl: '/views/start.html',
-      controller: 'StartController'
-    })
-    .state('register', {
-      url: '/register/:who',
-      templateUrl: '/views/register.html',
-      controller: 'registerController'
-    })
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: '/views/dashboard.html',
-      controller: 'DashboardController'
+      controller: 'DashboardController',
+      data: {
+        requireLogin: true
+      }
     })
     .state('forgot', {
       url: '/forgot',
       templateUrl: '/views/forgot.html',
-      controller: 'ForgotController'
+      controller: 'ForgotController',
+      data: {
+        requireLogin: false
+      }
     })
     .state('notfound', {
       url: '/notfound',
       templateUrl: '/views/404.html',
       controller: function($scope) {
         // do something here?
+      },
+      data: {
+        requireLogin: false
       }
     })
     .state('inbox', {
       url: '/inbox',
       templateUrl: '/views/inbox.html',
-       controller: 'inboxController'
+       controller: 'inboxController',
+       data: {
+        requireLogin: true
+      }
     })
     .state('matches', {
       url: '/matches',
       templateUrl: '/views/404.html',
       controller: function($scope) {
         console.log('No separate controller');
+      },
+      data: {
+        requireLogin: true
       }
     })
     .state('profile', {
       url: '/profile',
       templateUrl: '/views/profile.html',
-      controller: 'profileController'
+      controller: 'profileController',
+      data: {
+        requireLogin: true
+      }
     })
     .state('messages', {
       url: '/messages/:id',
       templateUrl: '/views/messages.html',
-      controller: 'messagesController'
+      controller: 'messagesController',
+      data: {
+        requireLogin: true
+      }
     })
     .state('about', {
       url: '/about',
       templateUrl: '/views/about.html',
       controller: function($scope) {
         console.log('No separate controller');
+      },
+      data: {
+        requireLogin: false
       }
     });
 
@@ -98,8 +142,17 @@ migree.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
 
-migree.run(['authService', function (authService) {
+migree.run(['authService', '$rootScope','bootstrap3ElementModifier', function (authService, $rootScope, bootstrap3ElementModifier) {
     authService.fillAuthData();
+    bootstrap3ElementModifier.enableValidationStateIcons(true);
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+    var requireLogin = toState.data.requireLogin;
+
+    if (requireLogin && !authService.authentication.isAuth) {
+      event.preventDefault();
+      //Show login modal here
+    }
+  });
 }]);
 
 /*===functions===*/

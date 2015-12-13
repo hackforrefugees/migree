@@ -43,5 +43,7 @@ namespace Migree.Core.Models
                 return new Guid(PartitionKey);
             }
         }
+
+        public int SortOrder { get; set; }
     }
 }

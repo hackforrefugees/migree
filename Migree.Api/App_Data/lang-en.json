@@ -1,0 +1,30 @@
+﻿{
+  "messageMail": {
+    "subject": "You got a Migree-mail from {0}",
+    "fromName": "{0} thru Migree",
+    "fromMail": "no-reply@migree.se",
+    "message": "{0}\n\nReply to this e-mail or send a mail directly to {1}, to get in touch with {2}"
+  },
+  "registrationMail": {
+    "subject": "Welcome to Migree",
+    "fromName": "Migree",
+    "fromMail": "no-reply@migree.se",
+    "message": "Thank you for your registration, {0}!\n\nWe appreciate your initiation and motivation for helping the fellow developers. As a registered member of Migree, we will try our best to match you up with the people who are in need of your help. The match system will ensure that you both share similar expertise and professional background. We encourage you as local developers to initiate chat with the new coming developers, your advices and contacts would be of a great help for the new comers.\n\n(Note*: For now, our developers are working hard to make the match system functions as it should be. Have a few cups of coffee and be patient, it will be online soon. )\n\nSincerely,\nMigree Team"
+  },
+  "initPasswordResetMail": {
+    "subject": "A password reset is requested",
+    "fromName": "Migree",
+    "fromMail": "no-reply@migree.se",
+    "message": "A password reset has been requested. If you wan´t to reset password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you havn´t requested a reset, please ignore this message"
+  },
+  "finishedPasswordResetMail": {
+    "subject": "Your password has been changed",
+    "fromName": "Migree",
+    "fromMail": "no-reply@migree.se",
+    "message": "Your password has been changed for your Migree login"
+  },
+  "client": {
+    "login": "Login",
+    "password": "Password"
+  }
+}

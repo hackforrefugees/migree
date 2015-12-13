@@ -2,11 +2,11 @@ migree.service('fileUploadService', ['$http', function($http) {
 
   var _serviceBase = 'https://migree.azurewebsites.net/user/';
 
-  function upload(file, userId) {
+  function upload(file) {
 
     var fd = new FormData();
     fd.append('Content', file);
-    var url = 'https://migree.azurewebsites.net/user/'+userId+'/upload';
+    var url = 'https://migree.azurewebsites.net/user/upload';
     return $http.post(
       url,
       fd,

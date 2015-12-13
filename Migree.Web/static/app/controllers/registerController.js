@@ -1,6 +1,29 @@
-'use strict';
 migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService', '$state',
   function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state) {
+    'use strict';
+
+    $http({
+          url: 'https://migree.azurewebsites.net/competence',
+          method: 'GET'
+        }).then(function(response) {
+          $scope.competences = response.data;
+        }, function() {
+    });
+
+    $http({
+          url: 'https://migree.azurewebsites.net/business',
+          method: 'GET'
+        }).then(function(response) {
+          $scope.businesses = response.data;
+        }, function() {
+    });
+    $http({
+          url: 'https://migree.azurewebsites.net/location',
+          method: 'GET'
+        }).then(function(response) {
+          $scope.locations = response.data;
+        }, function() {
+    });
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
@@ -10,7 +33,6 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         firstName: "",
         lastName: "",
         password: "",
-        confirmPassword: "",
         email: "",
         city: "",
         userType: 1
@@ -23,74 +45,75 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     ];
 
     $scope.competence = [
-      {id: null, name: 'I am specialized in..'},
-      {id: null, name: 'My first priority skill'},
-      {id: null, name: 'My second priority skill'},
-      {id: null, name: 'My third priority skill'}
-    ]
+      {id: null, name: '1. Select a skill'},
+      {id: null, name: '2. Select a skill'},
+      {id: null, name: '3. Select a skill'}
+    ];
+
+    $scope.loginData = {
+        userName: "",
+        password: ""
+    };
 
     var userId = null;
     var profileFile = null;
 
+    $scope.croppedImg = null;
+    $scope.srcImg = null;
+    $scope.avatarCropped = false;
+
+    $scope.crop = function() {
+      $scope.avatarCropped = true;
+    };
+
     $scope.getFile = function () {
       $scope.progress = 0;
+
       fileReader.readAsDataUrl($scope.file, $scope).then(function(result) {
         profileFile = $scope.file;
-
-        /* TODO: scale
-        var canvas = document.createElement('canvas');
-        var w = 100, h = 100;
-        canvas.width = w;
-        canvas.height = h;
-        var ctx = canvas.getContext('2d').putImageData(result, 0, 0);
-        ctx.drawImage(result, 0, 0, w, h);
-        $scope.imageSrc = canvas.toDataUrl('image/jpeg');
-        */
-        $scope.profileImageSrc = result;
+        $scope.srcImg = result;
+        $scope.didSelect = true;
       });
     };
 
     $scope.goToNext = function(){
       authService.saveRegistration($scope.registration).then(function (response) {
         $scope.savedSuccessfully = true;
-        $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
 
-        $http({
-          url: 'https://migree.azurewebsites.net/competence',
-          method: 'GET'
-        }).then(function(response) {
-          $('.step').prev().hide();
-          $('.step').next().show();
+        $('.step').prev().hide();
+        $('.step').next().show();
 
-          $scope.competencies = response.data;
-        }, function() {
+        $scope.loginData.userName = $scope.registration.email;
+        $scope.loginData.password = $scope.registration.password;
 
+        authService.login($scope.loginData).then(function (response) {
+          fileUploadService.upload(profileFile).then(function(response) {
+          }, function(err) {
+
+        }); 
+        }, function (err) {
+          $scope.message = err.error_description;
         });
-        userId = response.data.userId;
-
-        fileUploadService.upload(profileFile, response.data.userId).then(function(response) {
-
-        }, function(err) {
-
-        });
-
         },
          function (response) {
              var errors = [];
-             for (var key in response.data.modelState) {
+             if(response.data) {
+              for (var key in response.data.modelState) {
                  for (var i = 0; i < response.data.modelState[key].length; i++) {
                      errors.push(response.data.modelState[key][i]);
                  }
              }
-             $scope.message = "Failed to register user due to:" + errors.join(' ');
+             }
+             $scope.message = "Failed to register user due to. " + errors.join(' ');
          });
-    }
+    };
+
     var startTimer = function () {
         var timer = $timeout(function () {
             $timeout.cancel(timer);
             $location.path('/login');
         }, 2000);
-    }
+    };
 
     $scope.updateSkills = function() {
       var ids = $scope.competence.map(function(item) {
@@ -98,7 +121,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       });
 
       $http({
-        url: 'https://migree.azurewebsites.net/user/'+userId,
+        url: 'https://migree.azurewebsites.net/user/',
         method: 'PUT',
         data: {
           userLocation: $scope.registration.city.value,
@@ -107,7 +130,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         }
       }).then(function(response) {
         console.log('Got OK when updating user: ', response);
-        $state.go('dashboard');
+        $state.go('thankyou');
 
       }, function(err) {
         console.log('Got error when updating user: ', err);

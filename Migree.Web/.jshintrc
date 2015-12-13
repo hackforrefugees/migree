@@ -1,0 +1,25 @@
+{
+  "curly": true,
+  "eqnull": true,
+  "eqeqeq": true,
+  "undef": true,
+  "-W099": true,
+  "globals": {
+    "browserify": false,
+    "browser": false,
+    "document": false,
+    "Image": false,
+    "window": false,
+    "FileReader": true,
+    "FormData": true,
+    "jQuery": true,
+    "$": true,
+	  "api": true,
+    "angular": true,
+    "console": true,
+    "module": false,
+    "require": false,
+    "migree": true,
+    "ElastiStack": true
+  }
+}
