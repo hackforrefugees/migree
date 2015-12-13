@@ -141,7 +141,7 @@ namespace Migree.Api.Controllers
             }
         }
 
-        [HttpPut, Route("")]
+        [HttpPost, Route("update")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
             try
