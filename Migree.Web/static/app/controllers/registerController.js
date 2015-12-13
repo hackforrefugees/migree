@@ -50,6 +50,11 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       {id: null, name: '3. Select a skill'}
     ];
 
+    $scope.loginData = {
+        userName: "",
+        password: ""
+    };
+
     var userId = null;
     var profileFile = null;
 
@@ -74,16 +79,21 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     $scope.goToNext = function(){
       authService.saveRegistration($scope.registration).then(function (response) {
         $scope.savedSuccessfully = true;
-        $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-        userId = response.data.userId;
+
         $('.step').prev().hide();
         $('.step').next().show();
-        fileUploadService.upload(profileFile).then(function(response) {
 
-        }, function(err) {
+        $scope.loginData.userName = $scope.registration.email;
+        $scope.loginData.password = $scope.registration.password;
 
+        authService.login($scope.loginData).then(function (response) {
+          fileUploadService.upload(profileFile).then(function(response) {
+          }, function(err) {
+
+        }); 
+        }, function (err) {
+          $scope.message = err.error_description;
         });
-
         },
          function (response) {
              var errors = [];

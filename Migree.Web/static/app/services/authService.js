@@ -20,7 +20,7 @@ migree.factory('authService', ['$http', '$q', 'localStorageService', function ($
   };
 
   var _login = function (loginData) {
-
+      loginData.userName = loginData.userName.replace('+', encodeURIComponent('+'));
       var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
       var deferred = $q.defer();
