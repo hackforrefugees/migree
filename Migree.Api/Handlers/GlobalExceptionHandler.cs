@@ -11,11 +11,13 @@ namespace Migree.Api.Handlers
 {
     public class GlobalExceptionHandler : ExceptionHandler
     {
+        private const string DEFAULT_ERROR_MESSAGE = "An error has occured";
+
         public override void Handle(ExceptionHandlerContext context)
         {
             var migreeException = context.Exception as MigreeException;
             var statusCode = migreeException?.StatusCode ?? HttpStatusCode.InternalServerError;
-            var message = migreeException?.Message ?? "An error has occured";
+            var message = migreeException?.Message ?? DEFAULT_ERROR_MESSAGE;
 
             context.Result = new ErrorResult
             {
