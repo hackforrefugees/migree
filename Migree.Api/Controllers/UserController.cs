@@ -94,7 +94,7 @@ namespace Migree.Api.Controllers
         {
             if (request.CompetenceIds?.Count < 1)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Competences missing");                
+                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");                
             }
 
             UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);
@@ -107,7 +107,7 @@ namespace Migree.Api.Controllers
         {
             if (request.ReceiverUserId.Equals(Guid.Empty) || string.IsNullOrWhiteSpace(request.Message))
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Required fields missing");                
+                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");                
             }
 
             await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);
