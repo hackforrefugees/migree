@@ -66,7 +66,7 @@ namespace Migree.Core.Servants
 
             if (otherUser == null || messagesInThread.Count == 0)
             {
-                throw new ValidationException("thread doesn´t exist or other user doesn´t exist");
+                throw new ValidationException(System.Net.HttpStatusCode.NotFound, "thread doesn´t exist");
             }
 
             return new KeyValuePair<IUser, ICollection<IMessage>>(otherUser, messagesInThread);

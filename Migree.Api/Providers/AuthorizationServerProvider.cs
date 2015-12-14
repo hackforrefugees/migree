@@ -33,10 +33,10 @@ namespace Migree.Api.Providers
         /// </summary>
         /// <param name="context">The context of the event carries information in and results out.</param>
         /// <returns>Task to enable asynchronous execution</returns>
-        public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
-            await Task.Delay(1);
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Migree.Api.Providers
         /// </summary>
         /// <param name="context">The context of the event carries information in and results out.</param>
         /// <returns>Task to enable asynchronous execution</returns>        
-        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             try
             {
@@ -62,17 +62,17 @@ namespace Migree.Api.Providers
                 identity.AddClaim(new Claim(Global.ClaimUserId, user.Id.ToString()));
                 var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
                 context.Validated(ticket);
-                await Task.Delay(1);
+                return Task.FromResult(0);
             }
             catch (ValidationException e)
             {
                 context.SetError(INVALID_GRANT, e.Message);
-                return;
+                return Task.FromResult(0);
             }
             catch
             {
                 context.SetError(INVALID_GRANT, GENERAL_ERROR_MESSAGE);
-                return;
+                return Task.FromResult(0);
             }
         }        
     }

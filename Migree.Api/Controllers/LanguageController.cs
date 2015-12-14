@@ -20,20 +20,13 @@ namespace Migree.Api.Controllers
         [HttpGet, Route("{languageCode:regex(^[a-z]{2}$)}"), AllowAnonymous]
         public HttpResponseMessage Get(string languageCode)
         {
-            try
+            var dictionary = LanguageServant.GetDictionary<Client>();
+
+            return CreateApiResponse(HttpStatusCode.OK, dictionary.Select(p => new StringIdAndNameResponse
             {
-                var dictionary = LanguageServant.GetDictionary<Client>();
-                
-                return CreateApiResponse(HttpStatusCode.OK, dictionary.Select(p => new StringIdAndNameResponse
-                {
-                    Id = p.Key,
-                    Name = p.Value
-                }));
-            }
-            catch
-            {
-                return CreateApiResponse(HttpStatusCode.InternalServerError);
-            }
+                Id = p.Key,
+                Name = p.Value
+            }));
         }
     }
 }
