@@ -1,2 +1,2 @@
-- A lot of frontend stuff.  Connecting views to the api to get real data.
+- A lot of frontend stuff. 
 - Marketing strategy
