@@ -121,8 +121,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
             .success(function (data, status, headers) {
                 
             })
-            .error(function (data, status, header, config) {
-                console.log(data);
+            .error(function (data, status, header, config) {                
             });
             $state.go('thankyou');
       }
