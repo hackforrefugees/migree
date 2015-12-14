@@ -69,13 +69,20 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         $scope.didSelect = true;
       });
     };
-
+    var submitButtons = $('.step button')
     $scope.goToNext = function(){
+      
+      submitButtons.addClass('disabled');
+      submitButtons.prop('disabled', true);
+
       authService.saveRegistration($scope.registration).then(function (response) {
         $scope.savedSuccessfully = true;
 
         $('.step').prev().hide();
         $('.step').next().show();
+
+        submitButtons.removeClass('disabled');
+        submitButtons.prop('disabled', false);
 
         $scope.loginData.userName = $scope.registration.email;
         $scope.loginData.password = $scope.registration.password;
