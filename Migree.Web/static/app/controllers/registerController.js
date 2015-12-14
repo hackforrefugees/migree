@@ -69,7 +69,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         $scope.didSelect = true;
       });
     };
-    var submitButtons = $('.step button')
+    var submitButtons = $('.step button');
     $scope.goToNext = function(){
       
       submitButtons.addClass('disabled');
@@ -97,11 +97,11 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         });
         },
          function (response) {
-            if(response.status == 409) {
-              alert('This email is already registered. Please try again with another email address.')
+            if(response.status === 409) {
+              window.alert('This email is already registered. Please try again with another email address.');
             }
             else {
-              alert('Could not save user due to: ' + response.statusText);
+              window.alert('Could not save user due to: ' + response.statusText);
             }
          });
     };
@@ -133,7 +133,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
             $state.go('thankyou');
       }
       else {
-        alert('Please complete your registration by selecting a value in each of the dropdown boxes and writing a short description.')
+        window.alert('Please complete your registration by selecting a value in each of the dropdown boxes and writing a short description.');
       }
 
       
