@@ -2,8 +2,8 @@
 {
     public class DataModelException : MigreeException
     {
-        public DataModelException(string message)
-            : base(message)
+        public DataModelException()
+            : base(System.Net.HttpStatusCode.InternalServerError, "An error occured, data couldn´t be handled")
         { }
     }
 }

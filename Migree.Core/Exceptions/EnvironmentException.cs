@@ -2,10 +2,10 @@
 
 namespace Migree.Core.Exceptions
 {
-    public class EnvironmentException : Exception
+    public class EnvironmentException : MigreeException
     {
         public EnvironmentException(string message)
-            : base(message)
+            : base(System.Net.HttpStatusCode.InternalServerError, message)
         { }
     }
 }

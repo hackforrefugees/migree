@@ -42,7 +42,7 @@ namespace Migree.Api.Controllers
                 }
                 catch { }
 
-                throw new ValidationException("User id doesn´t exist");
+                throw new ValidationException(HttpStatusCode.BadRequest, "User not found");
             }
         }
     }

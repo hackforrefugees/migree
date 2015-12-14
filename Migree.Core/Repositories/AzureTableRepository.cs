@@ -34,7 +34,7 @@ namespace Migree.Core.Repositories
             }
             catch
             {
-                throw new DataModelException("Get all failed");
+                throw new DataModelException();
             }
         }
 
@@ -47,12 +47,12 @@ namespace Migree.Core.Repositories
 
                 if (!result.HttpStatusCode.IsSuccess())
                 {
-                    throw new Exception();
+                    throw new DataModelException();
                 }
             }
             catch
             {
-                throw new DataModelException("Deletion was unsuccesful");
+                throw new DataModelException();
             }
         }
 
@@ -68,7 +68,7 @@ namespace Migree.Core.Repositories
             }
             catch
             {
-                throw new DataModelException("Get failed");
+                throw new DataModelException();
             }
         }        
 
@@ -81,7 +81,7 @@ namespace Migree.Core.Repositories
 
                 if (!result.HttpStatusCode.IsSuccess())
                 {
-                    throw new Exception();
+                    throw new DataModelException();
                 }
             }
             catch (MigreeException exception)
@@ -90,7 +90,7 @@ namespace Migree.Core.Repositories
             }
             catch
             {
-                throw new DataModelException("Add or update failed");
+                throw new DataModelException();
             }
         }
 
