@@ -1,92 +1,110 @@
-<!doctype html>
+﻿<!doctype html>
 <html ng-app="migreeApp">
-	<head>
-		<title>Migree</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-		<base href="/">
+<head>
+    <title>Migree</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <base href="/">
 
-		<link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
-		<link rel="icon" type="image/png" sizes="192x192"  href="img/favicon/android-icon-192x192.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-		<link rel="manifest" href="img/favicon/manifest.json">
-		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
-		<meta name="theme-color" content="#ffffff">
-		<meta property="og:url"           content="http://migree.se" />
-		<meta property="og:type"          content="website" />
-		<meta property="og:title"         content="Migree - Let's meet" />
-		<meta property="og:description"   content="Migree is a unique tool for connecting immigrants with swedes based on their professional skills. Register now and help us make this great." />
-		<meta property="og:image"         content="http://www.migree.se/img/migree-share.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:url" content="http://migree.se" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Migree - Let's meet" />
+    <meta property="og:description" content="Migree is a unique tool for connecting immigrants with swedes based on their professional skills. Register now and help us make this great." />
+    <meta property="og:image" content="http://www.migree.se/img/migree-share.png" />
 
-		<style>
-			.ui-view-image-view {
-				position: absolute;
-		    top: 0px;
-		    left: 0;
-		    background: #000;
-		    width: 100%;
-		    height: 100%;
-			}
-		img-crop{width:100%;height:100%;display:block;position:relative;overflow:hidden}img-crop canvas{display:block;position:absolute;top:50%;left:50%;outline:0;-webkit-tap-highlight-color:transparent}
+    <style>
+        .ui-view-image-view {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            background: #000;
+            width: 100%;
+            height: 100%;
+        }
 
-		</style>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-switch.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="vendor/angular-build.js"></script>
-		<script src="vendor/angular-local-storage.min.js"></script>
-		<script src="vendor/modernizr.custom.js"></script>
-		<script src="vendor/draggabilly.pkgd.min.js"></script>
-		<script src="vendor/elastiStack.js"></script>
-		<script src="vendor/jcs-auto-validate.min.js"></script>
-		<script src="vendor/ng-img-crop.js"></script>
+        img-crop {
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
 
+            img-crop canvas {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                outline: 0;
+                -webkit-tap-highlight-color: transparent;
+            }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-switch.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="vendor/angular-build.js"></script>
+    <script src="vendor/angular-local-storage.min.js"></script>
+    <script src="vendor/modernizr.custom.js"></script>
+    <script src="vendor/draggabilly.pkgd.min.js"></script>
+    <script src="vendor/elastiStack.js"></script>
+    <script src="vendor/jcs-auto-validate.min.js"></script>
+    <script src="vendor/ng-img-crop.js"></script>
 
-		<script src="app/app.js"></script>
+    <!-- SETTINGS -->
+    <script src="app/settings/appConfig.js"></script>
 
-		<!-- SERVICES -->
-		<script src="app/services/authInterceptorService.js"></script>
+    <script src="app/app.js"></script>
+
+    <!-- SERVICES -->
+    <script src="app/services/authInterceptorService.js"></script>
     <script src="app/services/authService.js"></script>
+    <script src="app/services/apiService.js"></script>
     <script src="app/services/userService.js"></script>
-		<script src="app/services/fileReader.js"></script>
-		<script src="app/services/fileUploadService.js"></script>
+    <script src="app/services/fileReader.js"></script>
+    <script src="app/services/fileUploadService.js"></script>
 
-		<!-- CONTROLLERS -->
-		<script src="app/controllers/dashboardController.js"></script>
-		<script src="app/controllers/forgotController.js"></script>
-		<script src="app/controllers/loginController.js"></script>
-		<script src="app/controllers/registerController.js"></script>
-		<script src="app/controllers/startController.js"></script>
-		<script src="app/controllers/profileController.js"></script>
-		<script src="app/controllers/messagesController.js"></script>
-		<script src="app/controllers/inboxController.js"></script>
-		<script src="app/controllers/thankYouController.js"></script>
+    <!-- CONTROLLERS -->
+    <script src="app/controllers/dashboardController.js"></script>
+    <script src="app/controllers/forgotController.js"></script>
+    <script src="app/controllers/loginController.js"></script>
+    <script src="app/controllers/registerController.js"></script>
+    <script src="app/controllers/startController.js"></script>
+    <script src="app/controllers/profileController.js"></script>
+    <script src="app/controllers/messagesController.js"></script>
+    <script src="app/controllers/inboxController.js"></script>
+    <script src="app/controllers/thankYouController.js"></script>
 
-		<!-- DIRECTIVES -->
-		<script src="app/directives/fileSelect.js"></script>
-		<script src="app/directives/fileUploadChange.js"></script>
+    <!-- DIRECTIVES -->
+    <script src="app/directives/fileSelect.js"></script>
+    <script src="app/directives/fileUploadChange.js"></script>
 
-	</head>
-	<body>
-<svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 width="170px" height="64px" viewBox="0 0 160 64" fill="#FF0035">
+</head>
+<body>
+    <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+         width="170px" height="64px" viewBox="0 0 160 64" fill="#FF0035">
 
-	<g>
+        <g>
 
-			<path d="M46.278,2.05c-0.646,0-1.29,0.527-1.29,1.29v24.51c0,0.704,0.645,1.29,1.29,1.29h4.749
+            <path d="M46.278,2.05c-0.646,0-1.29,0.527-1.29,1.29v24.51c0,0.704,0.645,1.29,1.29,1.29h4.749
 				c0.646,0,1.291-0.586,1.291-1.29V3.34c0-0.763-0.645-1.29-1.291-1.29H46.278z M63.398,15.653c0-3.811,2.17-7.505,6.392-7.505
 				c3.518,0,5.395,2.228,5.981,3.753v9.676c0,0-2.229,1.523-5.629,1.523C65.685,23.1,63.398,19.464,63.398,15.653 M55.833,15.653
 				c0,7.917,5.336,14.131,13.429,14.131c2.698,0,5.276-0.644,6.508-1.114v0.763c0,5.042-2.229,6.45-6.392,6.45
@@ -111,22 +129,24 @@
 				c0.059,0.704,0.704,1.231,1.29,1.231h17.356c-0.059,3.342-2.813,6.274-6.743,6.274c-2.697,0-4.573-0.997-5.805-1.994
 				c-0.646-0.526-1.349-0.585-1.758,0l-2.288,3.049c-0.469,0.527-0.527,1.173,0.117,1.76c2.346,1.994,5.688,3.694,10.086,3.694
 				c8.093,0,13.721-6.451,13.721-14.19c0-7.623-5.628-14.131-13.662-14.131C139.03,1.464,133.636,6.683,133.636,14.012"></path>
-</g>
-</svg>
+        </g>
+    </svg>
 
-		<div>
-			<div ui-view></div>
-			<footer></footer>
-		</div>
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <div>
+        <div ui-view></div>
+        <footer></footer>
+    </div>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-		  ga('create', 'UA-7272773-7', 'auto');
-		  ga('send', 'pageview');
+        ga('create', 'UA-7272773-7', 'auto');
+        ga('send', 'pageview');
 
-		</script>
-	</body>
+    </script>
+</body>
 </html>

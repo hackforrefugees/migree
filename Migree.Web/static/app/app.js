@@ -131,10 +131,10 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     $urlRouterProvider.otherwise('/404');
 });
 
-var serviceBase = 'http://migree.azurewebsites.net/';
 migree.constant('ngAuthSettings', {
-    apiServiceBaseUri: serviceBase,
-    clientId: 'ngAuthApp'
+  apiServiceBaseUri: 'http://migree.azurewebsites.net/',
+  apiServiceVersion: 1,
+  clientId: 'ngAuthApp'
 });
 
 migree.config(function ($httpProvider) {

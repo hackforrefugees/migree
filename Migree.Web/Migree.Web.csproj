@@ -75,9 +75,9 @@
     <Content Include="static\app\controllers\messagesController.js" />
     <Content Include="static\app\controllers\profileController.js" />
     <Content Include="static\app\controllers\thankYouController.js" />
+    <Content Include="static\app\services\userService.js" />
     <Content Include="static\app\services\fileReader.js" />
     <Content Include="static\app\services\fileUploadService.js" />
-    <Content Include="static\app\services\userService.js" />
     <Content Include="static\fonts\ElegantIcons.eot" />
     <Content Include="static\fonts\ElegantIcons.ttf" />
     <Content Include="static\fonts\ElegantIcons.woff" />
@@ -120,6 +120,7 @@
     <Content Include="static\less\main.less" />
     <Content Include="static\less\views\profile.less" />
     <Content Include="static\less\views\register.less" />
+    <Content Include="static\vendor\angular-bootstrap-switch.min.js" />
     <Content Include="static\vendor\jcs-auto-validate.min.js" />
     <Content Include="static\vendor\ng-img-crop.js" />
     <Content Include="static\views\404.html" />
@@ -134,7 +135,6 @@
     <Content Include="static\views\start.html" />
     <Content Include="static\views\thankyou.html" />
     <Content Include="static\views\_shared\header.html" />
-    <Content Include="static\views\_shared\Master.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gruntfile.js" />
@@ -186,6 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".jshintrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="files" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
