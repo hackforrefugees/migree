@@ -85,25 +85,6 @@ namespace Migree.Api.Controllers
             UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);
             CompetenceServant.AddCompetencesToUser(CurrentUserId, request.CompetenceIds);
             return CreateApiResponse(HttpStatusCode.NoContent);
-        }        
-
-        [HttpPost, Route("resetpassword"), AllowAnonymous]
-        public async Task<HttpResponseMessage> InitPasswordReset(InitPasswordResetRequest request)
-        {
-            await UserServant.InitPasswordResetAsync(request.Email);
-            return CreateApiResponse(HttpStatusCode.Accepted);
-        }
-
-        [HttpPut, Route("resetpassword"), AllowAnonymous]
-        public async Task<HttpResponseMessage> PasswordReset(PasswordResetRequest request)
-        {
-            if (string.IsNullOrWhiteSpace(request.NewPassword))
-            {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");                
-            }
-
-            await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);
-            return CreateApiResponse(HttpStatusCode.Accepted);
-        }        
+        }                
     }
 }
