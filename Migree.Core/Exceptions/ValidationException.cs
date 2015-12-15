@@ -1,9 +1,11 @@
-﻿namespace Migree.Core.Exceptions
+﻿using System.Net;
+
+namespace Migree.Core.Exceptions
 {
     public class ValidationException : MigreeException
     {
-        public ValidationException(string message)
-            : base(message)
+        public ValidationException(HttpStatusCode statusCode, string message)
+            : base(statusCode, message)
         { }
     }
 }

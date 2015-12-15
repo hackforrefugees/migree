@@ -3,7 +3,8 @@ var migree = angular.module('migreeApp', [
     'ui.router',
     'LocalStorageModule',
     'jcs-autoValidate',
-    'ngImgCrop'
+    'ngImgCrop',
+    'frapontillo.bootstrap-switch'
 ]);
 
 migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
@@ -95,8 +96,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('matches', {
       url: '/matches',
       templateUrl: '/views/404.html',
-      controller: function($scope) {
-        console.log('No separate controller');
+      controller: function($scope) {        
       },
       data: {
         requireLogin: true
@@ -121,8 +121,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('about', {
       url: '/about',
       templateUrl: '/views/about.html',
-      controller: function($scope) {
-        console.log('No separate controller');
+      controller: function($scope) {        
       },
       data: {
         requireLogin: false

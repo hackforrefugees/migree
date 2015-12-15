@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Migree.Core.Servants
@@ -33,7 +34,7 @@ namespace Migree.Core.Servants
 
             if (user == null || !PasswordServant.ValidatePassword(password, user.Password))
             {
-                throw new ValidationException("Invalid credentials");
+                throw new ValidationException(HttpStatusCode.Unauthorized, "Invalid credentials");
             }
 
             return user;
@@ -51,7 +52,7 @@ namespace Migree.Core.Servants
 
             if (DataRepository.GetAll<User>().Any(p => p.Email.Equals(email)))
             {
-                throw new ValidationException("e-mail already exists");
+                throw new ValidationException(HttpStatusCode.Conflict, "user already exists");
             }
 
             var user = new User(userType);
@@ -116,14 +117,14 @@ namespace Migree.Core.Servants
         {
             if (string.IsNullOrWhiteSpace(newPassword))
             {
-                throw new ValidationException("Password can´t be empty");
+                throw new ValidationException(HttpStatusCode.BadRequest, "Password can´t be empty");
             }
 
             var resetTime = Convert.ToInt64(resetVerificationKey);
 
             if (new DateTime(resetTime).AddHours(3) < DateTime.UtcNow)
             {
-                throw new ValidationException("Reset message to old");
+                throw new ValidationException(HttpStatusCode.BadRequest, "Reset message to old");
             }
 
             var user = DataRepository.GetAll<User>(p => 
@@ -132,7 +133,7 @@ namespace Migree.Core.Servants
 
             if (user == null)
             {
-                throw new ValidationException("invalid request");
+                throw new ValidationException(HttpStatusCode.BadRequest, "invalid request");
             }
 
             user.PasswordResetVerificationKey = 0;

@@ -10,15 +10,18 @@
 	border: 0;
 	-webkit-appearence: none;
 
-
-	&:hover{
-		text-decoration: none;
-	}
-
-
 	&.red{
 		background: @red;
 		color: #fff;
+	}
+
+	&.disabled {
+		background: @gray;
+	}
+	
+	&:hover {
+		background: @gray;
+		text-decoration: none;
 	}
 
 	&.back{

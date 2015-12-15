@@ -175,8 +175,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AutofacConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Configuration\Global.cs" />
@@ -186,6 +184,7 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\MigreeApiController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Handlers\GlobalExceptionHandler.cs" />
     <Compile Include="Models\Requests\AddCompetencesRequest.cs" />
     <Compile Include="Models\Requests\InitPasswordResetRequest.cs" />
     <Compile Include="Models\Requests\PasswordResetRequest.cs" />
@@ -193,6 +192,7 @@
     <Compile Include="Models\Requests\RegisterRequest.cs" />
     <Compile Include="Models\Requests\LoginRequest.cs" />
     <Compile Include="Models\Requests\UpdateUserRequest.cs" />
+    <Compile Include="Models\Responses\ErrorResponse.cs" />
     <Compile Include="Models\Responses\GuidIdAndNameResponse.cs" />
     <Compile Include="Models\Responses\IntIdAndNameResponse.cs" />
     <Compile Include="Models\Responses\MessageResponse.cs" />

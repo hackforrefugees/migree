@@ -35,14 +35,8 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         password: "",
         email: "",
         city: "",
-        userType: 1
+        userType: 2
     };
-
-    $scope.cities = [
-    { value: '2', label: 'Gothenburg' },
-    { value: '1', label: 'Stockholm' },
-    { value: '3', label: 'Malmo' }
-    ];
 
     $scope.competence = [
       {id: null, name: '1. Select a skill'},
@@ -75,13 +69,20 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         $scope.didSelect = true;
       });
     };
-
+    var submitButtons = $('.step button');
     $scope.goToNext = function(){
+      
+      submitButtons.addClass('disabled');
+      submitButtons.prop('disabled', true);
+
       authService.saveRegistration($scope.registration).then(function (response) {
         $scope.savedSuccessfully = true;
 
         $('.step').prev().hide();
         $('.step').next().show();
+
+        submitButtons.removeClass('disabled');
+        submitButtons.prop('disabled', false);
 
         $scope.loginData.userName = $scope.registration.email;
         $scope.loginData.password = $scope.registration.password;
@@ -96,15 +97,12 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
         });
         },
          function (response) {
-             var errors = [];
-             if(response.data) {
-              for (var key in response.data.modelState) {
-                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-                     errors.push(response.data.modelState[key][i]);
-                 }
-             }
-             }
-             $scope.message = "Failed to register user due to. " + errors.join(' ');
+            if(response.status === 409) {
+              window.alert('This email is already registered. Please try again with another email address.');
+            }
+            else {
+              window.alert('Could not save user due to: ' + response.statusText);
+            }
          });
     };
 
@@ -119,22 +117,26 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
       var ids = $scope.competence.map(function(item) {
         return item.id;
       });
-
-      $http({
-        url: 'https://migree.azurewebsites.net/user/',
-        method: 'PUT',
-        data: {
-          userLocation: $scope.registration.city.value,
+      if($scope.registration.city.id && ids[0] && ids[1] && ids[2] && $scope.registration.work.id && $scope.aboutText.length>0) {
+        var skillsData = {
+          userLocation: $scope.registration.city.id,
           description: $scope.aboutText,
           competenceIds: ids
-        }
-      }).then(function(response) {
-        console.log('Got OK when updating user: ', response);
-        $state.go('thankyou');
+        };
 
-      }, function(err) {
-        console.log('Got error when updating user: ', err);
-      });
+        $http.put('https://migree.azurewebsites.net/user', skillsData)
+            .success(function (data, status, headers) {
+                
+            })
+            .error(function (data, status, header, config) {                
+            });
+            $state.go('thankyou');
+      }
+      else {
+        window.alert('Please complete your registration by selecting a value in each of the dropdown boxes and writing a short description.');
+      }
+
+      
     };
 
 }]);

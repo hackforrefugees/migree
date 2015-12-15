@@ -71,11 +71,45 @@
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="static\ajax\login.json" />
+    <Content Include="static\app\controllers\inboxController.js" />
+    <Content Include="static\app\controllers\messagesController.js" />
+    <Content Include="static\app\controllers\profileController.js" />
+    <Content Include="static\app\controllers\thankYouController.js" />
+    <Content Include="static\app\services\fileReader.js" />
+    <Content Include="static\app\services\fileUploadService.js" />
     <Content Include="static\app\services\userService.js" />
     <Content Include="static\fonts\ElegantIcons.eot" />
     <Content Include="static\fonts\ElegantIcons.ttf" />
     <Content Include="static\fonts\ElegantIcons.woff" />
+    <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="static\img\favicon\android-icon-144x144.png" />
+    <Content Include="static\img\favicon\android-icon-192x192.png" />
+    <Content Include="static\img\favicon\android-icon-36x36.png" />
+    <Content Include="static\img\favicon\android-icon-48x48.png" />
+    <Content Include="static\img\favicon\android-icon-72x72.png" />
+    <Content Include="static\img\favicon\android-icon-96x96.png" />
+    <Content Include="static\img\favicon\apple-icon-114x114.png" />
+    <Content Include="static\img\favicon\apple-icon-120x120.png" />
+    <Content Include="static\img\favicon\apple-icon-144x144.png" />
+    <Content Include="static\img\favicon\apple-icon-152x152.png" />
+    <Content Include="static\img\favicon\apple-icon-180x180.png" />
+    <Content Include="static\img\favicon\apple-icon-57x57.png" />
+    <Content Include="static\img\favicon\apple-icon-60x60.png" />
+    <Content Include="static\img\favicon\apple-icon-72x72.png" />
+    <Content Include="static\img\favicon\apple-icon-76x76.png" />
+    <Content Include="static\img\favicon\apple-icon-precomposed.png" />
+    <Content Include="static\img\favicon\apple-icon.png" />
+    <Content Include="static\img\favicon\browserconfig.xml" />
+    <Content Include="static\img\favicon\favicon-16x16.png" />
+    <Content Include="static\img\favicon\favicon-32x32.png" />
+    <Content Include="static\img\favicon\favicon-96x96.png" />
+    <Content Include="static\img\favicon\favicon.ico" />
+    <Content Include="static\img\favicon\ms-icon-144x144.png" />
+    <Content Include="static\img\favicon\ms-icon-150x150.png" />
+    <Content Include="static\img\favicon\ms-icon-310x310.png" />
+    <Content Include="static\img\favicon\ms-icon-70x70.png" />
+    <Content Include="static\img\migree-share.png" />
+    <Content Include="static\index.html" />
     <Content Include="static\less\components\buttons.less" />
     <Content Include="static\less\components\footer.less" />
     <Content Include="static\less\components\header.less" />
@@ -86,6 +120,21 @@
     <Content Include="static\less\main.less" />
     <Content Include="static\less\views\profile.less" />
     <Content Include="static\less\views\register.less" />
+    <Content Include="static\vendor\jcs-auto-validate.min.js" />
+    <Content Include="static\vendor\ng-img-crop.js" />
+    <Content Include="static\views\404.html" />
+    <Content Include="static\views\about.html" />
+    <Content Include="static\views\dashboard.html" />
+    <Content Include="static\views\forgot.html" />
+    <Content Include="static\views\inbox.html" />
+    <Content Include="static\views\login.html" />
+    <Content Include="static\views\messages.html" />
+    <Content Include="static\views\profile.html" />
+    <Content Include="static\views\register.html" />
+    <Content Include="static\views\start.html" />
+    <Content Include="static\views\thankyou.html" />
+    <Content Include="static\views\_shared\header.html" />
+    <Content Include="static\views\_shared\Master.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gruntfile.js" />
@@ -107,14 +156,36 @@
     <Content Include="static\vendor\draggabilly.pkgd.min.js" />
     <Content Include="static\vendor\elastiStack.js" />
     <Content Include="static\vendor\modernizr.custom.js" />
-    <Content Include="views\404.html" />
-    <Content Include="views\dashboard.html" />
-    <Content Include="views\forgot.html" />
-    <Content Include="views\login.html" />
-    <Content Include="views\register.html" />
-    <Content Include="views\start.html" />
-    <Content Include="views\_shared\header.html" />
-    <Content Include="views\_shared\Master.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\less\views\inbox.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\less\views\messages.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\less\views\start.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\less\views\thankyou.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\img\favicon\manifest.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".jshintrc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

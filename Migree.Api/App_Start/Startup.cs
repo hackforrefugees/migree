@@ -4,9 +4,9 @@ using Autofac.Integration.WebApi;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
+using Migree.Api.Providers;
 using Migree.Core.Autofac;
 using Migree.Core.Definitions;
-using Migree.Api.Providers;
 using Owin;
 using System;
 using System.Reflection;
@@ -14,8 +14,6 @@ using System.Threading.Tasks;
 using System.Web.Cors;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
 
 [assembly: OwinStartup(typeof(Migree.Api.Startup))]
 namespace Migree.Api
@@ -60,7 +58,6 @@ namespace Migree.Api
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);            
         }
 
         public void ConfigureOAuth(IAppBuilder app)

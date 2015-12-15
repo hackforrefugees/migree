@@ -1,7 +1,6 @@
 migree.controller('DashboardController', ['$scope', 'authService', 'userService', function ($scope, authService, userService) {
     'use strict';
-    var result = userService.getMatches();
-    console.log(result);
+    var result = userService.getMatches();    
 
     new ElastiStack(document.getElementById('stack'), {
       distDragBack : 50,
