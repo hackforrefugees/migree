@@ -44,6 +44,6 @@ namespace Migree.Api.Controllers
 
                 throw new ValidationException(HttpStatusCode.BadRequest, "User not found");
             }
-        }
+        }        
     }
 }

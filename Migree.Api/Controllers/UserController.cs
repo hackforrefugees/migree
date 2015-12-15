@@ -2,9 +2,6 @@
 using Migree.Api.Models.Responses;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
-using Migree.Core.Interfaces.Models;
-using Migree.Core.Models.Language;
-using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,30 +12,16 @@ namespace Migree.Api.Controllers
 {
     [RoutePrefix("user")]
     public class UserController : MigreeApiController
-    {
-        private const int NUMBER_OF_MATCHES_TO_TAKE = 50;
-
+    {        
         private IUserServant UserServant { get; }
-        private ICompetenceServant CompetenceServant { get; }
-        private IMessageServant MessageServant { get; }
-        private ILanguageServant LanguageServant { get; }
+        private ICompetenceServant CompetenceServant { get; }       
 
-        public UserController(IUserServant userServant, ICompetenceServant comptenceServant, IMessageServant messageServant, ILanguageServant languageServant)
+        public UserController(IUserServant userServant, ICompetenceServant comptenceServant)
         {
             UserServant = userServant;
-            CompetenceServant = comptenceServant;
-            MessageServant = messageServant;
-            LanguageServant = languageServant;
+            CompetenceServant = comptenceServant;            
         }
-
-        [HttpGet, Route("competences")]
-        public HttpResponseMessage GetUserCompetences()
-        {
-            var competences = CompetenceServant.GetUserCompetences(CurrentUserId);
-            var response = competences.Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
-            return CreateApiResponse(HttpStatusCode.OK, response);
-        }
-
+        
         [HttpPost, Route(""), AllowAnonymous]
         public async Task<HttpResponseMessage> RegisterAsync(RegisterRequest request)
         {
@@ -60,7 +43,18 @@ namespace Migree.Api.Controllers
         public HttpResponseMessage GetUser()
         {
             var user = UserServant.GetUser(CurrentUserId);
-            return CreateApiResponse(HttpStatusCode.OK, GetUserResponse(user));
+
+            var response = new UserResponse
+            {
+                UserId = user.Id,
+                FullName = $"{user.FirstName} {user.LastName}",
+                Description = user.Description,
+                UserLocation = user.UserLocation.ToDescription(),
+                ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id),
+                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+            };            
+
+            return CreateApiResponse(HttpStatusCode.OK, response);
         }
 
         [HttpPost, Route("upload")]
@@ -79,16 +73,7 @@ namespace Migree.Api.Controllers
 
             return CreateApiResponse(HttpStatusCode.Accepted);
         }
-
-        [HttpGet, Route("matches")]
-        public HttpResponseMessage GetMatches()
-        {
-            var userMatches = CompetenceServant.GetUserCompetences(CurrentUserId).Select(p => p.Id).ToList();
-            var matchedUsers = CompetenceServant.GetMatches(CurrentUserId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
-            var users = matchedUsers.Select(user => GetUserResponse(user)).ToList();
-            return CreateApiResponse(HttpStatusCode.OK, users);
-        }
-
+        
         [HttpPut, Route("")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
@@ -100,52 +85,7 @@ namespace Migree.Api.Controllers
             UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);
             CompetenceServant.AddCompetencesToUser(CurrentUserId, request.CompetenceIds);
             return CreateApiResponse(HttpStatusCode.NoContent);
-        }
-
-        [HttpPost, Route("message")]
-        public async Task<HttpResponseMessage> PostMessageAsync(PostMessageRequest request)
-        {
-            if (request.ReceiverUserId.Equals(Guid.Empty) || string.IsNullOrWhiteSpace(request.Message))
-            {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");                
-            }
-
-            await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);
-            return CreateApiResponse(HttpStatusCode.Accepted);
-        }
-
-        [HttpGet, Route("messages")]
-        public HttpResponseMessage GetMessageThreads()
-        {
-            var messageThreads = MessageServant.GetMessageThreads(CurrentUserId);
-            var response = messageThreads.Select(p => new MessageThreadResponse
-            {
-                UserId = p.Value.Id,
-                FullName = $"{p.Value.FirstName} {p.Value.LastName}",
-                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
-                IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
-                LatestMessageContent = p.Key.LatestMessageContent,
-                LastUpdated = p.Key.LatestMessageCreated.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
-            });
-            return CreateApiResponse(HttpStatusCode.OK, response);
-        }
-
-        [HttpGet, Route("message/{messageId:regex(^[a-f0-9_\\-]+$)}")]
-        public HttpResponseMessage GetMessageThread(string messageId)
-        {
-            var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, CurrentUserId);
-            MessageServant.SetMessageThreadAsRead(messageId, CurrentUserId);
-            var user = messagesInThreadWithUser.Key;
-
-            var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
-            {
-                MessageId = p.Id,
-                Content = p.Content,
-                Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
-            });
-
-            return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
-        }
+        }        
 
         [HttpPost, Route("resetpassword"), AllowAnonymous]
         public async Task<HttpResponseMessage> InitPasswordReset(InitPasswordResetRequest request)
@@ -164,21 +104,6 @@ namespace Migree.Api.Controllers
 
             await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);
             return CreateApiResponse(HttpStatusCode.Accepted);
-        }
-
-        private UserResponse GetUserResponse(IUser user)
-        {
-            var response = new UserResponse
-            {
-                UserId = user.Id,
-                FullName = $"{user.FirstName} {user.LastName}",
-                Description = user.Description,
-                UserLocation = user.UserLocation.ToDescription(),
-                ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id),
-                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
-            };
-
-            return response;
-        }
+        }        
     }
 }
