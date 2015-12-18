@@ -1,7 +1,5 @@
 migree.service('fileUploadService', ['$http', function($http) {
-
-  var _serviceBase = 'https://migree.azurewebsites.net/user/';
-
+  
   function upload(file) {
 
     var fd = new FormData();
