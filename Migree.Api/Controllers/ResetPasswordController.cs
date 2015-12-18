@@ -29,7 +29,7 @@ namespace Migree.Api.Controllers
         {
             if (string.IsNullOrWhiteSpace(request.NewPassword))
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");
+                throw new ValidationException(HttpStatusCode.BadRequest, "Required fields missing");
             }
 
             await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);
