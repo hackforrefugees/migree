@@ -4,7 +4,7 @@ namespace Migree.Core.Definitions
 {
     public enum UserLocation
     {
-        [Description("Unspecified")]
+        [Description("Other")]
         Unspecified = 0,
         [Description("Stockholm")]
         StockholmArea = 1,
