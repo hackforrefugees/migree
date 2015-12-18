@@ -75,7 +75,13 @@
     <Content Include="static\app\controllers\messagesController.js" />
     <Content Include="static\app\controllers\profileController.js" />
     <Content Include="static\app\controllers\thankYouController.js" />
-    <Content Include="static\app\services\userService.js" />
+    <Content Include="static\app\services\business.js" />
+    <Content Include="static\app\services\competence.js" />
+    <Content Include="static\app\services\language.js" />
+    <Content Include="static\app\services\location.js" />
+    <Content Include="static\app\services\matches.js" />
+    <Content Include="static\app\services\resetPassword.js" />
+    <Content Include="static\app\services\user.js" />
     <Content Include="static\app\services\fileReader.js" />
     <Content Include="static\app\services\fileUploadService.js" />
     <Content Include="static\fonts\ElegantIcons.eot" />
@@ -148,7 +154,7 @@
     <Content Include="static\app\directives\fileSelect.js" />
     <Content Include="static\app\directives\fileUploadChange.js" />
     <Content Include="static\app\services\authInterceptorService.js" />
-    <Content Include="static\app\services\authService.js" />
+    <Content Include="static\app\services\authenticationService.js" />
     <Content Include="static\css\main.css" />
     <Content Include="static\fonts\ElegantIcons.svg" />
     <Content Include="static\vendor\angular-build.js" />

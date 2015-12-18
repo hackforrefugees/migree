@@ -1,4 +1,4 @@
-migree.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+migree.factory('AuthenticationService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
   'use strict';
   var serviceBase = 'https://migree.azurewebsites.net/';
   var authServiceFactory = {};

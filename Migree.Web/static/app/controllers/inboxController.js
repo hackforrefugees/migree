@@ -1,3 +1,3 @@
-migree.controller('inboxController', ['$scope', function($scope) {
+migree.controller('InboxController', ['$scope', function($scope) {
 
 }]);
