@@ -9,11 +9,11 @@ var migree = angular.module('migreeApp', [
 
 migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 
-    //routing DOESN'T work without html5Mode
-    $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-    });
+  //routing DOESN'T work without html5Mode
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
 
 
   $stateProvider
@@ -42,23 +42,23 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
       }
     })
     .state('login', {
-			url: '/login',
-			templateUrl: '/views/login.html',
-			controller: 'loginController',
+      url: '/login',
+      templateUrl: '/views/login.html',
+      controller: 'loginController',
       data: {
         requireLogin: false
       }
-	  })
+    })
     .state('logout', {
-			url: '/logout',
-			templateUrl: '/views/404.html',
-			controller: function() {
+      url: '/logout',
+      templateUrl: '/views/404.html',
+      controller: function () {
 
       },
       data: {
         requireLogin: true
       }
-	  })
+    })
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: '/views/dashboard.html',
@@ -78,7 +78,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('notfound', {
       url: '/notfound',
       templateUrl: '/views/404.html',
-      controller: function($scope) {
+      controller: function ($scope) {
         // do something here?
       },
       data: {
@@ -88,15 +88,15 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('inbox', {
       url: '/inbox',
       templateUrl: '/views/inbox.html',
-       controller: 'inboxController',
-       data: {
+      controller: 'inboxController',
+      data: {
         requireLogin: true
       }
     })
     .state('matches', {
       url: '/matches',
       templateUrl: '/views/404.html',
-      controller: function($scope) {        
+      controller: function ($scope) {
       },
       data: {
         requireLogin: true
@@ -121,30 +121,30 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('about', {
       url: '/about',
       templateUrl: '/views/about.html',
-      controller: function($scope) {        
+      controller: function ($scope) {
       },
       data: {
         requireLogin: false
       }
     });
 
-    $urlRouterProvider.otherwise('/404');
+  $urlRouterProvider.otherwise('/404');
 });
 
 migree.constant('ngAuthSettings', {
-  apiServiceBaseUri: 'http://migree.azurewebsites.net/',
-  apiServiceVersion: 1,
   clientId: 'ngAuthApp'
 });
 
 migree.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptorService');
+  $httpProvider.interceptors.push('authInterceptorService');
 });
 
-migree.run(['authService', '$rootScope','bootstrap3ElementModifier', function (authService, $rootScope, bootstrap3ElementModifier) {
-    authService.fillAuthData();
-    bootstrap3ElementModifier.enableValidationStateIcons(true);
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+migree.run(['AuthenticationService', '$rootScope', 'bootstrap3ElementModifier', function (authService, $rootScope, bootstrap3ElementModifier) {
+  $rootScope.apiServiceBaseUri = 'http://migree.azurewebsites.net/';
+  $rootScope.apiServiceVersion = 1;
+  authService.fillAuthData();
+  bootstrap3ElementModifier.enableValidationStateIcons(true);
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
 
     if (requireLogin && !authService.authentication.isAuth) {
@@ -157,6 +157,6 @@ migree.run(['authService', '$rootScope','bootstrap3ElementModifier', function (a
 /*===functions===*/
 
 function validateEmail(email) {
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    return re.test(email);
+  var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+  return re.test(email);
 }

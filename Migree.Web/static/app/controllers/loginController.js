@@ -1,4 +1,4 @@
-migree.controller('LoginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
+migree.controller('LoginController', ['$scope', '$location', 'AuthenticationService', function ($scope, $location, authService) {
     'use strict';
     
     $scope.userName = "";

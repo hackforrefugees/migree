@@ -1,6 +1,6 @@
-migree.controller('DashboardController', ['$scope', 'authService', 'userService', function ($scope, authService, userService) {
+migree.controller('DashboardController', ['$scope', 'AuthenticationService', 'Matches', function ($scope, authService, matches) {
     'use strict';
-    var result = userService.getMatches();    
+    var result = matches.query();    
 
     new ElastiStack(document.getElementById('stack'), {
       distDragBack : 50,
