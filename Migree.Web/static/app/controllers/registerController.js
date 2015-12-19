@@ -1,4 +1,4 @@
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authService', 'fileReader', '$http', 'fileUploadService', '$state', 'Competence', 'Business', 'Location',
+migree.controller('RegisterCtrl', ['$scope', '$location', '$timeout', 'AuthenticationService', 'fileReader', '$http', 'fileUploadService', '$state', 'Competence', 'Business', 'Location',
   function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state, competence, business, location) {
     'use strict';
 

@@ -1,3 +1,3 @@
-migree.controller('ForgotController', ['$scope', function($scope) {
+migree.controller('ForgotCtrl', ['$scope', function ($scope) {
 
 }]);

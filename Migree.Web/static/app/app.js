@@ -20,7 +20,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('home', {
       url: '/',
       templateUrl: '/views/start.html',
-      controller: 'StartController',
+      controller: 'StartCtrl',
       data: {
         requireLogin: false
       }
@@ -28,7 +28,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('register', {
       url: '/register',
       templateUrl: '/views/register.html',
-      controller: 'registerController',
+      controller: 'RegisterCtrl',
       data: {
         requireLogin: false
       }
@@ -36,7 +36,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('thankyou', {
       url: '/thankyou',
       templateUrl: '/views/thankyou.html',
-      controller: 'thankYouController',
+      controller: 'ThankYouCtrl',
       data: {
         requireLogin: false
       }
@@ -44,7 +44,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('login', {
       url: '/login',
       templateUrl: '/views/login.html',
-      controller: 'loginController',
+      controller: 'LoginCtrl',
       data: {
         requireLogin: false
       }
@@ -62,7 +62,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: '/views/dashboard.html',
-      controller: 'DashboardController',
+      controller: 'DashboardCtrl',
       data: {
         requireLogin: true
       }
@@ -70,7 +70,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('forgot', {
       url: '/forgot',
       templateUrl: '/views/forgot.html',
-      controller: 'ForgotController',
+      controller: 'ForgotCtrl',
       data: {
         requireLogin: false
       }
@@ -88,7 +88,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('inbox', {
       url: '/inbox',
       templateUrl: '/views/inbox.html',
-      controller: 'inboxController',
+      controller: 'InboxCtrl',
       data: {
         requireLogin: true
       }
@@ -105,7 +105,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('profile', {
       url: '/profile',
       templateUrl: '/views/profile.html',
-      controller: 'profileController',
+      controller: 'ProfileCtrl',
       data: {
         requireLogin: true
       }
@@ -113,7 +113,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('messages', {
       url: '/messages/:id',
       templateUrl: '/views/messages.html',
-      controller: 'messagesController',
+      controller: 'MessagesCtrl',
       data: {
         requireLogin: true
       }

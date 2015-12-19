@@ -19,17 +19,17 @@ migree.factory('AuthenticationService', ['$http', '$q', 'localStorageService', f
 
   };
 
-  var _login = function (loginData) {
-      loginData.userName = loginData.userName.replace('+', encodeURIComponent('+'));
-      var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
+  var _login = function (userName, password) {
+      userName = userName.replace('+', encodeURIComponent('+'));
+      var data = "grant_type=password&username=" + userName + "&password=" + password;
 
       var deferred = $q.defer();
 
       $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-          localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, userId: response.userId });
+          localStorageService.set('authorizationData', { token: response.access_token, userName: userName, userId: response.userId });
 
           _authentication.isAuth = true;
-          _authentication.userName = loginData.userName;
+          _authentication.userName = userName;
           _authentication.userId = response.userId;
 
           deferred.resolve(response);

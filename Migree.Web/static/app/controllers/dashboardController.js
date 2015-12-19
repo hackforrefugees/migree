@@ -1,4 +1,4 @@
-migree.controller('DashboardController', ['$scope', 'AuthenticationService', 'Matches', function ($scope, authService, matches) {
+migree.controller('DashboardCtrl', ['$scope', 'AuthenticationService', 'Matches', function ($scope, authService, matches) {
     'use strict';
     var result = matches.query();    
 

@@ -1,3 +1,3 @@
-migree.controller('thankYouController', ['$scope', 'AuthenticationService', function ($scope, authService) {
+migree.controller('ThankYouCtrl', ['$scope', 'AuthenticationService', function ($scope, authService) {
 
 }]);
