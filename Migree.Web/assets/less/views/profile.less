@@ -1,0 +1,164 @@
+.profile{
+
+	.avatar-container{
+		border-radius: 100px;
+		margin: 0 auto;
+		margin-top: -50px;
+		overflow: hidden;
+		width: 100px;
+		height: 100px;
+
+		.avatar{
+
+		}
+	}
+
+	.from{
+		color: #555;
+		border-bottom: 2px solid #ddd;
+		margin: 5px 40px;
+		padding-bottom: 5px;
+		font-size: 20px;
+	}
+
+	.back{
+		display: none;
+	}
+
+	.change{
+		.front{
+			display: none;
+		}
+
+		.back{
+			display: block;
+		}
+	}
+
+	.name{
+		font-family: Garamond, Georgia;
+		margin: 20px auto;
+		font-size: 20px;
+	}
+
+	.competence-list{
+		list-style: none;
+		text-align: left;
+		padding: 0;
+		margin: 30px 30px;
+
+		li{
+			border-bottom: 2px solid #ddd;
+			padding: 5px;
+
+		}
+	
+	}
+
+	.button{
+		background: #555;
+		width: 70px;
+		height: 70px;
+		display: none;
+		color: #fff;
+		bottom: -30px;
+		position: absolute;
+		margin:0 15px;
+	    font-size: 9px;
+	    line-height: 1;
+	    left: 30px;
+	    padding: 0;
+	    
+		i{
+			font-size: 20px;
+		}
+
+		&.red{
+			background: @red;
+			line-height: 70px;
+			font-size: 30px;
+			right: 30px;
+			left: auto;
+
+			i{
+				font-size: 30px;
+			}
+		}
+	}
+
+}
+
+*,
+*:after,
+*::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.elasticstack {
+	position: relative;
+	margin: 40px auto;
+	padding: 0;
+	width: 300px;
+	height: 320px;
+	list-style: none;
+	-webkit-perspective: 1000px;
+	-webkit-perspective-origin: 50% 150%;
+	perspective: 1000px;
+	perspective-origin: 50% 150%;
+	margin-top: 60px;
+	max-width: 100%;
+}
+
+.no-js .elasticstack {
+	max-width: 1090px;
+	width: 100%;
+	height: auto;
+	text-align: center;
+}
+
+.elasticstack > li {
+	position: absolute;
+	z-index: 1;
+	width: 300px;
+	height: 320px;
+	background: #fff;
+	box-shadow: 0 10px 7px -7px rgba(0,0,0,0.12), 0 0 4px rgba(0,0,0,0.1);
+	cursor: pointer;
+	-webkit-transform: translate3d(0,0,-180px);
+	transform: translate3d(0,0,-180px);
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	max-width: 100%;
+}
+
+.elasticstack > li.first {
+	.button{
+		display: block;
+	}
+}
+
+.no-js .elasticstack > li  {
+	position: relative;
+	display: inline-block;
+	margin: 10px;
+	cursor: default;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	border-radius: 4px;
+}
+
+
+
+.elasticstack li.animate {
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+
+.elasticstack li.move-back {
+	/* http://matthewlein.com/ceaser/ */
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.470, 1); /* older webkit */
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.470, 1.515);
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.470, 1.515);
+}
