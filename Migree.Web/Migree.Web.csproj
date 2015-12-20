@@ -78,6 +78,7 @@
     <Content Include="static\app\services\apiServices.js" />
     <Content Include="static\app\services\fileReader.js" />
     <Content Include="static\app\services\fileUploadService.js" />
+    <Content Include="static\css\bootstrap-switch.min.css" />
     <Content Include="static\fonts\ElegantIcons.eot" />
     <Content Include="static\fonts\ElegantIcons.ttf" />
     <Content Include="static\fonts\ElegantIcons.woff" />
@@ -189,6 +190,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="files" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\vendor\angular.min.js.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
