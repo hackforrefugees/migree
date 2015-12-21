@@ -3,7 +3,7 @@ var app = express();
 
 app.use( require('express-force-domain')('http://migree.se') );
 
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(__dirname));
 
 
 app.get('views/:page', function (req, res) {
@@ -16,7 +16,7 @@ app.get('views/:route/:page', function (req, res) {
 
 app.get('*', function (req, res) {
 
-  	res.sendFile('/static/index.html', { root: __dirname+'/' });
+  	res.sendFile('/index.html', { root: __dirname+'/' });
 
 });
 

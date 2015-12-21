@@ -6,118 +6,54 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     requireBase: false
   });
 
-
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: '/views/start.html',
-      controller: 'StartCtrl',
+      templateUrl: '/app/components/home/homeView.html',
+      controller: 'homeController',
       data: {
         requireLogin: false
       }
     })
     .state('register', {
       url: '/register',
-      templateUrl: '/views/register.html',
-      controller: 'RegisterCtrl',
+      templateUrl: '/register/registerView.html',
+      controller: 'registerController',
       data: {
         requireLogin: false
       }
     })
     .state('thankyou', {
       url: '/thankyou',
-      templateUrl: '/views/thankyou.html',
-      controller: 'ThankYouCtrl',
+      templateUrl: '/thankYou/thankYouView.html',
+      controller: 'thankYouController',
       data: {
         requireLogin: false
       }
     })
     .state('login', {
       url: '/login',
-      templateUrl: '/views/login.html',
-      controller: 'LoginCtrl',
+      templateUrl: '/login/loginView.html',
+      controller: 'loginController',
       data: {
         requireLogin: false
-      }
-    })
-    .state('logout', {
-      url: '/logout',
-      templateUrl: '/views/404.html',
-      controller: function () {
-
-      },
-      data: {
-        requireLogin: true
-      }
-    })
-    .state('dashboard', {
-      url: '/dashboard',
-      templateUrl: '/views/dashboard.html',
-      controller: 'DashboardCtrl',
-      data: {
-        requireLogin: true
-      }
-    })
-    .state('forgot', {
-      url: '/forgot',
-      templateUrl: '/views/forgot.html',
-      controller: 'ForgotCtrl',
-      data: {
-        requireLogin: false
-      }
-    })
-    .state('notfound', {
-      url: '/notfound',
-      templateUrl: '/views/404.html',
-      controller: function ($scope) {
-        // do something here?
-      },
-      data: {
-        requireLogin: false
-      }
-    })
-    .state('inbox', {
-      url: '/inbox',
-      templateUrl: '/views/inbox.html',
-      controller: 'InboxCtrl',
-      data: {
-        requireLogin: true
       }
     })
     .state('matches', {
       url: '/matches',
-      templateUrl: '/views/404.html',
-      controller: function ($scope) {
-      },
+      templateUrl: '/matches/matchesView.html',
+      controller: 'matchesController',
       data: {
         requireLogin: true
       }
     })
-    .state('profile', {
-      url: '/profile',
-      templateUrl: '/views/profile.html',
-      controller: 'ProfileCtrl',
-      data: {
-        requireLogin: true
-      }
-    })
-    .state('messages', {
-      url: '/messages/:id',
-      templateUrl: '/views/messages.html',
-      controller: 'MessagesCtrl',
-      data: {
-        requireLogin: true
-      }
-    })
-    .state('about', {
-      url: '/about',
-      templateUrl: '/views/about.html',
-      controller: function ($scope) {
-      },
+    .state('notfound', {
+      url: '/notfound',
+      templateUrl: 'notFound/notFoundView.html',
       data: {
         requireLogin: false
       }
     });
 
-  $urlRouterProvider.otherwise('/404');
+  $urlRouterProvider.otherwise('/notfound');
 });

@@ -67,31 +67,27 @@
     <script src="vendor/draggabilly.pkgd.min.js"></script>
     <script src="vendor/elastiStack.js"></script>
     <script src="vendor/jcs-auto-validate.min.js"></script>
-    <script src="vendor/ng-img-crop.js"></script>    
+    <script src="vendor/ng-img-crop.js"></script>
 
-    <script src="app/app.js"></script>
+    <!-- app -->
+    <script src="app/app.module.js"></script>
+    <script src="app/app.routes.js"></script>
 
-    <!-- SERVICES -->
-    <script src="app/services/apiServices.js"></script>
-    <script src="app/services/authInterceptorService.js"></script>
-    <script src="app/services/authenticationService.js"></script>
-    <script src="app/services/fileReader.js"></script>
-    <script src="app/services/fileUploadService.js"></script>
+    <!-- shared -->
+    <script src="app/shared/authentication/authenticationService.js"></script>
+    <script src="app/shared/authentication/authInterceptorService.js"></script>
+    <script src="app/shared/fileSelection/fileSelectionDirective.js"></script>
+    <script src="app/shared/fileSelection/fileUploadChangeDirective.js"></script>
+    <script src="app/shared/language/languageService.js"></script>
 
-    <!-- CONTROLLERS -->
-    <script src="app/controllers/dashboardController.js"></script>
-    <script src="app/controllers/forgotController.js"></script>
-    <script src="app/controllers/inboxController.js"></script>
-    <script src="app/controllers/loginController.js"></script>
-    <script src="app/controllers/messagesController.js"></script>
-    <script src="app/controllers/profileController.js"></script>
-    <script src="app/controllers/registerController.js"></script>
-    <script src="app/controllers/startController.js"></script>
-    <script src="app/controllers/thankYouController.js"></script>
-
-    <!-- DIRECTIVES -->
-    <script src="app/directives/fileSelect.js"></script>
-    <script src="app/directives/fileUploadChange.js"></script>
+    <!-- components -->
+    <script src="app/components/home/homeController.js"></script>
+    <script src="app/components/login/loginController.js"></script>
+    <script src="app/components/matches/matchesController.js"></script>
+    <script src="app/components/matches/matchesService.js"></script>
+    <script src="app/components/register/registerController.js"></script>
+    <script src="app/components/register/registerService.js"></script>
+    <script src="app/components/thankYou/thankYouController.js"></script>
 
 </head>
 <body>
