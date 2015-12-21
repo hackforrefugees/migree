@@ -1,6 +1,8 @@
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'AuthenticationService', 'fileReader', '$http', 'fileUploadService', '$state', 'Competence', 'Business', 'Location',
-  function ($scope, $location, $timeout, authService, fileReader, $http, fileUploadService, $state, competence, business, location) {
+migree.controller('registerController', ['$scope', '$location', '$timeout', 'AuthenticationService', 'fileReader', '$http', '$state', 'Competence', 'Business', 'Location',
+  function ($scope, $location, $timeout, authService, fileReader, $http, $state, competence, business, location) {
     'use strict';
+
+    var self = this;
 
     $scope.competences = competence.query();
     $scope.business = business.query();
@@ -23,13 +25,28 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'Aut
       { id: null, name: '2. Select a skill' },
       { id: null, name: '3. Select a skill' }
     ];
-    
+
     var userId = null;
     var profileFile = null;
 
     $scope.croppedImg = null;
     $scope.srcImg = null;
     $scope.avatarCropped = false;
+
+    var upload = function(file) {
+
+      var formData = new FormData();
+      formData.append('Content', file);
+      var url = $scope.apiServiceBaseUri + 'user/upload';
+      return $http.post(
+        url,
+        formData,
+        {
+          transformRequest: angular.identity,
+          headers: { 'Content-Type': undefined }
+        }
+      );
+    };
 
     $scope.crop = function () {
       $scope.avatarCropped = true;
@@ -59,9 +76,9 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'Aut
 
         submitButtons.removeClass('disabled');
         submitButtons.prop('disabled', false);
-        
+
         authService.login($scope.registration.email, $scope.registration.password).then(function (response) {
-          fileUploadService.upload(profileFile).then(function (response) {
+          self.upload(profileFile).then(function (response) {
           }, function (err) {
 
           });

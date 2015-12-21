@@ -56,7 +56,8 @@ module.exports = function(grunt) {
               'bower_components/angular-ui-router/release/angular-ui-router.min.js',
               'bower_components/angular-route/angular-route.min.js',
               'bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js',
-              'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js'
+              'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js',
+              'bower_components/angular-resource/angular-resource.min.js'
               ],
         dest: 'static/vendor/angular-build.js',
       }
@@ -73,7 +74,7 @@ module.exports = function(grunt) {
 		// clean + copy = prod / test
     wiredep: {
       target: {
-        src: 'index.html' 
+        src: 'index.html'
       }
     },
 
@@ -91,7 +92,7 @@ module.exports = function(grunt) {
           middleware: function (connect) {
               return [
                   modRewrite (['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf$ /index.html [L]']),
-                  mountFolder(connect, 'static')
+                  mountFolder(connect, './')
               ];
           }
         }
@@ -147,5 +148,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean','less','wiredep', 'autoprefixer', 'concat', /*'uglify',*/ 'connect','watch']); // postcss??  
+  grunt.registerTask('default', ['clean','less','wiredep', 'autoprefixer', 'concat', /*'uglify',*/ 'connect','watch']); // postcss??
 };

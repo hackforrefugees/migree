@@ -1,5 +1,6 @@
 var migree = angular.module('migreeApp', [
     'ngRoute',
+    'ngResource',
     'ui.router',
     'LocalStorageModule',
     'jcs-autoValidate',
