@@ -82,6 +82,7 @@
     <Content Include="app\components\messages\messagesView.html" />
     <Content Include="app\components\message\messageController.js" />
     <Content Include="app\components\message\messageView.html" />
+    <Content Include="app\components\notFound\notFoundView.html" />
     <Content Include="app\components\profile\profileController.js" />
     <Content Include="app\components\profile\profileView.html" />
     <Content Include="app\components\register\registerController.js" />
