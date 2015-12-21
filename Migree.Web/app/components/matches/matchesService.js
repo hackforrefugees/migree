@@ -1,3 +1,3 @@
-migree.factory('Matches', ['$scope', '$resource', function ($scope, $resource) {  
-  return $resource($scope.apiServiceBaseUri + '/matches'); 
+migree.factory('Matches', ['$resource', function ($resource) {  
+  return $resource('http://localhost:50402/matches');
 }]);

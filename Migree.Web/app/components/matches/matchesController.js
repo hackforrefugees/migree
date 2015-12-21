@@ -1,15 +1,7 @@
-migree.controller('matchesController', ['$scope', '$resource', 'localStorageService', function ($scope, $resource, localStorageService) {
-  'use strict';
+migree.controller('matchesController', ['$scope', '$resource', function ($scope, $resource) {
+  'use strict';  
 
-  var testOfAuth = localStorageService.get('authorizationData');  
-
-  var result = $resource($scope.apiServiceBaseUri + '/matches', null, {
-    query: {
-      method: "GET",
-      isArray: true,
-      headers: { 'Authorization': 'Bearer ' + testOfAuth.token }
-    },
-  }).query();
+  var result = $resource($scope.apiServiceBaseUri + '/matches').query();
 
     new ElastiStack(document.getElementById('stack'), {
       distDragBack : 50,
