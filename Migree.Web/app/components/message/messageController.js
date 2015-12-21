@@ -1,3 +1,3 @@
-migree.controller('MessagesCtrl', ['$scope', function ($scope) {
+migree.controller('messageController', ['$scope', function ($scope) {
 
 }]);

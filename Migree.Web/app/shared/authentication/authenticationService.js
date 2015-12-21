@@ -1,74 +1,72 @@
 migree.factory('AuthenticationService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
-  'use strict';
-  var serviceBase = 'https://migree.azurewebsites.net/';
+  'use strict';  
   var authServiceFactory = {};
 
   var _authentication = {
-      isAuth: false,
-      userName: "",
-      userId: ""
+    isAuth: false,
+    userName: "",
+    userId: ""
   };
 
   var _saveRegistration = function (registration) {
 
-      _logOut();
+    _logOut();
 
-      return $http.post(serviceBase + 'user', registration).then(function (response) {
-          return response;
-      });
+    return $http.post('http://localhost:50402' + '/user', registration).then(function (response) {
+      return response;
+    });
 
   };
 
   var _login = function (userName, password) {
-      userName = userName.replace('+', encodeURIComponent('+'));
-      var data = "grant_type=password&username=" + userName + "&password=" + password;
+    userName = userName.replace('+', encodeURIComponent('+'));
+    var data = "grant_type=password&username=" + userName + "&password=" + password;
 
-      var deferred = $q.defer();
+    var deferred = $q.defer();
 
-      $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-          localStorageService.set('authorizationData', { token: response.access_token, userName: userName, userId: response.userId });
+    $http.post('http://localhost:50402' + '/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+      localStorageService.set('authorizationData', { token: response.access_token, userName: userName, userId: response.userId });
 
-          _authentication.isAuth = true;
-          _authentication.userName = userName;
-          _authentication.userId = response.userId;
+      _authentication.isAuth = true;
+      _authentication.userName = userName;
+      _authentication.userId = response.userId;
 
-          deferred.resolve(response);
+      deferred.resolve(response);
 
-      }).error(function (err, status) {
-          _logOut();
-          deferred.reject(err);
-      });
+    }).error(function (err, status) {
+      _logOut();
+      deferred.reject(err);
+    });
 
-      return deferred.promise;
+    return deferred.promise;
 
   };
 
   var _logOut = function () {
 
-      localStorageService.remove('authorizationData');
+    localStorageService.remove('authorizationData');
 
-      _authentication.isAuth = false;
-      _authentication.userName = "";
+    _authentication.isAuth = false;
+    _authentication.userName = "";
 
   };
 
   var _fillAuthData = function () {
 
 
-      var authData = localStorageService.get('authorizationData');
-      if (authData)
-      {
-        _authentication.isAuth = true;
-        _authentication.userName = authData.userName;
-        _authentication.userId = authData.userId;
-      }
+    var authData = localStorageService.get('authorizationData');
+    if (authData) {
+      _authentication.isAuth = true;
+      _authentication.userName = authData.userName;
+      _authentication.userId = authData.userId;
+    }
   };
 
   authServiceFactory.saveRegistration = _saveRegistration;
   authServiceFactory.login = _login;
   authServiceFactory.logOut = _logOut;
   authServiceFactory.fillAuthData = _fillAuthData;
-  authServiceFactory.authentication = _authentication;
+  authServiceFactory.authentication = _authentication;  
 
   return authServiceFactory;
 }]);

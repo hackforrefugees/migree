@@ -1,4 +1,3 @@
-migree.factory('Matches', ['$resource', function ($resource) {
-  'use strict';
-  return $resource('/matches');
+migree.factory('Matches', ['$scope', '$resource', function ($scope, $resource) {  
+  return $resource($scope.apiServiceBaseUri + '/matches'); 
 }]);

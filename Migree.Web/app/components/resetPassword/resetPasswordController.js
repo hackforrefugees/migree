@@ -1,3 +1,3 @@
-migree.controller('ForgotCtrl', ['$scope', function ($scope) {
+migree.controller('resetPasswordController', ['$scope', function ($scope) {
 
 }]);

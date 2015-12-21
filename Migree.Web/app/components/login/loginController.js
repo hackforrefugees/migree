@@ -7,7 +7,7 @@ migree.controller('loginController', ['$scope', '$location', 'AuthenticationServ
 
     $scope.login = function () {
       authService.login($scope.userName, $scope.password).then(function (response) {
-        $location.path('/dashboard');
+        $location.path('/matches');
       }, function (err) {
         $scope.message = err.error_description;
       });
