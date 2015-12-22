@@ -1,22 +1,19 @@
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authenticationService', 'fileReader', '$http', '$state', 'Competence', 'Business', 'Location', '$q',
-  function ($scope, $location, $timeout, authenticationService, fileReader, $http, $state, competence, business, location, $q) {
+migree.controller('registerController', ['$scope', '$location', '$timeout', 'authenticationService', 'fileReader', '$http', '$state', 'registerService', '$q',
+  function ($scope, $location, $timeout, authenticationService, fileReader, $http, $state, registerService, $q) {
     'use strict';
 
     var self = this;
-
-    console.log('will query backend for stuff. ');
+    
     var promises = [
-      competence.get(),
-      business.get(),
-      location.get()
+      registerService.competence(),
+      registerService.business(),
+      registerService.location()
     ];
 
     $q.all(promises).spread(function(competences, businesses, locations) {
       $scope.competences = competences;
       $scope.business = businesses;
-      $scope.location = locations;
-
-      console.log('got stuff from backend. Remove loader or other thing');
+      $scope.location = locations;      
     });
 
     $scope.savedSuccessfully = false;
@@ -46,7 +43,6 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     $scope.avatarCropped = false;
 
     var upload = function(file) {
-
       var formData = new FormData();
       formData.append('Content', file);
       var url = $scope.apiServiceBaseUri + 'user/upload';

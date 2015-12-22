@@ -93,8 +93,10 @@
     <Content Include="app\components\resetPassword\resetPasswordView.html" />
     <Content Include="app\components\thankYou\thankYouController.js" />
     <Content Include="app\components\thankYou\thankYouView.html" />
+    <Content Include="app\shared\api\apiService.js" />
     <Content Include="app\shared\authentication\authenticationService.js" />
     <Content Include="app\shared\authentication\authInterceptorService.js" />
+    <Content Include="app\shared\fileSelection\fileReader.js" />
     <Content Include="app\shared\fileSelection\fileSelectionDirective.js" />
     <Content Include="app\shared\fileSelection\fileUploadChangeDirective.js" />
     <Content Include="app\shared\header\headerView.html" />

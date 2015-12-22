@@ -4,7 +4,7 @@ migree.factory('authInterceptorService', ['$q', '$location', 'localStorageServic
 
   var _request = function (config) {
 
-    config.headers = config.headers || {};
+    config.headers = config.headers || {};    
 
     var authData = localStorageService.get('authorizationData');
     if (authData) {
