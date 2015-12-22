@@ -1,36 +1,14 @@
-migree.factory('AuthenticationService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
-  'use strict';  
-  var authServiceFactory = {};
+migree.factory('authenticationService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+  'use strict';
+  var apiServiceFactory = {};
 
-  var _authentication = {
-    isAuth: false,
-    userName: "",
-    userId: ""
-  };
-
-  var _saveRegistration = function (registration) {
-
-    _logOut();
-
-    return $http.post('http://localhost:50402' + '/user', registration).then(function (response) {
-      return response;
-    });
-
-  };
-
-  var _login = function (userName, password) {
-    userName = userName.replace('+', encodeURIComponent('+'));
-    var data = "grant_type=password&username=" + userName + "&password=" + password;
-
+  var _login = function (email, password, apiServiceBaseUri) {
+    email = email.replace('+', encodeURIComponent('+'));
+    var data = "grant_type=password&username=" + email + "&password=" + password;
     var deferred = $q.defer();
 
-    $http.post('http://localhost:50402' + '/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-      localStorageService.set('authorizationData', { token: response.access_token, userName: userName, userId: response.userId });
-
-      _authentication.isAuth = true;
-      _authentication.userName = userName;
-      _authentication.userId = response.userId;
-
+    $http.post(apiServiceBaseUri + '/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+      localStorageService.set('authorizationData', { token: response.access_token });
       deferred.resolve(response);
 
     }).error(function (err, status) {
@@ -39,34 +17,20 @@ migree.factory('AuthenticationService', ['$http', '$q', 'localStorageService', f
     });
 
     return deferred.promise;
-
   };
 
   var _logOut = function () {
-
     localStorageService.remove('authorizationData');
-
-    _authentication.isAuth = false;
-    _authentication.userName = "";
-
   };
 
-  var _fillAuthData = function () {
-
-
+  var _isAuthenticated = function () {
     var authData = localStorageService.get('authorizationData');
-    if (authData) {
-      _authentication.isAuth = true;
-      _authentication.userName = authData.userName;
-      _authentication.userId = authData.userId;
-    }
+    return authData;
   };
 
-  authServiceFactory.saveRegistration = _saveRegistration;
-  authServiceFactory.login = _login;
-  authServiceFactory.logOut = _logOut;
-  authServiceFactory.fillAuthData = _fillAuthData;
-  authServiceFactory.authentication = _authentication;  
+  apiServiceFactory.login = _login;
+  apiServiceFactory.logOut = _logOut;
+  apiServiceFactory.isAuthenticated = _isAuthenticated;
 
-  return authServiceFactory;
+  return apiServiceFactory;
 }]);

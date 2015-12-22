@@ -1,4 +1,4 @@
-migree.controller('profileController', ['$scope', '$location', '$timeout', 'AuthenticationService', function ($scope, $location, $timeout, authService) {
+migree.controller('profileController', ['$scope', '$location', function ($scope, $location) {
 	'use strict';
 	$scope.profile = true;
 

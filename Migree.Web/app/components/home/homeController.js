@@ -1,3 +1,3 @@
-migree.controller('homeController', ['AuthenticationService', function (authService) {
-	authService.logOut();
+migree.controller('homeController', ['authenticationService', function (authenticationService) {
+  authenticationService.logOut();
 }]);
