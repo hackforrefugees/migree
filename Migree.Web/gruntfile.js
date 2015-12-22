@@ -57,7 +57,8 @@ module.exports = function(grunt) {
               'bower_components/angular-route/angular-route.min.js',
               'bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js',
               'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js',
-              'bower_components/angular-resource/angular-resource.min.js'
+              'bower_components/angular-resource/angular-resource.min.js',
+              'bower_components/angular-q-spread/dist/q-spread.min.js'
               ],
         dest: 'static/vendor/angular-build.js',
       }

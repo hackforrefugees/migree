@@ -362,3 +362,5 @@ H=f.copy,x=f.isFunction;w.prototype={setUrlParams:function(l,g,e){var h=this,c=e
 ":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"%20").replace(/%26/gi,"&").replace(/%3D/gi,"=").replace(/%2B/gi,"+"),c=c.replace(new RegExp(":"+e+"(\\W|$)","g"),function(b,a){return d+a})):c=c.replace(new RegExp("(/?):"+e+"(\\W|$)","g"),function(b,a,c){return"/"==c.charAt(0)?c:a+c})});h.defaults.stripTrailingSlashes&&(c=c.replace(/\/+$/,"")||"/");c=c.replace(/\/\.(?=\w+($|\?))/,".");l.url=r+c.replace(/\/\\\./,"/.");u(g,function(a,c){h.urlParams[c]||(l.params=l.params||{},l.params[c]=
 a)})}};return z}]})})(window,window.angular);
 //# sourceMappingURL=angular-resource.min.js.map
+
+!function(e){"use strict";e.module("$q-spread",[]).config(["$provide",function(e){e.decorator("$q",["$delegate",function(e){var r=e.defer;return e.defer=function(){var e=r().promise.constructor.prototype;return Object.defineProperty(e,"spread",{value:function(e,r){function n(r){return e.apply(void 0,r)}return this.then(n,r)},writable:!0,enumerable:!1}),r()},e}])}])}(window.angular);
