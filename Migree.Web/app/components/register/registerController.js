@@ -1,12 +1,24 @@
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authenticationService', 'fileReader', '$http', '$state', 'Competence', 'Business', 'Location',
-  function ($scope, $location, $timeout, authenticationService, fileReader, $http, $state, competence, business, location) {
+migree.controller('registerController', ['$scope', '$location', '$timeout', 'authenticationService', 'fileReader', '$http', '$state', 'Competence', 'Business', 'Location', '$q',
+  function ($scope, $location, $timeout, authenticationService, fileReader, $http, $state, competence, business, location, $q) {
     'use strict';
 
     var self = this;
 
-    $scope.competences = competence.query();
-    $scope.business = business.query();
-    $scope.location = location.query();
+    console.log('will query backend for stuff. ');
+    var promises = [
+      competence.get(),
+      business.get(),
+      location.get()
+    ];
+
+    $q.all(promises).then(function(responses) {
+      $scope.competences = responses[0];
+      $scope.business = responses[1];
+      $scope.location = responses[2];
+
+      console.log('got stuff from backend. Remove loader or other thing');
+    });
+
     $scope.savedSuccessfully = false;
     $scope.message = "";
     $scope.aboutText = "";
