@@ -11,15 +11,15 @@
   });
 
   var business = function () {
-    return $resource(self.apiBaseUrl + '/business');
+    return $resource(self.apiBaseUrl + '/business').query().$promise;
   };
 
   var competence = function () {
-    return $resource(self.apiBaseUrl + '/competence');
+    return $resource(self.apiBaseUrl + '/competence').query().$promise;
   };
 
   var location = function () {
-    return $resource(self.apiBaseUrl + '/location');
+    return $resource(self.apiBaseUrl + '/location').query().$promise;
   };
 
   return {
