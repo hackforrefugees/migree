@@ -1,8 +1,4 @@
-migree.factory('ResetPassword', ['$resource', function ($resource) {
+migree.factory('resetPasswordService', ['apiService', function (apiService) {
   'use strict';
-  return $resource('/resetpassword', null, {
-    update: {
-      method: 'PUT'
-    }
-  });
+  return apiService.resetPassword;
 }]);
