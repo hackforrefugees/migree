@@ -3,17 +3,17 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     'use strict';
 
     var self = this;
-    
+
     var promises = [
       registerService.competencePromise,
       registerService.businessPromise,
       registerService.locationPromise
     ];
 
-    $q.all(promises).spread(function(competences, businesses, locations) {
+    $q.all(promises).spread(function (competences, businesses, locations) {
       $scope.competences = competences;
       $scope.business = businesses;
-      $scope.location = locations;      
+      $scope.location = locations;
     });
 
     $scope.savedSuccessfully = false;
@@ -42,7 +42,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     $scope.srcImg = null;
     $scope.avatarCropped = false;
 
-    var upload = function(file) {
+    var upload = function (file) {
       var formData = new FormData();
       formData.append('Content', file);
       var url = $scope.apiServiceBaseUri + 'user/upload';
@@ -75,8 +75,8 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
 
       submitButtons.addClass('disabled');
       submitButtons.prop('disabled', true);
-      
-      authenticationService.saveRegistration($scope.registration).then(function (response) {
+
+      registerService.user.save($scope.registration).$promise.then(function (response) {
         $scope.savedSuccessfully = true;
 
         $('.step').prev().hide();
@@ -112,29 +112,22 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     };
 
     $scope.updateSkills = function () {
-      var ids = $scope.competence.map(function (item) {
+      var competenceIds = $scope.competence.map(function (item) {
         return item.id;
       });
-      if ($scope.registration.city.id && ids[0] && ids[1] && ids[2] && $scope.registration.work.id && $scope.aboutText.length > 0) {
-        var skillsData = {
+      if ($scope.registration.city.id && competenceIds[0] && competenceIds[1] && competenceIds[2] && $scope.registration.work.id && $scope.aboutText.length > 0) {
+
+        var userInformation = {
           userLocation: $scope.registration.city.id,
           description: $scope.aboutText,
-          competenceIds: ids
+          competenceIds: competenceIds
         };
 
-        $http.put('https://migree.azurewebsites.net/user', skillsData)
-            .success(function (data, status, headers) {
-
-            })
-            .error(function (data, status, header, config) {
-            });
+        registerService.user.update(userInformation);
         $state.go('thankyou');
       }
       else {
         window.alert('Please complete your registration by selecting a value in each of the dropdown boxes and writing a short description.');
       }
-
-
     };
-
   }]);
