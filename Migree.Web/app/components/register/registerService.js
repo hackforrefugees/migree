@@ -1,5 +1,5 @@
 migree.factory('registerService', ['apiService', function (apiService) {
-  'use strict'; 
+  'use strict';  
 
   return {
     user: apiService.user,
