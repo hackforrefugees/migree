@@ -1,4 +1,4 @@
-migree.factory('authenticationService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+migree.factory('authenticationService', ['apiService', '$q', 'localStorageService', function (apiService, $q, localStorageService) {
   'use strict';
   var apiServiceFactory = {};
 
@@ -7,10 +7,9 @@ migree.factory('authenticationService', ['$http', '$q', 'localStorageService', f
     var data = "grant_type=password&username=" + email + "&password=" + password;
     var deferred = $q.defer();
 
-    $http.post(apiServiceBaseUri + '/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+    apiService.token(data).success(function (response) {
       localStorageService.set('authorizationData', { token: response.access_token });
       deferred.resolve(response);
-
     }).error(function (err, status) {
       _logOut();
       deferred.reject(err);
