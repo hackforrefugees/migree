@@ -5,7 +5,6 @@ var migree = angular.module('migreeApp', [
     'LocalStorageModule',
     'jcs-autoValidate',
     'ngImgCrop',
-    'frapontillo.bootstrap-switch',
     '$q-spread'
 ]);
 

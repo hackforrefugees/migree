@@ -13,22 +13,16 @@
 		<h4>USER INFO</h4>
 		<p>To get started we need to know a few things about you. First, select if you need help or if you want to help.</p>
 		<form name="step1" novalidate="novalidate" ng-submit="goToNext();" >
-			<div class="form-group">
-			<input bs-switch
-			    ng-model="registration.userType"
-			    type="checkbox"
-			    switch-active="true"
-			    switch-size="large"
-			    switch-on-text="Want to help"
-			    switch-off-text="Need help"
-			    switch-on-color="default"
-			    switch-off-color="default"
-
-			    switch-label-width="10"
-			    switch-handle-width="150"
-			    ng-true-value="2"
-			    ng-false-value="1" disable-valid-styling="true" />
-			</div>
+			<div class="form-group usertype">
+				<div class="btn-group">
+	                <label class="btn active btn-default">
+	                    <input type="radio" disable-valid-styling="true" ng-model="registration.userType" name="usertype" value="2" /> Want to help
+	                </label> 
+	                <label class="btn btn-default">
+	                    <input type="radio" disable-valid-styling="true" ng-model="registration.userType" name="usertype" value="1" /> Need help
+	                </label> 
+                </div>
+			</div>	
 			<div class="form-group">
 				<input type="text" placeholder="First name" required ng-model="registration.firstName" disable-validation-message="" />
 			</div>
