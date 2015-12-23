@@ -1,9 +1,16 @@
 migree.factory('registerService', ['apiService', function (apiService) {
-  'use strict';  
+  'use strict';
+
   return {
     user: apiService.user,
-    business: apiService.business.query().$promise,
-    competence: apiService.competence.query().$promise,
-    location: apiService.location.query().$promise
+    business: function() {
+      return apiService.business().query().$promise;
+    },
+    competence: function() {
+      return apiService.competence().query().$promise;
+    },
+    location: function() {
+      return apiService.location().query().$promise;
+    }
   };
 }]);

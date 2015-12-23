@@ -3,7 +3,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     'use strict';
 
     var self = this;
-    
+
     var promises = [
       registerService.competence(),
       registerService.business(),
@@ -13,7 +13,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     $q.all(promises).spread(function(competences, businesses, locations) {
       $scope.competences = competences;
       $scope.business = businesses;
-      $scope.location = locations;      
+      $scope.location = locations;
     });
 
     $scope.savedSuccessfully = false;
