@@ -5,9 +5,9 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     var self = this;
     
     var promises = [
-      registerService.competence(),
-      registerService.business(),
-      registerService.location()
+      registerService.competencePromise,
+      registerService.businessPromise,
+      registerService.locationPromise
     ];
 
     $q.all(promises).spread(function(competences, businesses, locations) {
@@ -75,34 +75,33 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
 
       submitButtons.addClass('disabled');
       submitButtons.prop('disabled', true);
+      
+      authenticationService.saveRegistration($scope.registration).then(function (response) {
+        $scope.savedSuccessfully = true;
 
-      //OBS REMOVED FROM AUTHSERVICE :)
-      //authenticationService.saveRegistration($scope.registration).then(function (response) {
-      //  $scope.savedSuccessfully = true;
+        $('.step').prev().hide();
+        $('.step').next().show();
 
-      //  $('.step').prev().hide();
-      //  $('.step').next().show();
+        submitButtons.removeClass('disabled');
+        submitButtons.prop('disabled', false);
 
-      //  submitButtons.removeClass('disabled');
-      //  submitButtons.prop('disabled', false);
+        authenticationService.login($scope.registration.email, $scope.registration.password, $scope.apiServiceBaseUri).then(function (response) {
+          self.upload(profileFile).then(function (response) {
+          }, function (err) {
 
-      //  authenticationService.login($scope.registration.email, $scope.registration.password, $scope.apiServiceBaseUri).then(function (response) {
-      //    self.upload(profileFile).then(function (response) {
-      //    }, function (err) {
-
-      //    });
-      //  }, function (err) {
-      //    $scope.message = err.error_description;
-      //  });
-      //},
-      //   function (response) {
-      //     if (response.status === 409) {
-      //       window.alert('This email is already registered. Please try again with another email address.');
-      //     }
-      //     else {
-      //       window.alert('Could not save user due to: ' + response.statusText);
-      //     }
-      //   });
+          });
+        }, function (err) {
+          $scope.message = err.error_description;
+        });
+      },
+         function (response) {
+           if (response.status === 409) {
+             window.alert('This email is already registered. Please try again with another email address.');
+           }
+           else {
+             window.alert('Could not save user due to: ' + response.statusText);
+           }
+         });
     };
 
     var startTimer = function () {

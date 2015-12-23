@@ -10,17 +10,9 @@
     }
   });
 
-  var business = function () {
-    return $resource(self.apiBaseUrl + '/business');
-  };
-
-  var competence = function () {
-    return $resource(self.apiBaseUrl + '/competence');
-  };
-
-  var location = function () {
-    return $resource(self.apiBaseUrl + '/location');
-  };
+  var business = $resource(self.apiBaseUrl + '/business');
+  var competence = $resource(self.apiBaseUrl + '/competence');
+  var location = $resource(self.apiBaseUrl + '/location');
 
   return {
     user: user,
