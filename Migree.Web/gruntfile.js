@@ -9,9 +9,9 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     s: {
       src: {
-        m: "static/min/",
-        js: "static/app/",
-        assets: "src/assets/"
+        /*m: "static/min/",*/
+        js: "app/",
+        assets: "assets/"
       },
       prod: {
         js: "prod/app/js/",
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
           optimization: 2
         },
         files: {
-          "static/css/main.css": "static/less/main.less"
+          "assets/css/main.css": "assets/less/main.less"
         }
       }
     },
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
         browsers: ['last 2 versions', 'ie 8', 'ie 9']
       },
       main: {
-        src: 'static/css/main.css'
+        src: 'assets/css/main.css'
       }
     },
 
@@ -55,8 +55,8 @@ module.exports = function(grunt) {
         src: ['bower_components/angular/angular.min.js',
               'bower_components/angular-ui-router/release/angular-ui-router.min.js',
               'bower_components/angular-route/angular-route.min.js',
-              'bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js',
-              'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js'
+              'bower_components/angular-resource/angular-resource.min.js',
+              'bower_components/angular-q-spread/dist/q-spread.min.js'
               ],
         dest: 'static/vendor/angular-build.js',
       }
@@ -67,13 +67,13 @@ module.exports = function(grunt) {
     },
 		copy: {
       prod: {
-        expand: true, src: ['static/**'], dest: 'prod/'
+        expand: true, src: ['assets/**'], dest: 'prod/'
       }
 		},
 		// clean + copy = prod / test
     wiredep: {
       target: {
-        src: 'static/index.html' // point to your HTML file.
+        src: 'index.html'
       }
     },
 
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
         port: 9000,
         hostname: '0.0.0.0',//'migree.local',
         open: 'http://migree.local:9000',
-        base: './static/',
+        base: './',
         livereload: 35729
       },
       livereload: {
@@ -91,7 +91,7 @@ module.exports = function(grunt) {
           middleware: function (connect) {
               return [
                   modRewrite (['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf$ /index.html [L]']),
-                  mountFolder(connect, 'static')
+                  mountFolder(connect, './')
               ];
           }
         }
@@ -100,13 +100,13 @@ module.exports = function(grunt) {
 
     watch: {
       html: {
-        files: ['static/views/*.html'],
+        files: ['app/components/*.html'],
         options: {
           livereload: true,
         }
       },
       less: {
-        files: ['static/less/**/*'],
+        files: ['assets/less/**/*'],
         tasks: ['less'],
         options: {
           livereload: true,
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
     },
 
     autoprefixer: {
-      files: ['static/css/main.css'],
+      files: ['assets/css/main.css'],
       tasks: ['autoprefixer']
     }
   });
@@ -148,5 +148,4 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['clean','less','wiredep', 'autoprefixer', 'concat', /*'uglify',*/ 'connect','watch']); // postcss??
-  //grunt.registerTask('default', ['express:dev','less', 'autoprefixer','watch', 'concat']);
 };

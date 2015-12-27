@@ -13,7 +13,7 @@ namespace Migree.Api.Controllers
         [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetAll()
         {
-            var business = Enum.GetValues(typeof(UserLocation)).Cast<UserLocation>().OrderBy(p => p.ToDescription()).Select(p => new IntIdAndNameResponse
+            var business = Enum.GetValues(typeof(UserLocation)).Cast<UserLocation>().OrderBy(p => (int)p == 0).ThenBy(p => p.ToDescription()).Select(p => new IntIdAndNameResponse
             {
                 Id = (int)p,
                 Name = p.ToDescription()

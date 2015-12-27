@@ -29,6 +29,12 @@ namespace Migree.Api.Controllers
         [HttpPost, Route("")]
         public HttpResponseMessage AddCompetence(AddCompetencesRequest request)
         {
+            //adding competences is an admin thing
+            if (!Request.IsLocal())
+            {
+                return CreateApiResponse(HttpStatusCode.Unauthorized);
+            }
+
             foreach (var competence in request.Competences)
             {
                 if (!string.IsNullOrWhiteSpace(competence))
