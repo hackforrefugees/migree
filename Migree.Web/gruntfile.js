@@ -334,7 +334,7 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= migree.dist %>',
+          cwd: './',
           src: ['*.html'],
           dest: '<%= migree.dist %>'
         }]
@@ -360,9 +360,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/scripts',
+          cwd: '.tmp/scripts',
           src: '*.js',
-          dest: '.tmp/concat/scripts'
+          dest: '.tmp/scripts'
         }]
       }
     },
@@ -380,18 +380,18 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= migree.app %>',
+          cwd: '<%= migree.assets %>',
           dest: '<%= migree.dist %>',
           src: [
             '*.{ico,png,txt}',
             '*.html',
-            'images/{,*/}*.{webp}',
+            'img/{,*/}*.{webp}',
             'fonts/{,*/}*.*'
           ]
         }, {
           expand: true,
           cwd: '.tmp/images',
-          dest: '<%= migree.dist %>/images',
+          dest: '<%= migree.dist %>/img',
           src: ['generated/*']
         }, {
           expand: true,
