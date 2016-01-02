@@ -23,5 +23,8 @@
     "angular-auto-validate": "~1.19.3",
     "angular-resource": "~1.4.8",
     "angular-q-spread": "~1.1.0"
+  },
+  "devDependencies": {
+    "DefinitelyTyped": "*"
   }
 }

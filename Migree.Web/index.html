@@ -58,41 +58,16 @@
                 -webkit-tap-highlight-color: transparent;
             }
     </style>
+
+    <!-- build:css(.tmp) css/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) css/styles.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-switch.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="static/vendor/angular-build.js"></script>
-    <script src="assets/vendor/angular-local-storage.min.js"></script>
-    <script src="assets/vendor/modernizr.custom.js"></script>
-    <script src="assets/vendor/draggabilly.pkgd.min.js"></script>
-    <script src="assets/vendor/elastiStack.js"></script>
-    <script src="assets/vendor/jcs-auto-validate.min.js"></script>
-    <script src="assets/vendor/ng-img-crop.js"></script>
-
-    <!-- app -->
-    <script src="app/app.module.js"></script>
-    <script src="app/app.routes.js"></script>
-
-    <!-- shared -->
-    <script src="app/shared/api/apiService.js"></script>
-    <script src="app/shared/authentication/authenticationService.js"></script>
-    <script src="app/shared/authentication/authInterceptorService.js"></script>
-    <script src="app/shared/fileSelection/fileSelectionDirective.js"></script>
-    <script src="app/shared/fileSelection/fileUploadChangeDirective.js"></script>
-    <script src="app/shared/fileSelection/fileReader.js"></script>
-    <script src="app/shared/language/languageService.js"></script>
-
-    <script src="app/components/matches/matchesService.js"></script>
-
-    <!-- components -->
-    <script src="app/components/home/homeController.js"></script>
-    <script src="app/components/login/loginController.js"></script>
-    
-    <script src="app/components/matches/matchesController.js"></script>    
-    <script src="app/components/register/registerController.js"></script>
-    <script src="app/components/register/registerService.js"></script>
-    <script src="app/components/thankYou/thankYouController.js"></script>
+    <!-- endbuild -->
 
 </head>
 <body>
@@ -133,6 +108,60 @@
         <div ui-view></div>
         <footer></footer>
     </div>
+
+    <!-- build:js(.) assets/vendor/resources.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/angular-auto-validate/dist/jcs-auto-validate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-q-spread/dist/q-spread.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) assets/migree.js -->
+    <!-- app -->
+    <script src="app/app.module.js"></script>
+    <script src="app/app.routes.js"></script>
+
+    <!-- shared -->
+    <script src="app/shared/api/apiService.js"></script>
+    <script src="app/shared/authentication/authenticationService.js"></script>
+    <script src="app/shared/authentication/authInterceptorService.js"></script>
+    <script src="app/shared/fileSelection/fileSelectionDirective.js"></script>
+    <script src="app/shared/fileSelection/fileUploadChangeDirective.js"></script>
+    <script src="app/shared/fileSelection/fileReader.js"></script>
+    <script src="app/shared/language/languageService.js"></script>
+
+    <script src="app/components/matches/matchesService.js"></script>
+
+    <!-- components -->
+    <script src="app/components/home/homeController.js"></script>
+    <script src="app/components/login/loginController.js"></script>
+
+    <script src="app/components/matches/matchesController.js"></script>
+    <script src="app/components/register/registerController.js"></script>
+    <script src="app/components/register/registerService.js"></script>
+    <script src="app/components/thankYou/thankYouController.js"></script>
+    <!-- endbuild -->
+
+    <script>
+      System.config({
+        packages: {
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      System.import('app/boot')
+            .then(null, console.error.bind(console));
+    </script>
+
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
