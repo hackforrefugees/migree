@@ -26,10 +26,10 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
-    root: './',
-    app: './app',
-    dist: './dist',
-    assets: './assets'
+    root: '/',
+    app: 'app',
+    dist: 'dist',
+    assets: 'assets'
   };
 
   // Define the configuration for all the tasks
@@ -260,15 +260,16 @@ module.exports = function (grunt) {
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
       html: ['<%= migree.dist %>/index.html'],
-      css: ['<%= migree.dist %>/assets/css/{,*/}*.css'],
+      css: ['<%= migree.dist %>/css/{,*/}*.css'],
       js: ['<%= migree.dist %>/scripts/{,*/}*.js'],
       options: {
         basedir: '<%= migree.dist %>',
+        dirs: '<%= migree.dist %>',
         assetsDirs: [
           '<%= migree.dist %>',
           '<%= migree.dist %>/assets/img',
           '<%= migree.dist %>/assets/css',
-          '<%= migree.dist %>/assets/css'
+          '<%= migree.dist %>/css',
         ],
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
@@ -334,7 +335,7 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: './',
+          cwd: '<%= migree.dist %>',
           src: ['*.html'],
           dest: '<%= migree.dist %>'
         }]
