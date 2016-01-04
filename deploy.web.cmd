@@ -105,15 +105,19 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   popd
 )
 
-:: 4. Grunt 
-echo Installning grunt and bower
-call :ExecuteCmd bower install --prefix %DEPLOYMENT_SOURCE%\
-call :ExecuteCmd npm install grunt-cli --prefix %DEPLOYMENT_SOURCE%\
+:: 4. Install bower packages
+IF EXIST "%DEPLOYMENT_TARGET%\bower.json" (
+  pushd "%DEPLOYMENT_TARGET%"
+  call :ExecuteCmd !NPM_CMD! install bower
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+)
 
-echo Running grunt
+:: 5. Grunt 
+call :ExecuteCmd npm install grunt-cli --prefix %DEPLOYMENT_SOURCE%\
 call :ExecuteCmd grunt build --gruntfile "%DEPLOYMENT_SOURCE%\gruntfile.js"
 
-:: 5. Post Grunt - copyinng grunted files
+:: 6. Copying grunted files
 echo Copying grunted files
 call :ExecuteCmd xcopy /s /e /i /y "%DEPLOYMENT_SOURCE%\dist" "%DEPLOYMENT_TARGET%\dist"
 
