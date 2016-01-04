@@ -9,6 +9,11 @@
 
 module.exports = function (grunt) {
 
+  var modRewrite = require('connect-modrewrite');
+  var serveStatic = require('serve-static');
+  var mountFolder = function (connect, dir) {
+    return serveStatic(require('path').resolve(dir));
+  };
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -78,24 +83,17 @@ module.exports = function (grunt) {
         livereload: 35729,
         //hostname: '0.0.0.0',//'migree.local',
         //open: 'http://migree.local:9000',
-        //base: './',
+        base: './',
 
       },
       livereload: {
         options: {
           open: true,
+          base: './',
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect().use(
-                '/assets/css',
-                connect.static('./assets/css')
-              ),
-              connect.static('./')
+                modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf$ /index.html [L]']),
+                mountFolder(connect, './')
             ];
           }
         }
@@ -233,9 +231,9 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%= migree.dist %>/scripts/{,*/}*.js',
-          '<%= migree.dist %>/css/{,*/}*.css',
-          '<%= migree.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= migree.dist %>/fonts/*'
+          '<%= migree.dist %>/assets/css/{,*/}*.css',
+          '<%= migree.dist %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= migree.dist %>/assets/fonts/*'
         ]
       }
     },
@@ -261,14 +259,16 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%= migree.dist %>/{,*/}*.html'],
-      css: ['<%= migree.dist %>/css/{,*/}*.css'],
+      html: ['<%= migree.dist %>/index.html'],
+      css: ['<%= migree.dist %>/assets/css/{,*/}*.css'],
       js: ['<%= migree.dist %>/scripts/{,*/}*.js'],
       options: {
+        basedir: '<%= migree.dist %>',
         assetsDirs: [
           '<%= migree.dist %>',
-          '<%= migree.dist %>/img',
-          '<%= migree.dist %>/css'
+          '<%= migree.dist %>/assets/img',
+          '<%= migree.dist %>/assets/css',
+          '<%= migree.dist %>/assets/css'
         ],
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
@@ -384,20 +384,27 @@ module.exports = function (grunt) {
           dest: '<%= migree.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '*.html',
             'img/{,*/}*.{webp}',
             'fonts/{,*/}*.*'
           ]
-        }, {
+        },
+        {
           expand: true,
-          cwd: '.tmp/images',
+          cwd: './',
+          dest: '<%= migree.dist %>',
+          src: 'index.html'
+        },
+        {
+          expand: true,
+          cwd: '<%= migree.assets %>',
           dest: '<%= migree.dist %>/img',
-          src: ['generated/*']
-        }, {
+          src: 'img/*'
+        },
+        {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
-          dest: '<%= migree.dist %>'
+          dest: '<%= migree.dist %>/assets/'
         }]
       },
       styles: {
