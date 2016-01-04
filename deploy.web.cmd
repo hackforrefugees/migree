@@ -114,12 +114,8 @@ IF EXIST "%DEPLOYMENT_TARGET%\bower.json" (
 )
 
 :: 5. Grunt 
-call :ExecuteCmd npm install grunt-cli --prefix %DEPLOYMENT_SOURCE%\
-call :ExecuteCmd grunt build --gruntfile "%DEPLOYMENT_SOURCE%\gruntfile.js"
-
-:: 6. Copying grunted files
-echo Copying grunted files
-call :ExecuteCmd xcopy /s /e /i /y "%DEPLOYMENT_SOURCE%\dist" "%DEPLOYMENT_TARGET%\dist"
+call :ExecuteCmd npm install grunt-cli --prefix %DEPLOYMENT_TARGET%\
+call :ExecuteCmd grunt build --gruntfile "%DEPLOYMENT_TARGET%\gruntfile.js"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
