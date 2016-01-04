@@ -77,7 +77,8 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          'index.html',
+          '<%= migree.app %>/index.html',
+          '<%= migree.app %>/components/{,*/}.html',
           '.tmp/styles/{,*/}*.css',
           '<%= migree.assets %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -105,20 +106,40 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729,
         //hostname: '0.0.0.0',//'migree.local',
-        //open: 'http://migree.local:9000',
-        base: './',
-
       },
       livereload: {
         options: {
           open: true,
-          base: './',
+
           middleware: function (connect) {
             return [
                 modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf$ /index.html [L]']),
-                mountFolder(connect, './')
+                connect().use(
+                  '/bower_components',
+                  connect.static('./bower_components')
+                ),
+                connect().use(
+                  '/assets',
+                  connect.static('./assets')
+                ),
+                mountFolder(connect, './app'),
             ];
           }
+          /*
+          middleware: function (connect) {
+            return [
+              connect.static('.tmp'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect().use(
+                '/assets',
+                connect.static('./assets')
+              ),
+              connect.static(appConfig.app)
+            ];
+          }*/
         }
       },
       test: {
@@ -173,8 +194,9 @@ module.exports = function (grunt) {
       },
       all: {
         src: [
-          'Gruntfile.js',
-          '<%= migree.app %>/{,*/}*.js'
+          'gruntfile.js',
+          '<%= migree.app %>/{,*/}*.js',
+          '<%= migree.app %>/components/{,*/}*.js',
         ]
       },
       test: {
@@ -229,7 +251,7 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
-        src: ['index.html'],
+        src: ['<%= migree.app %>/index.html'],
         ignorePath:  /\.\.\//
       },
       test: {
@@ -257,7 +279,7 @@ module.exports = function (grunt) {
           '<%= migree.dist %>/scripts/{,*/}*.js',
           '<%= migree.dist %>/css/{,*/}*.css',
           //'<%= migree.dist %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= migree.dist %>/assets/fonts/*'
+          //'<%= migree.dist %>/assets/fonts/*'
         ]
       }
     },
@@ -266,7 +288,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: 'index.html',
+      html: '<%= migree.app %>/index.html',
       options: {
         dest: '<%= migree.dist %>',
         flow: {
@@ -284,13 +306,13 @@ module.exports = function (grunt) {
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
       html: ['<%= migree.dist %>/index.html'],
-      css: ['<%= migree.dist %>/assets/css/{,*/}*.css'],
+      css: ['<%= migree.dist %>/css/{,*/}*.css'],
       js: ['<%= migree.dist %>/scripts/{,*/}*.js'],
       options: {
         assetsDirs: [
           '<%= migree.dist %>',
+          '<%= migree.dist %>/css',
           '<%= migree.dist %>/assets/img',
-          '<%= migree.dist %>/assets/css',
           '<%= migree.dist %>/assets/fonts'
         ],
         patterns: {
@@ -367,12 +389,12 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'testingappApp',
+          module: 'migreeApp',
           htmlmin: '<%= htmlmin.dist.options %>',
-          usemin: 'scripts/scripts.js'
+          usemin: 'scripts/migree.js'
         },
         cwd: '<%= migree.app %>',
-        src: 'views/{,*/}*.html',
+        src: 'components/{,*/}*.html',
         dest: '.tmp/templateCache.js'
       }
     },
@@ -383,9 +405,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/scripts',
+          cwd: '.tmp/concat/scripts',
           src: '*.js',
-          dest: '.tmp/scripts'
+          dest: '.tmp/concat/scripts'
         }]
       }
     },
@@ -411,7 +433,7 @@ module.exports = function (grunt) {
         },
         {
           expand: true,
-          cwd: './',
+          cwd: '<%= migree.app %>',
           dest: '<%= migree.dist %>',
           src: 'index.html'
         },

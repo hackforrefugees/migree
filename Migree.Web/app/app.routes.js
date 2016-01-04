@@ -9,7 +9,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: 'app/components/home/homeView.html',
+      templateUrl: 'components/home/homeView.html',
       controller: 'homeController',
       data: {
         requireLogin: false
@@ -17,7 +17,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('register', {
       url: '/register',
-      templateUrl: 'app/components/register/registerView.html',
+      templateUrl: 'components/register/registerView.html',
       controller: 'registerController',
       data: {
         requireLogin: false
@@ -25,7 +25,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('thankyou', {
       url: '/thankyou',
-      templateUrl: 'app/components/thankYou/thankYouView.html',
+      templateUrl: 'components/thankYou/thankYouView.html',
       controller: 'thankYouController',
       data: {
         requireLogin: false
@@ -33,7 +33,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('login', {
       url: '/login',
-      templateUrl: 'app/components/login/loginView.html',
+      templateUrl: 'components/login/loginView.html',
       controller: 'loginController',
       data: {
         requireLogin: false
@@ -41,7 +41,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('resetpassword', {
       url: '/resetpassword',
-      templateUrl: 'app/components/resetPassword/resetPasswordView.html',
+      templateUrl: 'components/resetPassword/resetPasswordView.html',
       controller: 'resetPassword',
       data: {
         requireLogin: false
@@ -49,7 +49,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('matches', {
       url: '/matches',
-      templateUrl: 'app/components/matches/matchesView.html',
+      templateUrl: 'components/matches/matchesView.html',
       controller: 'matchesController',
       data: {
         requireLogin: true
@@ -57,7 +57,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('notfound', {
       url: '/notfound',
-      templateUrl: 'app/components/notFound/notFoundView.html',
+      templateUrl: 'components/notFound/notFoundView.html',
       data: {
         requireLogin: false
       }

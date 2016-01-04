@@ -38,7 +38,7 @@
     <!-- endbuild -->
 
     <!-- build:css(.) css/styles.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
     <!-- endbuild -->
 
 </head>
@@ -102,30 +102,28 @@
     <script src="assets/vendor/elastiStack.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js(.) scripts/migree.js -->
+    <!-- build:js({.tmp,app}) scripts/migree.js -->
     <!-- app -->
-    <script src="app/app.module.js"></script>
-    <script src="app/app.routes.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.routes.js"></script>
 
     <!-- shared -->
-    <script src="app/shared/api/apiService.js"></script>
-    <script src="app/shared/authentication/authenticationService.js"></script>
-    <script src="app/shared/authentication/authInterceptorService.js"></script>
-    <script src="app/shared/fileSelection/fileSelectionDirective.js"></script>
-    <script src="app/shared/fileSelection/fileUploadChangeDirective.js"></script>
-    <script src="app/shared/fileSelection/fileReader.js"></script>
-    <script src="app/shared/language/languageService.js"></script>
-
-    <script src="app/components/matches/matchesService.js"></script>
+    <script src="shared/api/apiService.js"></script>
+    <script src="shared/authentication/authenticationService.js"></script>
+    <script src="shared/authentication/authInterceptorService.js"></script>
+    <script src="shared/fileSelection/fileSelectionDirective.js"></script>
+    <script src="shared/fileSelection/fileUploadChangeDirective.js"></script>
+    <script src="shared/fileSelection/fileReader.js"></script>
+    <script src="shared/language/languageService.js"></script>
 
     <!-- components -->
-    <script src="app/components/home/homeController.js"></script>
-    <script src="app/components/login/loginController.js"></script>
-
-    <script src="app/components/matches/matchesController.js"></script>
-    <script src="app/components/register/registerController.js"></script>
-    <script src="app/components/register/registerService.js"></script>
-    <script src="app/components/thankYou/thankYouController.js"></script>
+    <script src="components/matches/matchesService.js"></script>
+    <script src="components/home/homeController.js"></script>
+    <script src="components/login/loginController.js"></script>
+    <script src="components/matches/matchesController.js"></script>
+    <script src="components/register/registerController.js"></script>
+    <script src="components/register/registerService.js"></script>
+    <script src="components/thankYou/thankYouController.js"></script>
     <!-- endbuild -->
 
     <script>

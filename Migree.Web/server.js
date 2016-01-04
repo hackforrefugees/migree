@@ -1,21 +1,11 @@
-var express = require('express');
+var express = require('express'),
+    path = require('path');
+
 var app = express();
-
-app.use(express.static(__dirname));
-
-
-app.get('views/:page', function (req, res) {
-  res.sendFile('/views/'+req.params.page, { root: __dirname+'/' })
-});
-
-app.get('views/:route/:page', function (req, res) {
-  res.sendFile('/views/'+req.params.route+'/'+req.params.page, { root: __dirname+'/' })
-});
+app.use(express.static(path.join(__dirname, '/dist')));
 
 app.get('*', function (req, res) {
-
-  	res.sendFile('dist/index.html', { root: __dirname+'/' });
-
+	res.sendFile('index.html', { root: path.join(__dirname, '/dist')});
 });
 
 var port = process.env.PORT || 3000
