@@ -9,7 +9,7 @@ node_modules/
 .tmp
 vendor/
 dist/
-old_gruntfile.js
+css/
 
 
 ## Ignore Visual Studio temporary files, build results, and

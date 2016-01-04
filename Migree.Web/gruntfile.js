@@ -44,8 +44,17 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
+
+      less: {
+        files: ['<%= migree.assets %>/less/**/*.less'],
+        tasks: ['less'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
+
       js: {
-        files: ['<%= migree.app %>{,*/}*.js'],
+        files: ['<%= migree.app %>/**/*.js'],
         tasks: ['newer:jshint:all', 'newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -59,8 +68,9 @@ module.exports = function (grunt) {
         files: ['<%= migree.assets %>/css/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'postcss']
       },
+
       gruntfile: {
-        files: ['Gruntfile.js']
+        files: ['gruntfile.js']
       },
       livereload: {
         options: {
@@ -71,6 +81,19 @@ module.exports = function (grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= migree.assets %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      }
+    },
+
+    less: {
+      development: {
+        options: {
+          compress: false,
+          yuicompress: false,
+          optimization: 2
+        },
+        files: {
+          'assets/css/main.css': 'assets/less/main.less'
+        }
       }
     },
 
@@ -131,7 +154,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= migree.app %>/{,*/}*.js'
+          '<%= migree.app %>/**/*.js'
         ]
       },
       test: {
@@ -197,7 +220,8 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.tmp/styles/',
           src: '{,*/}*.css',
-          dest: '.tmp/styles/'
+          //dest: '.tmp/styles/'
+          dest: '<%= migree.dest %>/assets/css'
         }]
       }
     },
@@ -231,8 +255,8 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%= migree.dist %>/scripts/{,*/}*.js',
-          '<%= migree.dist %>/assets/css/{,*/}*.css',
-          '<%= migree.dist %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= migree.dist %>/css/{,*/}*.css',
+          //'<%= migree.dist %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
           '<%= migree.dist %>/assets/fonts/*'
         ]
       }
@@ -260,19 +284,17 @@ module.exports = function (grunt) {
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
       html: ['<%= migree.dist %>/index.html'],
-      css: ['<%= migree.dist %>/css/{,*/}*.css'],
+      css: ['<%= migree.dist %>/assets/css/{,*/}*.css'],
       js: ['<%= migree.dist %>/scripts/{,*/}*.js'],
       options: {
-        basedir: '<%= migree.dist %>',
-        dirs: '<%= migree.dist %>',
         assetsDirs: [
           '<%= migree.dist %>',
           '<%= migree.dist %>/assets/img',
           '<%= migree.dist %>/assets/css',
-          '<%= migree.dist %>/css',
+          '<%= migree.dist %>/assets/fonts'
         ],
         patterns: {
-          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+          js: [[/(assets\/img\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
         }
       }
     },
@@ -384,9 +406,7 @@ module.exports = function (grunt) {
           cwd: '<%= migree.assets %>',
           dest: '<%= migree.dist %>',
           src: [
-            '*.{ico,png,txt}',
-            'img/{,*/}*.{webp}',
-            'fonts/{,*/}*.*'
+            '*.{ico,png,txt}'
           ]
         },
         {
@@ -398,12 +418,18 @@ module.exports = function (grunt) {
         {
           expand: true,
           cwd: '<%= migree.assets %>',
-          dest: '<%= migree.dist %>/img',
-          src: 'img/*'
+          src: 'img/**/*',
+          dest: '<%= migree.dist %>/assets/'
         },
         {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= migree.dist %>/assets/'
+        },
+        {
+          expand: true,
+          cwd: '<%= migree.assets %>',
           src: 'fonts/*',
           dest: '<%= migree.dist %>/assets/'
         }]
@@ -426,8 +452,8 @@ module.exports = function (grunt) {
       ],
       dist: [
         'copy:styles',
-        /*'imagemin',
-        'svgmin'*/
+        'imagemin',
+        'svgmin'
       ]
     },
 
@@ -448,6 +474,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'less',
       'wiredep',
       'concurrent:server',
       'postcss:server',
@@ -463,6 +490,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'less',
     'wiredep',
     'concurrent:test',
     'postcss',
@@ -472,6 +500,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'less',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

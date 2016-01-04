@@ -31,42 +31,14 @@
     <meta property="og:description" content="Migree is a unique tool for connecting immigrants with swedes based on their professional skills. Register now and help us make this great." />
     <meta property="og:image" content="http://www.migree.se/img/migree-share.png" />
 
-    <style>
-        .ui-view-image-view {
-            position: absolute;
-            top: 0px;
-            left: 0;
-            background: #000;
-            width: 100%;
-            height: 100%;
-        }
-
-        img-crop {
-            width: 100%;
-            height: 100%;
-            display: block;
-            position: relative;
-            overflow: hidden;
-        }
-
-            img-crop canvas {
-                display: block;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                outline: 0;
-                -webkit-tap-highlight-color: transparent;
-            }
-    </style>
-
-    <!-- build:css(.tmp) css/vendor.css -->
+    <!-- build:css(.) css/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css(.tmp) css/styles.css -->
+
+    <!-- build:css(.) css/styles.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-switch.min.css">
     <!-- endbuild -->
 
 </head>
@@ -126,7 +98,7 @@
     <!-- build:js(.) scripts/vendor/vendor.js -->
     <script src="assets/vendor/modernizr.custom.js"></script>
     <script src="assets/vendor/ng-img-crop.js"></script>
-    <script src="assets/vendor/draggabilitly.pkgd.min.js"></script>
+    <script src="assets/vendor/draggabilly.pkgd.min.js"></script>
     <script src="assets/vendor/elastiStack.js"></script>
     <!-- endbuild -->
 
@@ -155,19 +127,6 @@
     <script src="app/components/register/registerService.js"></script>
     <script src="app/components/thankYou/thankYouController.js"></script>
     <!-- endbuild -->
-
-    <script>
-      System.config({
-        packages: {
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
-      });
-      System.import('app/boot')
-            .then(null, console.error.bind(console));
-    </script>
 
     <script>
         (function (i, s, o, g, r, a, m) {
