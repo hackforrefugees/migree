@@ -277,7 +277,7 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%= migree.dist %>/scripts/{,*/}*.js',
-          '<%= migree.dist %>/css/{,*/}*.css',
+          '<%= migree.dist %>/assets/css/{,*/}*.css',
           //'<%= migree.dist %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
           //'<%= migree.dist %>/assets/fonts/*'
         ]
@@ -451,10 +451,33 @@ module.exports = function (grunt) {
         },
         {
           expand: true,
+          cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= migree.assets %>'
+        },
+        {
+          expand: true,
           cwd: '<%= migree.assets %>',
           src: 'fonts/*',
           dest: '<%= migree.dist %>/assets/'
         }]
+      },
+
+      fonts: {
+        files: [
+          {
+            expand: true,
+            cwd: 'bower_components/bootstrap/dist',
+            src: 'fonts/*',
+            dest: '<%= migree.dist %>/assets/'
+          },
+          {
+            expand: true,
+            cwd: 'bower_components/bootstrap/dist',
+            src: 'fonts/*',
+            dest: '<%= migree.assets %>'
+          },
+        ]
       },
       styles: {
         expand: true,
@@ -496,6 +519,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'copy:fonts',
       'less',
       'wiredep',
       'concurrent:server',
@@ -512,6 +536,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'copy:fonts',
     'less',
     'wiredep',
     'concurrent:test',
@@ -522,6 +547,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'copy:fonts',
     'less',
     'wiredep',
     'useminPrepare',
