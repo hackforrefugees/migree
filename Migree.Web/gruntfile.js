@@ -428,7 +428,9 @@ module.exports = function (grunt) {
           cwd: '<%= migree.assets %>',
           dest: '<%= migree.dist %>',
           src: [
-            '*.{ico,png,txt}'
+            '*.ico',
+            '*.png',
+            '*.txt'
           ]
         },
         {
