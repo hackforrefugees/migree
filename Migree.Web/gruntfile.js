@@ -499,7 +499,11 @@ module.exports = function (grunt) {
         'copy:styles',
         'imagemin',
         'svgmin'
-      ]
+      ],
+      options: {
+        limit: 3,
+        logConcurrentOutput: true
+      }
     },
 
     // Test settings
