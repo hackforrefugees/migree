@@ -422,15 +422,7 @@ module.exports = function (grunt) {
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= migree.assets %>',
-          dest: '<%= migree.dist %>',
-          src: [
-            '*.{ico,png,txt}'
-          ]
-        },
+        files: [
         {
           expand: true,
           cwd: '<%= migree.app %>',
@@ -440,7 +432,13 @@ module.exports = function (grunt) {
         {
           expand: true,
           cwd: '<%= migree.assets %>',
-          src: 'img/**/*',
+          src: 'img/*',
+          dest: '<%= migree.dist %>/assets/'
+        },
+        {
+          expand: true,
+          cwd: '<%= migree.assets %>',
+          src: 'img/favicon/*',
           dest: '<%= migree.dist %>/assets/'
         },
         {
@@ -499,7 +497,11 @@ module.exports = function (grunt) {
         'copy:styles',
         'imagemin',
         'svgmin'
-      ]
+      ],
+      options: {
+        limit: 10,
+        logConcurrentOutput: true
+      }
     },
 
     // Test settings
