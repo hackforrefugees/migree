@@ -395,7 +395,7 @@ module.exports = function (grunt) {
           usemin: 'scripts/migree.js'
         },
         cwd: '<%= migree.app %>',
-        src: 'components/**/*.html',
+        src: 'components/*/*.html',
         dest: '.tmp/templateCache.js'
       }
     },
