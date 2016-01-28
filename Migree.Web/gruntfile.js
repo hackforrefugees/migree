@@ -211,7 +211,7 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= migree.dist %>/{,*/}*',
+            '<%= migree.dist %>/*',
             '!<%= migree.dist %>/.git{,*/}*'
           ]
         }]
@@ -549,7 +549,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'copy:fonts',
     'less',
     'wiredep',
     'useminPrepare',
