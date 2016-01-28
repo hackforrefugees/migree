@@ -481,7 +481,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= migree.assets %>/css',
         dest: '.tmp/css/',
-        src: '{,*/}*.css'
+        src: '*.css'
       }
     },
 
@@ -552,7 +552,9 @@ module.exports = function (grunt) {
     'less',
     'wiredep',
     'useminPrepare',
-    'concurrent:dist',
+    'copy:styles',
+    'imagemin',
+    'svgmin',
     'postcss',
     'ngtemplates',
     'concat',
