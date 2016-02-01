@@ -211,7 +211,7 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= migree.dist %>/{,*/}*',
+            '<%= migree.dist %>/*',
             '!<%= migree.dist %>/.git{,*/}*'
           ]
         }]
@@ -481,7 +481,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= migree.assets %>/css',
         dest: '.tmp/css/',
-        src: '{,*/}*.css'
+        src: '*.css'
       }
     },
 
@@ -549,11 +549,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'copy:fonts',
     'less',
     'wiredep',
     'useminPrepare',
-    'concurrent:dist',
+    'copy:styles',
+    'imagemin',
+    'svgmin',
     'postcss',
     'ngtemplates',
     'concat',
