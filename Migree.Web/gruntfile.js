@@ -233,7 +233,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '.tmp/css/',
-          src: '{,*/}*.css',
+          src: '*.css',
           dest: '.tmp/css/'
         }]
       },
@@ -276,8 +276,9 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%= migree.dist %>/scripts/{,*/}*.js',
-          '<%= migree.dist %>/assets/css/{,*/}*.css',
+          '<%= migree.dist %>/scripts/*.js',
+          '<%= migree.dist %>/scripts/vendor/*.js',
+          '<%= migree.dist %>/assets/css/*.css',
           //'<%= migree.dist %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
           //'<%= migree.dist %>/assets/fonts/*'
         ]
@@ -306,12 +307,12 @@ module.exports = function (grunt) {
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
       html: ['<%= migree.dist %>/index.html'],
-      css: ['<%= migree.dist %>/css/{,*/}*.css'],
-      js: ['<%= migree.dist %>/scripts/{,*/}*.js'],
+      css: ['<%= migree.dist %>/assets/css/*.css'],
+      js: ['<%= migree.dist %>/scripts/*.js','<%= migree.dist %>/scripts/vendor/*.js'],
       options: {
         assetsDirs: [
           '<%= migree.dist %>',
-          '<%= migree.dist %>/css',
+          '<%= migree.dist %>/assets/css',
           '<%= migree.dist %>/assets/img',
           '<%= migree.dist %>/assets/fonts'
         ],
@@ -394,7 +395,7 @@ module.exports = function (grunt) {
           usemin: 'scripts/migree.js'
         },
         cwd: '<%= migree.app %>',
-        src: 'components/{,*/}*.html',
+        src: 'components/*/*.html',
         dest: '.tmp/templateCache.js'
       }
     },
