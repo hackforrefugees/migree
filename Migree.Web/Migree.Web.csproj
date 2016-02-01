@@ -93,6 +93,7 @@
     <Content Include="app\components\resetPassword\resetPasswordView.html" />
     <Content Include="app\components\thankYou\thankYouController.js" />
     <Content Include="app\components\thankYou\thankYouView.html" />
+    <Content Include="app\index.html" />
     <Content Include="app\shared\api\apiService.js" />
     <Content Include="app\shared\authentication\authenticationService.js" />
     <Content Include="app\shared\authentication\authInterceptorService.js" />
@@ -101,8 +102,6 @@
     <Content Include="app\shared\fileSelection\fileUploadChangeDirective.js" />
     <Content Include="app\shared\header\headerView.html" />
     <Content Include="app\shared\language\languageService.js" />
-    <Content Include="assets\css\bootstrap-switch.min.css" />
-    <Content Include="assets\css\main.css" />
     <Content Include="assets\fonts\ElegantIcons.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\img\favicon\android-icon-144x144.png" />
@@ -141,7 +140,6 @@
     <Content Include="assets\vendor\modernizr.custom.js" />
     <Content Include="assets\vendor\ng-img-crop.js" />
     <Content Include="bower.json" />
-    <Content Include="index.html" />
     <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".jshintrc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="files" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\ElegantIcons.eot" />
@@ -178,6 +173,12 @@
     <Content Include="assets\less\views\start.less" />
     <Content Include="assets\less\views\thankyou.less" />
     <Content Include="assets\vendor\angular.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\css\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\components\ng-image-crop.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
