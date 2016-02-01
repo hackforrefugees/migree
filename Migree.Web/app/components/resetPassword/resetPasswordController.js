@@ -9,8 +9,6 @@ migree.controller('resetPasswordController', ['$scope', 'resetPasswordService', 
       email: $scope.email
     };
 
-    window.alert('hoj');
-    window.alert(model.email);
     resetPasswordService.save(model);
   };
 
@@ -18,9 +16,9 @@ migree.controller('resetPasswordController', ['$scope', 'resetPasswordService', 
     var model = {
       userId: '',
       resetKey: '',
-
+      password: ''
     };
-  };
 
-  //userId, resetKey, password
+
+  };
 }]);

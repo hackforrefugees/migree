@@ -15,7 +15,7 @@
     "subject": "A password reset is requested",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "A password reset has been requested. If you wan´t to reset password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you havn´t requested a reset, please ignore this message"
+    "message": "A password reset has been requested. If you want to reset your password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you havn´t requested a reset, please ignore this message"
   },
   "finishedPasswordResetMail": {
     "subject": "Your password has been changed",
