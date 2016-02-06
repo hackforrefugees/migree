@@ -20,6 +20,7 @@
     "module": false,
     "require": false,
     "migree": true,
-    "ElastiStack": true
+    "ElastiStack": true,
+    "node": true
   }
 }

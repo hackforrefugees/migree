@@ -9,6 +9,7 @@
 
 module.exports = function (grunt) {
 'use strict';
+
   var modRewrite = require('connect-modrewrite');
   var serveStatic = require('serve-static');
   var mountFolder = function (connect, dir) {
