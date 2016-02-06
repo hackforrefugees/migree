@@ -8,4 +8,10 @@ migree.controller('matchesController', ['$scope', '$resource', function ($scope,
     distDragMax: 150,
     onUpdateStack: function (current) { return false; }
   });
+
+  $scope.flip = function ($event) {
+      var card = angular.element($event.target).closest('.card');
+      console.log(card);
+      card.toggleClass('flipped');
+    };  
 }]);
