@@ -27,9 +27,9 @@
     "home": {
       "title": "Come join us!",
       "description": "Migree is a unique tool for connecting immigrants with swedes based on their professional skills.",
-      "login-title": "Register now and help us make this great",
-      "login-button": "Login",
-      "register-button": "Register"
+      "loginTitle": "Register now and help us make this great",
+      "loginButton": "Login",
+      "registerButton": "Register"
     }    
   },
   "relativeDateTimeStrings": {
