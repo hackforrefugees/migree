@@ -33,7 +33,12 @@
     },
     "login": {
       "signInButton": "Sign in",
-      "resetPasswordLink": "Forgot password?" 
+      "resetPasswordLink": "Forgot password?"
+    },
+    "resetPassword": {
+      "title": "Forget password?",
+      "description": "Reset your password by entering the e-mail you used to register below",
+      "sendButton": "Send"
     }
   },
   "relativeDateTimeStrings": {

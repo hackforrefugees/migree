@@ -10,5 +10,6 @@ namespace Migree.Core.Interfaces.Models
     {
         IDictionary<string, string> Home { get; }
         IDictionary<string, string> Login { get; }
+        IDictionary<string, string> ResetPassword { get; }
     }
 }

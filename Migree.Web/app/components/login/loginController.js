@@ -3,8 +3,7 @@ function ($scope, $location, authenticationService, languageService) {
   'use strict';
 
   languageService.then(function (data) {
-    $scope.language = data.login;
-    console.log($scope.language);
+    $scope.language = data.login;    
   });
 
   $scope.userName = "";

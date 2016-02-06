@@ -1,7 +1,6 @@
 ﻿using Migree.Core.Interfaces.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System;
 
 namespace Migree.Core.Models.Language
 {
@@ -9,8 +8,9 @@ namespace Migree.Core.Models.Language
     {
         [JsonProperty("home")]
         public IDictionary<string, string> Home { get; set; }
-
         [JsonProperty("login")]
         public IDictionary<string, string> Login { get; set; }
+        [JsonProperty("resetPassword")]
+        public IDictionary<string, string> ResetPassword { get; set; }
     }
 }
