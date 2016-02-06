@@ -9,9 +9,10 @@ migree.controller('matchesController', ['$scope', '$resource', '$state', functio
     onUpdateStack: function (current) { return false; }
   });
 
-  $scope.message = function() {
-    $state.go('message', 
-      {to: '005cbf19-2b73-4e1c-a5d2-89e13fcbb95d'}
-    );
-  };
+  $scope.flip = function ($event) {
+      var card = angular.element($event.target).closest('.card');
+      console.log(card);
+      card.toggleClass('flipped');
+    };
+
 }]);
