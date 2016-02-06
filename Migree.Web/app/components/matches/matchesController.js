@@ -1,4 +1,4 @@
-migree.controller('matchesController', ['$scope', '$resource', function ($scope, $resource) {
+migree.controller('matchesController', ['$scope', '$resource', '$state', function ($scope, $resource, $state) {
   'use strict';
 
   var result = $resource($scope.apiServiceBaseUri + '/matches').query();
@@ -13,5 +13,6 @@ migree.controller('matchesController', ['$scope', '$resource', function ($scope,
       var card = angular.element($event.target).closest('.card');
       console.log(card);
       card.toggleClass('flipped');
-    };  
+    };
+
 }]);

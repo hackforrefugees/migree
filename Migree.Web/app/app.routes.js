@@ -63,6 +63,22 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
         requireLogin: true
       }
     })
+    .state('messages', {
+      url: '/messages',
+      templateUrl: 'components/messages/messagesView.html',
+      controller: 'messagesController',
+      data: {
+        requireLogin: true
+      }
+    })
+    .state('message', {
+      url: '/message/:to',
+      templateUrl: 'components/message/messageView.html',
+      controller: 'messageController',
+      data: {
+        requireLogin: true
+      }
+    })
     .state('notfound', {
       url: '/notfound',
       templateUrl: 'components/notFound/notFoundView.html',
