@@ -43,7 +43,11 @@
     "finishPasswordReset": {
       "title": "Finish password reset",
       "description": "This is the reset thingy",
-      "sendButton": "Reset password"      
+      "sendButton": "Reset password"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description":  "You have tried to reach a page which is not existing. Please click on back arrow and you will find your way back!"
     }
   },
   "relativeDateTimeStrings": {
