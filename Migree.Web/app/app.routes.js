@@ -66,6 +66,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('notfound', {
       url: '/notfound',
       templateUrl: 'components/notFound/notFoundView.html',
+      controller: 'notFoundController',
       data: {
         requireLogin: false
       }
