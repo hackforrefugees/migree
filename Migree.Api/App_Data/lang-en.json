@@ -43,7 +43,7 @@
     "finishPasswordReset": {
       "title": "Finish password reset",
       "description": "This is the reset thingy",
-      "sendButton": "Reset password"
+      "sendButton": "Reset password"      
     }
   },
   "relativeDateTimeStrings": {
