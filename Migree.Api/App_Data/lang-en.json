@@ -30,7 +30,11 @@
       "loginTitle": "Register now and help us make this great",
       "loginButton": "Login",
       "registerButton": "Register"
-    }    
+    },
+    "login": {
+      "signInButton": "Sign in",
+      "resetPasswordLink": "Forgot password?" 
+    }
   },
   "relativeDateTimeStrings": {
     "days": "{0} days ago",

@@ -9,5 +9,6 @@ namespace Migree.Core.Interfaces.Models
     public interface IClient
     {
         IDictionary<string, string> Home { get; }
+        IDictionary<string, string> Login { get; }
     }
 }

@@ -9,6 +9,8 @@ namespace Migree.Core.Models.Language
     {
         [JsonProperty("home")]
         public IDictionary<string, string> Home { get; set; }
-        
+
+        [JsonProperty("login")]
+        public IDictionary<string, string> Login { get; set; }
     }
 }
