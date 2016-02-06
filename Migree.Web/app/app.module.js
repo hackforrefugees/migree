@@ -17,7 +17,7 @@ migree.config(function ($httpProvider) {
 });
 
 migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', function (authenticationService, $rootScope, bootstrap3ElementModifier) {
-  $rootScope.apiServiceBaseUri = 'http://localhost:50402';
+  $rootScope.apiServiceBaseUri = 'https://migree-test.azurewebsites.net';
   bootstrap3ElementModifier.enableValidationStateIcons(true);
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
