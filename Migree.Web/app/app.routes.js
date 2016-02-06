@@ -42,7 +42,15 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     .state('resetpassword', {
       url: '/resetpassword',
       templateUrl: 'components/resetPassword/resetPasswordView.html',
-      controller: 'resetPassword',
+      controller: 'resetPasswordController',
+      data: {
+        requireLogin: false
+      }
+    })
+    .state('finishpasswordreset', {
+      url: '/user/:userid/reset/:verificationkey',
+      templateUrl: 'components/finishPasswordReset/finishPasswordResetView.html',
+      controller: 'finishPasswordResetController',
       data: {
         requireLogin: false
       }

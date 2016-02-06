@@ -1,14 +1,18 @@
 ﻿using Migree.Core.Interfaces.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Migree.Core.Models.Language
 {
-    public class Client : ILanguage
+    public class Client : ILanguage, IClient
     {
+        [JsonProperty("home")]
+        public IDictionary<string, string> Home { get; set; }
         [JsonProperty("login")]
-        public string Login { get; set; }
-
-        [JsonProperty("password")]
-        public string Password { get; set; }
+        public IDictionary<string, string> Login { get; set; }
+        [JsonProperty("resetPassword")]
+        public IDictionary<string, string> ResetPassword { get; set; }
+        [JsonProperty("finishPasswordReset")]
+        public IDictionary<string, string> FinishPasswordReset { get; set; }
     }
 }

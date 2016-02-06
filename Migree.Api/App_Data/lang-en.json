@@ -24,8 +24,27 @@
     "message": "Your password has been changed for your Migree login"
   },
   "client": {
-    "login": "Login",
-    "password": "Password"
+    "home": {
+      "title": "Come join us!",
+      "description": "Migree is a unique tool for connecting immigrants with swedes based on their professional skills.",
+      "loginTitle": "Register now and help us make this great",
+      "loginButton": "Login",
+      "registerButton": "Register"
+    },
+    "login": {
+      "signInButton": "Sign in",
+      "resetPasswordLink": "Forgot password?"
+    },
+    "resetPassword": {
+      "title": "Forget password?",
+      "description": "Reset your password by entering the e-mail you used to register below",
+      "sendButton": "Send"
+    },
+    "finishPasswordReset": {
+      "title": "Finish password reset",
+      "description": "This is the reset thingy",
+      "sendButton": "Reset password"      
+    }
   },
   "relativeDateTimeStrings": {
     "days": "{0} days ago",

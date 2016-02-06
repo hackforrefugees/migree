@@ -1,24 +1,19 @@
-migree.controller('resetPasswordController', ['$scope', 'resetPasswordService', function ($scope, resetPasswordService) {
-  var self = this;
+migree.controller('resetPasswordController', ['$scope', '$state', 'resetPasswordService', 'languageService',
+  function ($scope, $state, resetPasswordService, languageService) {
 
-  $scope.email = '';
-  $scope.newPassword = '';
+    languageService.then(function (data) {
+      $scope.language = data.resetPassword;
+    });
 
-  $scope.init = function () {
-    var model = {
-      email: $scope.email
+    $scope.email = '';
+
+    $scope.init = function () {
+      var model = {
+        email: $scope.email
+      };
+
+      resetPasswordService.save(model, function () {
+        $state.go('login');
+      });
     };
-
-    resetPasswordService.save(model);
-  };
-
-  $scope.update = function () {
-    var model = {
-      userId: '',
-      resetKey: '',
-      password: ''
-    };
-
-
-  };
-}]);
+  }]);

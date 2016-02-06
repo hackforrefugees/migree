@@ -2,11 +2,11 @@
   'use strict';
 
   var self = this;
+
   self.apiBaseUrl = 'https://migree-test.azurewebsites.net';
 
   var business = $resource(self.apiBaseUrl + '/business');
   var competence = $resource(self.apiBaseUrl + '/competence');
-  var language = $resource(self.apiBaseUrl + '/language/en');
   var location = $resource(self.apiBaseUrl + '/location');
   var matches = $resource(self.apiBaseUrl + '/matches');
   var message = $resource(self.apiBaseUrl + '/message');
@@ -22,6 +22,8 @@
       method: 'PUT'
     }
   });
+
+  var language = $resource(self.apiBaseUrl + '/language/:languageCode', { languageCode: '@languageCode' });
 
   var imageUpload = function (data) {
     return $http.post(self.apiBaseUrl + '/user/upload', data, { transformRequest: angular.identity, headers: { 'Content-Type': undefined } });
