@@ -1,5 +1,5 @@
-﻿migree.controller('finishPasswordResetController', ['$scope', '$stateParams', 'resetPasswordService', 'languageService',
-  function ($scope, $stateParams, resetPasswordService, languageService) {
+﻿migree.controller('finishPasswordResetController', ['$scope', '$state', '$stateParams', 'resetPasswordService', 'languageService',
+  function ($scope, $state, $stateParams, resetPasswordService, languageService) {
 
     languageService.then(function (data) {
       $scope.language = data.finishPasswordReset;
@@ -14,6 +14,8 @@
         password: $scope.newPassword
       };
 
-      resetPasswordService.update(model);
+      resetPasswordService.update(model, function () {
+        $state.go('login');
+      });
     };
   }]);
