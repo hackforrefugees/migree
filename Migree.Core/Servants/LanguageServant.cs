@@ -2,9 +2,7 @@
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models.Language;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Migree.Core.Servants
 {
@@ -53,7 +51,7 @@ namespace Migree.Core.Servants
             return default(LanguageItem);
         }
 
-        public string Get(string languageString, params object[] args)
+        public string GetString(string languageString, params object[] args)
         {
             try
             {
@@ -65,17 +63,10 @@ namespace Migree.Core.Servants
             }
         }
 
-        public IDictionary<string, string> GetDictionary<LanguageItem>()
-            where LanguageItem : class, ILanguage
+        public IClient GetDictionary()
         {
-            var language = Get<LanguageItem>();
-
-            var dictionary = language
-                .GetType().
-                GetProperties().
-                ToDictionary(p => p.Name, p => p.GetValue(language) as string);
-
-            return dictionary;
+            var language = Get<Client>();
+            return language;
         }
     }
 }
