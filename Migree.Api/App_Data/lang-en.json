@@ -39,6 +39,11 @@
       "title": "Forget password?",
       "description": "Reset your password by entering the e-mail you used to register below",
       "sendButton": "Send"
+    },
+    "finishPasswordReset": {
+      "title": "Finish password reset",
+      "description": "This is the reset thingy",
+      "sendButton": "Reset password"
     }
   },
   "relativeDateTimeStrings": {

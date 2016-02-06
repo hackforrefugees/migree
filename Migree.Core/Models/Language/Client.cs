@@ -12,5 +12,7 @@ namespace Migree.Core.Models.Language
         public IDictionary<string, string> Login { get; set; }
         [JsonProperty("resetPassword")]
         public IDictionary<string, string> ResetPassword { get; set; }
+        [JsonProperty("finishPasswordReset")]
+        public IDictionary<string, string> FinishPasswordReset { get; }
     }
 }

@@ -45,6 +45,7 @@ namespace Migree.Api.Controllers
             var messageThreads = MessageServant.GetMessageThreads(CurrentUserId);
             var response = messageThreads.Select(p => new MessageThreadResponse
             {
+                MessageThreadId = p.Key.MessageThreadId,
                 UserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
                 ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
