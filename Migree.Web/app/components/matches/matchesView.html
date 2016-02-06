@@ -4,75 +4,26 @@
 
   </style>
 
-<ul class="box profile elasticstack" id="stack">
+<ul class="box profile elasticstack" id="stack" ng-repeat="match in matches">
 	<li class="flip-container first" >
 		<div class="card" ng-class="{'back': activeback}">
 			<div class="front info">
-				<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div >
-				<div class="name">Erik Knutsson</div>
-				<div class="from">Göteborg</div>
+				<div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div >
+				<div class="name">{{match.fullName}}</div>
+				<div class="from">{{match.userLocation}}</div>
 				<div>
-					This is a text about me!
+					{{match.description}}
 				</div>
 				<button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus "></i></button>
-				<button class="button red frontbutton" ui-sref="message({to: '005cbf19-2b73-4e1c-a5d2-89e13fcbb95d'})"><i class="icon icon_chat_alt"></i></button>
+				<button class="button red frontbutton" ui-sref="message({to: '{{match.userId}}'})"><i class="icon icon_chat_alt"></i></button>
 			</div>
 			<div class="back info">
-				<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div >
-				<ul class="competence-list">
-					<li>1. HTML & CSS</li>
-					<li>2. C#</li>
-					<li>3. NODE.js</li>
-				</ul>
-				<button class="button backbutton" ng-click="flip($event)"><i class="icon arrow_back"></i></button>
-			</div>
-		</div>
-	</li>
-	<li class="flip-container first" >
-		<div class="card" ng-class="{'back': activeback}">
-			<div class="front info">
-				<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div >
-				<div class="name">Johan Olsson</div>
-				<div class="from">Stockholm</div>
-				<div>
-					Lorum ipsum!
-				</div>
-				<button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus "></i></button>
-				<button class="button red frontbutton" ui-sref="message({to: '005cbf19-2b73-4e1c-a5d2-89e13fcbb95d'})"><i class="icon icon_chat_alt"></i></button>
-			</div>
-			<div class="back info">
-				<div class="avatar-container"><img class="avatar" src="http://placehold.it/100x100" /></div >
-				<ul class="competence-list">
-					<li>1. C#</li>
-					<li>2. Python</li>
-					<li>3. Javascript</li>
+				<div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div >
+				<ul class="competence-list" ng-repeat="competence in matches.competences">
+					<li>{{competence.name}}</li>
 				</ul>
 				<button class="button backbutton" ng-click="flip($event)"><i class="icon arrow_back"></i></button>
 			</div>
 		</div>
 	</li>
 </ul>
-
-<!--
-<li class="flip-container first" >
-		<div class="card" ng-class="{'back': activeback}">
-			<div class="front">
-				<div class="name">Erik Knutsson</div>
-				<div class="from">Göteborg</div>
-				<div>
-					This is a text about me!
-				</div>
-				<button class="button" ng-click="flip($event)"><i class="icon icon_plus "></i><br/>MORE<br/> INFO</button>
-				<button class="button red"><i class="icon icon_chat_alt"></i></button>
-			</div>
-			<div class="back">
-				<ul class="competence-list">
-					<li>1. HTML & CSS</li>
-					<li>2. C#</li>
-					<li>3. NODE.js</li>
-				</ul>
-			</div>
-
-		</div>
-	</li>
--->

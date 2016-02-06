@@ -1,7 +1,8 @@
-migree.controller('matchesController', ['$scope', '$resource', '$state', function ($scope, $resource, $state) {
+migree.controller('matchesController', ['$scope', '$resource', '$state','apiService', function ($scope, $resource, $state, apiService) {
   'use strict';
 
-  var result = $resource($scope.apiServiceBaseUri + '/matches').query();
+  $scope.matches = apiService.matches.query();
+  console.log($scope.matches);
 
   new ElastiStack(document.getElementById('stack'), {
     distDragBack: 50,
@@ -11,7 +12,6 @@ migree.controller('matchesController', ['$scope', '$resource', '$state', functio
 
   $scope.flip = function ($event) {
       var card = angular.element($event.target).closest('.card');
-      console.log(card);
       card.toggleClass('flipped');
     };
 
