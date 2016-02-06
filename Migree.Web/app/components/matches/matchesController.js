@@ -2,7 +2,6 @@ migree.controller('matchesController', ['$scope', '$resource', '$state','apiServ
   'use strict';
 
   $scope.matches = apiService.matches.query();
-  console.log($scope.matches);
 
   new ElastiStack(document.getElementById('stack'), {
     distDragBack: 50,
