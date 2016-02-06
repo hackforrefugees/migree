@@ -2,7 +2,7 @@
   'use strict';
 
   var self = this;
-  self.apiBaseUrl = 'https://migree.azurewebsites.net';
+  self.apiBaseUrl = 'https://migree-test.azurewebsites.net';
 
   var business = $resource(self.apiBaseUrl + '/business');
   var competence = $resource(self.apiBaseUrl + '/competence');

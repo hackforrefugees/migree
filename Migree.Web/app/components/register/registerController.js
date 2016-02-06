@@ -42,10 +42,10 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     $scope.srcImg = null;
     $scope.avatarCropped = false;
 
-    var upload = function (file) {
+    self.upload = function (file) {
       var formData = new FormData();
       formData.append('Content', file);
-      var url = $scope.apiServiceBaseUri + 'user/upload';
+      var url = $scope.apiServiceBaseUri + '/user/upload';
       return $http.post(
         url,
         formData,

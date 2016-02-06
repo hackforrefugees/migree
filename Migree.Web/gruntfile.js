@@ -1,5 +1,5 @@
 // Generated on 2015-12-31 using generator-angular 0.15.1
-'use strict';
+
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -8,7 +8,8 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-
+  'use strict';
+  
   var modRewrite = require('connect-modrewrite');
   var serveStatic = require('serve-static');
   var mountFolder = function (connect, dir) {
