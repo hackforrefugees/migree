@@ -8,9 +8,8 @@ migree.controller('messageController', ['$scope', '$stateParams', 'apiService', 
   $scope.message = message;
 
   $scope.sendMessage = function() {
-    apiService.message.save($scope.message, function(data) {
-      console.log(data);
-    });
+    // TODO: Implement error handlingn. 
+    apiService.message.save($scope.message, function(data) {});
   };
 
 }]);
