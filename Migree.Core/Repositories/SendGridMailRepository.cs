@@ -28,15 +28,15 @@ namespace Migree.Core.Repositories
             var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault();
             var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
 
-            var subject = LanguageServant.Get(language.Subject, creatorUser.FullName);
-            message = LanguageServant.Get(language.Message, message, creatorUser.Email, creatorUser.FullName);
+            var subject = LanguageServant.GetString(language.Subject, creatorUser.FullName);
+            message = LanguageServant.GetString(language.Message, message, creatorUser.Email, creatorUser.FullName);
 
             await SendMailAsync(
                 subject,
                 message,
                 receiverUser.Email,
-                LanguageServant.Get(language.FromMail),
-                LanguageServant.Get(language.FromName, creatorUser.FullName),
+                LanguageServant.GetString(language.FromMail),
+                LanguageServant.GetString(language.FromName, creatorUser.FullName),
                 creatorUser.Email);
         }
 
@@ -46,7 +46,7 @@ namespace Migree.Core.Repositories
 
             await SendMailAsync(
                 language.Subject,
-                LanguageServant.Get(language.Message, fullName),
+                LanguageServant.GetString(language.Message, fullName),
                 email,
                 language.FromMail,
                 language.FromName);
@@ -58,7 +58,7 @@ namespace Migree.Core.Repositories
 
             await SendMailAsync(
                 language.Subject,
-                LanguageServant.Get(language.Message, userId, passwordResetVerificationKey),
+                LanguageServant.GetString(language.Message, userId, passwordResetVerificationKey),
                 email,
                 language.FromMail,
                 language.FromName);

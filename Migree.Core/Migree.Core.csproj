@@ -111,6 +111,7 @@
     <Compile Include="Interfaces\IPasswordServant.cs" />
     <Compile Include="Interfaces\ISettingsServant.cs" />
     <Compile Include="Interfaces\IUserServant.cs" />
+    <Compile Include="Interfaces\Models\IClient.cs" />
     <Compile Include="Interfaces\Models\ICompetence.cs" />
     <Compile Include="Interfaces\Models\ILanguage.cs" />
     <Compile Include="Interfaces\Models\IMessage.cs" />

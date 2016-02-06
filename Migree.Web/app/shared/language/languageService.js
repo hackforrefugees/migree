@@ -1,4 +1,5 @@
-migree.factory('Language', ['$resource', function ($resource) {
+migree.factory('languageService', ['apiService', '$q', function (apiService, $q) {
   'use strict';
-  return $resource('/language/:languageCode', { languageCode: '@languageCode' });
+
+  return apiService.language.get({ languageCode: 'en' }).$promise;
 }]);
