@@ -1,6 +1,17 @@
 <div ng-include="'/views/_shared/header.html'"></div>
 
 <div class="new-message">
-    <textarea ng-model="message.Message"></textarea>
+    <textarea ng-model="message"></textarea>
     <button class="button red" ng-click="sendMessage()">Send</button>
 </div>
+
+<ul ng-repeat="message in thread">
+  <li>
+    <div class="quote">
+      <blockquote>
+        <h3>{{message.content}}</h3>
+        <p>{{message.created}}</p>
+      </blockquote>
+    </div>
+  </li>
+</ul>

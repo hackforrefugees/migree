@@ -1,15 +1,16 @@
 migree.controller('messageController', ['$scope', '$stateParams', 'apiService', function ($scope, $stateParams, apiService) {
 
-  var message = {
-    UserId: $stateParams.to,
-    Message: null
-  };
+  var self = this;
+  self.toUserId = $stateParams.user;
 
-  $scope.message = message;
+  $scope.message = null;
+
+  var thread = apiService.messageThread.query({userId: self.toUserId});
+  $scope.thread = thread;
 
   $scope.sendMessage = function() {
-    // TODO: Implement error handlingn. 
-    apiService.message.save($scope.message, function(data) {});
+    // TODO: Implement error handling :)
+    apiService.message.save({userId: self.toUserId, message: $scope.message}, function(data) {});
   };
 
 }]);
