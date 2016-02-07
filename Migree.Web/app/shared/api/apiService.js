@@ -3,7 +3,7 @@
 
   var self = this;
 
-  self.apiBaseUrl = 'http://localhost:50402';
+  self.apiBaseUrl = 'https://migree-test.azurewebsites.net';
 
   var business = $resource(self.apiBaseUrl + '/business');
   var competence = $resource(self.apiBaseUrl + '/competence');  
