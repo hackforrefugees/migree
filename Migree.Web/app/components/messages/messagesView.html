@@ -2,7 +2,7 @@
 
 <ul class="inbox" ng-repeat="message in messages">
     <li>
-        <a href="messages/123">
+        <a ng-href="/message/{{message.id}}">
             <div class="avatar-container"><img src="{{message.profileImageUrl}}" /></div>
             <div class="name">{{message.name}}</div>
             <div class="message-preview">{{message.content}}</div> <div class="time">{{message.lastUpdate}}</div>
