@@ -11,6 +11,7 @@ namespace Migree.Core.Repositories
     public class AzureBlobRepository : IContentRepository
     {
         private const string IMAGE_CONTAINER_NAME = "migree";
+        private const string DEFAULT_IMAGE_NAME = "default-profile.jpg";
         private ISettingsServant SettingsServant { get; }
 
         public AzureBlobRepository(ISettingsServant settingsServant)
@@ -24,13 +25,13 @@ namespace Migree.Core.Repositories
             await GetImageBlobReference(userId, imageType).UploadFromStreamAsync(fileStream);
         }
 
-        public string GetImageUrl(Guid userId, ImageType imageType)
+        public string GetImageUrl(Guid? userId, ImageType imageType)
         {
             var item = GetImageBlobReference(userId, imageType);
             return item.Uri.ToString();
         }
 
-        private CloudBlockBlob GetImageBlobReference(Guid userId, ImageType imageType)
+        private CloudBlockBlob GetImageBlobReference(Guid? userId, ImageType imageType)
         {
             var storageAccount = CloudStorageAccount.Parse(SettingsServant.StorageConnectionString);
             var blobClient = storageAccount.CreateCloudBlobClient();
@@ -39,10 +40,15 @@ namespace Migree.Core.Repositories
             return container.GetBlockBlobReference(GetImageBlobName(userId, imageType));
         }
 
-        private string GetImageBlobName(Guid userId, ImageType imageType)
+        private string GetImageBlobName(Guid? userId, ImageType imageType)
         {
-            string strId = userId.ToString();
-            return $"{strId.Remove(2)}/{imageType}-{strId}.jpg";
+            if (userId.HasValue)
+            {
+                string strId = userId.ToString();
+                return $"{strId.Remove(2)}/{imageType}-{strId}.jpg";
+            }
+
+            return DEFAULT_IMAGE_NAME;
         }
     }
 }

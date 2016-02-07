@@ -47,7 +47,7 @@ namespace Migree.Api.Controllers
             {                
                 OtherUserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
-                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
+                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id, p.Value.HasProfileImage),
                 IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
                 LatestMessageContent = p.Key.LatestMessageContent,
                 LastUpdated = p.Key.LatestMessageCreated.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())

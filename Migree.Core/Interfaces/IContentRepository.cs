@@ -22,6 +22,6 @@ namespace Migree.Core.Interfaces
         /// <param name="userId"></param>
         /// <param name="imageType"></param>
         /// <returns></returns>
-        string GetImageUrl(Guid userId, ImageType imageType);
+        string GetImageUrl(Guid? userId, ImageType imageType);
     }
 }
