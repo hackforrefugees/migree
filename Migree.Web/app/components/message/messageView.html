@@ -5,13 +5,11 @@
     <button class="button red" ng-click="sendMessage()">Send</button>
 </div>
 
-<ul ng-repeat="message in thread">
-  <li>
-    <div class="quote">
-      <blockquote>
-        <h3>{{message.content}}</h3>
-        <p>{{message.created}}</p>
-      </blockquote>
+<ul class="message-list">
+  <li ng-repeat="message in thread">
+    <div class="message" ng-class="{top: !message.isUser, 'left mine': message.isUser}">
+        <p>{{message.content}}</p>
+        <p class="right"><span>{{message.created}}</span></p>
     </div>
   </li>
 </ul>
