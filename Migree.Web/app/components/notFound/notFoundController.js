@@ -3,5 +3,5 @@
 
     languageService.then(function (data) {
       $scope.language = data.notFound;
-    });    
+    });
   }]);

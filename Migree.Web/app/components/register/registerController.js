@@ -4,6 +4,17 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
 
     var self = this;
 
+    $scope.registration = {
+      firstName: "",
+      lastName: "",
+      password: "",
+      email: "",
+      city: { name: "I live in / near...", id: 0 },
+      work: { name: "I am a...", id: 0 },
+      userType: 2,
+      competences: []
+    };
+
     var promises = [
       registerService.competencePromise,
       registerService.businessPromise,
@@ -12,22 +23,14 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
 
     $q.all(promises).spread(function (competences, businesses, locations) {
       $scope.competences = competences;
-      $scope.business = businesses;
-      $scope.location = locations;
+      $scope.businesses = businesses;
+      $scope.locations = locations;
     });
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
     $scope.aboutText = "";
 
-    $scope.registration = {
-      firstName: "",
-      lastName: "",
-      password: "",
-      email: "",
-      city: "",
-      userType: 2
-    };
 
     $scope.competence = [
       { id: null, name: '1. Select a skill' },
@@ -112,11 +115,10 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     };
 
     $scope.updateSkills = function () {
-      var competenceIds = $scope.competence.map(function (item) {
+      var competenceIds = $scope.registration.competences.map(function (item) {
         return item.id;
       });
-      if ($scope.registration.city.id && competenceIds[0] && competenceIds[1] && competenceIds[2] && $scope.registration.work.id && $scope.aboutText.length > 0) {
-
+      if ($scope.registration.city.id && competenceIds[0] && $scope.registration.work.id && $scope.aboutText.length > 0) {
         var userInformation = {
           userLocation: $scope.registration.city.id,
           description: $scope.aboutText,
