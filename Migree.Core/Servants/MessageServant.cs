@@ -57,11 +57,9 @@ namespace Migree.Core.Servants
             return messageThreadsWithUser;
         }
 
-        public KeyValuePair<IUser, ICollection<IMessage>> GetMessageThread(string messageId, Guid userId)
+        public KeyValuePair<IUser, ICollection<IMessage>> GetMessageThread(Guid currentUserId, Guid otherUserId)
         {
-            var userIds = GetUserIdFromMessageThreadId(messageId);
-            var otherUserId = userIds.Single(p => !p.Equals(userId)); //single verifies unique
-            var messagesInThread = DataRepository.GetAll<Message>(p => p.PartitionKey.Equals(MessageThread.GetPartitionKey(userIds[0], userIds[1]))).OrderByDescending(p => p.Created).ToList<IMessage>();
+            var messagesInThread = DataRepository.GetAll<Message>(p => p.PartitionKey.Equals(Message.GetPartitionKey(currentUserId, otherUserId))).OrderByDescending(p => p.Created).ToList<IMessage>();
             var otherUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(otherUserId))).FirstOrDefault();
 
             if (otherUser == null || messagesInThread.Count == 0)
@@ -70,30 +68,24 @@ namespace Migree.Core.Servants
             }
 
             return new KeyValuePair<IUser, ICollection<IMessage>>(otherUser, messagesInThread);
-        }        
+        }
 
-        public void SetMessageThreadAsRead(string messageId, Guid userId)
+        public void SetMessageThreadAsRead(Guid currentUserId, Guid otherUserId)
         {
-            var userIds = GetUserIdFromMessageThreadId(messageId);
-            var thread = DataRepository.GetFirstOrDefault<MessageThread>(MessageThread.GetPartitionKey(userIds[0], userIds[1]), messageId);
-            
-            if (thread.UserId1.Equals(userId))
+            var thread = DataRepository.GetFirstOrDefault<MessageThread>(MessageThread.GetPartitionKey(currentUserId, otherUserId), MessageThread.GetRowKey(currentUserId, otherUserId));
+
+            if (thread.UserId1.Equals(currentUserId))
             {
                 thread.LatestReadUser1 = DateTime.UtcNow.Ticks;
             }
-            else if (thread.UserId2.Equals(userId))
+            else if (thread.UserId2.Equals(currentUserId))
             {
                 thread.LatestReadUser2 = DateTime.UtcNow.Ticks;
             }
 
             DataRepository.AddOrUpdate(thread);
         }
-
-        private List<Guid> GetUserIdFromMessageThreadId(string messageId)
-        {
-            return messageId.Split(new char[] { '_' }).Select(p => new Guid(p)).ToList();
-        }
-
+        
         private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
         {
             var messageThread = DataRepository.GetFirstOrDefault<MessageThread>(
