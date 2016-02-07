@@ -16,5 +16,5 @@ migree.controller('matchesController', ['$scope', 'matchesService',
         var card = angular.element($event.target).closest('.card');
         card.toggleClass('flipped');
       };
-    })
+    });
   }]);

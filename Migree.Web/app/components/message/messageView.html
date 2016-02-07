@@ -1,8 +1,11 @@
 <div ng-include="'shared/header/headerView.html'"></div>
 
-<div class="new-message">
-    <textarea ng-model="message"></textarea>
-    <button class="button red" ng-click="sendMessage()">Send</button>
+<div class="user">
+
+</div>
+<div class="new-message" ng-class="{active: editable}">
+    <textarea ng-model="message" ng-class="{active: editable}" id="textarea"></textarea>
+    <button class="button red" ng-class="{active: editable}" ng-click="editable=!editable;sendMessage()">{{editable ? 'Send message' : sendButtonText}}</button>
 </div>
 
 <ul class="message-list">
