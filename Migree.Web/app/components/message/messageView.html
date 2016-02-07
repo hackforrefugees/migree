@@ -7,7 +7,11 @@
 
 <ul ng-repeat="message in thread">
   <li>
-    <h3>{{message.content}}</h3>
-    <p>{{message.created}}</p>
+    <div class="quote">
+      <blockquote>
+        <h3>{{message.content}}</h3>
+        <p>{{message.created}}</p>
+      </blockquote>
+    </div>
   </li>
 </ul>
