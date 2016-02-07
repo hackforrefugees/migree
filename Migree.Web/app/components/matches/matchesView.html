@@ -7,7 +7,7 @@
         <div class="card" ng-class="{'back': activeback}">
             <div class="front info">
                 <div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
-                <div class="name">{{match.fullName}}</div>
+                <div class="name" ng-bind="match.fullName"></div>
                 <div class="from">{{match.userLocation}}</div>
                 <div>
                     {{match.description}}

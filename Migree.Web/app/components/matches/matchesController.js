@@ -1,17 +1,20 @@
-migree.controller('matchesController', ['$scope', '$resource', '$state','apiService', function ($scope, $resource, $state, apiService) {
-  'use strict';
+migree.controller('matchesController', ['$scope', 'matchesService',
+  function ($scope, matchesService) {
 
-  $scope.matches = apiService.matches.query();
+    $scope.matches = [];
 
-  new ElastiStack(document.getElementById('stack'), {
-    distDragBack: 50,
-    distDragMax: 150,
-    onUpdateStack: function (current) { return false; }
-  });
+    $scope.matches = matchesService.matches.then(function (data) {
+      $scope.matches = data;
 
-  $scope.flip = function ($event) {
-      var card = angular.element($event.target).closest('.card');
-      card.toggleClass('flipped');
-    };
+      new ElastiStack(document.getElementById('stack'), {
+        distDragBack: 50,
+        distDragMax: 150,
+        onUpdateStack: function (current) { return false; }
+      });
 
-}]);
+      $scope.flip = function ($event) {
+        var card = angular.element($event.target).closest('.card');
+        card.toggleClass('flipped');
+      };
+    })
+  }]);
