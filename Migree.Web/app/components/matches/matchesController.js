@@ -6,7 +6,6 @@ migree.controller('matchesController', ['$scope', 'matchesService', '$timeout',
 
     $scope.matches = matchesService.matches.then(function (data) {
     $scope.matches = data;
-    console.log(data);
     $timeout(function() {
        new ElastiStack(document.getElementById('stack'), {
               distDragBack: 80,
