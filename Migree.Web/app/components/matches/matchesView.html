@@ -1,25 +1,30 @@
 <div ng-include="'shared/header/headerView.html'"></div>
 <style media="screen">
 </style>
-
-<ul class="box profile elasticstack" id="stack" ng-repeat="match in matches">
-    <li class="flip-container first">
+<ul class="box profile elasticstack" id="stack">
+    <li class="flip-container" ng-class="{first: $first}" ng-repeat="match in matches">
         <div class="card" ng-class="{'back': activeback}">
-            <div class="front info">
-                <div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
-                <div class="name" ng-bind="match.fullName"></div>
-                <div class="from">{{match.userLocation}}</div>
-                <div>
-                    {{match.description}}
-                </div>
+            <div class="front">
+            	<div class="info">
+            		<div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
+	                <p class="name" ng-bind="match.name"></p>
+	                <p class="from">{{match.userLocation}}</p>
+	                <p>
+	                    {{match.description}}
+	                </p>
+            	</div>
                 <button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus"></i></button>
                 <button class="button red frontbutton" ui-sref="message({to: '{{match.userId}}'})"><i class="icon icon_chat_alt"></i></button>
             </div>
             <div class="back info">
-                <div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
-                <ul class="competence-list" ng-repeat="competence in matches.competences">
-                    <li>{{competence.name}}</li>
-                </ul>
+            	<div class="info">
+            		<div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
+	                <p class="name" ng-bind="match.name"></p>
+	                <p class="from">{{match.userLocation}}</p>
+	                <ul class="competence-list">
+	                    <li ng-repeat="competence in match.competences">{{competence.name}}</li>
+	                </ul>
+            	</div>
                 <button class="button backbutton" ng-click="flip($event)"><i class="icon arrow_back"></i></button>
             </div>
         </div>
