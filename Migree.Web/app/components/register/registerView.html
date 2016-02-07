@@ -9,7 +9,7 @@
 	<button class="button red cropbutton" ng-click="crop()">Yes! this is beautiful!</button>
 </div>
 <div class="register page">
-	<div class="active step">
+	<div class="step">
 		<h4>USER INFO</h4>
 		<p>To get started we need to know a few things about you. First, select if you need help or if you want to help.</p>
 		<form name="step1" novalidate="novalidate" ng-submit="goToNext();" >
@@ -49,42 +49,37 @@
 			<a ui-sref="home" class="button back"><i class="icon arrow_back "></i></a>
 		</form>
 	</div>
-	<div class="step">
+	<div class="step active">
 		<h4>WORK INFO</h4>
 		<p>Please provide some information about your skills. This helps making the matching process more accurate.</p>
-		<form name="step2" novalidate="novalidate" ng-submit="updateSkills()">
-
-			<div class="form-group">
-				<label for="work" class="select">
-					<span class="title" ng-init="registration.work.name = 'I am a ...'" >{{registration.work.name}}</span>
-					<select disable-valid-styling="true" ng-model="registration.work" id="work" ng-options="c as c.name for c in businesses track by c.id">
-
-					</select>
-				</label>
-			</div>
-
-			<div class="form-group">
-				<label for="city" class="select">
-					<span class="title" ng-init="registration.city.name = 'I live in/near'" >{{registration.city.name}}</span>
-					<select disable-valid-styling="true" ng-model="registration.city" id="city" ng-options="c as c.name for c in locations track by c.id">
-
-					</select>
-				</label>
-			</div>
-
-			<div ng-repeat="comp in competence">
-				<div class="form-group">
-					<label for="comp-{{$index}}" class="select">
-						<span class="title" ng-init="comp.name">{{comp.name}}</span>
-						<select disable-valid-styling="true" name="competence$index" ng-model="competence[$index]" id="comp-{{$index}}" ng-options="c.name for c in competences track by c.id">
-						</select>
-					</label>
-				</div>
-			</div>
+		<form name="step2" novalidate="novalidate" disable-dynamic-validation ng-submit="updateSkills()">
+			<ui-select ng-model="registration.work" search-enabled="false">
+			    <ui-select-match>
+			        <span ng-bind="$select.selected.name"></span>
+			    </ui-select-match>
+			    <ui-select-choices repeat="item in (businesses | filter: $select.search) track by item.id">
+			        <span ng-bind="item.name"></span>
+			    </ui-select-choices>
+			</ui-select>
+			<br />
+			<ui-select ng-model="registration.city" search-enabled="false">
+			    <ui-select-match>
+			        <span ng-bind="$select.selected.name"></span>
+			    </ui-select-match>
+			    <ui-select-choices repeat="item in (locations | filter: $select.search) track by item.id">
+			        <span ng-bind="item.name"></span>
+			    </ui-select-choices>
+			</ui-select>
+			<br />
+			<ui-select multiple limit="3" ng-model="registration.competences">
+			    <ui-select-match placeholder="Select up to 3 skills">{{$item.name}}</ui-select-match>
+			    <ui-select-choices repeat="item in competences | filter:$select.search">
+			        {{item.name}}
+			    </ui-select-choices>
+			</ui-select>
+			<br />
 			<p>Add some more information about yourself.</p>
-			<div class="form-group">
-				<textarea ng-model="aboutText" disable-valid-styling="true" placeholder="Write something..." />
-			</div>
+			<textarea ng-model="aboutText" disable-valid-styling="true" placeholder="Write something..." />	
 			<button type="submit" class="button red">Register</button><br/><br/>
 		</form>
 	</div>
