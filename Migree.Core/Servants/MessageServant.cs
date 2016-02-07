@@ -99,13 +99,15 @@ namespace Migree.Core.Servants
 
             if (messageThread == null)
             {
-                messageThread = new MessageThread(creatorUserId, receiverUserId);
-                messageThread.LatestReadUser1 = messageThread.UserId1.Equals(creatorUserId) ? messageTimestamp : 0;
-                messageThread.LatestReadUser2 = messageThread.UserId2.Equals(creatorUserId) ? messageTimestamp : 0;
+                messageThread = new MessageThread(creatorUserId, receiverUserId);                
             }
+
+            messageThread.LatestReadUser1 = messageThread.UserId1.Equals(creatorUserId) ? messageTimestamp : 0;
+            messageThread.LatestReadUser2 = messageThread.UserId2.Equals(creatorUserId) ? messageTimestamp : 0;
 
             var message = new Message(creatorUserId, receiverUserId)
             {
+                UserId = creatorUserId,
                 Content = content,
                 Created = messageTimestamp
             };

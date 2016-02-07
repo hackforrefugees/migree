@@ -34,7 +34,7 @@ namespace Migree.Api.Controllers
             {
                 throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");
             }
-
+            
             await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);
             return CreateApiResponse(HttpStatusCode.Accepted);
         }
@@ -65,7 +65,8 @@ namespace Migree.Api.Controllers
             var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
             {
                 Content = p.Content,
-                Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
+                Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>()),
+                IsUser = p.UserId.Equals(CurrentUserId)
             });
 
             return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
