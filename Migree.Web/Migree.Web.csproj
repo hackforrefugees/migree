@@ -78,6 +78,7 @@
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
+    <Content Include="app\components\logout\logoutController.js" />
     <Content Include="app\components\matches\matchesController.js" />
     <Content Include="app\components\matches\matchesService.js" />
     <Content Include="app\components\matches\matchesView.html" />

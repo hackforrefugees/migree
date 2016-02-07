@@ -65,9 +65,14 @@ namespace Migree.Core.Servants
 
             var otherUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(otherUserId))).FirstOrDefault();
 
-            if (otherUser == null || messagesInThread.Count == 0)
+            if (otherUser == null)
             {
                 throw new ValidationException(System.Net.HttpStatusCode.NotFound, "thread doesn´t exist");
+            }
+
+            if (messagesInThread.Count == 0)
+            {
+                return new KeyValuePair<IUser, ICollection<IMessage>>();
             }
 
             return new KeyValuePair<IUser, ICollection<IMessage>>(otherUser, messagesInThread);

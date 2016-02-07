@@ -57,6 +57,12 @@ namespace Migree.Api.Controllers
         public HttpResponseMessage GetMessageThread(Guid otherUserId)
         {
             var messagesInThreadWithUser = MessageServant.GetMessageThread(CurrentUserId, otherUserId);
+
+            if (messagesInThreadWithUser.Key == null)
+            {
+                return CreateApiResponse(HttpStatusCode.NoContent);
+            }
+
             MessageServant.SetMessageThreadAsRead(CurrentUserId, otherUserId);
             var user = messagesInThreadWithUser.Key;
 
