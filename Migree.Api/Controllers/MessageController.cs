@@ -65,7 +65,6 @@ namespace Migree.Api.Controllers
 
             var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
             {
-                MessageId = p.Id,
                 Content = p.Content,
                 Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
             });
