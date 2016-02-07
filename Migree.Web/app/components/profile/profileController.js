@@ -1,4 +1,4 @@
-migree.controller('profileController', ['$scope', '$location', function ($scope, $location) {
+migree.controller('profileController', ['$scope', function ($scope) {
 	'use strict';
 	$scope.profile = true;
 

@@ -1,14 +1,12 @@
-migree.controller('loginController', ['$scope', '$location', 'authenticationService',
-function ($scope, $location, authenticationService) {
-  'use strict';
-
+migree.controller('loginController', ['$scope', '$state', 'authenticationService',
+function ($scope, $state, authenticationService) {
   $scope.userName = "";
   $scope.password = "";
   $scope.message = "";
 
   $scope.login = function () {
     authenticationService.login($scope.userName, $scope.password, $scope.apiServiceBaseUri).then(function (response) {
-      $location.path('/matches');
+      $state.go('matches');
     }, function (err) {
       $scope.message = err.error_description;
     });

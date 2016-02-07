@@ -1,5 +1,5 @@
-migree.controller('registerController', ['$scope', '$location', '$timeout', 'authenticationService', 'fileReader', '$http', '$state', 'registerService', '$q',
-  function ($scope, $location, $timeout, authenticationService, fileReader, $http, $state, registerService, $q) {
+migree.controller('registerController', ['$scope', '$timeout', 'authenticationService', 'fileReader', '$http', '$state', 'registerService', '$q',
+  function ($scope, $timeout, authenticationService, fileReader, $http, $state, registerService, $q) {
     'use strict';
 
     var self = this;
@@ -110,7 +110,7 @@ migree.controller('registerController', ['$scope', '$location', '$timeout', 'aut
     var startTimer = function () {
       var timer = $timeout(function () {
         $timeout.cancel(timer);
-        $location.path('/login');
+        $state.go('login');
       }, 2000);
     };
 
