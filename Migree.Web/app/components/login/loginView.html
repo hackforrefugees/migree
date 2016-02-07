@@ -1,6 +1,6 @@
 <form ng-submit="login()" class="form-group">
-    <input type="text" data-ng-model="userName" placeholder="email" required autofocus /><br />
-    <input type="password" data-ng-model="password" required placeholder="Password" /><br />
+    <input type="text" data-ng-model="userName" placeholder="{{language.emailPlaceholder}}" required autofocus /><br />
+    <input type="password" data-ng-model="password" required placeholder="{{language.passwordPlaceholder}}" /><br />
     <p>{{message}}</p>
     <input type="submit" class="button red" ng-value="language.signInButton" /><br /><br />
     <a ui-sref="resetpassword" ng-bind="language.resetPasswordLink"></a>
