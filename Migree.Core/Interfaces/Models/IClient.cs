@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Migree.Core.Interfaces.Models
 {
@@ -13,5 +9,6 @@ namespace Migree.Core.Interfaces.Models
         IDictionary<string, string> ResetPassword { get; }
         IDictionary<string, string> FinishPasswordReset { get; }
         IDictionary<string, string> NotFound { get; }
+        IDictionary<string, string> ThankYou { get; }
     }
 }
