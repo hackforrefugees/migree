@@ -4,12 +4,10 @@ using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace Migree.Api.Controllers
@@ -47,7 +45,7 @@ namespace Migree.Api.Controllers
             {                
                 OtherUserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
-                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
+                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id, p.Value.HasProfileImage),
                 IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
                 LatestMessageContent = p.Key.LatestMessageContent,
                 LastUpdated = p.Key.LatestMessageCreated.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
@@ -59,6 +57,12 @@ namespace Migree.Api.Controllers
         public HttpResponseMessage GetMessageThread(Guid otherUserId)
         {
             var messagesInThreadWithUser = MessageServant.GetMessageThread(CurrentUserId, otherUserId);
+
+            if (messagesInThreadWithUser.Key == null)
+            {
+                return CreateApiResponse(HttpStatusCode.NoContent);
+            }
+
             MessageServant.SetMessageThreadAsRead(CurrentUserId, otherUserId);
             var user = messagesInThreadWithUser.Key;
 

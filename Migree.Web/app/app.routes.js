@@ -39,6 +39,13 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
         requireLogin: false
       }
     })
+    .state('logout', {
+      url: '/logout',      
+      controller: 'logoutController',
+      data: {
+        requireLogin: true
+      }
+    })
     .state('resetpassword', {
       url: '/resetpassword',
       templateUrl: 'components/resetPassword/resetPasswordView.html',

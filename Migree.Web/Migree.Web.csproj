@@ -78,6 +78,7 @@
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
+    <Content Include="app\components\logout\logoutController.js" />
     <Content Include="app\components\matches\matchesController.js" />
     <Content Include="app\components\matches\matchesService.js" />
     <Content Include="app\components\matches\matchesView.html" />
@@ -135,7 +136,6 @@
     <Content Include="assets\img\favicon\ms-icon-310x310.png" />
     <Content Include="assets\img\favicon\ms-icon-70x70.png" />
     <Content Include="assets\img\migree-share.png" />
-    <Content Include="assets\vendor\angular-bootstrap-switch.min.js" />
     <Content Include="assets\vendor\angular-build.js" />
     <Content Include="assets\vendor\angular-local-storage.min.js" />
     <Content Include="assets\vendor\draggabilly.pkgd.min.js" />
@@ -183,6 +183,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\less\components\ng-image-crop.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\components\message-bubbles.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\views\matches.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

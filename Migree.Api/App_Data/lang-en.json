@@ -21,7 +21,7 @@
     "subject": "Your password has been changed",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "Your password has been changed for your Migree login"
+    "message": "Your password has been changed for your Migree login"   
   },
   "client": {
     "home": {
@@ -33,17 +33,21 @@
     },
     "login": {
       "signInButton": "Sign in",
-      "resetPasswordLink": "Forgot password?"
+      "resetPasswordLink": "Forgot password?",
+      "emailPlaceholder": "e-mail",
+      "passwordPlaceholder": "password"
     },
     "resetPassword": {
       "title": "Forgot password?",
       "description": "Reset your password by entering the e-mail you used to register below",
-      "sendButton": "Send"
+      "sendButton": "Send",
+      "emailPlaceholder":  "e-mail"
     },
     "finishPasswordReset": {
       "title": "Finish password reset",
-      "description": "This is the reset thingy",
-      "sendButton": "Reset password"
+      "description": "Reset your password to be able to log in again",
+      "sendButton": "Reset password",
+      "passwordPlaceholder":  "password"
     },
     "notFound": {
       "title": "Page not found",

@@ -42,6 +42,7 @@
 
         .info {
           display: block;
+          margin-bottom:20px;
           height: 100%;
           width: 100%;
           position: absolute;
@@ -50,6 +51,17 @@
                -o-backface-visibility: hidden;
                   backface-visibility: hidden;
           background-color: white;
+          .avatar {
+            width:100px;
+          }
+          p {
+            margin:10px;
+            font-size: @fontsizesmall; 
+          }
+          p.name,
+          p.from {
+            font-size: @fontsizemedium;
+          }
         }
         .front {
         }

@@ -1,5 +1,11 @@
-<h3 ng-bind="language.title"></h3>
-<p ng-bind="language.description"></p>
-<p ng-bind="language.loginTitle"></p>
-<p><a ui-sref="login" class="button red" ng-bind="language.loginButton"></a></p>
-<p><a ui-sref="register" class="button red register" ng-bind="language.registerButton"></a></p>
+<h3 ng-bind="language.home.title"></h3>
+<p ng-bind="language.home.description"></p>
+<p ng-bind="language.home.loginTitle"></p>
+<p><a ui-sref="login" class="button red" ng-bind="language.home.loginButton"></a></p>
+<p><a ui-sref="register" class="button red register" ng-bind="language.home.registerButton"></a></p>
+<br />
+<p>
+        <a ng-href="language.home.facebookShareUrl" class="social-icon social_facebook_square"></a>
+        <a ng-href="language.home.twitterShareUrl" class="social-icon social_twitter_square"></a>
+        <a ng-href="language.home.linkedInShareUrl" class="social-icon social_linkedin_square"></a>
+    </p>
