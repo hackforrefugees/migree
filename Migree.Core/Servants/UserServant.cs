@@ -14,17 +14,17 @@ namespace Migree.Core.Servants
 {
     public class UserServant : IUserServant
     {
-        private const int PROFILE_IMAGE_SIZE_PIXELS = 100;
+        private const int PROFILE_IMAGE_SIZE_PIXELS = 400;
         private IDataRepository DataRepository { get; }
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
-        private IMailRepository MailServant { get; }        
+        private IMailRepository MailServant { get; }
         public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             ContentRepository = contentRepository;
-            MailServant = mailServant;            
+            MailServant = mailServant;
         }
 
         public IUser FindUser(string email, string password)
@@ -63,6 +63,7 @@ namespace Migree.Core.Servants
             user.UserType = userType;
             user.UserLocation = UserLocation.Unspecified;
             user.Description = string.Empty;
+            user.HasProfileImage = false;
             DataRepository.AddOrUpdate(user);
 
             await MailServant.SendRegisterMailAsync(email, user.FullName);
@@ -80,6 +81,8 @@ namespace Migree.Core.Servants
 
         public async Task UploadProfileImageAsync(Guid userId, Stream imageStream)
         {
+            var user = DataRepository.GetAll<User>(x => x.RowKey.Equals(User.GetRowKey(userId))).First();
+
             imageStream.Position = 0;
 
             using (var img = System.Drawing.Image.FromStream(imageStream))
@@ -93,11 +96,14 @@ namespace Migree.Core.Servants
                     }
                 }
             }
+
+            user.HasProfileImage = true;
+            DataRepository.AddOrUpdate(user);
         }
 
-        public string GetProfileImageUrl(Guid userId)
-        {
-            return ContentRepository.GetImageUrl(userId, ImageType.Profile);
+        public string GetProfileImageUrl(Guid userId, bool hasProfileImage)
+        {            
+            return ContentRepository.GetImageUrl(hasProfileImage ? userId : default(Guid?), ImageType.Profile);
         }
 
         public async Task InitPasswordResetAsync(string email)
@@ -127,8 +133,8 @@ namespace Migree.Core.Servants
                 throw new ValidationException(HttpStatusCode.BadRequest, "Reset message to old");
             }
 
-            var user = DataRepository.GetAll<User>(p => 
-                p.RowKey.Equals(User.GetRowKey(userId)) && 
+            var user = DataRepository.GetAll<User>(p =>
+                p.RowKey.Equals(User.GetRowKey(userId)) &&
                 p.PasswordResetVerificationKey.Equals(resetTime)).FirstOrDefault();
 
             if (user == null)

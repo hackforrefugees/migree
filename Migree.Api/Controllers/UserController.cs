@@ -50,7 +50,7 @@ namespace Migree.Api.Controllers
                 FullName = $"{user.FirstName} {user.LastName}",
                 Description = user.Description,
                 UserLocation = user.UserLocation.ToDescription(),
-                ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id),
+                ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
                 Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
             };            
 
