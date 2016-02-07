@@ -44,9 +44,8 @@ namespace Migree.Api.Controllers
         {
             var messageThreads = MessageServant.GetMessageThreads(CurrentUserId);
             var response = messageThreads.Select(p => new MessageThreadResponse
-            {
-                MessageThreadId = p.Key.MessageThreadId,
-                UserId = p.Value.Id,
+            {                
+                OtherUserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
                 ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
                 IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),

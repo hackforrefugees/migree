@@ -29,10 +29,10 @@ namespace Migree.Core.Servants
         public ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId)
         {
             var messageThreadsWithUser = new List<KeyValuePair<IMessageThread, IUser>>();
+
             var messageThreads = DataRepository
-                .GetAll<MessageThread>(p =>
-                    p.PartitionKey.CompareTo(MessageThread.GetPartialPartitionKey(userId)) >= 0 &&
-                    p.RowKey.CompareTo(MessageThread.GetPartialRowKey(userId)) > 0)
+                .GetAll<MessageThread>()
+                .Where(p => p.RowKey.Contains(userId.ToString()))
                 .OrderByDescending(p => p.LatestMessageCreated);
 
             var userIdsAsRowKeys = messageThreads.Select(p => User.GetRowKey(p.UserId1)).ToList();
@@ -59,7 +59,10 @@ namespace Migree.Core.Servants
 
         public KeyValuePair<IUser, ICollection<IMessage>> GetMessageThread(Guid currentUserId, Guid otherUserId)
         {
-            var messagesInThread = DataRepository.GetAll<Message>(p => p.PartitionKey.Equals(Message.GetPartitionKey(currentUserId, otherUserId))).OrderByDescending(p => p.Created).ToList<IMessage>();
+            var messagesInThread = DataRepository
+                .GetAll<Message>(p => p.PartitionKey.Equals(Message.GetPartitionKey(currentUserId, otherUserId)))
+                .OrderByDescending(p => p.Created).ToList<IMessage>();
+
             var otherUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(otherUserId))).FirstOrDefault();
 
             if (otherUser == null || messagesInThread.Count == 0)
@@ -85,7 +88,7 @@ namespace Migree.Core.Servants
 
             DataRepository.AddOrUpdate(thread);
         }
-        
+
         private void AddMessage(Guid creatorUserId, Guid receiverUserId, string content)
         {
             var messageThread = DataRepository.GetFirstOrDefault<MessageThread>(
