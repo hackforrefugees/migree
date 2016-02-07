@@ -36,7 +36,7 @@
       "resetPasswordLink": "Forgot password?"
     },
     "resetPassword": {
-      "title": "Forget password?",
+      "title": "Forgot password?",
       "description": "Reset your password by entering the e-mail you used to register below",
       "sendButton": "Send"
     },
@@ -47,7 +47,14 @@
     },
     "notFound": {
       "title": "Page not found",
-      "description":  "You have tried to reach a page which is not existing. Please click on back arrow and you will find your way back!"
+      "description": "You have tried to reach a page which is not existing. Please click on back arrow and you will find your way back!"
+    },
+    "thankYou": {
+      "title": "Thank you for the registration",
+      "description": "You will now be able to log into Migree. Please go to login page",
+      "facebookShareUrl": "https://www.facebook.com/dialog/share?app_id=1658503381099537&amp;display=popup&amp;href=http%3A%2F%2Fmigree.se&amp;redirect_uri=http%3A%2F%2Fmigree.se",
+      "twitterShareUrl": "https://twitter.com/intent/tweet?url=http://migree.se&text=I+just+registered+as+a+developer+at+migree.se.+I think+you+should+too.&hashtags=migree",
+      "linkedInShareUrl": "https://www.linkedin.com/shareArticle?mini=true&url=migree.se&title=I%20just%20registered%20as%20a%20developer%20at%20migree.se&summary=I%20think%20you%20should%20too&source="
     }
   },
   "relativeDateTimeStrings": {

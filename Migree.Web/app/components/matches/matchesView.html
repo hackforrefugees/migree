@@ -1,28 +1,27 @@
 <div ng-include="'shared/header/headerView.html'"></div>
 <style media="screen">
-
-  </style>
+</style>
 
 <ul class="box profile elasticstack" id="stack" ng-repeat="match in matches">
-	<li class="flip-container first" >
-		<div class="card" ng-class="{'back': activeback}">
-			<div class="front info">
-				<div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div >
-				<div class="name">{{match.fullName}}</div>
-				<div class="from">{{match.userLocation}}</div>
-				<div>
-					{{match.description}}
-				</div>
-				<button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus "></i></button>
-				<button class="button red frontbutton" ui-sref="message({to: '{{match.userId}}'})"><i class="icon icon_chat_alt"></i></button>
-			</div>
-			<div class="back info">
-				<div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div >
-				<ul class="competence-list" ng-repeat="competence in matches.competences">
-					<li>{{competence.name}}</li>
-				</ul>
-				<button class="button backbutton" ng-click="flip($event)"><i class="icon arrow_back"></i></button>
-			</div>
-		</div>
-	</li>
+    <li class="flip-container first">
+        <div class="card" ng-class="{'back': activeback}">
+            <div class="front info">
+                <div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
+                <div class="name" ng-bind="match.fullName"></div>
+                <div class="from">{{match.userLocation}}</div>
+                <div>
+                    {{match.description}}
+                </div>
+                <button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus"></i></button>
+                <button class="button red frontbutton" ui-sref="message({to: '{{match.userId}}'})"><i class="icon icon_chat_alt"></i></button>
+            </div>
+            <div class="back info">
+                <div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
+                <ul class="competence-list" ng-repeat="competence in matches.competences">
+                    <li>{{competence.name}}</li>
+                </ul>
+                <button class="button backbutton" ng-click="flip($event)"><i class="icon arrow_back"></i></button>
+            </div>
+        </div>
+    </li>
 </ul>

@@ -9,7 +9,7 @@ namespace Migree.Core.Interfaces
     {
         Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message);
         ICollection<KeyValuePair<IMessageThread, IUser>> GetMessageThreads(Guid userId);
-        KeyValuePair<IUser, ICollection<IMessage>> GetMessageThread(string messageId, Guid userId);
-        void SetMessageThreadAsRead(string messageId, Guid userId);
+        KeyValuePair<IUser, ICollection<IMessage>> GetMessageThread(Guid currentUserId, Guid otherUserId);
+        void SetMessageThreadAsRead(Guid currentUserId, Guid otherUserId);
     }
 }

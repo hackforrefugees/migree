@@ -33,9 +33,9 @@ namespace Migree.Core.Servants
         }
         public ICollection<IUser> GetMatches(Guid userToMatchId, ICollection<Guid> competenceIds, int take)
         {
-            var userToMatch = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userToMatchId))).First();
             var matchedUsers = new Dictionary<Guid, MatchedUser>();
             var users = DataRepository.GetAll<User>();
+            var userToMatch = users.First(x => x.Id.Equals(userToMatchId));
             int competenceCount = 1;
 
             foreach (var competenceId in competenceIds)
@@ -49,7 +49,7 @@ namespace Migree.Core.Servants
                         var user = users.FirstOrDefault(p => p.Id.Equals(userWithCompetence.UserId));
 
                         //ignore user self and all users within the same usertype
-                        if (user == null || user.Id.Equals(userToMatchId) || user.UserType.Equals(userToMatch.UserType))
+                        if (user == null || user.UserType.Equals(userToMatch.UserType))
                         {
                             continue;
                         }

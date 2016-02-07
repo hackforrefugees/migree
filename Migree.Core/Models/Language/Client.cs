@@ -16,5 +16,7 @@ namespace Migree.Core.Models.Language
         public IDictionary<string, string> FinishPasswordReset { get; set; }
         [JsonProperty("notFound")]
         public IDictionary<string, string> NotFound { get; set; }
+        [JsonProperty("thankYou")]
+        public IDictionary<string, string> ThankYou { get; set; }
     }
 }

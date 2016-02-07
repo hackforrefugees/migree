@@ -56,11 +56,11 @@ namespace Migree.Api.Controllers
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
 
-        [HttpGet, Route("{messageId:regex(^[a-f0-9_\\-]+$)}")]
-        public HttpResponseMessage GetMessageThread(string messageId)
+        [HttpGet, Route("{otherUserId:guid}")]
+        public HttpResponseMessage GetMessageThread(Guid otherUserId)
         {
-            var messagesInThreadWithUser = MessageServant.GetMessageThread(messageId, CurrentUserId);
-            MessageServant.SetMessageThreadAsRead(messageId, CurrentUserId);
+            var messagesInThreadWithUser = MessageServant.GetMessageThread(CurrentUserId, otherUserId);
+            MessageServant.SetMessageThreadAsRead(CurrentUserId, otherUserId);
             var user = messagesInThreadWithUser.Key;
 
             var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
