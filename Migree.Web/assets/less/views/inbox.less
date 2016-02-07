@@ -1,65 +1,76 @@
-.inbox{
-	background: #fff;
-	list-style: none;
-	padding: 0;
-	border-radius: 10px;
+.inbox {
+    background: @background-panel-color;
+    list-style: none;
+    padding: 0;
+    border-radius: 10px;
 
-	li{
-		clear: both;
+    li {
+        clear: both;
 
-		&:last-child{
-			a{
-				border-bottom: none;
-			}
-		}
+        &:last-child {
+            a {
+                border-bottom: none;
+            }
+        }
 
-		a{
-			border-bottom: 1px solid #ddd;
-			height: 80px;
-			display: inline-block;
-			width: 100%;
-			text-align: left;
-			position: relative;
+        a {
+            border-bottom: 1px solid #ddd;
+            height: 80px;
+            display: inline-block;
+            width: 100%;
+            text-align: left;
+            position: relative;
 
 
-			&:hover, &:active{
-				text-decoration: none;
-			}
+            &:hover, &:active {
+                text-decoration: none;
+            }
 
-			.name{
-				margin-top: 16px;
-				color: @darkred;
-				font-weight: bold;
-			}
+            .is-read {
+                position:absolute;
+                font-size: 25px;
+                top:8px;
+                right: 17px;
 
-			.message-preview{
-				margin-top: 2px;
-				color: #555;
-				font-weight: 200;
-				font-size: 14px;
-			}
+                i.active {
+                    color: @red;
+                }
+            }
 
-			.time{
-				color: #ddd;
-				position: absolute;
-				bottom: 5px;
-				right: 10px;
-				font-size: 13px;
-			}
+            .name {
+                margin-top: 16px;
+                color: @darkred;
+                font-weight: bold;
+            }
 
-			.avatar-container{
-				float: left;
-				width: 50px;
-				overflow: hidden;
-				border-radius: 50px;
-				margin-left: 20px;
-				margin-top: 15px;
-				margin-right: 20px;
-				img{
-					width: 100%;
+            .message-preview {
+                margin-top: 2px;
+                color: @gray;
+                font-weight: 200;
+                font-size: 14px;
+            }
 
-				}
-			}
-		}
-	}
+            .time {
+                color: @gray;
+                position: absolute;
+                bottom: 5px;
+                right: 10px;
+                font-size: 13px;
+            }
+
+            .avatar-container {
+                float: left;
+                width: 50px;
+                overflow: hidden;
+                border-radius: 50px;
+                margin-left: 20px;
+                margin-top: 15px;
+                margin-right: 20px;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
