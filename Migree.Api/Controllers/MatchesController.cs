@@ -10,7 +10,7 @@ namespace Migree.Api.Controllers
     [RoutePrefix("matches")]
     public class MatchesController : MigreeApiController
     {
-        private const int NUMBER_OF_MATCHES_TO_TAKE = 50;
+        private const int NUMBER_OF_MATCHES_TO_TAKE = 20;
 
         private ICompetenceServant CompetenceServant { get; }
         private IUserServant UserServant { get; }        
