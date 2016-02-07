@@ -22,15 +22,15 @@ migree.config(function(uiSelectConfig) {
   uiSelectConfig.theme = 'bootstrap';
 });
 
-migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', function (authenticationService, $rootScope, bootstrap3ElementModifier) {
+migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', '$state', function (authenticationService, $rootScope, bootstrap3ElementModifier, $state) {
   $rootScope.apiServiceBaseUri = 'https://migree-test.azurewebsites.net';
   bootstrap3ElementModifier.enableValidationStateIcons(true);
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
 
-    if (requireLogin && !authenticationService.isAuthenticated()) {
+    if (requireLogin && !authenticationService.isAuthenticated()) {      
       event.preventDefault();
-      //Show login modal here
+      $state.go('login');
     }
   });
 }]);
