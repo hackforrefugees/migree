@@ -16,7 +16,9 @@ namespace Migree.Api.Controllers
             var response = ControllerContext.Request.CreateResponse(statusCode, content);
 
             if (locationUrl != null)
+            {
                 response.Headers.Location = locationUrl;
+            }
 
             return response;
         }
@@ -44,6 +46,6 @@ namespace Migree.Api.Controllers
 
                 throw new ValidationException(HttpStatusCode.BadRequest, "User not found");
             }
-        }        
+        }
     }
 }
