@@ -5,7 +5,9 @@ var migree = angular.module('migreeApp', [
     'LocalStorageModule',
     'jcs-autoValidate',
     'ngImgCrop',
-    '$q-spread'
+    '$q-spread',
+    'ui.select', 
+    'ngSanitize'
 ]);
 
 migree.constant('ngAuthSettings', {
@@ -14,6 +16,10 @@ migree.constant('ngAuthSettings', {
 
 migree.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptorService');
+});
+
+migree.config(function(uiSelectConfig) {
+  uiSelectConfig.theme = 'bootstrap';
 });
 
 migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', function (authenticationService, $rootScope, bootstrap3ElementModifier) {

@@ -22,8 +22,9 @@
     "angular-local-storage": "~0.2.3",
     "angular-auto-validate": "~1.19.3",
     "angular-resource": "~1.4.8",
-    "angular-q-spread": "~1.1.0"
+    "angular-q-spread": "~1.1.0",
+    "ui-select": "angular-ui-select#^0.14.2",
+    "angular-sanitize": "^1.5.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
