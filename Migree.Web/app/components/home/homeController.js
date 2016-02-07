@@ -1,7 +1,3 @@
-migree.controller('homeController', ['$scope', 'languageService',
-  function ($scope, languageService) {
+migree.controller('homeController', [function () {
 
-    languageService.then(function (data) {
-      $scope.language = data.home;
-    });
-  }]);
+}]);

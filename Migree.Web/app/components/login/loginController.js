@@ -1,10 +1,6 @@
-migree.controller('loginController', ['$scope', '$location', 'authenticationService', 'languageService',
-function ($scope, $location, authenticationService, languageService) {
+migree.controller('loginController', ['$scope', '$location', 'authenticationService',
+function ($scope, $location, authenticationService) {
   'use strict';
-
-  languageService.then(function (data) {
-    $scope.language = data.login;    
-  });
 
   $scope.userName = "";
   $scope.password = "";

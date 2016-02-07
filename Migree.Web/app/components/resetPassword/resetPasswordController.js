@@ -1,10 +1,6 @@
-migree.controller('resetPasswordController', ['$scope', '$state', 'resetPasswordService', 'languageService',
-  function ($scope, $state, resetPasswordService, languageService) {
-
-    languageService.then(function (data) {
-      $scope.language = data.resetPassword;
-    });
-
+migree.controller('resetPasswordController', ['$scope', '$state', 'resetPasswordService',
+  function ($scope, $state, resetPasswordService) {
+    
     $scope.email = '';
 
     $scope.init = function () {

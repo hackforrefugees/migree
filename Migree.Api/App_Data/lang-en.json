@@ -34,17 +34,18 @@
     "login": {
       "signInButton": "Sign in",
       "resetPasswordLink": "Forgot password?",
-      "emailPlaceholder": "email",
+      "emailPlaceholder": "e-mail",
       "passwordPlaceholder": "password"
     },
     "resetPassword": {
       "title": "Forgot password?",
       "description": "Reset your password by entering the e-mail you used to register below",
-      "sendButton": "Send"
+      "sendButton": "Send",
+      "emailPlaceholder":  "e-mail"
     },
     "finishPasswordReset": {
       "title": "Finish password reset",
-      "description": "This is the reset thingy",
+      "description": "Reset your password to be able to log in again",
       "sendButton": "Reset password",
       "passwordPlaceholder":  "password"
     },
