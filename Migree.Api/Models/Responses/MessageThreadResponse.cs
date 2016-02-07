@@ -4,11 +4,9 @@ using System;
 namespace Migree.Api.Models.Responses
 {
     public class MessageThreadResponse
-    {
-        [JsonProperty("messageThreadId")]
-        public string MessageThreadId { get; set; }
-        [JsonProperty("userId")]
-        public Guid UserId { get; set; }
+    {        
+        [JsonProperty("id")]
+        public Guid OtherUserId { get; set; }
         [JsonProperty("name")]
         public string FullName { get; set; }
         [JsonProperty("profileImageUrl")]

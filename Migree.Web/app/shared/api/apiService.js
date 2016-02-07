@@ -10,6 +10,7 @@
   var location = $resource(self.apiBaseUrl + '/location');
   var matches = $resource(self.apiBaseUrl + '/matches');
   var message = $resource(self.apiBaseUrl + '/message');
+  var messageThread = $resource(self.apiBaseUrl + '/message/:userId', {userId: '@userId'});
 
   var resetPassword = $resource(self.apiBaseUrl + '/resetpassword', null, {
     update: {
@@ -43,6 +44,7 @@
     resetPassword: resetPassword,
     user: user,
     imageUpload: imageUpload,
-    token: token
+    token: token,
+    messageThread: messageThread
   };
 }]);

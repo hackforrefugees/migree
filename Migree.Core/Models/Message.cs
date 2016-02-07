@@ -24,7 +24,7 @@ namespace Migree.Core.Models
         public Message(Guid creatorUserId, Guid receiverUserId)
         {
             RowKey = Guid.NewGuid().ToString();
-            PartitionKey = GetPartitionKey(creatorUserId, receiverUserId);            
+            PartitionKey = GetPartitionKey(creatorUserId, receiverUserId);
         }
 
         [IgnoreProperty]
@@ -35,6 +35,8 @@ namespace Migree.Core.Models
                 return new Guid(RowKey);
             }
         }
+
+        public Guid UserId { get; set; }
 
         public string Content { get; set; }
 

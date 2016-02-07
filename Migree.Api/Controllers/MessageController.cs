@@ -34,7 +34,7 @@ namespace Migree.Api.Controllers
             {
                 throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");
             }
-
+            
             await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);
             return CreateApiResponse(HttpStatusCode.Accepted);
         }
@@ -44,9 +44,8 @@ namespace Migree.Api.Controllers
         {
             var messageThreads = MessageServant.GetMessageThreads(CurrentUserId);
             var response = messageThreads.Select(p => new MessageThreadResponse
-            {
-                MessageThreadId = p.Key.MessageThreadId,
-                UserId = p.Value.Id,
+            {                
+                OtherUserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
                 ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id),
                 IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
@@ -65,9 +64,9 @@ namespace Migree.Api.Controllers
 
             var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
             {
-                MessageId = p.Id,
                 Content = p.Content,
-                Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
+                Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>()),
+                IsUser = p.UserId.Equals(CurrentUserId)
             });
 
             return CreateApiResponse(HttpStatusCode.OK, messagesInThread);

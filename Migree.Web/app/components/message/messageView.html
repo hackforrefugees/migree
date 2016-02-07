@@ -1,6 +1,15 @@
 <div ng-include="'shared/header/headerView.html'"></div>
 
 <div class="new-message">
-    <textarea ng-model="message.Message"></textarea>
+    <textarea ng-model="message"></textarea>
     <button class="button red" ng-click="sendMessage()">Send</button>
 </div>
+
+<ul class="message-list">
+  <li ng-repeat="message in thread">
+    <div class="message" ng-class="{top: !message.isUser, 'left mine': message.isUser}">
+        <p>{{message.content}}</p>
+        <p class="right"><span>{{message.created}}</span></p>
+    </div>
+  </li>
+</ul>
