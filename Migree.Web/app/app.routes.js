@@ -72,7 +72,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
       }
     })
     .state('message', {
-      url: '/message/:to',
+      url: '/message/:user',
       templateUrl: 'components/message/messageView.html',
       controller: 'messageController',
       data: {
