@@ -28,14 +28,53 @@
 	}
 
 	.button{
-    width: 100%;
     position: relative;
-    top: -20px;
-    transition: all 0.3s ease-in-out 0.1s;
+		width: 100%;
+		opacity: 1;
+		top: -20px;
+	}
 
-    &.active{
-      top: 0px;
-    }
+	.controls{
+		position: relative;
+		top: -20px;
+		opacity: 0;
+
+		&.active{
+			opacity: 1;
+			top: -8px;
+
+			.button {
+				opacity: 1;
+			}
+		}
+
+		.button{
+			margin: 0;
+			padding: 0;
+			top: 0;
+			opacity: 0;
+
+			&.send {
+				right: 0;
+				width: 66.66666666%;
+			}
+
+			&.cancel{
+				left: 0;
+				width: 29%;
+			}
+		}
+	}
+
+	.button{
+    position: relative;
+		width: 100%;
+		transition: all 0.3s ease-in-out;
+		opacity: 1;
+
+		&.hidden {
+			opacity: 0;
+		}
 	}
 }
 
