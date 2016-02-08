@@ -1,8 +1,8 @@
 migree.controller('loginController', ['$scope', '$state', 'authenticationService',
 function ($scope, $state, authenticationService) {
-  $scope.userName = "";
-  $scope.password = "";
-  $scope.message = "";
+  $scope.userName = '';
+  $scope.password = '';
+  $scope.message = '';
 
   $scope.login = function () {
     authenticationService.login($scope.userName, $scope.password, $scope.apiServiceBaseUri).then(function (response) {

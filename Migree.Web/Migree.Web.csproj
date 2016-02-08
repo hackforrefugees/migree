@@ -73,7 +73,6 @@
     <Content Include="app\app.routes.js" />
     <Content Include="app\components\finishPasswordReset\finishPasswordResetView.html" />
     <Content Include="app\components\finishPasswordReset\finishPasswordResetController.js" />
-    <Content Include="app\components\finishPasswordReset\finishPasswordResetService.js" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\login\loginController.js" />
