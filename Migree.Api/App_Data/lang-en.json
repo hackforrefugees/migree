@@ -21,7 +21,7 @@
     "subject": "Your password has been changed",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "Your password has been changed for your Migree login"   
+    "message": "Your password has been changed for your Migree login"
   },
   "client": {
     "home": {
@@ -41,13 +41,13 @@
       "title": "Forgot password?",
       "description": "Reset your password by entering the e-mail you used to register below",
       "sendButton": "Send",
-      "emailPlaceholder":  "e-mail"
+      "emailPlaceholder": "e-mail"
     },
     "finishPasswordReset": {
       "title": "Finish password reset",
       "description": "Reset your password to be able to log in again",
       "sendButton": "Reset password",
-      "passwordPlaceholder":  "password"
+      "passwordPlaceholder": "password"
     },
     "notFound": {
       "title": "Page not found",
@@ -59,6 +59,15 @@
       "facebookShareUrl": "https://www.facebook.com/dialog/share?app_id=1658503381099537&amp;display=popup&amp;href=http%3A%2F%2Fmigree.se&amp;redirect_uri=http%3A%2F%2Fmigree.se",
       "twitterShareUrl": "https://twitter.com/intent/tweet?url=http://migree.se&text=I+just+registered+as+a+developer+at+migree.se.+I think+you+should+too.&hashtags=migree",
       "linkedInShareUrl": "https://www.linkedin.com/shareArticle?mini=true&url=migree.se&title=I%20just%20registered%20as%20a%20developer%20at%20migree.se&summary=I%20think%20you%20should%20too&source="
+    },
+    "message": {
+      "sendButtonReply": "Reply",
+      "sendButton": "Send message",
+      "startThread": "Start conversation",
+      "now": "a moment ago"
+    },
+    "messages": {
+
     }
   },
   "relativeDateTimeStrings": {

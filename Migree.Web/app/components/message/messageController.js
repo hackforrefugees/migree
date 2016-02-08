@@ -5,28 +5,28 @@ migree.controller('messageController', ['$scope', '$stateParams', 'apiService', 
 
   $scope.message = null;
 
-  self.thread = apiService.messageThread.query({userId: self.toUserId});
-  $scope.sendButtonText = 'Start conversation';
+  self.thread = apiService.messageThread.query({ userId: self.toUserId });
+  $scope.sendButtonText = $scope.language.message.startThread;
 
   /* Handle this later on :) */
-  if(self.thread.length) {
-    if(self.thread[0].isUser) {
-      $scope.sendButtonText = 'Send message';
+  if (self.thread.length) {
+    if (self.thread[0].isUser) {
+      $scope.sendButtonText = $scope.language.message.sendButton;
     }
     else {
-      $scope.sendButtonText = 'Reply';
+      $scope.sendButtonText = $scope.language.message.sendButtonReply;
     }
   }
 
   $scope.thread = self.thread;
 
-  $scope.sendMessage = function() {
-    if(!$scope.editable) {
-      apiService.message.save({userId: self.toUserId, message: $scope.message}, function(data) {
+  $scope.sendMessage = function () {
+    if (!$scope.editable) {
+      apiService.message.save({ userId: self.toUserId, message: $scope.message }, function (data) {
         self.thread.unshift({
           isUser: true,
           content: $scope.message,
-          created: 'a moment ago'
+          created: $scope.language.message.now
         });
       });
     }
