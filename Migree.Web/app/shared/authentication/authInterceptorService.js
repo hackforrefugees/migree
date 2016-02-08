@@ -1,4 +1,4 @@
-migree.factory('authInterceptorService', ['$q', '$state', 'localStorageService', function ($q, $state, localStorageService) {
+migree.factory('authInterceptorService', ['$q', '$location', 'localStorageService', function ($q, $location, localStorageService) {
   return {
     request: function (config) {
 
@@ -13,7 +13,7 @@ migree.factory('authInterceptorService', ['$q', '$state', 'localStorageService',
     },
     responseError: function (rejection) {
       if (rejection.status === 401) {
-        $state.go('login');
+        $location.path('/login');
       }
       return $q.reject(rejection);
     }
