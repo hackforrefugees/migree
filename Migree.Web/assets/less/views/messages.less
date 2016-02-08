@@ -1,22 +1,87 @@
 .new-message{
-/*
 	width: 300px;
 	max-width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 25px;
+  height: 50px;
+  transition: all 0.3s ease-in-out;
+
+  &.active{
+    height: 180px;
+  }
 
 	textarea{
-		height: 50px;
-		float: left;
+
+    border: 1px solid #fff;
+    width: 80%;
+    margin: 0 auto;
+    height: 0;
+    border: 5px solid #fff;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+
+    &.active{
+      height:130px;
+      overflow: auto;
+    }
 	}
 
 	.button{
-		float: left;
+    position: relative;
+		width: 100%;
+		opacity: 1;
+		top: -20px;
 	}
-	*/
+
+	.controls{
+		position: relative;
+		top: -20px;
+		opacity: 0;
+
+		&.active{
+			opacity: 1;
+			top: -8px;
+
+			.button {
+				opacity: 1;
+			}
+		}
+
+		.button{
+			margin: 0;
+			padding: 0;
+			top: 0;
+			opacity: 0;
+
+			&.send {
+				right: 0;
+				width: 66.66666666%;
+			}
+
+			&.cancel{
+				left: 0;
+				width: 29%;
+			}
+		}
+	}
+
+	.button{
+    position: relative;
+		width: 100%;
+		transition: all 0.3s ease-in-out;
+		opacity: 1;
+
+		&.hidden {
+			opacity: 0;
+		}
+	}
 }
- ul{
-	 &.message-list{
-		 list-style-type: none;
-     margin: 0;
-     padding: 0;
-	 }
- }
+
+ul{
+  &.message-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 50px 0;
+  }
+}

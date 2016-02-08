@@ -1,6 +1,6 @@
 migree.controller('matchesController', ['$scope', 'matchesService', '$timeout',
   function ($scope, matchesService, $timeout) {
-    
+
     matchesService.matches.then(function (data) {
       $scope.matches = data;
       $timeout(function () {
@@ -15,6 +15,5 @@ migree.controller('matchesController', ['$scope', 'matchesService', '$timeout',
         var card = angular.element($event.target).closest('.card');
         card.toggleClass('flipped');
       };
-
     });
   }]);
