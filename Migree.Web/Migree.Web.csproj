@@ -73,7 +73,6 @@
     <Content Include="app\app.routes.js" />
     <Content Include="app\components\finishPasswordReset\finishPasswordResetView.html" />
     <Content Include="app\components\finishPasswordReset\finishPasswordResetController.js" />
-    <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
@@ -85,7 +84,6 @@
     <Content Include="app\components\messages\messagesView.html" />
     <Content Include="app\components\message\messageController.js" />
     <Content Include="app\components\message\messageView.html" />
-    <Content Include="app\components\notFound\notFoundController.js" />
     <Content Include="app\components\notFound\notFoundView.html" />
     <Content Include="app\components\profile\profileController.js" />
     <Content Include="app\components\profile\profileView.html" />
@@ -95,7 +93,6 @@
     <Content Include="app\components\resetPassword\resetPasswordController.js" />
     <Content Include="app\components\resetPassword\resetPasswordService.js" />
     <Content Include="app\components\resetPassword\resetPasswordView.html" />
-    <Content Include="app\components\thankYou\thankYouController.js" />
     <Content Include="app\components\thankYou\thankYouView.html" />
     <Content Include="app\index.html" />
     <Content Include="app\shared\api\apiService.js" />

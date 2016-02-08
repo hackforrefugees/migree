@@ -1,3 +1,0 @@
-﻿migree.controller('notFoundController', [function () {
-
-}]);
