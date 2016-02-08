@@ -10,7 +10,7 @@ migree.controller('messageController', ['$scope', '$stateParams', 'apiService', 
 
   /* Handle this later on :) */
   if(self.thread.length) {
-    if(thread[0].isUser) {
+    if(self.thread[0].isUser) {
       $scope.sendButtonText = 'Send message';
     }
     else {
