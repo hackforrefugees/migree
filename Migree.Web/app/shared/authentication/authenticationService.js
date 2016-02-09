@@ -2,7 +2,7 @@ migree.factory('authenticationService', ['apiService', '$q', 'localStorageServic
   'use strict';
   var apiServiceFactory = {};
 
-  var _login = function (email, password, apiServiceBaseUri) {
+  var _login = function (email, password) {
     email = email.replace('+', encodeURIComponent('+'));
     var data = "grant_type=password&username=" + email + "&password=" + password;
     var deferred = $q.defer();

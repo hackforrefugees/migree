@@ -15,7 +15,7 @@
 <ul class="message-list">
     <li ng-repeat="message in thread">
         <div class="message" ng-class="{top: !message.isUser, 'left mine': message.isUser}">
-            <p>{{message.content}}</p>
+            <p ng-repeat="line in (message.content | newlines) track by $index">{{line}}</p>            
             <p class="right"><span>{{message.created}}</span></p>
         </div>
     </li>

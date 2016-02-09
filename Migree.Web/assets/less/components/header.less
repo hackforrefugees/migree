@@ -1,104 +1,107 @@
+.application-container {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+#logo {
+    margin-top: 40px;
+}
+
+.header {
+    width: 100%;
+
+    .open-profile {
+        width: 35px;
+        position: absolute;
+        top: 39px;
+        left: 30px;
+        border-radius: 35px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .toggle-menu {
+        position: absolute;
+        top: 30px;
+        right: 25px;
+        background: none;
+        border: none;
+        -webkit-appaearence: none;
+        font-size: 44px;
+        color: #555;
+        padding: 0;
+    }
+
+    .menu {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        transform: translate(0, -100%);
+        opacity: 0;
+        transition: transform 250ms ease-out;
+
+        .close-menu {
+            background: none;
+            border: none;
+            -webkit-appaearence: none;
+            font-size: 42px;
+            color: #fff;
+            position: absolute;
+            right: 30px;
+            top: 25px;
+            z-index: 99;
+            padding: 0;
+        }
 
 
-	#logo{
-		margin-top: 40px;
-	}
+        .logo {
+            left: 0;
+            right: 0;
+            top: 30px;
+        }
 
-.header{
-	width: 100%;
+        &.active {
+            transform: translate(0,0);
+            background: @red;
+            transition: transform 250ms ease-out;
+            opacity: 1;
+        }
 
-	.open-profile{
-		width: 35px;
-		position: absolute;
-		top: 39px;
-		left: 30px;
-		border-radius: 35px;
-		overflow: hidden;
-		img{
-			width: 100%;
-		}
-	}
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 140px;
 
-	.toggle-menu{
-		position: absolute;
-	    top: 30px;
-	    right: 25px;
-	    background: none;
-	    border: none;
-	    -webkit-appaearence: none;
-	    font-size: 44px;
-	    color: #555;
-	    padding: 0;
-	}
-
-	.menu{
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: 9999;
-		transform: translate(0, -100%);
-		opacity: 0;
-		transition: transform 250ms ease-out;
-
-		.close-menu{
-			background: none;
-			border: none;
-		    -webkit-appaearence: none;	
-		    font-size: 42px;
-		    color: #fff;
-		    position: absolute;
-		    right: 30px;
-		    top: 25px;
-		    z-index: 99;
-		     padding: 0;
-		}
+            li {
+                margin: 10px 0;
 
 
-		.logo{
-			left: 0;
-			right: 0;
-			top: 30px;
-		}
+                a {
+                    color: #000;
+                    font-size: 30px;
+                    border-bottom: 1px solid #cc002a;
+                    padding-bottom: 20px;
+                    padding-top: 10px;
+                    width: 250px;
+                    display: inline-block;
 
-		&.active{
-			transform: translate(0,0);
-			background: @red;
-			transition: transform 250ms ease-out;
-			opacity: 1;
-		}
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
 
-		ul{
-			list-style: none;
-			padding: 0;
-			margin-top: 140px;
-
-			li{
-				margin: 10px 0;
-
-
-				a{
-					color: #000;
-				    font-size: 30px;
-				    border-bottom: 1px solid #cc002a;
-				    padding-bottom: 20px;
-				    padding-top: 10px;
-				    width: 250px;
-					display: inline-block;
-
-					&:hover{
-						text-decoration: none;
-					}
-				}
-
-				&:last-child{
-					a{
-						border: none;
-					}
-				}
-			}
-		}
-
-	}
+                &:last-child {
+                    a {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -1,6 +1,5 @@
 migree.controller('registerController', ['$scope', '$timeout', 'authenticationService', 'fileReader', '$http', '$state', 'registerService', '$q',
   function ($scope, $timeout, authenticationService, fileReader, $http, $state, registerService, $q) {
-    'use strict';
 
     var self = this;
 
@@ -87,7 +86,7 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
         submitButtons.removeClass('disabled');
         submitButtons.prop('disabled', false);
 
-        authenticationService.login($scope.registration.email, $scope.registration.password, $scope.apiServiceBaseUri).then(function (response) {
+        authenticationService.login($scope.registration.email, $scope.registration.password).then(function (response) {
           self.upload(profileFile).then(function (response) {
           }, function (err) {
 
@@ -96,14 +95,14 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
           $scope.message = err.error_description;
         });
       },
-         function (response) {
-           if (response.status === 409) {
-             window.alert('This email is already registered. Please try again with another email address.');
-           }
-           else {
-             window.alert('Could not save user due to: ' + response.statusText);
-           }
-         });
+      function (response) {
+        if (response.status === 409) {
+          window.alert('This email is already registered. Please try again with another email address.');
+        }
+        else {
+          window.alert('Could not save user due to: ' + response.statusText);
+        }
+      });
     };
 
     var startTimer = function () {
