@@ -1,6 +1,11 @@
 <div ng-include="'shared/header/headerView.html'"></div>
 
-<div class="user">
+<div class="message-user-box">
+    <div class="avatar-container">
+        <img ng-src="{{user.profileImageUrl}}" />
+    </div>
+    <h2 ng-bind="user.name"></h2>
+    <h4 ng-bind="user.userLocation"></h4>
 </div>
 <div class="new-message" ng-class="{active: editable}">
     <textarea ng-model="message" ng-class="{active: editable}" id="textarea"></textarea>
@@ -15,7 +20,7 @@
 <ul class="message-list">
     <li ng-repeat="message in thread">
         <div class="message" ng-class="{right: !message.isUser, 'left mine': message.isUser}">
-            <p ng-repeat="line in (message.content | newlines) track by $index">{{line}}</p>
+            <p ng-repeat="line in (message.content | newlines) track by $index">{{line}}</p>            
             <p class="right"><span>{{message.created}}</span></p>
         </div>
     </li>

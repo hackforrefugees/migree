@@ -1,7 +1,7 @@
 migree.factory('messageService', ['apiService', function (apiService) {
 
   var getThread = function(params) {
-    return apiService.messageThread.query(params).$promise;
+    return apiService.messageThread.get(params).$promise;
   };
 
   var saveMessage = function(message) {

@@ -32,7 +32,7 @@ namespace Migree.Api.Controllers
             {
                 throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");
             }
-            
+
             await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);
             return CreateApiResponse(HttpStatusCode.Accepted);
         }
@@ -42,7 +42,7 @@ namespace Migree.Api.Controllers
         {
             var messageThreads = MessageServant.GetMessageThreads(CurrentUserId);
             var response = messageThreads.Select(p => new MessageThreadResponse
-            {                
+            {
                 OtherUserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
                 ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id, p.Value.HasProfileImage),
@@ -58,22 +58,28 @@ namespace Migree.Api.Controllers
         {
             var messagesInThreadWithUser = MessageServant.GetMessageThread(CurrentUserId, otherUserId);
 
-            if (messagesInThreadWithUser.Key == null)
+            if (messagesInThreadWithUser.Value.Count > 0)
             {
-                return CreateApiResponse(HttpStatusCode.NoContent);
+                MessageServant.SetMessageThreadAsRead(CurrentUserId, otherUserId);
             }
 
-            MessageServant.SetMessageThreadAsRead(CurrentUserId, otherUserId);
-            var user = messagesInThreadWithUser.Key;
-
-            var messagesInThread = messagesInThreadWithUser.Value.Select(p => new MessageResponse
+            var message = new MessageResponse
             {
-                Content = p.Content,
-                Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>()),
-                IsUser = p.UserId.Equals(CurrentUserId)
-            });
+                User = new MessageResponse.UserItem
+                {
+                    FullName = $"{messagesInThreadWithUser.Key.FirstName} {messagesInThreadWithUser.Key.LastName}",
+                    UserLocation = LanguageServant.Get<Definition>().UserLocation[messagesInThreadWithUser.Key.UserLocation.ToString()],
+                    ProfileImageUrl = UserServant.GetProfileImageUrl(messagesInThreadWithUser.Key.Id, messagesInThreadWithUser.Key.HasProfileImage)
+                },
+                Messages = messagesInThreadWithUser.Value.Select(p => new MessageResponse.MessageItem
+                {
+                    Content = p.Content,
+                    Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>()),
+                    IsCurrentUser = p.UserId.Equals(CurrentUserId)
+                }).ToList()
+            };
 
-            return CreateApiResponse(HttpStatusCode.OK, messagesInThread);
+            return CreateApiResponse(HttpStatusCode.OK, message);
         }
     }
 }

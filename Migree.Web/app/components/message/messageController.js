@@ -4,8 +4,9 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
   $scope.message = null;
 
   messageService.getThread({ userId: $scope.toUserId })
-    .then(function (thread) {
-      $scope.thread = thread;
+    .then(function (data) {
+      $scope.thread = data.messages || [];
+      $scope.user = data.user;
     }).then(function () {
 
       if ($scope.thread.length && $scope.thread[0].isUser) {
