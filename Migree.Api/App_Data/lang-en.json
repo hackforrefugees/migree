@@ -89,6 +89,21 @@
       "registerButton": "Register"
     }
   },
+  "definitions": {
+    "business": {
+      "1": "Developer"
+    },
+    "userLocation": {
+      "0": "Other",
+      "1": "Stockholm",
+      "2": "Gothenburg",
+      "4": "Malmö"
+    },
+    "userType": {
+      "1": "Need help",
+      "2": "Want to help"
+    }
+  }
   "relativeDateTimeStrings": {
     "days": "{0} days ago",
     "day": "1 day ago",
