@@ -5,7 +5,7 @@ function ($scope, $state, authenticationService) {
   $scope.message = '';
 
   $scope.login = function () {
-    authenticationService.login($scope.userName, $scope.password, $scope.apiServiceBaseUri).then(function (response) {
+    authenticationService.login($scope.userName, $scope.password).then(function (response) {
       $state.go('matches');
     }, function (err) {
       $scope.message = err.error_description;
