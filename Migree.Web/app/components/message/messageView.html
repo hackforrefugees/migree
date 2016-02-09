@@ -1,23 +1,22 @@
 <div ng-include="'shared/header/headerView.html'"></div>
 
 <div class="user">
-
 </div>
 <div class="new-message" ng-class="{active: editable}">
     <textarea ng-model="message" ng-class="{active: editable}" id="textarea"></textarea>
-    <button class="button red" ng-class="{hidden: editable}" ng-click="editable=!editable;sendMessage()">{{editable ? 'Send message' : sendButtonText}}</button>
+    <button class="button red" ng-class="{hidden: editable}" ng-click="editable=!editable;sendMessage()">{{editable ? language.message.sendButton : sendButtonText}}</button>
 
     <div class="controls" ng-class="{active: editable}">
       <button class="button red cancel" ng-click="editable=!editable;"><i class="icon arrow_back"></i></button>
-      <button class="button red send" ng-click="editable=!editable;sendMessage()">{{editable ? 'Send message' : sendButtonText}}</button>
+      <button class="button red send" ng-click="editable=!editable;sendMessage()">{{editable ? language.message.sendButton : sendButtonText}}</button>
     </div>
 </div>
 
 <ul class="message-list">
-  <li ng-repeat="message in thread">
-    <div class="message" ng-class="{top: !message.isUser, 'left mine': message.isUser}">
-        <p>{{message.content}}</p>
-        <p class="right"><span>{{message.created}}</span></p>
-    </div>
-  </li>
+    <li ng-repeat="message in thread">
+        <div class="message" ng-class="{top: !message.isUser, 'left mine': message.isUser}">
+            <p>{{message.content}}</p>
+            <p class="right"><span>{{message.created}}</span></p>
+        </div>
+    </li>
 </ul>

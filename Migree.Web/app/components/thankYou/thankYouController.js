@@ -1,2 +1,0 @@
-migree.controller('thankYouController', [function () {
-}]);

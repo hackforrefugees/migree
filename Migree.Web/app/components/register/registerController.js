@@ -5,10 +5,10 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
     var self = this;
 
     $scope.registration = {
-      firstName: "",
-      lastName: "",
-      password: "",
-      email: "",
+      firstName: '',
+      lastName: '',
+      password: '',
+      email: '',
       city: { name: "I live in / near...", id: 0 },
       work: { name: "I am a...", id: 0 },
       userType: 2,
@@ -28,9 +28,8 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
     });
 
     $scope.savedSuccessfully = false;
-    $scope.message = "";
-    $scope.aboutText = "";
-
+    $scope.message = '';
+    $scope.aboutText = '';
 
     $scope.competence = [
       { id: null, name: '1. Select a skill' },

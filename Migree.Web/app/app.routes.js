@@ -9,8 +9,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: 'components/home/homeView.html',
-      controller: 'homeController',
+      templateUrl: 'components/home/homeView.html',      
       data: {
         requireLogin: false
       }
@@ -25,8 +24,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('thankyou', {
       url: '/thankyou',
-      templateUrl: 'components/thankYou/thankYouView.html',
-      controller: 'thankYouController',
+      templateUrl: 'components/thankYou/thankYouView.html',      
       data: {
         requireLogin: false
       }
@@ -88,8 +86,7 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
     })
     .state('notfound', {
       url: '/notfound',
-      templateUrl: 'components/notFound/notFoundView.html',
-      controller: 'notFoundController',
+      templateUrl: 'components/notFound/notFoundView.html',      
       data: {
         requireLogin: false
       }

@@ -1,6 +1,6 @@
-﻿migree.controller('finishPasswordResetController', ['$scope', '$state', '$stateParams', 'resetPasswordService', 
-  function ($scope, $state, $stateParams, resetPasswordService) {
-    
+﻿migree.controller('finishPasswordResetController', ['$scope', '$state', '$stateParams', 'apiService',
+  function ($scope, $state, $stateParams, apiService) {
+
     $scope.newPassword = '';
 
     $scope.update = function () {
@@ -10,7 +10,7 @@
         password: $scope.newPassword
       };
 
-      resetPasswordService.update(model, function () {
+      apiService.resetPassword.update(model, function () {
         $state.go('login');
       });
     };

@@ -18,5 +18,9 @@ namespace Migree.Core.Models.Language
         public IDictionary<string, string> NotFound { get; set; }
         [JsonProperty("thankYou")]
         public IDictionary<string, string> ThankYou { get; set; }
+        [JsonProperty("message")]
+        public IDictionary<string, string> Message { get; set; }
+        [JsonProperty("messages")]
+        public IDictionary<string, string> Messages { get; set; }
     }
 }
