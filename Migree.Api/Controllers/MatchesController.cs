@@ -1,5 +1,6 @@
 ﻿using Migree.Api.Models.Responses;
 using Migree.Core.Interfaces;
+using Migree.Core.Models.Language;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,11 +15,13 @@ namespace Migree.Api.Controllers
 
         private ICompetenceServant CompetenceServant { get; }
         private IUserServant UserServant { get; }        
+        private ILanguageServant LanguageServant { get; }
 
-        public MatchesController(ICompetenceServant compentenceServant, IUserServant userServant)
+        public MatchesController(ICompetenceServant compentenceServant, IUserServant userServant, ILanguageServant languageServant)
         {
             CompetenceServant = compentenceServant;
             UserServant = userServant;
+            LanguageServant = languageServant;
         }
 
         [HttpGet, Route("")]
@@ -32,11 +35,11 @@ namespace Migree.Api.Controllers
                 UserId = user.Id,
                 FullName = $"{user.FirstName} {user.LastName}",
                 Description = user.Description,
-                UserLocation = user.UserLocation.ToDescription(),
+                UserLocation = LanguageServant.Get<Definition>().UserLocation[user.UserLocation.ToString()],
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
                 Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
             });
-            return CreateApiResponse(HttpStatusCode.OK, users);
+            return CreateApiResponse(HttpStatusCode.OK, users);            
         }        
     }
 }

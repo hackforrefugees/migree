@@ -38,7 +38,6 @@
     <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:css(.) assets/css/styles.css -->
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
     <!-- endbuild -->
@@ -78,7 +77,7 @@
         </g>
     </svg>
 
-    <div>
+    <div class="application-container">
         <div ui-view></div>
         <footer></footer>
     </div>
@@ -98,20 +97,19 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:js(.) scripts/vendor/vendor.js -->
     <script src="assets/vendor/modernizr.custom.js"></script>
     <script src="assets/vendor/ng-img-crop.js"></script>
     <script src="assets/vendor/draggabilly.pkgd.min.js"></script>
     <script src="assets/vendor/elastiStack.js"></script>
     <!-- endbuild -->
-
     <!-- build:js({.tmp,app}) scripts/migree.js -->
     <!-- app -->
     <script src="app.module.js"></script>
     <script src="app.routes.js"></script>
 
     <!-- shared -->
+    <script src="shared/directives/newLinesFilter.js"></script>
     <script src="shared/api/apiService.js"></script>
     <script src="shared/authentication/authenticationService.js"></script>
     <script src="shared/authentication/authInterceptorService.js"></script>
@@ -119,9 +117,10 @@
     <script src="shared/fileSelection/fileUploadChangeDirective.js"></script>
     <script src="shared/fileSelection/fileReader.js"></script>
     <script src="shared/language/languageService.js"></script>
+    <script src="shared/messages/messageService.js"></script>
 
     <!-- components -->
-    <script src="components/finishPasswordReset/finishPasswordResetController.js"></script>    
+    <script src="components/finishPasswordReset/finishPasswordResetController.js"></script>
     <script src="components/login/loginController.js"></script>
     <script src="components/logout/logoutController.js"></script>
     <script src="components/matches/matchesController.js"></script>

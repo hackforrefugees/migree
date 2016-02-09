@@ -1,35 +1,38 @@
-migree.controller('messageController', ['$scope', '$stateParams', 'apiService', function ($scope, $stateParams, apiService) {
+migree.controller('messageController', ['$scope', '$stateParams', 'messageService', function ($scope, $stateParams, messageService) {
 
-  var self = this;
-  self.toUserId = $stateParams.user;
-
+  $scope.toUserId = $stateParams.user;
   $scope.message = null;
 
-  self.thread = apiService.messageThread.query({ userId: self.toUserId });
-  $scope.sendButtonText = $scope.language.message.startThread;
+  messageService.getThread({ userId: $scope.toUserId })
+    .then(function (thread) {
+      $scope.thread = thread;
+    }).then(function () {
 
-  /* Handle this later on :) */
-  if (self.thread.length) {
-    if (self.thread[0].isUser) {
-      $scope.sendButtonText = $scope.language.message.sendButton;
-    }
-    else {
-      $scope.sendButtonText = $scope.language.message.sendButtonReply;
-    }
-  }
+      if ($scope.thread.length && $scope.thread.length === 1) {
+        $scope.sendButtonText = $scope.language.message.sendButton;
+      }
+      else if ($scope.thread.length && $scope.thread.length > 1) {
+        $scope.sendButtonText = $scope.language.message.sendButtonReply;
+      }
+      else {
+        $scope.sendButtonText = $scope.language.message.startThread;
+      }
 
-  $scope.thread = self.thread;
+      $scope.thread = $scope.thread;
+    });
 
   $scope.sendMessage = function () {
     if (!$scope.editable) {
-      apiService.message.save({ userId: self.toUserId, message: $scope.message }, function (data) {
-        self.thread.unshift({
+      messageService.saveMessage({ userId: $scope.toUserId, message: $scope.message }).then(function (data) {
+
+        $scope.thread.unshift({
           isUser: true,
           content: $scope.message,
           created: $scope.language.message.now
         });
+
+        $scope.message = null;
       });
     }
   };
-
 }]);
