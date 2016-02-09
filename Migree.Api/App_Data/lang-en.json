@@ -70,7 +70,8 @@
       "now": "a moment ago"
     },
     "messages": {
-
+      "title": "Discussions",
+      "noMessages": "Go to matches to find person to start discussion with"
     },
     "register": {
       "cropButton": "Yes! this is beautiful!",
