@@ -47,8 +47,8 @@
     &:before{
       top: 10px;
       bottom: auto;
-      left: -25px;
-      border-width: 15px 20px 15px 0;
+      left: -20px;
+      border-width: 15px 15px 15px 0;
       border-color: transparent @message-box-background-color;
     }
   }
@@ -59,6 +59,28 @@
       bottom: auto;
       left: -21px;
       border-width: 9px 21px 9px 0;
+      border-color: transparent @message-box-background-color;
+    }
+  }
+
+  &.right{
+    &:after{
+      top: auto;
+      bottom: 16px;
+      left: auto;
+      right: -21px;
+      border-width: 9px 0 9px 21px;
+      border-color: transparent @message-box-background-color;
+    }
+  }
+
+  &.right{
+    &:before{
+      top: auto;
+      bottom: 10px;
+      left: auto;
+      right: -20px;
+      border-width: 15px 0 15px 15px;
       border-color: transparent @message-box-background-color;
     }
   }
