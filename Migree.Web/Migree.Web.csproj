@@ -98,6 +98,7 @@
     <Content Include="app\shared\api\apiService.js" />
     <Content Include="app\shared\authentication\authenticationService.js" />
     <Content Include="app\shared\authentication\authInterceptorService.js" />
+    <Content Include="app\shared\directives\newLinesFilter.js" />
     <Content Include="app\shared\fileSelection\fileReader.js" />
     <Content Include="app\shared\fileSelection\fileSelectionDirective.js" />
     <Content Include="app\shared\fileSelection\fileUploadChangeDirective.js" />
