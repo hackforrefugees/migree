@@ -6,5 +6,5 @@ migree.controller('messagesController', ['$scope', 'messageService', '$state',
 
     $scope.gotoMessage = function (userId) {
       $state.go("message", { "user": userId });
-    }
+    };
   }]);
