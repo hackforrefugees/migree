@@ -82,7 +82,7 @@ namespace Migree.Api.Controllers
         {
             if (request.CompetenceIds?.Count < 1)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");
+                throw new ValidationException(HttpStatusCode.BadRequest, "Required fields missing");
             }
 
             UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);
