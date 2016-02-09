@@ -1,3 +1,8 @@
-migree.controller('messagesController', ['$scope', 'apiService', function ($scope, apiService) {
-  $scope.messages = apiService.message.query();
+migree.controller('messagesController', ['$scope', 'messageService', function ($scope, messageService) {
+  messageService.getMessage().then(function(data) {
+    //$scope.messages = data
+    console.log(data);
+  });
+
+
 }]);
