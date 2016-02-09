@@ -8,8 +8,8 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
       lastName: '',
       password: '',
       email: '',
-      city: { name: "I live in / near...", id: 0 },
-      work: { name: "I am a...", id: 0 },
+      city: { name: $scope.language.register.defaultTextLocation, id: 0 },
+      work: { name: $scope.language.register.defaultTextWork, id: 0 },
       userType: 2,
       competences: []
     };
@@ -31,9 +31,9 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
     $scope.aboutText = '';
 
     $scope.competence = [
-      { id: null, name: '1. Select a skill' },
-      { id: null, name: '2. Select a skill' },
-      { id: null, name: '3. Select a skill' }
+      { id: null, name: $scope.language.register.defaultTextCompetence1 },
+      { id: null, name: $scope.language.register.defaultTextCompetence2 },
+      { id: null, name: $scope.language.register.defaultTextCompetence3 }
     ];
 
     var userId = null;
@@ -42,20 +42,6 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
     $scope.croppedImg = null;
     $scope.srcImg = null;
     $scope.avatarCropped = false;
-
-    self.upload = function (file) {
-      var formData = new FormData();
-      formData.append('Content', file);
-      var url = $scope.apiServiceBaseUri + '/user/upload';
-      return $http.post(
-        url,
-        formData,
-        {
-          transformRequest: angular.identity,
-          headers: { 'Content-Type': undefined }
-        }
-      );
-    };
 
     $scope.crop = function () {
       $scope.avatarCropped = true;
@@ -87,10 +73,7 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
         submitButtons.prop('disabled', false);
 
         authenticationService.login($scope.registration.email, $scope.registration.password).then(function (response) {
-          self.upload(profileFile).then(function (response) {
-          }, function (err) {
-
-          });
+          $scope.registerService.imageUpload(profileFile);
         }, function (err) {
           $scope.message = err.error_description;
         });

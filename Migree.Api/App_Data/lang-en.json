@@ -89,7 +89,12 @@
       "competencesPlaceholder": "Select up to 3 skills",
       "titlePersonalInfo": "Add some more information about yourself.",
       "aboutTextPlaceholder": "Write something...",
-      "registerButton": "Register"
+      "registerButton": "Register",
+      "defaultTextLocation": "I live in / near...",
+      "defaultTextWork": "I am a...",
+      "defaultTextCompetence1": "1. Select a skill",
+      "defaultTextCompetence2": "2. Select a skill",
+      "defaultTextCompetence3": "3. Select a skill"
     },
     "matches": {
       "emptyState": "Oh no! We couldn't find any matches for you. Try again later."
