@@ -72,7 +72,7 @@ namespace Migree.Core.Servants
 
             if (messagesInThread.Count == 0)
             {
-                return new KeyValuePair<IUser, ICollection<IMessage>>();
+                return new KeyValuePair<IUser, ICollection<IMessage>>(otherUser, new List<IMessage>());
             }
 
             return new KeyValuePair<IUser, ICollection<IMessage>>(otherUser, messagesInThread);
