@@ -8,13 +8,13 @@ migree.factory('messageService', ['apiService', function (apiService) {
     return apiService.message.save(message).$promise;
   };
 
-  var getMessage = function() {
+  var getMessages = function() {
     return apiService.message.query().$promise;
   };
 
   return {
     getThread: getThread,
-    getMessage: getMessage,
+    getMessages: getMessages,
     saveMessage: saveMessage
   };
 }]);

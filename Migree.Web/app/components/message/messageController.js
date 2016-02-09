@@ -4,9 +4,19 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
   self.toUserId = $stateParams.user;
   $scope.message = null;
 
+
   messageService.getThread({userId: self.toUserId})
-    .then(function(thread) { self.thread = thread; })
-    .then(function() {
+    .then(function(thread) {
+      self.thread = thread;
+    }).then(function() {
+      
+      // TODO: Remove when appropriate response is available from api.
+      $scope.language.message = {
+        "sendButtonReply": "Reply",
+        "sendButton": "Send message",
+        "startThread": "Start conversation",
+        "now": "a moment ago"
+      };
 
       $scope.sendButtonText = $scope.language.message.startThread;
       /* Handle this later on :) */
@@ -32,7 +42,7 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
           content: $scope.message,
           created: $scope.language.message.now
         });
-        
+
         $scope.message = null;
       });
     }
