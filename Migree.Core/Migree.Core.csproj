@@ -145,7 +145,6 @@
     <Compile Include="Servants\PasswordServant.cs" />
     <Compile Include="Servants\SettingsServant.cs" />
     <Compile Include="Servants\UserServant.cs" />
-    <Compile Include="Utilities\EnumExtensions.cs" />
     <Compile Include="Utilities\HttpStatusCodeExtension.cs" />
     <Compile Include="Utilities\LongExtensions.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />

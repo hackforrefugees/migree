@@ -43,6 +43,10 @@ namespace Migree.Core.Servants
             {
                 return language.Client as LanguageItem;
             }
+            else if (typeof(LanguageItem).Name == nameof(Definition))
+            {
+                return language.Definition as LanguageItem;
+            }
             else if (typeof(LanguageItem).Name == nameof(RelativeDateTimeStrings))
             {
                 return language.RelativeDateTimeStrings as LanguageItem;
@@ -61,7 +65,7 @@ namespace Migree.Core.Servants
             {
                 return string.Empty;
             }
-        }
+        }        
 
         public IClient GetDictionary()
         {

@@ -89,21 +89,21 @@
       "registerButton": "Register"
     }
   },
-  "definitions": {
+  "definition": {
     "business": {
-      "1": "Developer"
+      "Developers": "Developer"
     },
     "userLocation": {
-      "0": "Other",
-      "1": "Stockholm",
-      "2": "Gothenburg",
-      "4": "Malmö"
+      "Unspecified": "Other",
+      "StockholmArea": "Stockholm",
+      "GothenburgArea": "Gothenburg",
+      "MalmoArea": "Malmö"
     },
     "userType": {
-      "1": "Need help",
-      "2": "Want to help"
+      "NeedsHelp": "Need help",
+      "Helper": "Want to help"
     }
-  }
+  },
   "relativeDateTimeStrings": {
     "days": "{0} days ago",
     "day": "1 day ago",

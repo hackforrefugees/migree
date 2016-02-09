@@ -2,6 +2,7 @@
 using Migree.Api.Models.Responses;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
+using Migree.Core.Models.Language;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,16 +13,18 @@ namespace Migree.Api.Controllers
 {
     [RoutePrefix("user")]
     public class UserController : MigreeApiController
-    {        
+    {
         private IUserServant UserServant { get; }
-        private ICompetenceServant CompetenceServant { get; }       
+        private ICompetenceServant CompetenceServant { get; }
+        private ILanguageServant LanguageServant { get; }
 
-        public UserController(IUserServant userServant, ICompetenceServant comptenceServant)
+        public UserController(IUserServant userServant, ICompetenceServant comptenceServant, ILanguageServant languageServant)
         {
             UserServant = userServant;
-            CompetenceServant = comptenceServant;            
+            CompetenceServant = comptenceServant;
+            LanguageServant = languageServant;
         }
-        
+
         [HttpPost, Route(""), AllowAnonymous]
         public async Task<HttpResponseMessage> RegisterAsync(RegisterRequest request)
         {
@@ -49,10 +52,10 @@ namespace Migree.Api.Controllers
                 UserId = user.Id,
                 FullName = $"{user.FirstName} {user.LastName}",
                 Description = user.Description,
-                UserLocation = user.UserLocation.ToDescription(),
+                UserLocation = LanguageServant.Get<Definition>().UserLocation[user.UserLocation.ToString()],
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
                 Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
-            };            
+            };
 
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
@@ -62,7 +65,7 @@ namespace Migree.Api.Controllers
         {
             if (!Request.Content.IsMimeMultipartContent())
             {
-                throw new ValidationException(HttpStatusCode.UnsupportedMediaType, "MimeType is not correct");                
+                throw new ValidationException(HttpStatusCode.UnsupportedMediaType, "MimeType is not correct");
             }
 
             var content = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
@@ -73,18 +76,18 @@ namespace Migree.Api.Controllers
 
             return CreateApiResponse(HttpStatusCode.Accepted);
         }
-        
+
         [HttpPut, Route("")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
             if (request.CompetenceIds?.Count < 1)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");                
+                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");
             }
 
             UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);
             CompetenceServant.AddCompetencesToUser(CurrentUserId, request.CompetenceIds);
             return CreateApiResponse(HttpStatusCode.NoContent);
-        }                
+        }
     }
 }
