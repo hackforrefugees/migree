@@ -1,7 +1,7 @@
 <div ng-include="'shared/header/headerView.html'"></div>
 <style media="screen">
 </style>
-<ul class="box profile elasticstack" id="stack">
+<ul class="box profile elasticstack hidden" id="stack">
     <li class="flip-container" ng-class="{first: $first}" data-user-id="{{match.userId}}" ng-repeat="match in matches">
         <div class="card" ng-class="{'back': activeback}">
             <div class="front">
@@ -27,7 +27,10 @@
         </div>
     </li>
 </ul>
-<div class="cardbuttons">
+<div class="cardbuttons hidden">
     <button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus"></i></button>
     <button class="button red frontbutton" ng-click="gotoMessage()"><i class="icon icon_chat_alt"></i></button>
+</div>
+<div class="emptystate hidden">
+    <p>{{language.matches.emptyState}}<p>
 </div>
