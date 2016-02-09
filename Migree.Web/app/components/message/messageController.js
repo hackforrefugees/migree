@@ -8,10 +8,10 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
       $scope.thread = thread;
     }).then(function () {
 
-      if ($scope.thread.length && $scope.thread.length === 1) {
+      if ($scope.thread.length && $scope.thread[0].isUser) {
         $scope.sendButtonText = $scope.language.message.sendButton;
       }
-      else if ($scope.thread.length && $scope.thread.length > 1) {
+      else if ($scope.thread.length && !$scope.thread[0].isUser) {
         $scope.sendButtonText = $scope.language.message.sendButtonReply;
       }
       else {
