@@ -8,15 +8,7 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
   messageService.getThread({userId: self.toUserId})
     .then(function(thread) {
       self.thread = thread;
-    }).then(function() {
-      
-      // TODO: Remove when appropriate response is available from api.
-      $scope.language.message = {
-        "sendButtonReply": "Reply",
-        "sendButton": "Send message",
-        "startThread": "Start conversation",
-        "now": "a moment ago"
-      };
+    }).then(function() {          
 
       $scope.sendButtonText = $scope.language.message.startThread;
       /* Handle this later on :) */
