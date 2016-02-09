@@ -68,6 +68,25 @@
     },
     "messages": {
 
+    },
+    "register": {
+      "cropButton": "Yes! this is beautiful!",
+      "step1Title": "USER INFO",
+      "step1Description": "To get started we need to know a few things about you. First, select if you need help or if you want to help.",
+      "radioButtonWantToHelp": "Want to help",
+      "radioButtonNeedHelp": "Need help",
+      "firstNamePlaceholder": "First name",
+      "lastNamePlaceholder": "Last name",
+      "emailPlaceholder": "E-mail",
+      "passwordPlaceholder": "Password",
+      "step1Continue": "Continue",
+      "terms": "By registering, you accept receiving occasional emails and notifications from Migree. No spam, we promise.",
+      "step2Title": "WORK INFO",
+      "step2Description": "Please provide some information about your skills. This helps making the matching process more accurate.",
+      "competencesPlaceholder": "Select up to 3 skills",
+      "titlePersonalInfo": "Add some more information about yourself.",
+      "aboutTextPlaceholder": "Write something...",
+      "registerButton": "Register"
     }
   },
   "relativeDateTimeStrings": {
