@@ -29,7 +29,10 @@
       "description": "Migree is a unique tool for connecting immigrants with swedes based on their professional skills.",
       "loginTitle": "Register now and help us make this great",
       "loginButton": "Login",
-      "registerButton": "Register"
+      "registerButton": "Register",
+      "facebookShareUrl": "https://www.facebook.com/dialog/share?app_id=1658503381099537&amp;display=popup&amp;href=http%3A%2F%2Fmigree.se&amp;redirect_uri=http%3A%2F%2Fmigree.se",
+      "twitterShareUrl": "https://twitter.com/intent/tweet?url=http://migree.se&text=I+just+registered+as+a+developer+at+migree.se.+I think+you+should+too.&hashtags=migree",
+      "linkedInShareUrl": "https://www.linkedin.com/shareArticle?mini=true&url=migree.se&title=I%20just%20registered%20as%20a%20developer%20at%20migree.se&summary=I%20think%20you%20should%20too&source="
     },
     "login": {
       "signInButton": "Sign in",

@@ -9,31 +9,28 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
       $scope.user = data.user;
     }).then(function () {
 
-      if ($scope.thread.length && $scope.thread.length === 1) {
+      if ($scope.thread.length && $scope.thread[0].isUser) {
         $scope.sendButtonText = $scope.language.message.sendButton;
       }
-      else if ($scope.thread.length && $scope.thread.length > 1) {
+      else if ($scope.thread.length && !$scope.thread[0].isUser) {
         $scope.sendButtonText = $scope.language.message.sendButtonReply;
       }
       else {
         $scope.sendButtonText = $scope.language.message.startThread;
       }
-
-      $scope.thread = $scope.thread;
-    });
+  });
 
   $scope.sendMessage = function () {
     if (!$scope.editable) {
-      messageService.saveMessage({ userId: $scope.toUserId, message: $scope.message }).then(function (data) {
-
-        $scope.thread.unshift({
-          isUser: true,
-          content: $scope.message,
-          created: $scope.language.message.now
+      messageService.saveMessage({ userId: $scope.toUserId, message: $scope.message })
+        .then(function (data) {
+          $scope.thread.unshift({
+            isUser: true,
+            content: $scope.message,
+            created: $scope.language.message.now
+          });
         });
-
-        $scope.message = null;
-      });
-    }
-  };
-}]);
+      }
+    };
+  }
+]);
