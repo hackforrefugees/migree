@@ -8,10 +8,14 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
   messageService.getThread({userId: self.toUserId})
     .then(function(thread) {
       self.thread = thread;
-    }).then(function() {          
+    })
+    .then(function() {
 
       $scope.sendButtonText = $scope.language.message.startThread;
-      /* Handle this later on :) */
+      $scope.thread = self.thread;
+    });
+
+    self.setSendButtonText = function() {
       if (self.thread.length) {
         if (self.thread[0].isUser) {
           $scope.sendButtonText = $scope.language.message.sendButton;
@@ -20,23 +24,21 @@ migree.controller('messageController', ['$scope', '$stateParams', 'messageServic
           $scope.sendButtonText = $scope.language.message.sendButtonReply;
         }
       }
+    };
 
-      $scope.thread = self.thread;
-    });
+    $scope.sendMessage = function() {
+      if(!$scope.editable) {
+        messageService.saveMessage({userId: self.toUserId, message: $scope.message}).then(function(data) {
 
+          self.thread.unshift({
+            isUser: true,
+            content: $scope.message,
+            created: $scope.language.message.now
+          });
 
-  $scope.sendMessage = function() {
-    if(!$scope.editable) {
-      messageService.saveMessage({userId: self.toUserId, message: $scope.message}).then(function(data) {
-
-        self.thread.unshift({
-          isUser: true,
-          content: $scope.message,
-          created: $scope.language.message.now
+          self.setSendButtonText();
+          $scope.message = null;
         });
-
-        $scope.message = null;
-      });
-    }
-  };
-}]);
+      }
+    };
+  }]);
