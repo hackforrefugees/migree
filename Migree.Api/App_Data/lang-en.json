@@ -87,6 +87,9 @@
       "titlePersonalInfo": "Add some more information about yourself.",
       "aboutTextPlaceholder": "Write something...",
       "registerButton": "Register"
+    },
+    "matches": {
+      "emptyState": "Oh no! We couldn't find any matches for you. Try again later."
     }
   },
   "definition": {
