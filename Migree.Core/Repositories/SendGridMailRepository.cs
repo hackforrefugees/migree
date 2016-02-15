@@ -3,7 +3,6 @@ using Migree.Core.Models;
 using Migree.Core.Models.Language;
 using SendGrid;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -36,8 +35,7 @@ namespace Migree.Core.Repositories
                 message,
                 receiverUser.Email,
                 LanguageServant.GetString(language.FromMail),
-                LanguageServant.GetString(language.FromName, creatorUser.FullName),
-                creatorUser.Email);
+                LanguageServant.GetString(language.FromName, creatorUser.FullName));
         }
 
         public async Task SendRegisterMailAsync(string email, string fullName)
@@ -76,7 +74,7 @@ namespace Migree.Core.Repositories
                 language.FromName);
         }
 
-        private async Task SendMailAsync(string subject, string message, string mailTo, string mailFrom, string fromName, string replyTo = "")
+        private async Task SendMailAsync(string subject, string message, string mailTo, string mailFrom, string fromName)
         {
             return;
 
@@ -85,12 +83,7 @@ namespace Migree.Core.Repositories
             mailMessage.From = new MailAddress(mailFrom, fromName);
             mailMessage.Subject = subject;
             mailMessage.Text = message;
-
-            if (!string.IsNullOrWhiteSpace(replyTo))
-            {
-                mailMessage.ReplyTo = new List<MailAddress> { new MailAddress(replyTo, fromName) }.ToArray();
-            }
-
+            
             var transportREST = new Web(SettingsServant.SendGridCredentials);
             await transportREST.DeliverAsync(mailMessage);
         }
