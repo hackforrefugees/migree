@@ -14,5 +14,6 @@ namespace Migree.Core.Interfaces.Models
         IDictionary<string, string> Messages { get; }
         IDictionary<string, string> Register { get; }
         IDictionary<string, string> Matches { get; }
+        IDictionary<string, string> Settings { get; }
     }
 }

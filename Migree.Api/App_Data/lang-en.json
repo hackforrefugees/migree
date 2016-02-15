@@ -97,6 +97,26 @@
       "defaultTextCompetence2": "2. Select a skill",
       "defaultTextCompetence3": "3. Select a skill"
     },
+    "settings": {
+      "cropButton": "Yes! this is beautiful!",
+      "title": "Settings",
+      "description": "Have you missed to add your right skills? No worry, just update the things you need below",
+      "radioButtonWantToHelp": "Want to help",
+      "radioButtonNeedHelp": "Need help",
+      "firstNamePlaceholder": "First name",
+      "lastNamePlaceholder": "Last name",
+      "emailPlaceholder": "E-mail",
+      "passwordPlaceholder": "Password",
+      "competencesPlaceholder": "Select up to 3 skills",
+      "titlePersonalInfo": "Add some more information about yourself.",
+      "aboutTextPlaceholder": "Write something...",
+      "updateButton": "Update",
+      "defaultTextLocation": "I live in / near...",
+      "defaultTextWork": "I am a...",
+      "defaultTextCompetence1": "1. Select a skill",
+      "defaultTextCompetence2": "2. Select a skill",
+      "defaultTextCompetence3": "3. Select a skill"
+    },
     "matches": {
       "emptyState": "Oh no! We couldn't find any matches for you. Try again later."
     }

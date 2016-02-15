@@ -94,6 +94,9 @@
     <Content Include="app\components\resetPassword\resetPasswordController.js" />
     <Content Include="app\components\resetPassword\resetPasswordService.js" />
     <Content Include="app\components\resetPassword\resetPasswordView.html" />
+    <Content Include="app\components\settings\settingsController.js" />
+    <Content Include="app\components\settings\settingsService.js" />
+    <Content Include="app\components\settings\settingsView.html" />
     <Content Include="app\components\thankYou\thankYouView.html" />
     <Content Include="app\index.html" />
     <Content Include="app\shared\api\apiService.js" />
