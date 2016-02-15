@@ -10,7 +10,10 @@ function (apiService, $q, localStorageService) {
 
   apiService.language.get({ languageCode: 'en' }, function (data) {
     localStorageService.set('languageData', data);
-    deferred.resolve(data);
+
+    if (!languageData) {
+      deferred.resolve(data);
+    }    
   });
 
   return deferred.promise;
