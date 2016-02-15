@@ -4,7 +4,7 @@
     <p class="emptystate hidden" data-bind="language.noMessages"></p>
     <ul class="inbox" ng-repeat="message in messages">
         <li>
-            <a ng-click="gotoMessage(message.id)">
+            <a href="#" ng-click="gotoMessage(message.id)">
                 <div class="avatar-container"><img src="{{message.profileImageUrl}}" /></div>
                 <div class="is-read"><i ng-class="{active: !message.isRead}" class="icon_mail"></i></div>
                 <div class="name" ng-bind="message.name"></div>
