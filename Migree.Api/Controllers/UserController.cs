@@ -80,13 +80,13 @@ namespace Migree.Api.Controllers
         [HttpPut, Route("")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
-            if (request.CompetenceIds?.Count < 1)
+            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, request.UserLocation, request.Description);
+
+            if (request.CompetenceIds?.Count > 0)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, LanguageServant.Get<ErrorMessages>().UserInvalidRequest);
+                CompetenceServant.AddCompetencesToUser(CurrentUserId, request.CompetenceIds);
             }
 
-            UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);
-            CompetenceServant.AddCompetencesToUser(CurrentUserId, request.CompetenceIds);
             return CreateApiResponse(HttpStatusCode.NoContent);
         }
     }

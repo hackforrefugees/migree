@@ -61,8 +61,7 @@ namespace Migree.Core.Servants
             user.Email = email;
             user.Password = PasswordServant.CreatePasswordHash(password);
             user.FirstName = firstName;
-            user.LastName = lastName;
-            user.UserType = userType;
+            user.LastName = lastName;            
             user.UserLocation = UserLocation.Unspecified;
             user.Description = string.Empty;
             user.HasProfileImage = false;
@@ -73,11 +72,37 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public void UpdateUser(Guid userId, UserLocation userLocation, string description)
+        public void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description)
         {
             var user = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userId))).FirstOrDefault();
-            user.UserLocation = userLocation;
-            user.Description = description;
+
+            if (userType.HasValue && user.UserType != userType.Value)
+            {
+                var userToReplace = user;
+                user = User.GetCopy(userToReplace, userType.Value);
+                DataRepository.Delete(userToReplace);
+            }
+
+            if (!string.IsNullOrWhiteSpace(firstName))
+            {
+                user.FirstName = firstName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(lastName))
+            {
+                user.LastName = lastName;
+            }            
+
+            if (userLocation.HasValue)
+            {
+                user.UserLocation = userLocation.Value;
+            }
+
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                user.Description = description;
+            }
+            
             DataRepository.AddOrUpdate(user);
         }
 
@@ -148,7 +173,7 @@ namespace Migree.Core.Servants
             user.Password = PasswordServant.CreatePasswordHash(newPassword);
             DataRepository.AddOrUpdate(user);
             await MailServant.SendFinishedPasswordResetAsync(user.Email);
-        }
+        }        
 
         private void ThrowError(Error error)
         {

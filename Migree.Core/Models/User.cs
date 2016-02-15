@@ -17,6 +17,21 @@ namespace Migree.Core.Models
             return userId.ToString();
         }
 
+        public static User GetCopy(User oldUser, UserType userType)
+        {
+            var newUser = new User(userType);
+            newUser.Id = oldUser.Id;
+            newUser.Email = oldUser.Email;
+            newUser.Password = oldUser.Password;
+            newUser.FirstName = oldUser.FirstName;
+            newUser.LastName = oldUser.LastName;
+            newUser.Description = oldUser.Description;
+            newUser.HasProfileImage = oldUser.HasProfileImage;
+            newUser.UserLocation = oldUser.UserLocation;
+            newUser.PasswordResetVerificationKey = oldUser.PasswordResetVerificationKey;
+            return newUser;
+        }
+
         /// <summary>
         /// Default, used by Azure
         /// </summary>
@@ -35,10 +50,8 @@ namespace Migree.Core.Models
         [IgnoreProperty]
         public Guid Id
         {
-            get
-            {
-                return new Guid(RowKey);
-            }
+            get { return new Guid(RowKey); }
+            private set { RowKey = value.ToString(); }
         }
 
         public string Email { get; set; }
@@ -50,7 +63,7 @@ namespace Migree.Core.Models
         public UserType UserType
         {
             get { return (UserType)(Convert.ToInt32(PartitionKey)); }
-            set { PartitionKey = ((int)value).ToString(); }
+            private set { PartitionKey = ((int)value).ToString(); }
         }
 
         public int UserLocationValue { get; set; }
