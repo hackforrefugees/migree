@@ -134,6 +134,6 @@
     "userAlreadyExist": "User already exists",
     "messageRequiredFieldsMissing": "Requried fields missing",
     "currentUserNotFound": "User not found",
-    "resetPasswordRequiredFieldsMissing":  "Required fields missing"
+    "resetPasswordRequiredFieldsMissing": "Required fields missing"
   }
 }
