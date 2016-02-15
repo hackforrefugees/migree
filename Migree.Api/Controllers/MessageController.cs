@@ -30,7 +30,7 @@ namespace Migree.Api.Controllers
         {
             if (request.ReceiverUserId.Equals(Guid.Empty) || string.IsNullOrWhiteSpace(request.Message))
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Requried fields missing");
+                throw new ValidationException(HttpStatusCode.BadRequest, LanguageServant.Get<ErrorMessages>().MessageRequiredFieldsMissing);
             }
 
             await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);

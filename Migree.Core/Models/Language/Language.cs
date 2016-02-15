@@ -18,5 +18,7 @@ namespace Migree.Core.Models.Language
         public Definition Definition { get; set; }
         [JsonProperty("relativeDateTimeStrings")]
         public RelativeDateTimeStrings RelativeDateTimeStrings { get; set; }
+        [JsonProperty("errorMessages")]
+        public ErrorMessages ErrorMessages { get; set; }
     }
 }

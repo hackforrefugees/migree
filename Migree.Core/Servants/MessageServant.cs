@@ -2,6 +2,7 @@
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
+using Migree.Core.Models.Language;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,13 @@ namespace Migree.Core.Servants
     {
         private IDataRepository DataRepository { get; }
         private IMailRepository MailServant { get; }
+        private ILanguageServant LanguageServant { get; }
 
-        public MessageServant(IDataRepository dataRepository, IMailRepository mailServant)
+        public MessageServant(IDataRepository dataRepository, IMailRepository mailServant, ILanguageServant languageServant)
         {
             DataRepository = dataRepository;
             MailServant = mailServant;
+            LanguageServant = languageServant;
         }
 
         public async Task SendMessageToUserAsync(Guid creatorUserId, Guid receiverUserId, string message)
@@ -67,7 +70,7 @@ namespace Migree.Core.Servants
 
             if (otherUser == null)
             {
-                throw new ValidationException(System.Net.HttpStatusCode.NotFound, "thread doesn´t exist");
+                throw new ValidationException(System.Net.HttpStatusCode.NotFound, LanguageServant.Get<ErrorMessages>().MessageThreadNotFound);
             }
 
             if (messagesInThread.Count == 0)
@@ -104,7 +107,7 @@ namespace Migree.Core.Servants
 
             if (messageThread == null)
             {
-                messageThread = new MessageThread(creatorUserId, receiverUserId);                
+                messageThread = new MessageThread(creatorUserId, receiverUserId);
             }
 
             messageThread.LatestReadUser1 = messageThread.UserId1.Equals(creatorUserId) ? messageTimestamp : 0;

@@ -35,7 +35,7 @@ namespace Migree.Api.Controllers
                 string.IsNullOrWhiteSpace(request.LastName)
                 )
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Required fields missing");
+                throw new ValidationException(HttpStatusCode.BadRequest, LanguageServant.Get<ErrorMessages>().UserInvalidRequest);
             }
 
             var user = await UserServant.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.UserType);
@@ -65,7 +65,7 @@ namespace Migree.Api.Controllers
         {
             if (!Request.Content.IsMimeMultipartContent())
             {
-                throw new ValidationException(HttpStatusCode.UnsupportedMediaType, "MimeType is not correct");
+                throw new ValidationException(HttpStatusCode.UnsupportedMediaType, LanguageServant.Get<ErrorMessages>().UserInvalidRequest);
             }
 
             var content = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
@@ -82,7 +82,7 @@ namespace Migree.Api.Controllers
         {
             if (request.CompetenceIds?.Count < 1)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Required fields missing");
+                throw new ValidationException(HttpStatusCode.BadRequest, LanguageServant.Get<ErrorMessages>().UserInvalidRequest);
             }
 
             UserServant.UpdateUser(CurrentUserId, request.UserLocation, request.Description ?? string.Empty);

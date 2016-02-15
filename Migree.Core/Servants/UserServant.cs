@@ -3,8 +3,8 @@ using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
+using Migree.Core.Models.Language;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -19,12 +19,14 @@ namespace Migree.Core.Servants
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
         private IMailRepository MailServant { get; }
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
+        private ILanguageServant LanguageServant { get; }
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant, ILanguageServant languageServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             ContentRepository = contentRepository;
             MailServant = mailServant;
+            LanguageServant = languageServant;
         }
 
         public IUser FindUser(string email, string password)
@@ -34,7 +36,7 @@ namespace Migree.Core.Servants
 
             if (user == null || !PasswordServant.ValidatePassword(password, user.Password))
             {
-                throw new ValidationException(HttpStatusCode.Unauthorized, "Invalid credentials");
+                ThrowError(Error.InvalidCredentials);
             }
 
             return user;
@@ -52,7 +54,7 @@ namespace Migree.Core.Servants
 
             if (DataRepository.GetAll<User>().Any(p => p.Email.Equals(email)))
             {
-                throw new ValidationException(HttpStatusCode.Conflict, "user already exists");
+                ThrowError(Error.UserAlreadyExist);
             }
 
             var user = new User(userType);
@@ -102,7 +104,7 @@ namespace Migree.Core.Servants
         }
 
         public string GetProfileImageUrl(Guid userId, bool hasProfileImage)
-        {            
+        {
             return ContentRepository.GetImageUrl(hasProfileImage ? userId : default(Guid?), ImageType.Profile);
         }
 
@@ -123,14 +125,14 @@ namespace Migree.Core.Servants
         {
             if (string.IsNullOrWhiteSpace(newPassword))
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Password can´t be empty");
+                ThrowError(Error.PasswordEmpty);
             }
 
             var resetTime = Convert.ToInt64(resetVerificationKey);
 
             if (new DateTime(resetTime).AddHours(3) < DateTime.UtcNow)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Reset message to old");
+                ThrowError(Error.PasswordOld);
             }
 
             var user = DataRepository.GetAll<User>(p =>
@@ -139,7 +141,7 @@ namespace Migree.Core.Servants
 
             if (user == null)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "invalid request");
+                ThrowError(Error.InvalidRequest);
             }
 
             user.PasswordResetVerificationKey = 0;
@@ -147,5 +149,26 @@ namespace Migree.Core.Servants
             DataRepository.AddOrUpdate(user);
             await MailServant.SendFinishedPasswordResetAsync(user.Email);
         }
+
+        private void ThrowError(Error error)
+        {
+            var language = LanguageServant.Get<ErrorMessages>();
+
+            switch (error)
+            {
+                case Error.InvalidCredentials:
+                    throw new ValidationException(HttpStatusCode.Unauthorized, language.UserInvalidCredentials);
+                case Error.InvalidRequest:
+                    throw new ValidationException(HttpStatusCode.BadRequest, language.UserInvalidRequest);
+                case Error.PasswordEmpty:
+                    throw new ValidationException(HttpStatusCode.BadRequest, language.UserPasswordEmpty);
+                case Error.PasswordOld:
+                    throw new ValidationException(HttpStatusCode.BadRequest, language.UserPasswordOld);
+                case Error.UserAlreadyExist:
+                    throw new ValidationException(HttpStatusCode.Conflict, language.UserAlreadyExist);
+            }
+        }
+
+        private enum Error { InvalidRequest, PasswordOld, PasswordEmpty, InvalidCredentials, UserAlreadyExist };
     }
 }

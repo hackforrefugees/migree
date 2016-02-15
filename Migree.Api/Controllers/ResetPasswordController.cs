@@ -1,6 +1,7 @@
 ﻿using Migree.Api.Models.Requests;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
+using Migree.Core.Models.Language;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,9 +13,11 @@ namespace Migree.Api.Controllers
     public class ResetPasswordController : MigreeApiController
     {
         private IUserServant UserServant { get; }
-        public ResetPasswordController(IUserServant userServant)
+        private ILanguageServant LanguageServant { get; }
+        public ResetPasswordController(IUserServant userServant, ILanguageServant languageServant)
         {
             UserServant = userServant;
+            LanguageServant = languageServant;
         }
 
         [HttpPost, Route(""), AllowAnonymous]
@@ -29,7 +32,7 @@ namespace Migree.Api.Controllers
         {
             if (string.IsNullOrWhiteSpace(request.NewPassword))
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Required fields missing");
+                throw new ValidationException(HttpStatusCode.BadRequest, LanguageServant.Get<ErrorMessages>().ResetPasswordRequiredFieldsMissing);
             }
 
             await UserServant.ResetPasswordAsync(request.UserId, request.ResetVerificationKey, request.NewPassword);

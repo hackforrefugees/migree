@@ -123,5 +123,17 @@
     "hour": "1 hour ago",
     "minutes": "{0} minutes ago",
     "now": "a moment ago"
+  },
+  "errorMessages": {
+    "invalidGrant": "Something went wrong, please try again",
+    "messageThreadNotFound": "Thread doesn´t exist",
+    "userInvalidCredentials": "Invalid credentials",
+    "userInvalidRequest": "Invalid request",
+    "userPasswordEmpty": "Password can´t be empty",
+    "userPasswordOld": "Reset link was to old, please redo",
+    "userAlreadyExist": "User already exists",
+    "messageRequiredFieldsMissing": "Requried fields missing",
+    "currentUserNotFound": "User not found",
+    "resetPasswordRequiredFieldsMissing":  "Required fields missing"
   }
 }

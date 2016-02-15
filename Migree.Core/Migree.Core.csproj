@@ -122,6 +122,7 @@
     <Compile Include="Models\IdAndName.cs" />
     <Compile Include="Models\Language\Client.cs" />
     <Compile Include="Models\Language\Definition.cs" />
+    <Compile Include="Models\Language\ErrorMessages.cs" />
     <Compile Include="Models\Language\FinishedPasswordResetMail.cs" />
     <Compile Include="Models\Language\Language.cs" />
     <Compile Include="Models\Language\LanguageMail.cs" />
