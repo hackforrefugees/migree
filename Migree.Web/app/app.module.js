@@ -7,7 +7,8 @@ var migree = angular.module('migreeApp', [
     'ngImgCrop',
     '$q-spread',
     'ui.select',
-    'ngSanitize'
+    'ngSanitize',
+    'angular-loading-bar'
 ]);
 
 migree.constant('ngAuthSettings', {
@@ -38,9 +39,9 @@ migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', 
           $rootScope.redirectToUrlAfterLoginUrl = '/matches';
         } else {
           $rootScope.redirectToUrlAfterLoginUrl = $location.path();
-        }        
+        }
       }
-      
+
       if (requireLogin && !authenticationService.isAuthenticated()) {
         event.preventDefault();
         $state.go('login');
