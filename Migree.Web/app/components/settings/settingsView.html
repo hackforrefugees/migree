@@ -1,4 +1,5 @@
-﻿<div class="ui-view-image-view" ng-show="didSelect && !avatarCropped">
+﻿<div ng-include="'shared/header/headerView.html'"></div>
+<div class="ui-view-image-view" ng-show="didSelect && !avatarCropped">
     <img-crop image="srcImg"
               result-image="croppedImg"
               result-image-size="100">
