@@ -21,6 +21,10 @@
   var user = $resource(self.apiBaseUrl + '/user', null, {
     update: {
       method: 'PUT'
+    },
+    query: {
+      method: 'GET',
+      isArray: false
     }
   });
 
