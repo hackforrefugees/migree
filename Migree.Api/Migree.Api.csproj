@@ -201,6 +201,7 @@
     <Compile Include="Models\Responses\MessageResponse.cs" />
     <Compile Include="Models\Responses\MessageThreadResponse.cs" />
     <Compile Include="Models\Responses\StringIdAndNameResponse.cs" />
+    <Compile Include="Models\Responses\UserDetailedResponse.cs" />
     <Compile Include="Models\Responses\UserResponse.cs" />
     <Compile Include="Models\Responses\RegisterResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
