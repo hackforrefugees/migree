@@ -47,14 +47,18 @@ namespace Migree.Api.Controllers
         {
             var user = UserServant.GetUser(CurrentUserId);
 
-            var response = new UserResponse
+            var response = new UserDetailedResponse
             {
                 UserId = user.Id,
-                FullName = $"{user.FirstName} {user.LastName}",
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                UserType = user.UserType,
                 Description = user.Description,
-                UserLocation = LanguageServant.Get<Definition>().UserLocation[user.UserLocation.ToString()],
+                UserLocation = user.UserLocation,
+                HasProfileImage = user.HasProfileImage,
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
-                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => x.Id).ToList(),                
             };
 
             return CreateApiResponse(HttpStatusCode.OK, response);

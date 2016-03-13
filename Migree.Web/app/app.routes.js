@@ -9,7 +9,8 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: 'components/home/homeView.html',      
+      templateUrl: 'components/home/homeView.html',
+      controller: 'homeController',
       data: {
         requireLogin: false
       }
@@ -50,6 +51,14 @@ migree.config(function ($routeProvider, $locationProvider, $stateProvider, $urlR
       controller: 'resetPasswordController',
       data: {
         requireLogin: false
+      }
+    })
+    .state('settings', {
+      url: '/settings',
+      templateUrl: 'components/settings/settingsView.html',
+      controller: 'settingsController',
+      data: {
+        requireLogin: true
       }
     })
     .state('finishpasswordreset', {

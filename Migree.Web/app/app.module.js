@@ -7,7 +7,8 @@ var migree = angular.module('migreeApp', [
     'ngImgCrop',
     '$q-spread',
     'ui.select',
-    'ngSanitize'
+    'ngSanitize',
+    'angular-loading-bar'
 ]);
 
 migree.constant('ngAuthSettings', {
@@ -22,8 +23,8 @@ migree.config(function (uiSelectConfig) {
   uiSelectConfig.theme = 'bootstrap';
 });
 
-migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', '$state', 'languageService',
-  function (authenticationService, $rootScope, bootstrap3ElementModifier, $state, languageService) {    
+migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', '$state', 'languageService', '$location',
+  function (authenticationService, $rootScope, bootstrap3ElementModifier, $state, languageService, $location) {
     bootstrap3ElementModifier.enableValidationStateIcons(true);
 
     languageService.then(function (data) {
@@ -32,6 +33,14 @@ migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', 
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
       var requireLogin = toState.data.requireLogin;
+
+      if (!$rootScope.redirectToUrlAfterLoginUrl) {
+        if ($location.path() === '/') {
+          $rootScope.redirectToUrlAfterLoginUrl = '/matches';
+        } else {
+          $rootScope.redirectToUrlAfterLoginUrl = $location.path();
+        }
+      }
 
       if (requireLogin && !authenticationService.isAuthenticated()) {
         event.preventDefault();
