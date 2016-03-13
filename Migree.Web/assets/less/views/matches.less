@@ -46,11 +46,11 @@
           height: 100%;
           width: 100%;
           position: absolute;
+          background-color: #ffffff;
           -webkit-backface-visibility: hidden;
              -moz-backface-visibility: hidden;
                -o-backface-visibility: hidden;
                   backface-visibility: hidden;
-          background-color: white;
           border-radius: 4px;
           .avatar {
             width:100px;
@@ -99,24 +99,28 @@
 
     }
     .cardbuttons {
-      .button{
-        background: #555;
+      position: absolute;
+      bottom: -30px;
+      width: 100%;
+
+      .button {
+        position: relative;
+        left: -18px;
         width: 70px;
         height: 70px;
         color: #fff;
-        top: -80px;
-        position: relative;
+        // top: -80px;
         margin:0 15px;
-          font-size: 9px;
-          line-height: 1;
-          left: -18px;
-          padding: 0;
+        font-size: 9px;
+        line-height: 1;
+        background: #555;
+        padding: 0;
           
-        i{
+        i {
           font-size: 20px;
         }
 
-        &.red{
+        &.red {
           background: @red;
           line-height: 70px;
           font-size: 30px;

@@ -21,12 +21,13 @@
                 </div>
             </div>
         </div>
+        <div class="cardbuttons hidden">
+            <button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus"></i></button>
+            <button class="button red frontbutton" ng-click="gotoMessage()"><i class="icon icon_chat_alt"></i></button>
+        </div>
     </li>
 </ul>
-<div class="cardbuttons hidden">
-    <button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus"></i></button>
-    <button class="button red frontbutton" ng-click="gotoMessage()"><i class="icon icon_chat_alt"></i></button>
-</div>
+
 <div class="emptystate hidden">
     <p ng-bind="language.matches.emptyState"><p>
 </div>
