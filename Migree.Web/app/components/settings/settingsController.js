@@ -1,8 +1,7 @@
 ﻿migree.controller('settingsController', ['$scope', 'settingsService', '$q',
   function ($scope, settingsService, $q) {
     
-    settingsService.user.query().$promise.then(function (data) {
-      console.log(data);
+    settingsService.user.query().$promise.then(function (data) {      
       $scope.settings = data;      
     });
 
