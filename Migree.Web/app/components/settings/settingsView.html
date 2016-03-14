@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <ui-select ng-model="settings.work" search-enabled="false">
+        <ui-select ng-model="businesses.selected" search-enabled="false">
             <ui-select-match>
                 <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -50,7 +50,7 @@
             </ui-select-choices>
         </ui-select>
         <br />
-        <ui-select ng-model="settings.city" search-enabled="false">
+        <ui-select ng-model="locations.selected" search-enabled="false">
             <ui-select-match>
                 <span ng-bind="$select.selected.name"></span>
             </ui-select-match>

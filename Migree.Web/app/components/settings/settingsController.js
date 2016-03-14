@@ -2,21 +2,28 @@
   function ($scope, settingsService, $q) {
     
     settingsService.user.query().$promise.then(function (data) {      
-      $scope.settings = data;      
+      $scope.settings = data;
+      var promises = [
+            settingsService.competencePromise,
+            settingsService.businessPromise,
+            settingsService.locationPromise
+          ];
+
+      $q.all(promises).spread(function (competences, businesses, locations) {
+        $scope.competences = competences;
+        $scope.businesses = businesses;
+        $scope.businesses.selected = $scope.businesses[0];
+        $scope.locations = locations;
+        $scope.locations.selected = $scope.locations.filter(function(location) {
+            return location.id === $scope.settings.userLocation;
+          })[0];
+      });
+
     });
 
-    var promises = [
-      settingsService.competencePromise,
-      settingsService.businessPromise,
-      settingsService.locationPromise
-    ];
+    
 
-    $q.all(promises).spread(function (competences, businesses, locations) {
-      $scope.competences = competences;
-      $scope.businesses = businesses;
-      $scope.locations = locations;
-    });
-
+    
 
     $scope.update = function () {
       
