@@ -72,7 +72,7 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description)
+        public void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description, bool? isPublic)
         {
             var user = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userId))).FirstOrDefault();
 
@@ -101,6 +101,11 @@ namespace Migree.Core.Servants
             if (!string.IsNullOrWhiteSpace(description))
             {
                 user.Description = description;
+            }
+
+            if (isPublic.HasValue)
+            {
+                user.IsPublic = isPublic.Value;
             }
             
             DataRepository.AddOrUpdate(user);

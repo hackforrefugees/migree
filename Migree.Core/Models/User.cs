@@ -29,13 +29,17 @@ namespace Migree.Core.Models
             newUser.HasProfileImage = oldUser.HasProfileImage;
             newUser.UserLocation = oldUser.UserLocation;
             newUser.PasswordResetVerificationKey = oldUser.PasswordResetVerificationKey;
+            newUser.IsPublic = oldUser.IsPublic;
             return newUser;
         }
 
         /// <summary>
         /// Default, used by Azure
         /// </summary>
-        public User() { }
+        public User()
+        {
+            IsPublic = true;
+        }
 
         /// <summary>
         /// Create new user constructor
@@ -45,6 +49,7 @@ namespace Migree.Core.Models
         {
             RowKey = Guid.NewGuid().ToString();
             PartitionKey = GetPartitionKey(userType);
+            IsPublic = true;
         }
 
         [IgnoreProperty]
@@ -60,6 +65,7 @@ namespace Migree.Core.Models
         public string LastName { get; set; }
         public string Description { get; set; }
         public bool HasProfileImage { get; set; }
+        public bool IsPublic { get; set; }
         public UserType UserType
         {
             get { return (UserType)(Convert.ToInt32(PartitionKey)); }
