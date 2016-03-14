@@ -10,13 +10,15 @@ namespace Migree.Api.Models.Requests
         [JsonProperty("firstName")]
         public string FirstName { get; set; }
         [JsonProperty("lastName")]
-        public string LastName { get; set; }
+        public string LastName { get; set; }        
         [JsonProperty("userType")]
         public UserType? UserType { get; set; }
         [JsonProperty("userLocation")]
         public UserLocation? UserLocation { get; set; }
         [JsonProperty("description")]
         public string Description { get; set; }
+        [JsonProperty("isPublic")]
+        public bool? IsPublic { get; set; }
         [JsonProperty("competenceIds")]
         public ICollection<Guid> CompetenceIds { get; set; }
     }

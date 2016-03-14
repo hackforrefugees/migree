@@ -49,7 +49,7 @@ namespace Migree.Core.Servants
                         var user = users.FirstOrDefault(p => p.Id.Equals(userWithCompetence.UserId));
 
                         //ignore user self and all users within the same usertype
-                        if (user == null || user.UserType.Equals(userToMatch.UserType))
+                        if (user == null || user.UserType.Equals(userToMatch.UserType) || !user.IsPublic)
                         {
                             continue;
                         }
