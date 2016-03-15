@@ -7,7 +7,7 @@
     <br /><br />
     <button class="button red cropbutton" ng-click="crop()" ng-bind="language.settings.cropButton"></button>
 </div>
-<div class="settings page">
+<div class="settings page step active">
 
     <h4 ng-bind="language.settings.title"></h4>
     <p ng-bind="language.settings.description"></p>
@@ -59,7 +59,7 @@
             </ui-select-choices>
         </ui-select>
         <br />
-        <ui-select multiple limit="3" ng-model="settings.competences">
+        <ui-select multiple limit="3" ng-model="settings.competences.selected">
             <ui-select-match placeholder="{{language.settings.competencesPlaceholder}}">{{$item.name}}</ui-select-match>
             <ui-select-choices repeat="item in competences | filter:$select.search">
                 {{item.name}}
