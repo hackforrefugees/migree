@@ -107,7 +107,6 @@
     <Content Include="app\shared\fileSelection\fileReader.js" />
     <Content Include="app\shared\fileSelection\fileSelectionDirective.js" />
     <Content Include="app\shared\fileSelection\fileUploadChangeDirective.js" />
-    <Content Include="app\shared\header\headerView.html" />
     <Content Include="app\shared\language\languageService.js" />
     <Content Include="assets\fonts\ElegantIcons.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
