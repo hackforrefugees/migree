@@ -32,7 +32,7 @@
             <input type="email" placeholder="{{language.settings.emailPlaceholder}}" autocorrect="off" autocapitalize="none" required ng-model="settings.email" disable-validation-message="" />
         </div>
         <div class="form-group">
-            <input type="password" ng-minlength="6" placeholder="{{language.settings.passwordPlaceholder}}" required ng-model="settings.password" />
+            <input type="password" novalidate="novalidate" disable-dynamic-validation ng-minlength="6" placeholder="{{language.settings.passwordPlaceholder}}" ng-model="settings.password" />
         </div>
         <div class="form-group">
             <div class="avatar-upload" style="background-image: url('{{settings.profileImageUrl}}')" ng-show="!didSelect || avatarCropped">
@@ -71,7 +71,7 @@
             <textarea ng-model="settings.description" disable-valid-styling="true" placeholder="{{language.settings.aboutTextPlaceholder}}" />
         </div>
         <div class="form-group">
-            <input type="checkbox" ng-model="settings.isPublic" id="isPublic" /> <label for="isPublic">{{language.settings.isPublicLabel}}</label>
+            <input type="checkbox" novalidate="novalidate" disable-dynamic-validation ng-model="settings.isPublic" id="isPublic" /> <label for="isPublic" ng-bind="language.settings.isPublicLabel"></label>
         </div>
 
         <button type="submit" class="button red" ng-bind="language.settings.updateButton"></button>
