@@ -6,11 +6,11 @@
   self.apiBaseUrl = 'https://migree-test.azurewebsites.net';
 
   var business = $resource(self.apiBaseUrl + '/business');
-  var competence = $resource(self.apiBaseUrl + '/competence');  
+  var competence = $resource(self.apiBaseUrl + '/competence');
   var location = $resource(self.apiBaseUrl + '/location');
   var matches = $resource(self.apiBaseUrl + '/matches');
   var message = $resource(self.apiBaseUrl + '/message');
-  var messageThread = $resource(self.apiBaseUrl + '/message/:userId', {userId: '@userId'});
+  var messageThread = $resource(self.apiBaseUrl + '/message/:userId', { userId: '@userId' });
 
   var resetPassword = $resource(self.apiBaseUrl + '/resetpassword', null, {
     update: {

@@ -110,6 +110,7 @@
       "competencesPlaceholder": "Select up to 3 skills",
       "titlePersonalInfo": "Add some more information about yourself.",
       "aboutTextPlaceholder": "Write something...",
+      "isPublicLabel": "I want people to find me",
       "updateButton": "Update",
       "defaultTextLocation": "I live in / near...",
       "defaultTextWork": "I am a...",
