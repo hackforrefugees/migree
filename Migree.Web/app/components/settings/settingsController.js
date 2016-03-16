@@ -1,5 +1,5 @@
-﻿migree.controller('settingsController', ['$scope', 'settingsService', '$q',
-  function ($scope, settingsService, $q) {
+﻿migree.controller('settingsController', ['$scope', 'settingsService', '$q', 'fileReader',
+  function ($scope, settingsService, $q, fileReader) {
 
     settingsService.user.query().$promise.then(function (data) {
       $scope.settings = data;
@@ -22,6 +22,25 @@
 
     });
 
+    $scope.croppedImg = null;
+    $scope.srcImg = null;
+    $scope.avatarCropped = false;
+
+    var profileFile = null;
+
+    $scope.crop = function () {
+      $scope.avatarCropped = true;
+    };
+
+    $scope.getFile = function () {
+      $scope.progress = 0;
+
+      fileReader.readAsDataUrl($scope.file, $scope).then(function (result) {
+        profileFile = $scope.file;
+        $scope.srcImg = result;
+        $scope.didSelect = true;
+      });
+    };
 
     $scope.update = function () {
       settingsService.user.update($scope.settings);
