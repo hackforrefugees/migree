@@ -21,8 +21,7 @@ module.exports = function (grunt) {
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
-    ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    ngtemplates: 'grunt-angular-templates'
   });
 
   // Configurable paths for the application
@@ -412,14 +411,7 @@ module.exports = function (grunt) {
           dest: '.tmp/concat/scripts'
         }]
       }
-    },
-
-    // Replace Google CDN references
-    cdnify: {
-      dist: {
-        html: ['<%= migree.dist %>/*.html']
-      }
-    },
+    },   
 
     // Copies remaining files to places other tasks can use
     copy: {
@@ -545,8 +537,7 @@ module.exports = function (grunt) {
     'ngtemplates',
     'concat',
     'ngAnnotate',
-    'copy:dist',
-    'cdnify',
+    'copy:dist',    
     'cssmin',
     'uglify',
     'filerev',
