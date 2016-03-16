@@ -15,7 +15,7 @@ namespace Migree.Api.Models.Responses
         [JsonProperty("userLocation")]
         public string UserLocation { get; set; }
         [JsonProperty("profileImageUrl")]
-        public string ProfileImageUrl { get; set; }
+        public string ProfileImageUrl { get; set; }        
         [JsonProperty("competences")]
         public ICollection<GuidIdAndNameResponse> Competences { get; set; }
     }

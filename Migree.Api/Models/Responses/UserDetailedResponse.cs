@@ -23,6 +23,8 @@ namespace Migree.Api.Models.Responses
         public UserLocation UserLocation { get; set; }
         [JsonProperty("hasProfileImage")]
         public bool HasProfileImage { get; set; }
+        [JsonProperty("isPublic")]
+        public bool IsPublic { get; set; }
         [JsonProperty("profileImageUrl")]
         public string ProfileImageUrl { get; set; }
         [JsonProperty("competences")]
