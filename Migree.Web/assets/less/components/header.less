@@ -33,6 +33,11 @@
         font-size: 44px;
         color: #555;
         padding: 0;
+        z-index: 999;
+
+        .show {
+            z-index:10000;
+        }
     }
 
     .menu {
@@ -44,7 +49,7 @@
         right: 0;
         z-index: 9999;
         transform: translate(0, -100%);
-        transition: transform 250ms ease-out;
+        opacity: 0;
 
         .close-menu {
             background: none;
@@ -69,6 +74,7 @@
         &.active {
             transform: translate(0,0);
             transition: transform 250ms ease-out;
+
             opacity: 1;
         }
 

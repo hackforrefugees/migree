@@ -142,7 +142,7 @@
 
     <script type="text/ng-template" id="headerView.html">
         <header class="header">
-            <button class="toggle-menu" ng-click="active = true"><i class="icon icon_menu"></i></button>
+            <button class="toggle-menu" ng-click="active = true" ng-class="{show: !active}"><i class="icon icon_menu"></i></button>
             <div class="menu" ng-class="{active: active}">
                 <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="170px" height="64px" viewBox="0 0 160 64" fill="#FFF">
                     <g>
