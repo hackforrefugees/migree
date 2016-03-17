@@ -20,7 +20,7 @@ namespace Migree.Api.Models.Responses
         [JsonProperty("description")]
         public string Description { get; set; }
         [JsonProperty("userLocation")]
-        public UserLocation UserLocation { get; set; }
+        public IntIdAndNameResponse UserLocation { get; set; }
         [JsonProperty("hasProfileImage")]
         public bool HasProfileImage { get; set; }
         [JsonProperty("isPublic")]
@@ -28,6 +28,6 @@ namespace Migree.Api.Models.Responses
         [JsonProperty("profileImageUrl")]
         public string ProfileImageUrl { get; set; }
         [JsonProperty("competences")]
-        public ICollection<Guid> Competences { get; set; }
+        public ICollection<GuidIdAndNameResponse> Competences { get; set; }
     }
 }

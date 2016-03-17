@@ -3,6 +3,7 @@ using Migree.Api.Models.Responses;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -47,6 +48,8 @@ namespace Migree.Api.Controllers
         {
             var user = UserServant.GetUser(CurrentUserId);
 
+            var locationLanguage = LanguageServant.Get<Definition>().UserLocation;
+
             var response = new UserDetailedResponse
             {
                 UserId = user.Id,
@@ -55,11 +58,11 @@ namespace Migree.Api.Controllers
                 Email = user.Email,
                 UserType = user.UserType,
                 Description = user.Description,
-                UserLocation = user.UserLocation,
+                UserLocation = new IntIdAndNameResponse { Id = Convert.ToInt32(user.UserLocation), Name = locationLanguage[user.UserLocation.ToString()] },
                 HasProfileImage = user.HasProfileImage,
                 IsPublic = user.IsPublic,
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
-                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => x.Id).ToList(),                
+                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList(),
             };
 
             return CreateApiResponse(HttpStatusCode.OK, response);
