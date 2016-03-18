@@ -1,4 +1,4 @@
-﻿using Migree.Api.Models.Responses;
+﻿using Migree.Api.Models;
 using Migree.Core.Definitions;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
@@ -28,7 +28,7 @@ namespace Migree.Api.Controllers
                 .Cast<UserLocation>()
                 .OrderBy(p => (int)p == 0)
                 .ThenBy(p => language[p.ToString()])
-                .Select(p => new IntIdAndNameResponse
+                .Select(p => new IntIdAndName
                 {
                     Id = (int)p,
                     Name = language[p.ToString()]

@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
+using System;
 
-namespace Migree.Api.Models.Responses
+namespace Migree.Api.Models
 {
-    public class IntIdAndNameResponse
+    public class GuidIdAndName
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
     }

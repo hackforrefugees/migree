@@ -196,11 +196,11 @@
     <Compile Include="Models\Requests\LoginRequest.cs" />
     <Compile Include="Models\Requests\UpdateUserRequest.cs" />
     <Compile Include="Models\Responses\ErrorResponse.cs" />
-    <Compile Include="Models\Responses\GuidIdAndNameResponse.cs" />
-    <Compile Include="Models\Responses\IntIdAndNameResponse.cs" />
+    <Compile Include="Models\GuidIdAndName.cs" />
+    <Compile Include="Models\IntIdAndName.cs" />
     <Compile Include="Models\Responses\MessageResponse.cs" />
     <Compile Include="Models\Responses\MessageThreadResponse.cs" />
-    <Compile Include="Models\Responses\StringIdAndNameResponse.cs" />
+    <Compile Include="Models\StringIdAndName.cs" />
     <Compile Include="Models\Responses\UserDetailedResponse.cs" />
     <Compile Include="Models\Responses\UserResponse.cs" />
     <Compile Include="Models\Responses\RegisterResponse.cs" />
