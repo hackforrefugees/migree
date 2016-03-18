@@ -1,4 +1,4 @@
-﻿using Migree.Api.Models.Responses;
+﻿using Migree.Api.Models;
 using Migree.Core.Definitions;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
@@ -27,7 +27,7 @@ namespace Migree.Api.Controllers
             var business = Enum.GetValues(typeof(BusinessGroup))
                 .Cast<BusinessGroup>()
                 .OrderBy(p => language[p.ToString()])
-                .Select(p => new IntIdAndNameResponse
+                .Select(p => new IntIdAndName
                 {
                     Id = (int)p,
                     Name = language[p.ToString()]
