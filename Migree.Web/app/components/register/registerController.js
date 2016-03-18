@@ -95,15 +95,12 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
       }, 2000);
     };
 
-    $scope.updateSkills = function () {
-      var competenceIds = $scope.registration.competences.map(function (item) {
-        return item.id;
-      });
-      if ($scope.registration.city.id && competenceIds[0] && $scope.registration.work.id && $scope.aboutText.length > 0) {
+    $scope.updateSkills = function () {      
+      if ($scope.registration.city.id && $scope.registration.competences.length>0 && $scope.registration.work.id && $scope.aboutText.length > 0) {
         var userInformation = {
-          userLocation: $scope.registration.city.id,
+          userLocation: $scope.registration.city,
           description: $scope.aboutText,
-          competenceIds: competenceIds
+          competences: $scope.registration.competences
         };
 
         registerService.user.update(userInformation);

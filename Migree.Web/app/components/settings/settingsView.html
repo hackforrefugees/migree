@@ -49,7 +49,7 @@
             </ui-select-choices>
         </ui-select>
         <br />
-        <ui-select ng-model="locations.selected" search-enabled="false">
+        <ui-select ng-model="settings.userLocation" search-enabled="false">
             <ui-select-match>
                 <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -58,7 +58,7 @@
             </ui-select-choices>
         </ui-select>
         <br />
-        <ui-select multiple limit="3" ng-model="settings.competences.selected">
+        <ui-select multiple limit="3" ng-model="settings.competences">
             <ui-select-match placeholder="{{language.settings.competencesPlaceholder}}">{{$item.name}}</ui-select-match>
             <ui-select-choices repeat="item in competences | filter:$select.search">
                 {{item.name}}
