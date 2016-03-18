@@ -44,6 +44,7 @@
 
     $scope.update = function () {
       settingsService.user.update($scope.settings);
+      settingsService.imageUpload(profileFile);
     };
 
     function getFilteredArray(inputArray, filter) {
