@@ -223,7 +223,7 @@ module.exports = function (grunt) {
     postcss: {
       options: {
         processors: [
-          require('autoprefixer-core')({browsers: ['last 1 version']})
+          require('autoprefixer')({browsers: ['> 5%']})
         ]
       },
       server: {
@@ -411,7 +411,7 @@ module.exports = function (grunt) {
           dest: '.tmp/concat/scripts'
         }]
       }
-    },   
+    },
 
     // Copies remaining files to places other tasks can use
     copy: {
@@ -523,7 +523,7 @@ module.exports = function (grunt) {
       'connect:livereload',
       'watch'
     ]);
-  });  
+  });
 
   grunt.registerTask('build', [
     'clean:dist',
@@ -537,7 +537,7 @@ module.exports = function (grunt) {
     'ngtemplates',
     'concat',
     'ngAnnotate',
-    'copy:dist',    
+    'copy:dist',
     'cssmin',
     'uglify',
     'filerev',
