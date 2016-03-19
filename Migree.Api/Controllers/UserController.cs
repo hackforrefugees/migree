@@ -1,8 +1,11 @@
-﻿using Migree.Api.Models.Requests;
+﻿using Migree.Api.Models;
+using Migree.Api.Models.Requests;
 using Migree.Api.Models.Responses;
+using Migree.Core.Definitions;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -47,6 +50,8 @@ namespace Migree.Api.Controllers
         {
             var user = UserServant.GetUser(CurrentUserId);
 
+            var locationLanguage = LanguageServant.Get<Definition>().UserLocation;
+
             var response = new UserDetailedResponse
             {
                 UserId = user.Id,
@@ -55,11 +60,11 @@ namespace Migree.Api.Controllers
                 Email = user.Email,
                 UserType = user.UserType,
                 Description = user.Description,
-                UserLocation = user.UserLocation,
+                UserLocation = new IntIdAndName { Id = Convert.ToInt32(user.UserLocation), Name = locationLanguage[user.UserLocation.ToString()] },
                 HasProfileImage = user.HasProfileImage,
                 IsPublic = user.IsPublic,
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
-                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => x.Id).ToList(),                
+                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList(),
             };
 
             return CreateApiResponse(HttpStatusCode.OK, response);
@@ -85,11 +90,11 @@ namespace Migree.Api.Controllers
         [HttpPut, Route("")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
-            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, request.UserLocation, request.Description, request.IsPublic);
+            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, (UserLocation?)request.UserLocation?.Id, request.Description, request.IsPublic);
 
-            if (request.CompetenceIds?.Count > 0)
+            if (request.Competences?.Count > 0)
             {
-                CompetenceServant.AddCompetencesToUser(CurrentUserId, request.CompetenceIds);
+                CompetenceServant.AddCompetencesToUser(CurrentUserId, request.Competences.Select(p => p.Id).ToList());
             }
 
             return CreateApiResponse(HttpStatusCode.NoContent);

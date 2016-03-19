@@ -1,4 +1,5 @@
-﻿using Migree.Api.Models.Responses;
+﻿using Migree.Api.Models;
+using Migree.Api.Models.Responses;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Migree.Api.Controllers
                 Description = user.Description,
                 UserLocation = LanguageServant.Get<Definition>().UserLocation[user.UserLocation.ToString()],
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
-                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList()
+                Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList()
             });
             return CreateApiResponse(HttpStatusCode.OK, users);            
         }        

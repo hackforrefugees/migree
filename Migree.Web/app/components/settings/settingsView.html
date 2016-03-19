@@ -11,7 +11,7 @@
 
     <h4 ng-bind="language.settings.title"></h4>
     <p ng-bind="language.settings.description"></p>
-    <form ng-submit="update()">
+    <form ng-submit="update()" novalidate="novalidate" disable-dynamic-validation>
         <div class="form-group usertype">
             <div class="btn-group">
                 <label class="btn active btn-default">
@@ -32,7 +32,7 @@
             <input type="email" placeholder="{{language.settings.emailPlaceholder}}" autocorrect="off" autocapitalize="none" required ng-model="settings.email" disable-validation-message="" />
         </div>
         <div class="form-group">
-            <input type="password" novalidate="novalidate" disable-dynamic-validation ng-minlength="6" placeholder="{{language.settings.passwordPlaceholder}}" ng-model="settings.password" />
+            <input type="password" novalidate="novalidate" disable-valid-styling="true" ng-minlength="6" placeholder="{{language.settings.passwordPlaceholder}}" ng-model="settings.password" />
         </div>
         <div class="form-group">
             <div class="avatar-upload" style="background-image: url('{{settings.profileImageUrl}}')" ng-show="!didSelect || avatarCropped">
@@ -40,7 +40,6 @@
                 <img src="{{ croppedImg }}" />
             </div>
         </div>
-
         <ui-select ng-model="businesses.selected" search-enabled="false">
             <ui-select-match>
                 <span ng-bind="$select.selected.name"></span>
@@ -50,7 +49,7 @@
             </ui-select-choices>
         </ui-select>
         <br />
-        <ui-select ng-model="locations.selected" search-enabled="false">
+        <ui-select ng-model="settings.userLocation" search-enabled="false">
             <ui-select-match>
                 <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -59,7 +58,7 @@
             </ui-select-choices>
         </ui-select>
         <br />
-        <ui-select multiple limit="3" ng-model="settings.competences.selected">
+        <ui-select multiple limit="3" ng-model="settings.competences">
             <ui-select-match placeholder="{{language.settings.competencesPlaceholder}}">{{$item.name}}</ui-select-match>
             <ui-select-choices repeat="item in competences | filter:$select.search">
                 {{item.name}}
@@ -71,7 +70,7 @@
             <textarea ng-model="settings.description" disable-valid-styling="true" placeholder="{{language.settings.aboutTextPlaceholder}}" />
         </div>
         <div class="form-group">
-            <input type="checkbox" novalidate="novalidate" disable-dynamic-validation ng-model="settings.isPublic" id="isPublic" /> <label for="isPublic" ng-bind="language.settings.isPublicLabel"></label>
+            <input type="checkbox" novalidate="novalidate" disable-valid-styling="true"  disable-dynamic-validation ng-model="settings.isPublic" id="isPublic" /> <label for="isPublic" ng-bind="language.settings.isPublicLabel"></label>
         </div>
 
         <button type="submit" class="button red" ng-bind="language.settings.updateButton"></button>

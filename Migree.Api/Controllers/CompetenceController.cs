@@ -1,5 +1,5 @@
-﻿using Migree.Api.Models.Requests;
-using Migree.Api.Models.Responses;
+﻿using Migree.Api.Models;
+using Migree.Api.Models.Requests;
 using Migree.Core.Interfaces;
 using System.Linq;
 using System.Net;
@@ -22,7 +22,7 @@ namespace Migree.Api.Controllers
         public HttpResponseMessage GetCompetences()
         {
             var competences = CompetenceServant.GetCompetences();
-            var response = competences.Select(x => new GuidIdAndNameResponse { Id = x.Id, Name = x.Name }).ToList();
+            var response = competences.Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList();
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
 
