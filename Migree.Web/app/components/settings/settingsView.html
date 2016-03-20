@@ -22,6 +22,10 @@
                 </label>
             </div>
         </div>
+         <div class="form-group">
+            <input type="checkbox" novalidate="novalidate" disable-valid-styling="true"  disable-dynamic-validation ng-model="settings.isPublic" id="isPublic" /> <label for="isPublic" ng-bind="language.settings.isPublicLabel"></label>
+        </div>
+        <button type="submit" class="button red" ng-bind="language.settings.updateButton"></button>
         <div class="form-group">
             <input type="text" placeholder="{{language.settings.firstNamePlaceholder}}" required ng-model="settings.firstName" disable-validation-message="" />
         </div>
@@ -69,9 +73,6 @@
         <div class="form-group">
             <textarea ng-model="settings.description" disable-valid-styling="true" placeholder="{{language.settings.aboutTextPlaceholder}}" />
         </div>
-        <div class="form-group">
-            <input type="checkbox" novalidate="novalidate" disable-valid-styling="true"  disable-dynamic-validation ng-model="settings.isPublic" id="isPublic" /> <label for="isPublic" ng-bind="language.settings.isPublicLabel"></label>
-        </div>
-        <button type="submit" class="button red" ng-bind="language.settings.updateButton"></button>
+       
     </form>
 </div>
