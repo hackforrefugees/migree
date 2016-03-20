@@ -3,7 +3,6 @@ using Migree.Core.Models;
 using Migree.Core.Models.Language;
 using SendGrid;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -28,16 +27,15 @@ namespace Migree.Core.Repositories
             var creatorUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(creatorUserId))).FirstOrDefault();
             var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
 
-            var subject = LanguageServant.Get(language.Subject, creatorUser.FullName);
-            message = LanguageServant.Get(language.Message, message, creatorUser.Email, creatorUser.FullName);
+            var subject = LanguageServant.GetString(language.Subject, creatorUser.FullName);
+            message = LanguageServant.GetString(language.Message, message, creatorUser.Id);
 
             await SendMailAsync(
                 subject,
                 message,
                 receiverUser.Email,
-                LanguageServant.Get(language.FromMail),
-                LanguageServant.Get(language.FromName, creatorUser.FullName),
-                creatorUser.Email);
+                LanguageServant.GetString(language.FromMail),
+                LanguageServant.GetString(language.FromName, creatorUser.FullName));
         }
 
         public async Task SendRegisterMailAsync(string email, string fullName)
@@ -46,7 +44,7 @@ namespace Migree.Core.Repositories
 
             await SendMailAsync(
                 language.Subject,
-                LanguageServant.Get(language.Message, fullName),
+                LanguageServant.GetString(language.Message, fullName),
                 email,
                 language.FromMail,
                 language.FromName);
@@ -58,7 +56,7 @@ namespace Migree.Core.Repositories
 
             await SendMailAsync(
                 language.Subject,
-                LanguageServant.Get(language.Message, userId, passwordResetVerificationKey),
+                LanguageServant.GetString(language.Message, userId, passwordResetVerificationKey),
                 email,
                 language.FromMail,
                 language.FromName);
@@ -76,19 +74,14 @@ namespace Migree.Core.Repositories
                 language.FromName);
         }
 
-        private async Task SendMailAsync(string subject, string message, string mailTo, string mailFrom, string fromName, string replyTo = "")
-        {
+        private async Task SendMailAsync(string subject, string message, string mailTo, string mailFrom, string fromName)
+        {            
             var mailMessage = new SendGridMessage();
             mailMessage.AddTo(mailTo);
             mailMessage.From = new MailAddress(mailFrom, fromName);
             mailMessage.Subject = subject;
             mailMessage.Text = message;
-
-            if (!string.IsNullOrWhiteSpace(replyTo))
-            {
-                mailMessage.ReplyTo = new List<MailAddress> { new MailAddress(replyTo, fromName) }.ToArray();
-            }
-
+            
             var transportREST = new Web(SettingsServant.SendGridCredentials);
             await transportREST.DeliverAsync(mailMessage);
         }

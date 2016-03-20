@@ -3,8 +3,8 @@ using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Interfaces.Models;
 using Migree.Core.Models;
+using Migree.Core.Models.Language;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,17 +14,19 @@ namespace Migree.Core.Servants
 {
     public class UserServant : IUserServant
     {
-        private const int PROFILE_IMAGE_SIZE_PIXELS = 100;
+        private const int PROFILE_IMAGE_SIZE_PIXELS = 400;
         private IDataRepository DataRepository { get; }
         private IContentRepository ContentRepository { get; }
         private IPasswordServant PasswordServant { get; }
-        private IMailRepository MailServant { get; }        
-        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant)
+        private IMailRepository MailServant { get; }
+        private ILanguageServant LanguageServant { get; }
+        public UserServant(IDataRepository dataRepository, IPasswordServant passwordServant, IContentRepository contentRepository, IMailRepository mailServant, ILanguageServant languageServant)
         {
             DataRepository = dataRepository;
             PasswordServant = passwordServant;
             ContentRepository = contentRepository;
-            MailServant = mailServant;            
+            MailServant = mailServant;
+            LanguageServant = languageServant;
         }
 
         public IUser FindUser(string email, string password)
@@ -34,7 +36,7 @@ namespace Migree.Core.Servants
 
             if (user == null || !PasswordServant.ValidatePassword(password, user.Password))
             {
-                throw new ValidationException(HttpStatusCode.Unauthorized, "Invalid credentials");
+                ThrowError(Error.InvalidCredentials);
             }
 
             return user;
@@ -52,17 +54,17 @@ namespace Migree.Core.Servants
 
             if (DataRepository.GetAll<User>().Any(p => p.Email.Equals(email)))
             {
-                throw new ValidationException(HttpStatusCode.Conflict, "user already exists");
+                ThrowError(Error.UserAlreadyExist);
             }
 
             var user = new User(userType);
             user.Email = email;
             user.Password = PasswordServant.CreatePasswordHash(password);
             user.FirstName = firstName;
-            user.LastName = lastName;
-            user.UserType = userType;
+            user.LastName = lastName;            
             user.UserLocation = UserLocation.Unspecified;
             user.Description = string.Empty;
+            user.HasProfileImage = false;
             DataRepository.AddOrUpdate(user);
 
             await MailServant.SendRegisterMailAsync(email, user.FullName);
@@ -70,16 +72,49 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public void UpdateUser(Guid userId, UserLocation userLocation, string description)
+        public void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description, bool? isPublic)
         {
             var user = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userId))).FirstOrDefault();
-            user.UserLocation = userLocation;
-            user.Description = description;
+
+            if (userType.HasValue && user.UserType != userType.Value)
+            {
+                var userToReplace = user;
+                user = User.GetCopy(userToReplace, userType.Value);
+                DataRepository.Delete(userToReplace);
+            }
+
+            if (!string.IsNullOrWhiteSpace(firstName))
+            {
+                user.FirstName = firstName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(lastName))
+            {
+                user.LastName = lastName;
+            }            
+
+            if (userLocation.HasValue)
+            {
+                user.UserLocation = userLocation.Value;
+            }
+
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                user.Description = description;
+            }
+
+            if (isPublic.HasValue)
+            {
+                user.IsPublic = isPublic.Value;
+            }
+            
             DataRepository.AddOrUpdate(user);
         }
 
         public async Task UploadProfileImageAsync(Guid userId, Stream imageStream)
         {
+            var user = DataRepository.GetAll<User>(x => x.RowKey.Equals(User.GetRowKey(userId))).First();
+
             imageStream.Position = 0;
 
             using (var img = System.Drawing.Image.FromStream(imageStream))
@@ -93,11 +128,14 @@ namespace Migree.Core.Servants
                     }
                 }
             }
+
+            user.HasProfileImage = true;
+            DataRepository.AddOrUpdate(user);
         }
 
-        public string GetProfileImageUrl(Guid userId)
+        public string GetProfileImageUrl(Guid userId, bool hasProfileImage)
         {
-            return ContentRepository.GetImageUrl(userId, ImageType.Profile);
+            return ContentRepository.GetImageUrl(hasProfileImage ? userId : default(Guid?), ImageType.Profile);
         }
 
         public async Task InitPasswordResetAsync(string email)
@@ -117,29 +155,50 @@ namespace Migree.Core.Servants
         {
             if (string.IsNullOrWhiteSpace(newPassword))
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Password can´t be empty");
+                ThrowError(Error.PasswordEmpty);
             }
 
             var resetTime = Convert.ToInt64(resetVerificationKey);
 
             if (new DateTime(resetTime).AddHours(3) < DateTime.UtcNow)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "Reset message to old");
+                ThrowError(Error.PasswordOld);
             }
 
-            var user = DataRepository.GetAll<User>(p => 
-                p.RowKey.Equals(User.GetRowKey(userId)) && 
+            var user = DataRepository.GetAll<User>(p =>
+                p.RowKey.Equals(User.GetRowKey(userId)) &&
                 p.PasswordResetVerificationKey.Equals(resetTime)).FirstOrDefault();
 
             if (user == null)
             {
-                throw new ValidationException(HttpStatusCode.BadRequest, "invalid request");
+                ThrowError(Error.InvalidRequest);
             }
 
             user.PasswordResetVerificationKey = 0;
             user.Password = PasswordServant.CreatePasswordHash(newPassword);
             DataRepository.AddOrUpdate(user);
             await MailServant.SendFinishedPasswordResetAsync(user.Email);
+        }        
+
+        private void ThrowError(Error error)
+        {
+            var language = LanguageServant.Get<ErrorMessages>();
+
+            switch (error)
+            {
+                case Error.InvalidCredentials:
+                    throw new ValidationException(HttpStatusCode.Unauthorized, language.UserInvalidCredentials);
+                case Error.InvalidRequest:
+                    throw new ValidationException(HttpStatusCode.BadRequest, language.UserInvalidRequest);
+                case Error.PasswordEmpty:
+                    throw new ValidationException(HttpStatusCode.BadRequest, language.UserPasswordEmpty);
+                case Error.PasswordOld:
+                    throw new ValidationException(HttpStatusCode.BadRequest, language.UserPasswordOld);
+                case Error.UserAlreadyExist:
+                    throw new ValidationException(HttpStatusCode.Conflict, language.UserAlreadyExist);
+            }
         }
+
+        private enum Error { InvalidRequest, PasswordOld, PasswordEmpty, InvalidCredentials, UserAlreadyExist };
     }
 }

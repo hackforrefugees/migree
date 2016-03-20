@@ -69,123 +69,133 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.module.js" />
+    <Content Include="app\app.routes.js" />
+    <Content Include="app\components\finishPasswordReset\finishPasswordResetView.html" />
+    <Content Include="app\components\finishPasswordReset\finishPasswordResetController.js" />
+    <Content Include="app\components\home\homeController.js" />
+    <Content Include="app\components\home\homeView.html" />
+    <Content Include="app\components\login\loginController.js" />
+    <Content Include="app\components\login\loginView.html" />
+    <Content Include="app\components\logout\logoutController.js" />
+    <Content Include="app\components\matches\matchesController.js" />
+    <Content Include="app\components\matches\matchesService.js" />
+    <Content Include="app\components\matches\matchesView.html" />
+    <Content Include="app\components\messages\messagesController.js" />
+    <Content Include="app\components\messages\messagesView.html" />
+    <Content Include="app\components\message\messageController.js" />
+    <Content Include="app\components\message\messageService.js" />
+    <Content Include="app\components\message\messageView.html" />
+    <Content Include="app\components\notFound\notFoundView.html" />
+    <Content Include="app\components\profile\profileController.js" />
+    <Content Include="app\components\profile\profileView.html" />
+    <Content Include="app\components\register\registerController.js" />
+    <Content Include="app\components\register\registerService.js" />
+    <Content Include="app\components\register\registerView.html" />
+    <Content Include="app\components\resetPassword\resetPasswordController.js" />
+    <Content Include="app\components\resetPassword\resetPasswordService.js" />
+    <Content Include="app\components\resetPassword\resetPasswordView.html" />
+    <Content Include="app\components\settings\settingsController.js" />
+    <Content Include="app\components\settings\settingsService.js" />
+    <Content Include="app\components\settings\settingsView.html" />
+    <Content Include="app\components\thankYou\thankYouView.html" />
+    <Content Include="app\index.html" />
+    <Content Include="app\shared\api\apiService.js" />
+    <Content Include="app\shared\authentication\authenticationService.js" />
+    <Content Include="app\shared\authentication\authInterceptorService.js" />
+    <Content Include="app\shared\directives\newLinesFilter.js" />
+    <Content Include="app\shared\fileSelection\fileReader.js" />
+    <Content Include="app\shared\fileSelection\fileSelectionDirective.js" />
+    <Content Include="app\shared\fileSelection\fileUploadChangeDirective.js" />
+    <Content Include="app\shared\language\languageService.js" />
+    <Content Include="assets\fonts\ElegantIcons.svg" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\img\favicon\android-icon-144x144.png" />
+    <Content Include="assets\img\favicon\android-icon-192x192.png" />
+    <Content Include="assets\img\favicon\android-icon-36x36.png" />
+    <Content Include="assets\img\favicon\android-icon-48x48.png" />
+    <Content Include="assets\img\favicon\android-icon-72x72.png" />
+    <Content Include="assets\img\favicon\android-icon-96x96.png" />
+    <Content Include="assets\img\favicon\apple-icon-114x114.png" />
+    <Content Include="assets\img\favicon\apple-icon-120x120.png" />
+    <Content Include="assets\img\favicon\apple-icon-144x144.png" />
+    <Content Include="assets\img\favicon\apple-icon-152x152.png" />
+    <Content Include="assets\img\favicon\apple-icon-180x180.png" />
+    <Content Include="assets\img\favicon\apple-icon-57x57.png" />
+    <Content Include="assets\img\favicon\apple-icon-60x60.png" />
+    <Content Include="assets\img\favicon\apple-icon-72x72.png" />
+    <Content Include="assets\img\favicon\apple-icon-76x76.png" />
+    <Content Include="assets\img\favicon\apple-icon-precomposed.png" />
+    <Content Include="assets\img\favicon\apple-icon.png" />
+    <Content Include="assets\img\favicon\browserconfig.xml" />
+    <Content Include="assets\img\favicon\favicon-16x16.png" />
+    <Content Include="assets\img\favicon\favicon-32x32.png" />
+    <Content Include="assets\img\favicon\favicon-96x96.png" />
+    <Content Include="assets\img\favicon\favicon.ico" />
+    <Content Include="assets\img\favicon\ms-icon-144x144.png" />
+    <Content Include="assets\img\favicon\ms-icon-150x150.png" />
+    <Content Include="assets\img\favicon\ms-icon-310x310.png" />
+    <Content Include="assets\img\favicon\ms-icon-70x70.png" />
+    <Content Include="assets\img\migree-share.png" />
+    <Content Include="assets\vendor\angular-build.js" />
+    <Content Include="assets\vendor\angular-local-storage.min.js" />
+    <Content Include="assets\vendor\draggabilly.pkgd.min.js" />
+    <Content Include="assets\vendor\elastiStack.js" />
+    <Content Include="assets\vendor\jcs-auto-validate.min.js" />
+    <Content Include="assets\vendor\modernizr.custom.js" />
+    <Content Include="assets\vendor\ng-img-crop.js" />
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="static\app\controllers\inboxController.js" />
-    <Content Include="static\app\controllers\messagesController.js" />
-    <Content Include="static\app\controllers\profileController.js" />
-    <Content Include="static\app\controllers\thankYouController.js" />
-    <Content Include="static\app\services\fileReader.js" />
-    <Content Include="static\app\services\fileUploadService.js" />
-    <Content Include="static\app\services\userService.js" />
-    <Content Include="static\fonts\ElegantIcons.eot" />
-    <Content Include="static\fonts\ElegantIcons.ttf" />
-    <Content Include="static\fonts\ElegantIcons.woff" />
-    <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="static\img\favicon\android-icon-144x144.png" />
-    <Content Include="static\img\favicon\android-icon-192x192.png" />
-    <Content Include="static\img\favicon\android-icon-36x36.png" />
-    <Content Include="static\img\favicon\android-icon-48x48.png" />
-    <Content Include="static\img\favicon\android-icon-72x72.png" />
-    <Content Include="static\img\favicon\android-icon-96x96.png" />
-    <Content Include="static\img\favicon\apple-icon-114x114.png" />
-    <Content Include="static\img\favicon\apple-icon-120x120.png" />
-    <Content Include="static\img\favicon\apple-icon-144x144.png" />
-    <Content Include="static\img\favicon\apple-icon-152x152.png" />
-    <Content Include="static\img\favicon\apple-icon-180x180.png" />
-    <Content Include="static\img\favicon\apple-icon-57x57.png" />
-    <Content Include="static\img\favicon\apple-icon-60x60.png" />
-    <Content Include="static\img\favicon\apple-icon-72x72.png" />
-    <Content Include="static\img\favicon\apple-icon-76x76.png" />
-    <Content Include="static\img\favicon\apple-icon-precomposed.png" />
-    <Content Include="static\img\favicon\apple-icon.png" />
-    <Content Include="static\img\favicon\browserconfig.xml" />
-    <Content Include="static\img\favicon\favicon-16x16.png" />
-    <Content Include="static\img\favicon\favicon-32x32.png" />
-    <Content Include="static\img\favicon\favicon-96x96.png" />
-    <Content Include="static\img\favicon\favicon.ico" />
-    <Content Include="static\img\favicon\ms-icon-144x144.png" />
-    <Content Include="static\img\favicon\ms-icon-150x150.png" />
-    <Content Include="static\img\favicon\ms-icon-310x310.png" />
-    <Content Include="static\img\favicon\ms-icon-70x70.png" />
-    <Content Include="static\img\migree-share.png" />
-    <Content Include="static\index.html" />
-    <Content Include="static\less\components\buttons.less" />
-    <Content Include="static\less\components\footer.less" />
-    <Content Include="static\less\components\header.less" />
-    <Content Include="static\less\components\icons.less" />
-    <Content Include="static\less\components\input.less" />
-    <Content Include="static\less\components\scaffolding.less" />
-    <Content Include="static\less\components\vars.less" />
-    <Content Include="static\less\main.less" />
-    <Content Include="static\less\views\profile.less" />
-    <Content Include="static\less\views\register.less" />
-    <Content Include="static\vendor\jcs-auto-validate.min.js" />
-    <Content Include="static\vendor\ng-img-crop.js" />
-    <Content Include="static\views\404.html" />
-    <Content Include="static\views\about.html" />
-    <Content Include="static\views\dashboard.html" />
-    <Content Include="static\views\forgot.html" />
-    <Content Include="static\views\inbox.html" />
-    <Content Include="static\views\login.html" />
-    <Content Include="static\views\messages.html" />
-    <Content Include="static\views\profile.html" />
-    <Content Include="static\views\register.html" />
-    <Content Include="static\views\start.html" />
-    <Content Include="static\views\thankyou.html" />
-    <Content Include="static\views\_shared\header.html" />
-    <Content Include="static\views\_shared\Master.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gruntfile.js" />
     <Content Include="server.js" />
-    <Content Include="static\app\app.js" />
-    <Content Include="static\app\controllers\dashboardController.js" />
-    <Content Include="static\app\controllers\forgotController.js" />
-    <Content Include="static\app\controllers\loginController.js" />
-    <Content Include="static\app\controllers\registerController.js" />
-    <Content Include="static\app\controllers\startController.js" />
-    <Content Include="static\app\directives\fileSelect.js" />
-    <Content Include="static\app\directives\fileUploadChange.js" />
-    <Content Include="static\app\services\authInterceptorService.js" />
-    <Content Include="static\app\services\authService.js" />
-    <Content Include="static\css\main.css" />
-    <Content Include="static\fonts\ElegantIcons.svg" />
-    <Content Include="static\vendor\angular-build.js" />
-    <Content Include="static\vendor\angular-local-storage.min.js" />
-    <Content Include="static\vendor\draggabilly.pkgd.min.js" />
-    <Content Include="static\vendor\elastiStack.js" />
-    <Content Include="static\vendor\modernizr.custom.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\less\views\inbox.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\less\views\messages.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\less\views\start.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\less\views\thankyou.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\img\favicon\manifest.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".jshintrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\fonts\ElegantIcons.eot" />
+    <Content Include="assets\fonts\ElegantIcons.ttf" />
+    <Content Include="assets\fonts\ElegantIcons.woff" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="assets\img\favicon\manifest.json" />
+    <Content Include="assets\less\components\buttons.less" />
+    <Content Include="assets\less\components\footer.less" />
+    <Content Include="assets\less\components\header.less" />
+    <Content Include="assets\less\components\icons.less" />
+    <Content Include="assets\less\components\input.less" />
+    <Content Include="assets\less\components\scaffolding.less" />
+    <Content Include="assets\less\components\vars.less" />
+    <Content Include="assets\less\main.less" />
+    <Content Include="assets\less\views\inbox.less" />
+    <Content Include="assets\less\views\messages.less" />
+    <Content Include="assets\less\views\profile.less" />
+    <Content Include="assets\less\views\register.less" />
+    <Content Include="assets\less\views\start.less" />
+    <Content Include="assets\less\views\thankyou.less" />
+    <Content Include="assets\vendor\angular.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\css\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\components\ng-image-crop.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\components\message-bubbles.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\views\matches.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\views\message.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\less\components\loader.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

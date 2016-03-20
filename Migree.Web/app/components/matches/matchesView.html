@@ -1,0 +1,33 @@
+<div ng-include="'headerView.html'"></div>
+<ul class="box profile elasticstack hidden" id="stack">
+    <li class="flip-container" ng-class="{first: $first}" data-user-id="{{match.userId}}" ng-repeat="match in matches">
+        <div class="card" ng-class="{'back': activeback}">
+            <div class="front">
+                <div class="info">
+                    <div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
+                    <p class="name" ng-bind="match.name"></p>
+                    <p class="from" ng-bind="match.userLocation"></p>
+                    <p ng-bind="match.description"></p>
+                </div>
+            </div>
+            <div class="back info">
+                <div class="info">
+                    <div class="avatar-container"><img class="avatar" src="{{match.profileImageUrl}}" /></div>
+                    <p class="name" ng-bind="match.name"></p>
+                    <p class="from" ng-bind="match.userLocation"></p>
+                    <ul class="competence-list">
+                        <li ng-repeat="competence in match.competences">{{competence.name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="cardbuttons hidden">
+            <button class="button frontbutton" ng-click="flip($event)"><i class="icon icon_plus"></i></button>
+            <button class="button red frontbutton" ng-click="gotoMessage()"><i class="icon icon_chat_alt"></i></button>
+        </div>
+    </li>
+</ul>
+
+<div class="emptystate hidden">
+    <p ng-bind="language.matches.emptyState"><p>
+</div>

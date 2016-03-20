@@ -1,5 +1,7 @@
-﻿using Migree.Api.Models.Responses;
+﻿using Migree.Api.Models;
 using Migree.Core.Definitions;
+using Migree.Core.Interfaces;
+using Migree.Core.Models.Language;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -10,14 +12,26 @@ namespace Migree.Api.Controllers
     [RoutePrefix("business")]
     public class BusinessController : MigreeApiController
     {
+        private ILanguageServant LanguageServant { get; }
+
+        public BusinessController(ILanguageServant languageServant)
+        {
+            LanguageServant = languageServant;
+        }
+
         [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetAll()
         {
-            var business = Enum.GetValues(typeof(BusinessGroup)).Cast<BusinessGroup>().OrderBy(p => p.ToDescription()).Select(p => new IntIdAndNameResponse
-            {
-                Id = (int)p,
-                Name = p.ToDescription()
-            });
+            var language = LanguageServant.Get<Definition>().Business;
+
+            var business = Enum.GetValues(typeof(BusinessGroup))
+                .Cast<BusinessGroup>()
+                .OrderBy(p => language[p.ToString()])
+                .Select(p => new IntIdAndName
+                {
+                    Id = (int)p,
+                    Name = language[p.ToString()]
+                });
 
             return CreateApiResponse(System.Net.HttpStatusCode.OK, business);
         }

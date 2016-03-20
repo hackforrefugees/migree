@@ -3,6 +3,7 @@ using Microsoft.Owin.Security.OAuth;
 using Migree.Api.Configuration;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
+using Migree.Core.Models.Language;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -11,14 +12,15 @@ namespace Migree.Api.Providers
 {
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private const string INVALID_GRANT = "invalid_grant";
-        private const string GENERAL_ERROR_MESSAGE = "General error message";
+        private const string INVALID_GRANT = "invalid_grant";        
 
         private IUserServant UserServant { get; }
+        private ILanguageServant LanguageServant { get; }
 
         public AuthorizationServerProvider()
         {
             UserServant = DependencyResolver.Current.GetService<IUserServant>();
+            LanguageServant = DependencyResolver.Current.GetService<ILanguageServant>();
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Migree.Api.Providers
             }
             catch
             {
-                context.SetError(INVALID_GRANT, GENERAL_ERROR_MESSAGE);
+                context.SetError(INVALID_GRANT, LanguageServant.Get<ErrorMessages>().InvalidGrant);
                 return Task.FromResult(0);
             }
         }        

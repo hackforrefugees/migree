@@ -9,8 +9,10 @@ namespace Migree.Core.Interfaces.Models
         string Email { get; }
         string FirstName { get; }
         string LastName { get; }
-        string Description { get; }        
+        string Description { get; }       
+        bool HasProfileImage { get; } 
+        bool IsPublic { get; }
         UserType UserType { get; }
-        UserLocation UserLocation { get; }
+        UserLocation UserLocation { get; }        
     }
 }

@@ -1,0 +1,19 @@
+<div ng-include="'headerView.html'"></div>
+<div class="messages">
+    <h2 data-bind="language.title"></h2>
+    <p class="emptystate hidden" data-bind="language.noMessages"></p>
+    <ul class="inbox" ng-repeat="message in messages">
+        <li>
+            <a href="#" ng-click="gotoMessage(message.id)">
+                <div class="avatar-container"><img src="{{message.profileImageUrl}}" /></div>
+                <div class="is-read"><i ng-class="{active: !message.isRead}" class="icon_mail"></i></div>
+                <div class="name" ng-bind="message.name"></div>
+                <div class="message-preview" ng-bind="message.content"></div>
+                <div class="time" ng-bind="message.lastUpdate"></div>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="emptystate hidden">
+    <p ng-bind="language.messages.noMessages"><p>
+</div>

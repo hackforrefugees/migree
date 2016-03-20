@@ -1,5 +1,4 @@
 ﻿using Migree.Core.Interfaces.Models;
-using System.Collections.Generic;
 
 namespace Migree.Core.Interfaces
 {
@@ -7,8 +6,7 @@ namespace Migree.Core.Interfaces
     {
         LanguageItem Get<LanguageItem>()
             where LanguageItem : class, ILanguage;
-        string Get(string languageString, params object[] args);
-        IDictionary<string, string> GetDictionary<LanguageItem>()
-            where LanguageItem : class, ILanguage;
+        string GetString(string languageString, params object[] args);
+        IClient GetDictionary();
     }
 }

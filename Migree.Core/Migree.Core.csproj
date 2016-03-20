@@ -111,7 +111,9 @@
     <Compile Include="Interfaces\IPasswordServant.cs" />
     <Compile Include="Interfaces\ISettingsServant.cs" />
     <Compile Include="Interfaces\IUserServant.cs" />
+    <Compile Include="Interfaces\Models\IClient.cs" />
     <Compile Include="Interfaces\Models\ICompetence.cs" />
+    <Compile Include="Interfaces\Models\IDefinition.cs" />
     <Compile Include="Interfaces\Models\ILanguage.cs" />
     <Compile Include="Interfaces\Models\IMessage.cs" />
     <Compile Include="Interfaces\Models\IMessageThread.cs" />
@@ -119,6 +121,8 @@
     <Compile Include="Models\Competence.cs" />
     <Compile Include="Models\IdAndName.cs" />
     <Compile Include="Models\Language\Client.cs" />
+    <Compile Include="Models\Language\Definition.cs" />
+    <Compile Include="Models\Language\ErrorMessages.cs" />
     <Compile Include="Models\Language\FinishedPasswordResetMail.cs" />
     <Compile Include="Models\Language\Language.cs" />
     <Compile Include="Models\Language\LanguageMail.cs" />
@@ -142,7 +146,6 @@
     <Compile Include="Servants\PasswordServant.cs" />
     <Compile Include="Servants\SettingsServant.cs" />
     <Compile Include="Servants\UserServant.cs" />
-    <Compile Include="Utilities\EnumExtensions.cs" />
     <Compile Include="Utilities\HttpStatusCodeExtension.cs" />
     <Compile Include="Utilities\LongExtensions.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />

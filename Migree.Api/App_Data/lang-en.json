@@ -3,19 +3,19 @@
     "subject": "You got a Migree-mail from {0}",
     "fromName": "{0} thru Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "{0}\n\nReply to this e-mail or send a mail directly to {1}, to get in touch with {2}"
+    "message": "{0}\n\nAnswer to this message by visiting http://migree.se/message/{1} . Be cautious, always meet in a public place."
   },
   "registrationMail": {
     "subject": "Welcome to Migree",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "Thank you for your registration, {0}!\n\nWe appreciate your initiation and motivation for helping the fellow developers. As a registered member of Migree, we will try our best to match you up with the people who are in need of your help. The match system will ensure that you both share similar expertise and professional background. We encourage you as local developers to initiate chat with the new coming developers, your advices and contacts would be of a great help for the new comers.\n\n(Note*: For now, our developers are working hard to make the match system functions as it should be. Have a few cups of coffee and be patient, it will be online soon. )\n\nSincerely,\nMigree Team"
+    "message": "Thank you for your registration, {0}!\n\nWe appreciate your initiation and motivation for helping the fellow developers. As a registered member of Migree, we will try our best to match you up with the people who are in need of your help. The match system will ensure that you both share similar expertise and professional background. We encourage you as local developers to initiate chat with the new coming developers, your advices and contacts would be of a great help for the new comers.\n\nSincerely,\nMigree Team"
   },
   "initPasswordResetMail": {
-    "subject": "A password reset is requested",
+    "subject": "A password reset has been requested",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "A password reset has been requested. If you wan´t to reset password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you havn´t requested a reset, please ignore this message"
+    "message": "A password reset has been requested. If you want to reset your password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you havn´t requested a reset, please ignore this message"
   },
   "finishedPasswordResetMail": {
     "subject": "Your password has been changed",
@@ -24,8 +24,118 @@
     "message": "Your password has been changed for your Migree login"
   },
   "client": {
-    "login": "Login",
-    "password": "Password"
+    "home": {
+      "title": "Come join us!",
+      "description": "Migree is a unique tool for connecting immigrants with swedes based on their professional skills.",
+      "loginTitle": "Register now and help us make this great",
+      "loginButton": "Login",
+      "registerButton": "Register",
+      "facebookShareUrl": "https://www.facebook.com/dialog/share?app_id=1658503381099537&amp;display=popup&amp;href=http%3A%2F%2Fmigree.se&amp;redirect_uri=http%3A%2F%2Fmigree.se",
+      "twitterShareUrl": "https://twitter.com/intent/tweet?url=http://migree.se&text=I+just+registered+as+a+developer+at+migree.se.+I think+you+should+too.&hashtags=migree",
+      "linkedInShareUrl": "https://www.linkedin.com/shareArticle?mini=true&url=migree.se&title=I%20just%20registered%20as%20a%20developer%20at%20migree.se&summary=I%20think%20you%20should%20too&source="
+    },
+    "login": {
+      "signInButton": "Sign in",
+      "resetPasswordLink": "Forgot password?",
+      "emailPlaceholder": "e-mail",
+      "passwordPlaceholder": "password"
+    },
+    "resetPassword": {
+      "title": "Forgot password?",
+      "description": "Reset your password by entering the e-mail you used to register below",
+      "sendButton": "Send",
+      "emailPlaceholder": "e-mail"
+    },
+    "finishPasswordReset": {
+      "title": "Finish password reset",
+      "description": "Reset your password to be able to log in again",
+      "sendButton": "Reset password",
+      "passwordPlaceholder": "password"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "You have tried to reach a page which is not existing. Please click on back arrow and you will find your way back!"
+    },
+    "thankYou": {
+      "title": "Thank you for the registration",
+      "description": "You will now be able to log into Migree. Please go to login page",
+      "facebookShareUrl": "https://www.facebook.com/dialog/share?app_id=1658503381099537&amp;display=popup&amp;href=http%3A%2F%2Fmigree.se&amp;redirect_uri=http%3A%2F%2Fmigree.se",
+      "twitterShareUrl": "https://twitter.com/intent/tweet?url=http://migree.se&text=I+just+registered+as+a+developer+at+migree.se.+I think+you+should+too.&hashtags=migree",
+      "linkedInShareUrl": "https://www.linkedin.com/shareArticle?mini=true&url=migree.se&title=I%20just%20registered%20as%20a%20developer%20at%20migree.se&summary=I%20think%20you%20should%20too&source="
+    },
+    "message": {
+      "sendButtonReply": "Reply",
+      "sendButton": "Send message",
+      "startThread": "Start conversation",
+      "now": "a moment ago"
+    },
+    "messages": {
+      "title": "Discussions",
+      "noMessages": "Go to matches to find person to start discussion with"
+    },
+    "register": {
+      "cropButton": "Yes! this is beautiful!",
+      "step1Title": "USER INFO",
+      "step1Description": "To get started we need to know a few things about you. First, select if you need help or if you want to help.",
+      "radioButtonWantToHelp": "Want to help",
+      "radioButtonNeedHelp": "Need help",
+      "firstNamePlaceholder": "First name",
+      "lastNamePlaceholder": "Last name",
+      "emailPlaceholder": "E-mail",
+      "passwordPlaceholder": "Password",
+      "step1Continue": "Continue",
+      "terms": "By registering, you accept receiving occasional emails and notifications from Migree. No spam, we promise.",
+      "step2Title": "WORK INFO",
+      "step2Description": "Please provide some information about your skills. This helps making the matching process more accurate.",
+      "competencesPlaceholder": "Select up to 3 skills",
+      "titlePersonalInfo": "Add some more information about yourself.",
+      "aboutTextPlaceholder": "Write something...",
+      "registerButton": "Register",
+      "defaultTextLocation": "I live in / near...",
+      "defaultTextWork": "I am a...",
+      "defaultTextCompetence1": "1. Select a skill",
+      "defaultTextCompetence2": "2. Select a skill",
+      "defaultTextCompetence3": "3. Select a skill"
+    },
+    "settings": {
+      "cropButton": "Yes! this is beautiful!",
+      "title": "Settings",
+      "description": "Have you missed to add your right skills? No worry, just update the things you need below",
+      "radioButtonWantToHelp": "Want to help",
+      "radioButtonNeedHelp": "Need help",
+      "firstNamePlaceholder": "First name",
+      "lastNamePlaceholder": "Last name",
+      "emailPlaceholder": "E-mail",
+      "passwordPlaceholder": "Password",
+      "competencesPlaceholder": "Select up to 3 skills",
+      "titlePersonalInfo": "Add some more information about yourself.",
+      "aboutTextPlaceholder": "Write something...",
+      "isPublicLabel": "I want people to find me",
+      "updateButton": "Update",
+      "defaultTextLocation": "I live in / near...",
+      "defaultTextWork": "I am a...",
+      "defaultTextCompetence1": "1. Select a skill",
+      "defaultTextCompetence2": "2. Select a skill",
+      "defaultTextCompetence3": "3. Select a skill"
+    },
+    "matches": {
+      "emptyState": "Oh no! We couldn't find any matches for you. Try again later."
+    }
+  },
+  "definition": {
+    "business": {
+      "Developers": "Developer"
+    },
+    "userLocation": {
+      "Unspecified": "Other",
+      "StockholmArea": "Stockholm",
+      "GothenburgArea": "Gothenburg",
+      "MalmoArea": "Malmö"
+    },
+    "userType": {
+      "NeedsHelp": "Need help",
+      "Helper": "Want to help"
+    }
   },
   "relativeDateTimeStrings": {
     "days": "{0} days ago",
@@ -34,5 +144,17 @@
     "hour": "1 hour ago",
     "minutes": "{0} minutes ago",
     "now": "a moment ago"
+  },
+  "errorMessages": {
+    "invalidGrant": "Something went wrong, please try again",
+    "messageThreadNotFound": "Thread doesn´t exist",
+    "userInvalidCredentials": "Invalid credentials",
+    "userInvalidRequest": "Invalid request",
+    "userPasswordEmpty": "Password can´t be empty",
+    "userPasswordOld": "Reset link was to old, please redo",
+    "userAlreadyExist": "User already exists",
+    "messageRequiredFieldsMissing": "Requried fields missing",
+    "currentUserNotFound": "User not found",
+    "resetPasswordRequiredFieldsMissing": "Required fields missing"
   }
 }

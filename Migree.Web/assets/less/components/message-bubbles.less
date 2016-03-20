@@ -1,0 +1,91 @@
+.message {
+  position: relative;
+  padding: 15px 15px 0px;
+  margin: 1em 0 1em;
+  border: 5px solid @message-box-background-color;
+  background: @message-box-background-color;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+    p {
+    color: @gray;
+    text-align: left;
+
+        &.right {
+      text-align: right;
+      font-size: @message-box-timestamp-font-size;
+    }
+  }
+
+
+  &.mine {
+    background: @message-box-background-color-mine;
+  }
+
+  &.left{
+    &:before{
+      top: 10px;
+      bottom: auto;
+      left: -20px;
+      border-width: 15px 15px 15px 0;
+      border-color: transparent @message-box-background-color;
+    }
+  }
+
+    &.left {
+    &:after {
+      top: 16px;
+      bottom: auto;
+      left: -21px;
+      border-width: 9px 21px 9px 0;
+      border-color: transparent @message-box-background-color;
+    }
+  }
+
+  &.right{
+    &:after{
+      top: auto;
+      bottom: 16px;
+      left: auto;
+      right: -21px;
+      border-width: 9px 0 9px 21px;
+      border-color: transparent @message-box-background-color;
+    }
+  }
+
+  &.right{
+    &:before{
+      top: auto;
+      bottom: 10px;
+      left: auto;
+      right: -20px;
+      border-width: 15px 0 15px 15px;
+      border-color: transparent @message-box-background-color;
+    }
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 40px;
+    border-width: 20px 20px 0;
+    border-style: solid;
+    border-color: @message-box-background-color transparent;
+    display: block;
+    width: 0;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -13px;
+    left: 47px;
+    border-width: 13px 13px 0;
+    border-style: solid;
+    border-color: @message-box-background-color transparent;
+    display: block;
+    width: 0;
+  }
+}
