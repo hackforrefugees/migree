@@ -28,7 +28,7 @@ namespace Migree.Core.Repositories
             var receiverUser = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(receiverUserId))).FirstOrDefault();
 
             var subject = LanguageServant.GetString(language.Subject, creatorUser.FullName);
-            message = LanguageServant.GetString(language.Message, message, creatorUser.Email, creatorUser.FullName);
+            message = LanguageServant.GetString(language.Message, message, creatorUser.Id);
 
             await SendMailAsync(
                 subject,
