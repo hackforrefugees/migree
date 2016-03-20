@@ -1,5 +1,4 @@
-﻿using Migree.Api.Models.Responses;
-using Migree.Core.Definitions;
+﻿using Migree.Core.Definitions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
