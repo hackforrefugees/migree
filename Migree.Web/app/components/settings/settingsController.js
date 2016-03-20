@@ -43,8 +43,10 @@
     };
 
     $scope.update = function () {
-      settingsService.user.update($scope.settings);
-      settingsService.imageUpload(profileFile);
+      settingsService.user.update($scope.settings).$promise.then(function (response) {
+        settingsService.imageUpload(profileFile);  
+      });
+
     };
 
     function getFilteredArray(inputArray, filter) {

@@ -1,9 +1,11 @@
 ﻿migree.factory('settingsService', ['apiService', function (apiService) {
 
   var imageUpload = function (file) {
-    var formData = new FormData();
-    formData.append('Content', file);
-    apiService.imageUpload(formData);
+    if(file) {
+      var formData = new FormData();
+      formData.append('Content', file);
+      apiService.imageUpload(formData);  
+    }
   };
 
   return {
