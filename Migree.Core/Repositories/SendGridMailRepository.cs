@@ -75,9 +75,7 @@ namespace Migree.Core.Repositories
         }
 
         private async Task SendMailAsync(string subject, string message, string mailTo, string mailFrom, string fromName)
-        {
-            return;
-
+        {            
             var mailMessage = new SendGridMessage();
             mailMessage.AddTo(mailTo);
             mailMessage.From = new MailAddress(mailFrom, fromName);
