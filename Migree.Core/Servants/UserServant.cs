@@ -31,7 +31,9 @@ namespace Migree.Core.Servants
 
         public IUser FindUser(string email, string password)
         {
-            email = email.ToLower();
+            email = email.ToLower().Trim();
+            password = password.Trim();
+
             var user = DataRepository.GetAll<User>().FirstOrDefault(p => p.Email.Equals(email));
 
             if (user == null || !PasswordServant.ValidatePassword(password, user.Password))
