@@ -12,8 +12,7 @@ namespace Migree.Core.Models
             HasThirdCompetence = false;
             IsOnSameLocation = false;
         }
-
-        public Guid UserId { get; set; }
+        
         public IUser User { get; set; }
         public bool HasPrimaryCompetence { get; set; }
         public bool HasSecondaryCompetence { get; set; }
@@ -27,7 +26,7 @@ namespace Migree.Core.Models
             
             if (userPoints != otherUserPoints)
             {
-                return userPoints.CompareTo(otherUserPoints);
+                return otherUserPoints.CompareTo(userPoints);
             }
 
             if (IsOnSameLocation && !other.IsOnSameLocation)
@@ -46,7 +45,7 @@ namespace Migree.Core.Models
         {
             var point =
                 (user.HasPrimaryCompetence ? 5 : 0) +
-                (user.HasSecondaryCompetence ? 3 : 0) +
+                (user.HasSecondaryCompetence ? 4 : 0) +
                 (user.HasThirdCompetence ? 2 : 0);
 
             return point;
