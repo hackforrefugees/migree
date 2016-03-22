@@ -56,7 +56,6 @@ namespace Migree.Core.Servants
 
                         matchedUsers.Add(userWithCompetence.UserId, new MatchedUser
                         {
-                            UserId = userWithCompetence.UserId,
                             User = user,
                             IsOnSameLocation = user.UserLocation.Equals(userToMatch.UserLocation)
                         });
@@ -79,7 +78,17 @@ namespace Migree.Core.Servants
                 competenceCount++;
             }
 
+            var userWithMismatchInCompetences = users.Where(x => 
+                !x.UserType.Equals(userToMatch.UserType) && 
+                !matchedUsers.ContainsKey(x.Id))
+                .Select(x => new MatchedUser
+                {
+                    User = x,
+                    IsOnSameLocation = x.UserLocation.Equals(userToMatch.UserLocation)
+                });
+
             var matchedUsersList = matchedUsers.Select(p => p.Value).ToList();
+            matchedUsersList.AddRange(userWithMismatchInCompetences);
             matchedUsersList.Sort();
             return matchedUsersList.Select(p => p.User).Take(take).ToList();
         }
