@@ -35,10 +35,10 @@ migree.run(['authenticationService', '$rootScope', 'bootstrap3ElementModifier', 
       var requireLogin = toState.data.requireLogin;
 
       if (!$rootScope.redirectToUrlAfterLoginUrl) {
-        if ($location.path() === '/') {
-          $rootScope.redirectToUrlAfterLoginUrl = '/matches';
+        if ($location.path().indexOf('message') > -1) {
+          $rootScope.redirectToUrlAfterLoginUrl = $location.path();          
         } else {
-          $rootScope.redirectToUrlAfterLoginUrl = $location.path();
+          $rootScope.redirectToUrlAfterLoginUrl = '/matches';
         }
       }
 
