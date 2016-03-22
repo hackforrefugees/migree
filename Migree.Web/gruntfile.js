@@ -66,7 +66,7 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= migree.assets %>/css/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'postcss']
+        tasks: ['postcss', 'newer:copy:styles']
       },
 
       gruntfile: {
@@ -232,18 +232,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '.tmp/css/',
+          cwd: '<%= migree.assets %>/css/',
           src: '*.css',
-          dest: '.tmp/css/'
-        }]
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          //dest: '.tmp/styles/'
-          dest: '<%= migree.dest %>/assets/css'
+          dest: '<%= migree.assets %>/css/'
         }]
       }
     },
@@ -519,7 +510,7 @@ module.exports = function (grunt) {
       'less',
       'wiredep',
       'concurrent:server',
-      'postcss:server',
+      'postcss',
       'connect:livereload',
       'watch'
     ]);
@@ -530,13 +521,13 @@ module.exports = function (grunt) {
     'less',
     'wiredep',
     'useminPrepare',
-    'copy:styles',
+    'copy:styles',    
     'imagemin',
-    'svgmin',
-    'postcss',
+    'svgmin',    
     'ngtemplates',
     'concat',
     'ngAnnotate',
+    'postcss',
     'copy:dist',
     'cssmin',
     'uglify',
@@ -544,6 +535,21 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin'
   ]);
+
+grunt.registerTask('test', [
+    'clean:dist',
+    'less',
+    'wiredep',
+    'useminPrepare',
+    'copy:styles',    
+    'imagemin',
+    'svgmin',    
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'postcss'        
+  ]);
+
 
   grunt.registerTask('default', [
     'newer:jshint',
