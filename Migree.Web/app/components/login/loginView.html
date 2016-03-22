@@ -1,5 +1,5 @@
 <form ng-submit="login()" class="form-group">
-    <input type="text" data-ng-model="userName" placeholder="{{language.login.emailPlaceholder}}" required autofocus /><br />
+    <input type="email" data-ng-model="userName" placeholder="{{language.login.emailPlaceholder}}" required autofocus /><br />
     <input type="password" data-ng-model="password" required placeholder="{{language.login.passwordPlaceholder}}" /><br />
     <p>{{message}}</p>
     <input type="submit" class="button red" ng-value="language.login.signInButton" /><br /><br />
