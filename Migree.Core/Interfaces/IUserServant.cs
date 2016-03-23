@@ -16,5 +16,6 @@ namespace Migree.Core.Interfaces
         string GetProfileImageUrl(Guid userId, bool hasProfileImage);
         Task InitPasswordResetAsync(string email);
         Task ResetPasswordAsync(Guid userId, string resetVerificationKey, string newPassword);
+        IUser GetAdminUser();
     }
 }
