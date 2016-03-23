@@ -44,7 +44,8 @@
 
     $scope.update = function () {
       settingsService.user.update($scope.settings).$promise.then(function (response) {
-        settingsService.imageUpload(profileFile);  
+        settingsService.imageUpload(profileFile); 
+        window.location.reload();   
       });
 
     };
