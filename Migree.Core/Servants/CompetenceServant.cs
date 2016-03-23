@@ -49,7 +49,7 @@ namespace Migree.Core.Servants
                         var user = users.FirstOrDefault(p => p.Id.Equals(userWithCompetence.UserId));
 
                         //ignore user self and all users within the same usertype
-                        if (user == null || user.UserType.Equals(userToMatch.UserType) || !user.IsPublic)
+                        if (user == null || user.UserType.Equals(userToMatch.UserType))
                         {
                             continue;
                         }
@@ -90,7 +90,7 @@ namespace Migree.Core.Servants
             var matchedUsersList = matchedUsers.Select(p => p.Value).ToList();
             matchedUsersList.AddRange(userWithMismatchInCompetences);
             matchedUsersList.Sort();
-            return matchedUsersList.Select(p => p.User).Take(take).ToList();
+            return matchedUsersList.Select(p => p.User).Where(p => p.IsPublic).Take(take).ToList();
         }
 
         public void AddCompetencesToUser(Guid userId, ICollection<Guid> competenceIds)
