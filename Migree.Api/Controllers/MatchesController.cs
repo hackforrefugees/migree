@@ -31,6 +31,13 @@ namespace Migree.Api.Controllers
             var userMatches = CompetenceServant.GetUserCompetences(CurrentUserId).Select(p => p.Id).ToList();
             var matchedUsers = CompetenceServant.GetMatches(CurrentUserId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
 
+            var adminUser = UserServant.GetAdminUser();
+
+            if (adminUser != null)
+            {
+                matchedUsers.Add(adminUser);
+            }
+
             var users = matchedUsers.Select(user => new UserResponse
             {
                 UserId = user.Id,

@@ -182,6 +182,12 @@ namespace Migree.Core.Servants
             await MailServant.SendFinishedPasswordResetAsync(user.Email);
         }        
 
+        public IUser GetAdminUser()
+        {
+            var user = DataRepository.GetAll<User>(p => p.Email == "hello@migree.se").FirstOrDefault();
+            return user;
+        }
+
         private void ThrowError(Error error)
         {
             var language = LanguageServant.Get<ErrorMessages>();
