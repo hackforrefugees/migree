@@ -5,6 +5,10 @@
   "undef": true,
   "-W099": true,
   "globals": {
+    "btoa": true,
+    "atob": true,
+    "Uint8Array": true,
+    "Blob": true,  
     "browserify": false,
     "browser": false,
     "document": false,
