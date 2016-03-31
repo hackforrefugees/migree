@@ -45,7 +45,7 @@
 
 </head>
 <body>
-    <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    <a ui-sref="messages"><svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
          width="170px" height="64px" viewBox="0 0 160 64" fill="#FF0035">
 
         <g>
@@ -76,7 +76,7 @@
 				c-0.646-0.526-1.349-0.585-1.758,0l-2.288,3.049c-0.469,0.527-0.527,1.173,0.117,1.76c2.346,1.994,5.688,3.694,10.086,3.694
 				c8.093,0,13.721-6.451,13.721-14.19c0-7.623-5.628-14.131-13.662-14.131C139.03,1.464,133.636,6.683,133.636,14.012"></path>
         </g>
-    </svg>
+    </svg></a>
 
     <div class="application-container">
         <div ui-view></div>
@@ -144,7 +144,7 @@
         <header class="header">
             <button class="toggle-menu" ng-click="active = true" ng-class="{show: !active}"><i class="icon icon_menu"></i></button>
             <div class="menu" ng-class="{active: active}">
-                <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="170px" height="64px" viewBox="0 0 160 64" fill="#FFF">
+                <a ui-sref="matches"><svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="170px" height="64px" viewBox="0 0 160 64" fill="#FFF">
                     <g>
                         <path d="M46.278,2.05c-0.646,0-1.29,0.527-1.29,1.29v24.51c0,0.704,0.645,1.29,1.29,1.29h4.749
 				c0.646,0,1.291-0.586,1.291-1.29V3.34c0-0.763-0.645-1.29-1.291-1.29H46.278z M63.398,15.653c0-3.811,2.17-7.505,6.392-7.505
@@ -172,7 +172,7 @@
 				c-0.646-0.526-1.349-0.585-1.758,0l-2.288,3.049c-0.469,0.527-0.527,1.173,0.117,1.76c2.346,1.994,5.688,3.694,10.086,3.694
 				c8.093,0,13.721-6.451,13.721-14.19c0-7.623-5.628-14.131-13.662-14.131C139.03,1.464,133.636,6.683,133.636,14.012"></path>
                     </g>
-                </svg>
+                </svg></a>
                 <button class="close-menu" ng-click="active = false"><i class="icon icon_close"></i></button>
                 <ul>
                     <li><a ui-sref="messages">Messages</a></li>
