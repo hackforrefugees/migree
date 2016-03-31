@@ -1,6 +1,5 @@
 ﻿migree.controller('settingsController', ['$scope', 'settingsService', '$q', 'fileReader',
   function ($scope, settingsService, $q, fileReader) {
-
     settingsService.user.query().$promise.then(function (data) {
       $scope.settings = data;
       var promises = [
@@ -19,7 +18,6 @@
         })[0];
         $scope.settings.competences.selected = getFilteredArray($scope.competences, $scope.settings.competences);
       });
-
     });
 
     $scope.croppedImg = null;
@@ -33,8 +31,6 @@
     };
 
     $scope.getFile = function () {
-      $scope.progress = 0;
-
       fileReader.readAsDataUrl($scope.file, $scope).then(function (result) {
         profileFile = $scope.file;
         $scope.srcImg = result;
@@ -43,10 +39,32 @@
     };
 
     $scope.update = function () {
-      settingsService.user.update($scope.settings).$promise.then(function (response) {
-        settingsService.imageUpload(profileFile); 
-        window.location.reload();   
-      });
+
+      var dataURLtoBlob = function(dataurl) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        return new Blob([u8arr], {type:mime});
+      };
+
+      var data = $scope.croppedImg;
+
+        settingsService.user.update($scope.settings).$promise.then(function (response) {
+          (function(data, scope) {
+            var cropped = dataURLtoBlob(data);
+            settingsService.imageUpload(cropped).then(
+              function(success) {
+                window.location.reload();
+              }, function(fail) {
+                window.alert('oh no!');
+              });
+          }(data, $scope));
+        });
 
     };
 
