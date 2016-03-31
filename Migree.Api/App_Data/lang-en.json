@@ -9,13 +9,13 @@
     "subject": "Welcome to Migree",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "Thank you for your registration, {0}!\n\nWe appreciate your initiation and motivation for helping the fellow developers. As a registered member of Migree, we will try our best to match you up with the people who are in need of your help. The match system will ensure that you both share similar expertise and professional background. We encourage you as local developers to initiate chat with the new coming developers, your advices and contacts would be of a great help for the new comers.\n\nSincerely,\nMigree Team"
+    "message": "Thank you for your registration, {0}!\n\nWe really hope you will enjoy the Migree app. As a registered member of Migree you will now be able to use the matching system to find new friends in the same area of expertise as you. The match system will ensure that you both share similar expertise and professional background. Now head on back to http://migree.se, login and start making new friends.\n\nIf you have any questions, feel free to contact us at http://bit.ly/1M2MpU0\n\nSincerely,\nMigree Team"
   },
   "initPasswordResetMail": {
     "subject": "A password reset has been requested",
     "fromName": "Migree",
     "fromMail": "no-reply@migree.se",
-    "message": "A password reset has been requested. If you want to reset your password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you havn´t requested a reset, please ignore this message"
+    "message": "A password reset has been requested. If you want to reset your password, please use http://migree.se/user/{0}/reset/{1} \n\nIf you haven´t requested a reset, please ignore this message"
   },
   "finishedPasswordResetMail": {
     "subject": "Your password has been changed",
@@ -27,7 +27,7 @@
     "home": {
       "title": "Come join us!",
       "description": "Migree is an unique tool for connecting immigrants with swedes based on their professional skills.",
-      "loginTitle": "Register now and help us make this great",
+      "loginTitle": "Register now to start making new friends.",
       "loginButton": "Login",
       "registerButton": "Register",
       "facebookShareUrl": "https://www.facebook.com/dialog/share?app_id=1658503381099537&amp;display=popup&amp;href=http%3A%2F%2Fmigree.se&amp;redirect_uri=http%3A%2F%2Fmigree.se",
@@ -42,7 +42,7 @@
     },
     "resetPassword": {
       "title": "Forgot password?",
-      "description": "Reset your password by entering the e-mail you used to register below",
+      "description": "Reset your password by entering the e-mail you used when registering below",
       "sendButton": "Send",
       "emailPlaceholder": "e-mail"
     },
@@ -54,11 +54,11 @@
     },
     "notFound": {
       "title": "Page not found",
-      "description": "You have tried to reach a page which is not existing. Please click on back arrow and you will find your way back!"
+      "description": "We can´t seem to find the page you are looking for. Please go back and try again."
     },
     "thankYou": {
-      "title": "Thank you for the registration",
-      "description": "You will now be able to log into Migree. Please go to login page",
+      "title": "Thank you for your registration",
+      "description": "Yor are now logged in and can start making new friends. Go to the matches page and start talking.",
       "facebookShareUrl": "https://www.facebook.com/dialog/share?app_id=1658503381099537&amp;display=popup&amp;href=http%3A%2F%2Fmigree.se&amp;redirect_uri=http%3A%2F%2Fmigree.se",
       "twitterShareUrl": "https://twitter.com/intent/tweet?url=http://migree.se&text=I+just+registered+as+a+developer+at+migree.se.+I think+you+should+too.&hashtags=migree",
       "linkedInShareUrl": "https://www.linkedin.com/shareArticle?mini=true&url=migree.se&title=I%20just%20registered%20as%20a%20developer%20at%20migree.se&summary=I%20think%20you%20should%20too&source="
