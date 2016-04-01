@@ -39,7 +39,7 @@ namespace Migree.Api.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(competence))
                 {
-                    CompetenceServant.AddCompetence(competence);
+                    CompetenceServant.AddCompetence(request.BusinessGroup, competence);
                 }
             }
 

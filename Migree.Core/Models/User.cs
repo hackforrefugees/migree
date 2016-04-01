@@ -66,14 +66,24 @@ namespace Migree.Core.Models
         public string Description { get; set; }
         public bool HasProfileImage { get; set; }
         public bool IsPublic { get; set; }
+        public long PasswordResetVerificationKey { get; set; }
+
+        public int UserLocationValue { get; set; }
+        public int BusinessGroupValue { get; set; }        
+        
+        [IgnoreProperty]
         public UserType UserType
         {
             get { return (UserType)(Convert.ToInt32(PartitionKey)); }
             private set { PartitionKey = ((int)value).ToString(); }
         }
 
-        public int UserLocationValue { get; set; }
-        public long PasswordResetVerificationKey { get; set; }
+        [IgnoreProperty]
+        public BusinessGroup BusinessGroup
+        {
+            get { return (BusinessGroup)BusinessGroupValue; }
+            set { BusinessGroupValue = (int)value; }
+        }
 
         [IgnoreProperty]
         public UserLocation UserLocation

@@ -50,7 +50,7 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public async Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType)
+        public async Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType, BusinessGroup businessGroup)
         {
             email = email.ToLower();
 
@@ -67,6 +67,7 @@ namespace Migree.Core.Servants
             user.UserLocation = UserLocation.Unspecified;
             user.Description = string.Empty;
             user.HasProfileImage = false;
+            user.BusinessGroup = businessGroup;
             DataRepository.AddOrUpdate(user);
 
             await MailServant.SendRegisterMailAsync(email, user.FullName);
@@ -74,7 +75,7 @@ namespace Migree.Core.Servants
             return user;
         }
 
-        public void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description, bool? isPublic)
+        public void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description, bool? isPublic, BusinessGroup? businessGroup)
         {
             var user = DataRepository.GetAll<User>(p => p.RowKey.Equals(User.GetRowKey(userId))).FirstOrDefault();
 
@@ -108,6 +109,11 @@ namespace Migree.Core.Servants
             if (isPublic.HasValue)
             {
                 user.IsPublic = isPublic.Value;
+            }
+
+            if (businessGroup.HasValue)
+            {
+                user.BusinessGroup = businessGroup.Value;
             }
             
             DataRepository.AddOrUpdate(user);
