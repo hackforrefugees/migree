@@ -1,5 +1,6 @@
 ﻿using Migree.Api.Models;
 using Migree.Api.Models.Requests;
+using Migree.Api.Models.Responses;
 using Migree.Core.Interfaces;
 using System.Linq;
 using System.Net;
@@ -12,17 +13,33 @@ namespace Migree.Api.Controllers
     public class CompetenceController : MigreeApiController
     {
         private ICompetenceServant CompetenceServant { get; }
+        private IBusinessServant BusinessServant { get; }
 
-        public CompetenceController(ICompetenceServant competenceServant)
+        public CompetenceController(ICompetenceServant competenceServant, IBusinessServant businessServant)
         {
             CompetenceServant = competenceServant;
+            BusinessServant = businessServant;
         }
 
         [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetCompetences()
         {
-            var competences = CompetenceServant.GetCompetences();
-            var response = competences.Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList();
+            var businesses = BusinessServant.GetAll();
+
+            var response = new GroupedCompetencesResponse();
+            
+
+            foreach (var business in businesses)
+            {
+                var competences = CompetenceServant.GetCompetences(business.Type);
+                response.Add(new BusinessCompetenceResponse
+                {
+                    Business = new IntIdAndName {  Id = business.Id, Name = business.Name},
+                    Competences = competences.Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList()
+                });                
+            }
+
+            
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
 

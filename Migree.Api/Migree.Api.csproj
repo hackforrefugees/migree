@@ -198,6 +198,7 @@
     <Compile Include="Models\Responses\ErrorResponse.cs" />
     <Compile Include="Models\GuidIdAndName.cs" />
     <Compile Include="Models\IntIdAndName.cs" />
+    <Compile Include="Models\Responses\GroupedCompetencesResponse.cs" />
     <Compile Include="Models\Responses\MessageResponse.cs" />
     <Compile Include="Models\Responses\MessageThreadResponse.cs" />
     <Compile Include="Models\StringIdAndName.cs" />

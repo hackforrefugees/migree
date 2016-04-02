@@ -11,16 +11,19 @@ namespace Migree.Core.Servants
     public class CompetenceServant : ICompetenceServant
     {
         private IDataRepository DataRepository { get; }
-        public CompetenceServant(IDataRepository dataRepository)
+        private IBusinessServant BusinessServant { get; }
+        public CompetenceServant(IDataRepository dataRepository, IBusinessServant businessServant)
         {
             DataRepository = dataRepository;
+            BusinessServant = businessServant;
         }
-        public ICollection<ICompetence> GetCompetences(BusinessGroup businessGroup)
+        
+        public ICollection<ICompetence> GetCompetences(Definitions.BusinessGroup businessGroup)
         {
             var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(businessGroup)));
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
-        public Guid AddCompetence(BusinessGroup businessGroup, string name)
+        public Guid AddCompetence(Definitions.BusinessGroup businessGroup, string name)
         {
             var competence = new Competence(businessGroup)
             {

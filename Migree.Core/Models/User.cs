@@ -81,7 +81,7 @@ namespace Migree.Core.Models
         [IgnoreProperty]
         public BusinessGroup BusinessGroup
         {
-            get { return (BusinessGroup)BusinessGroupValue; }
+            get { return (Definitions.BusinessGroup)BusinessGroupValue; }
             set { BusinessGroupValue = (int)value; }
         }
 
