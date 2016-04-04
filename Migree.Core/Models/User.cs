@@ -39,6 +39,7 @@ namespace Migree.Core.Models
         public User()
         {
             IsPublic = true;
+            BusinessGroup = BusinessGroup.Developers;
         }
 
         /// <summary>
