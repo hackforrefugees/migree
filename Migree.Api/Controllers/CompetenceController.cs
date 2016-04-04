@@ -27,19 +27,19 @@ namespace Migree.Api.Controllers
             var businesses = BusinessServant.GetAll();
 
             var response = new GroupedCompetencesResponse();
-            
+
 
             foreach (var business in businesses)
             {
                 var competences = CompetenceServant.GetCompetences(business.Type);
                 response.Add(new BusinessCompetenceResponse
                 {
-                    Business = new IntIdAndName {  Id = business.Id, Name = business.Name},
+                    Business = new IntIdAndName { Id = business.Id, Name = business.Name },
                     Competences = competences.Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList()
-                });                
+                });
             }
 
-            
+
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
 
