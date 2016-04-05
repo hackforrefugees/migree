@@ -2,27 +2,17 @@
   function ($scope, settingsService, $q, fileReader) {
     settingsService.user.query().$promise.then(function (data) {
       $scope.settings = data;
+      $scope.allBusinesses = [];
       var promises = [
-            settingsService.competencePromise,            
+            settingsService.competencePromise,
             settingsService.locationPromise
       ];
 
       $q.all(promises).spread(function (competences, locations) {
-        $scope.businesses = [];
-        $scope.competences = [];
-
-        $.each(competences, function (key, businessGroup) {
-          $scope.businesses.push(businessGroup.business);
-
-          $.each(businessGroup.competences, function (innerKey, competence) {
-            $scope.competences.push(competence);
-          });
-        });
-
-        $scope.businesses.selected = $scope.businesses.filter(function (business) {
-          return business.id === $scope.settings.business;
-        })[0];
-
+        
+        $scope.allBusinesses = competences;
+        setCompetencesAndBusiness();
+        
         $scope.locations = locations;
         $scope.locations.selected = $scope.locations.filter(function (location) {
           return location.id === $scope.settings.userLocation;
@@ -42,6 +32,13 @@
       $scope.avatarCropped = true;
     };
 
+    $scope.onBusinessSelectedChange = function (selectedItem) {
+      $scope.businesses.selected = selectedItem;
+      $scope.settings.business = selectedItem.id;
+      setCompetencesAndBusiness();
+      $scope.settings.competences = [];
+    };
+
     $scope.getFile = function () {
       fileReader.readAsDataUrl($scope.file, $scope).then(function (result) {
         profileFile = $scope.file;
@@ -52,33 +49,54 @@
 
     $scope.update = function () {
 
-      var dataURLtoBlob = function(dataurl) {
+      var dataURLtoBlob = function (dataurl) {
         var arr = dataurl.split(','),
             mime = arr[0].match(/:(.*?);/)[1],
             bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
 
-        while(n--){
-            u8arr[n] = bstr.charCodeAt(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
         }
 
-        return new Blob([u8arr], {type:mime});
+        return new Blob([u8arr], { type: mime });
       };
 
       var data = $scope.croppedImg;
 
-        settingsService.user.update($scope.settings).$promise.then(function (response) {
-          (function(data, scope) {
-            var cropped = dataURLtoBlob(data);
-            settingsService.imageUpload(cropped).then(
-              function(success) {
-                window.location.reload();
-              }, function(fail) {
-                window.alert('oh no!');
-              });
-          }(data, $scope));
-        });
+      settingsService.user.update($scope.settings).$promise.then(function (response) {
+        (function (data, scope) {
+          var cropped = dataURLtoBlob(data);
+          settingsService.imageUpload(cropped).then(
+            function (success) {
+              window.location.reload();
+            }, function (fail) {
+              window.alert('oh no!');
+            });
+        }(data, $scope));
+      });
 
     };
+
+    function setCompetencesAndBusiness() {
+      $scope.businesses = [];
+      $scope.competences = [];
+
+      $.each($scope.allBusinesses, function (key, businessGroup) {
+        $scope.businesses.push(businessGroup.business);        
+      });
+
+      $scope.businesses.selected = $scope.businesses.filter(function (business) {
+        return business.id === $scope.settings.business;
+      })[0];
+
+      $.each($scope.allBusinesses, function (key, businessGroup) {
+        if (businessGroup.business.id === $scope.settings.business) {
+          $.each(businessGroup.competences, function (innerKey, competence) {
+            $scope.competences.push(competence);
+          });
+        }
+      });
+    }
 
     function getFilteredArray(inputArray, filter) {
       var filteredArray = [];

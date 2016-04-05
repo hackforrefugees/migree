@@ -41,7 +41,7 @@
                 <img src="{{ croppedImg }}" />
             </div>
         </div>
-        <ui-select ng-model="businesses.selected" search-enabled="false">
+        <ui-select ng-model="businesses.selected" search-enabled="false" on-select="onBusinessSelectedChange($item)">
             <ui-select-match>
                 <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
