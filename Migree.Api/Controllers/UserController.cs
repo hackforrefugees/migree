@@ -64,6 +64,7 @@ namespace Migree.Api.Controllers
                 HasProfileImage = user.HasProfileImage,
                 IsPublic = user.IsPublic,
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
+                BusinessGroup = user.BusinessGroup,
                 Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList(),
             };
 

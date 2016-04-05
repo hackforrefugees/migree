@@ -30,6 +30,7 @@ namespace Migree.Core.Models
             newUser.UserLocation = oldUser.UserLocation;
             newUser.PasswordResetVerificationKey = oldUser.PasswordResetVerificationKey;
             newUser.IsPublic = oldUser.IsPublic;
+            newUser.BusinessGroup = oldUser.BusinessGroup;
             return newUser;
         }
 
@@ -82,7 +83,7 @@ namespace Migree.Core.Models
         [IgnoreProperty]
         public BusinessGroup BusinessGroup
         {
-            get { return (Definitions.BusinessGroup)BusinessGroupValue; }
+            get { return (BusinessGroup)BusinessGroupValue; }
             set { BusinessGroupValue = (int)value; }
         }
 
