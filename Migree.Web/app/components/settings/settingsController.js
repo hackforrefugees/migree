@@ -3,31 +3,32 @@
     settingsService.user.query().$promise.then(function (data) {
       $scope.settings = data;
       var promises = [
-            settingsService.competencePromise,
-            settingsService.businessPromise,
+            settingsService.competencePromise,            
             settingsService.locationPromise
       ];
 
-      $q.all(promises).spread(function (competences, businesses, locations) {
+      $q.all(promises).spread(function (competences, locations) {
         $scope.businesses = [];
         $scope.competences = [];
 
-        $.each(competences, function (key, value) {
-          $scope.businesses.push(value.business);
+        $.each(competences, function (key, businessGroup) {
+          $scope.businesses.push(businessGroup.business);
 
-          $.each(value.competences, function (innerKey, innerValue) {
-            $scope.competences.push(innerValue);
+          $.each(businessGroup.competences, function (innerKey, competence) {
+            $scope.competences.push(competence);
           });
         });
 
-        console.log($scope.competences);
-        
-        $scope.businesses.selected = $scope.businesses[0];
+        $scope.businesses.selected = $scope.businesses.filter(function (business) {
+          return business.id === $scope.settings.business;
+        })[0];
+
         $scope.locations = locations;
         $scope.locations.selected = $scope.locations.filter(function (location) {
           return location.id === $scope.settings.userLocation;
         })[0];
-        $scope.settings.competences.selected = getFilteredArray($scope.competences[0].competences, $scope.settings.competences);
+
+        $scope.settings.competences.selected = getFilteredArray($scope.competences, $scope.settings.competences);
       });
     });
 
