@@ -178,7 +178,6 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Configuration\Global.cs" />
-    <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\CompetenceController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
