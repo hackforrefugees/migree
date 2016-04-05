@@ -4,12 +4,10 @@
     var deferred = $q.defer();
     if(file) {
       var formData = new FormData();
-      formData.append('Content', file, "scaled.png");
-      apiService.imageUpload(formData).then(function(success) {
-        deferred.resolve(success);
-      }, function(fail) {
-        deferred.reject(fail);
-      });
+      formData.append('Content', file);
+      apiService.imageUpload(formData);
+
+      deferred.resolve();
     }
     else {
       deferred.reject({'status': 'No image provided'});
