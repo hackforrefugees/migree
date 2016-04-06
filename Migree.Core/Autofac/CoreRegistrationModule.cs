@@ -21,6 +21,7 @@ namespace Migree.Core.Autofac
             Register<LanguageServant, ILanguageServant>(builder);
             Register<AzureTableRepository, IDataRepository>(builder);
             Register<AzureBlobRepository, IContentRepository>(builder);
+            Register<BusinessServant, IBusinessServant>(builder);
             Register<PasswordServant, IPasswordServant>(builder);
             Register<SendGridMailRepository, IMailRepository>(builder);            
             Register<UserServant, IUserServant>(builder);

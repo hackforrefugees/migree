@@ -102,6 +102,7 @@
     <Compile Include="Exceptions\EnvironmentException.cs" />
     <Compile Include="Exceptions\MigreeException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Interfaces\IBusinessServant.cs" />
     <Compile Include="Interfaces\ICompetenceServant.cs" />
     <Compile Include="Interfaces\IContentRepository.cs" />
     <Compile Include="Interfaces\IDataRepository.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Interfaces\IPasswordServant.cs" />
     <Compile Include="Interfaces\ISettingsServant.cs" />
     <Compile Include="Interfaces\IUserServant.cs" />
+    <Compile Include="Interfaces\Models\IBusiness.cs" />
     <Compile Include="Interfaces\Models\IClient.cs" />
     <Compile Include="Interfaces\Models\ICompetence.cs" />
     <Compile Include="Interfaces\Models\IDefinition.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Interfaces\Models\IMessage.cs" />
     <Compile Include="Interfaces\Models\IMessageThread.cs" />
     <Compile Include="Interfaces\Models\IUser.cs" />
+    <Compile Include="Models\Business.cs" />
     <Compile Include="Models\Competence.cs" />
     <Compile Include="Models\IdAndName.cs" />
     <Compile Include="Models\Language\Client.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Repositories\AzureBlobRepository.cs" />
     <Compile Include="Repositories\AzureTableRepository.cs" />
     <Compile Include="Repositories\SendGridMailRepository.cs" />
+    <Compile Include="Servants\BusinessServant.cs" />
     <Compile Include="Servants\CompetenceServant.cs" />
     <Compile Include="Servants\LanguageServant.cs" />
     <Compile Include="Servants\MessageServant.cs" />
