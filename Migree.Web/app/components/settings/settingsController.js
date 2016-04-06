@@ -64,18 +64,20 @@
 
       var data = $scope.croppedImg;
 
-      settingsService.user.update($scope.settings).$promise.then(function (response) {
-        (function (data, scope) {
-          var cropped = dataURLtoBlob(data);
-          settingsService.imageUpload(cropped).then(
-            function (success) {
-              window.location.reload();
-            }, function (fail) {
-              window.alert('oh no!');
-            });
-        }(data, $scope));
-      });
 
+      settingsService.user.update($scope.settings).$promise.then(function (response) {
+        if($scope.avatarCropped) {
+          (function(data, scope) {
+            var cropped = dataURLtoBlob(data);
+            settingsService.imageUpload(cropped).then(
+              function(success) {
+                window.location.reload();
+              }, function(fail) {
+                window.alert('oh no!');
+              });
+          }(data, $scope));
+        }
+      });
     };
 
     function setCompetencesAndBusiness() {
