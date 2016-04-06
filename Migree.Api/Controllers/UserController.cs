@@ -50,7 +50,7 @@ namespace Migree.Api.Controllers
         {
             var user = UserServant.GetUser(CurrentUserId);
 
-            var locationLanguage = LanguageServant.Get<Definition>().UserLocation;
+            var definitionsLanguage = LanguageServant.Get<Definition>();
 
             var response = new UserDetailedResponse
             {
@@ -60,11 +60,11 @@ namespace Migree.Api.Controllers
                 Email = user.Email,
                 UserType = user.UserType,
                 Description = user.Description,
-                UserLocation = new IntIdAndName { Id = Convert.ToInt32(user.UserLocation), Name = locationLanguage[user.UserLocation.ToString()] },
+                UserLocation = new IntIdAndName { Id = Convert.ToInt32(user.UserLocation), Name = definitionsLanguage.UserLocation[user.UserLocation.ToString()] },
                 HasProfileImage = user.HasProfileImage,
                 IsPublic = user.IsPublic,
                 ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
-                BusinessGroup = user.BusinessGroup,
+                BusinessGroup = new IntIdAndName { Id = Convert.ToInt32(user.BusinessGroup), Name = definitionsLanguage.Business[user.BusinessGroup.ToString()] },
                 Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList(),
             };
 

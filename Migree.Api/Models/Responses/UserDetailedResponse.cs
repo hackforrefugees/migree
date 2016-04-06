@@ -28,7 +28,7 @@ namespace Migree.Api.Models.Responses
         [JsonProperty("profileImageUrl")]
         public string ProfileImageUrl { get; set; }
         [JsonProperty("business")]
-        public BusinessGroup BusinessGroup { get; set; }
+        public IntIdAndName BusinessGroup { get; set; }
         [JsonProperty("competences")]
         public ICollection<GuidIdAndName> Competences { get; set; }
     }

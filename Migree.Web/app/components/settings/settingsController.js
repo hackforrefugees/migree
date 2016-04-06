@@ -3,16 +3,17 @@
     settingsService.user.query().$promise.then(function (data) {
       $scope.settings = data;
       $scope.allBusinesses = [];
+
       var promises = [
             settingsService.competencePromise,
             settingsService.locationPromise
       ];
 
       $q.all(promises).spread(function (competences, locations) {
-        
+
         $scope.allBusinesses = competences;
         setCompetencesAndBusiness();
-        
+
         $scope.locations = locations;
         $scope.locations.selected = $scope.locations.filter(function (location) {
           return location.id === $scope.settings.userLocation;
@@ -34,7 +35,7 @@
 
     $scope.onBusinessSelectedChange = function (selectedItem) {
       $scope.businesses.selected = selectedItem;
-      $scope.settings.business = selectedItem.id;
+      $scope.settings.business = selectedItem;
       setCompetencesAndBusiness();
       $scope.settings.competences = [];
     };
@@ -82,15 +83,11 @@
       $scope.competences = [];
 
       $.each($scope.allBusinesses, function (key, businessGroup) {
-        $scope.businesses.push(businessGroup.business);        
-      });
+        $scope.businesses.push(businessGroup.business);
 
-      $scope.businesses.selected = $scope.businesses.filter(function (business) {
-        return business.id === $scope.settings.business;
-      })[0];
+        if (businessGroup.business.id === $scope.settings.business.id) {
+          $scope.businesses.selected = $scope.settings.business;
 
-      $.each($scope.allBusinesses, function (key, businessGroup) {
-        if (businessGroup.business.id === $scope.settings.business) {
           $.each(businessGroup.competences, function (innerKey, competence) {
             $scope.competences.push(competence);
           });
