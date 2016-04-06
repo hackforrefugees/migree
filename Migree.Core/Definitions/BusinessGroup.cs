@@ -2,6 +2,7 @@
 {
     public enum BusinessGroup
     {
-        Developers = 1
+        Developers = 1,
+        Marketing = 2
     }
 }

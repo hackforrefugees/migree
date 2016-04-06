@@ -5,7 +5,6 @@
 
   self.apiBaseUrl = 'https://migree.azurewebsites.net';
 
-  var business = $resource(self.apiBaseUrl + '/business');
   var competence = $resource(self.apiBaseUrl + '/competence');
   var location = $resource(self.apiBaseUrl + '/location');
   var matches = $resource(self.apiBaseUrl + '/matches');
@@ -39,7 +38,6 @@
   };
 
   return {
-    business: business,
     competence: competence,
     language: language,
     location: location,

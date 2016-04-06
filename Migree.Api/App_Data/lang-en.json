@@ -124,7 +124,8 @@
   },
   "definition": {
     "business": {
-      "Developers": "Developer"
+      "Developers": "Developer",
+      "Marketing":  "Marketing"
     },
     "userLocation": {
       "Unspecified": "Other",

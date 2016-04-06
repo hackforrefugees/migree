@@ -1,6 +1,5 @@
 ﻿using Migree.Core.Definitions;
 using Newtonsoft.Json;
-using System;
 
 namespace Migree.Api.Models.Requests
 {
@@ -15,6 +14,8 @@ namespace Migree.Api.Models.Requests
         [JsonProperty("password")]
         public string Password { get; set; }
         [JsonProperty("userType")]
-        public UserType UserType { get; set; }        
+        public UserType UserType { get; set; }
+        [JsonProperty("businessGroup")]
+        public BusinessGroup BusinessGroup { get; set; }
     }
 }

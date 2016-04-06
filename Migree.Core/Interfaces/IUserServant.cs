@@ -10,9 +10,9 @@ namespace Migree.Core.Interfaces
     {
         IUser FindUser(string email, string password);
         IUser GetUser(Guid userId);
-        Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType);
+        Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType, BusinessGroup businessGroup);
         Task UploadProfileImageAsync(Guid userId, Stream imageStream);
-        void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description, bool? isPublic);
+        void UpdateUser(Guid userId, string firstName, string lastName, UserType? userType, UserLocation? userLocation, string description, bool? isPublic, BusinessGroup? businessGroup);
         string GetProfileImageUrl(Guid userId, bool hasProfileImage);
         Task InitPasswordResetAsync(string email);
         Task ResetPasswordAsync(Guid userId, string resetVerificationKey, string newPassword);
