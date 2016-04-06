@@ -64,8 +64,9 @@
 
       var data = $scope.croppedImg;
 
-      if($scope.avatarCropped){
-        settingsService.user.update($scope.settings).$promise.then(function (response) {
+
+      settingsService.user.update($scope.settings).$promise.then(function (response) {
+        if($scope.avatarCropped) {
           (function(data, scope) {
             var cropped = dataURLtoBlob(data);
             settingsService.imageUpload(cropped).then(
@@ -75,8 +76,8 @@
                 window.alert('oh no!');
               });
           }(data, $scope));
-        });
-      }
+        }
+      });
     };
 
     function setCompetencesAndBusiness() {
