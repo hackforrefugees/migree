@@ -54,6 +54,7 @@
 
       var data = $scope.croppedImg;
 
+      if($scope.avatarCropped){
         settingsService.user.update($scope.settings).$promise.then(function (response) {
           (function(data, scope) {
             var cropped = dataURLtoBlob(data);
@@ -65,7 +66,7 @@
               });
           }(data, $scope));
         });
-
+      }
     };
 
     function getFilteredArray(inputArray, filter) {
