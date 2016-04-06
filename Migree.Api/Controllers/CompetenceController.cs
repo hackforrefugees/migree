@@ -24,21 +24,24 @@ namespace Migree.Api.Controllers
         [HttpGet, Route(""), AllowAnonymous]
         public HttpResponseMessage GetCompetences()
         {
-            var businesses = BusinessServant.GetAll();
-
             var response = new GroupedCompetencesResponse();
-
-
+            var businesses = BusinessServant.GetAll();
+            
             foreach (var business in businesses)
             {
                 var competences = CompetenceServant.GetCompetences(business.Type);
+
+                if (competences.Count == 0)
+                {
+                    continue;
+                }
+
                 response.Add(new BusinessCompetenceResponse
                 {
                     Business = new IntIdAndName { Id = business.Id, Name = business.Name },
                     Competences = competences.Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList()
                 });
             }
-
 
             return CreateApiResponse(HttpStatusCode.OK, response);
         }
