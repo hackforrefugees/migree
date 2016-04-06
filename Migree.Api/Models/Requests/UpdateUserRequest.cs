@@ -20,5 +20,7 @@ namespace Migree.Api.Models.Requests
         public bool? IsPublic { get; set; }
         [JsonProperty("competences")]
         public ICollection<GuidIdAndName> Competences { get; set; }
+        [JsonProperty("businessGroup")]
+        public BusinessGroup? BusinessGroup { get; set; }
     }
 }

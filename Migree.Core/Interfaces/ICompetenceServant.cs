@@ -1,4 +1,5 @@
-﻿using Migree.Core.Interfaces.Models;
+﻿using Migree.Core.Definitions;
+using Migree.Core.Interfaces.Models;
 using System;
 using System.Collections.Generic;
 
@@ -10,14 +11,14 @@ namespace Migree.Core.Interfaces
         /// Gets all existing comptences 
         /// </summary>
         /// <returns></returns>
-        ICollection<ICompetence> GetCompetences();
+        ICollection<ICompetence> GetCompetences(BusinessGroup businessGroup);
 
         /// <summary>
         /// adding competence 
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        Guid AddCompetence(string name);
+        Guid AddCompetence(BusinessGroup businessGroup, string name);
 
         /// <summary>
         /// Based on competenceIds matches will be made with other user and sorted by relevance

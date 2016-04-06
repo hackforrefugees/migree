@@ -4,9 +4,9 @@ namespace Migree.Api.Models.Requests
 {
     public class LoginRequest
     {
-        [JsonProperty(PropertyName = "email")]
+        [JsonProperty("email")]
         public string Email { get; set; }
-        [JsonProperty(PropertyName = "password")]
+        [JsonProperty("password")]
         public string Password { get; set; }
     }
 }

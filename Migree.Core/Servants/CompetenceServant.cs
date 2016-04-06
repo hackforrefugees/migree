@@ -11,18 +11,21 @@ namespace Migree.Core.Servants
     public class CompetenceServant : ICompetenceServant
     {
         private IDataRepository DataRepository { get; }
-        public CompetenceServant(IDataRepository dataRepository)
+        private IBusinessServant BusinessServant { get; }
+        public CompetenceServant(IDataRepository dataRepository, IBusinessServant businessServant)
         {
             DataRepository = dataRepository;
+            BusinessServant = businessServant;
         }
-        public ICollection<ICompetence> GetCompetences()
+        
+        public ICollection<ICompetence> GetCompetences(Definitions.BusinessGroup businessGroup)
         {
-            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(BusinessGroup.Developers)));
+            var competences = DataRepository.GetAll<Competence>(p => p.PartitionKey.Equals(Competence.GetPartitionKey(businessGroup)));
             return competences.OrderBy(p => p.Name).ToList<ICompetence>();
         }
-        public Guid AddCompetence(string name)
+        public Guid AddCompetence(Definitions.BusinessGroup businessGroup, string name)
         {
-            var competence = new Competence(BusinessGroup.Developers)
+            var competence = new Competence(businessGroup)
             {
                 Name = name
             };
@@ -116,7 +119,8 @@ namespace Migree.Core.Servants
 
         public ICollection<ICompetence> GetUserCompetences(Guid userId)
         {
-            var competences = GetCompetences();
+            var user = DataRepository.GetAll<User>(x => x.RowKey.Equals(User.GetRowKey(userId))).First();
+            var competences = GetCompetences(user.BusinessGroup);
             var userCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId))).OrderBy(p => p.SortOrder);
             return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
