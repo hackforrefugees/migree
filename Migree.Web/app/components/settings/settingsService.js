@@ -16,10 +16,15 @@
     return deferred.promise;
   };
 
+  var update = function (userData) {
+    return apiService.user.update(userData).$promise;
+  };
+
   return {
-    user: apiService.user,    
+    user: apiService.user.query().$promise,    
     competencePromise: apiService.competence.query().$promise,
     locationPromise: apiService.location.query().$promise,
-    imageUpload: imageUpload
+    imageUpload: imageUpload,
+    update: update
   };
 }]);
