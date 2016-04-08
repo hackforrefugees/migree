@@ -91,7 +91,7 @@ namespace Migree.Api.Controllers
         [HttpPut, Route("")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
-            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, (UserLocation?)request.UserLocation?.Id, request.Description, request.IsPublic, request.BusinessGroup);
+            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, (UserLocation?)request.UserLocation?.Id, request.Description, request.IsPublic, (BusinessGroup?)request.BusinessGroup?.Id);
 
             if (request.Competences?.Count > 0)
             {
