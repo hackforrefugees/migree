@@ -23,7 +23,7 @@
   };
 
   return {
-    user: apiService.user,
+    user: apiService.user.query().$promise,
     competencePromise: apiService.competence.query().$promise,
     locationPromise: apiService.location.query().$promise,
     imageUpload: imageUpload,
