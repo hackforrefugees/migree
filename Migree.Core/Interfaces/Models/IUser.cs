@@ -11,6 +11,7 @@ namespace Migree.Core.Interfaces.Models
         string LastName { get; }
         string Description { get; }
         bool HasProfileImage { get; }
+        long LastUpdated { get; }
         bool IsPublic { get; }
         UserType UserType { get; }
         UserLocation UserLocation { get; }
