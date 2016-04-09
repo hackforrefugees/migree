@@ -1,27 +1,28 @@
 ﻿migree.controller('settingsController', ['$scope', 'settingsService', '$q', 'fileReader',
   function ($scope, settingsService, $q, fileReader) {
-    settingsService.user.query().$promise.then(function (data) {
-      $scope.settings = data;
-      $scope.allBusinesses = [];
 
-      var promises = [
-            settingsService.competencePromise,
-            settingsService.locationPromise
-      ];
+    $scope.allBusinesses = [];
 
-      $q.all(promises).spread(function (competences, locations) {
+    var promises = [
+          settingsService.competencePromise,
+          settingsService.locationPromise,
+          settingsService.user
+    ];
 
-        $scope.allBusinesses = competences;
-        setCompetencesAndBusiness();
+    $q.all(promises).spread(function (competences, locations, user) {
+      $scope.settings = user;
 
-        $scope.locations = locations;
-        $scope.locations.selected = $scope.locations.filter(function (location) {
-          return location.id === $scope.settings.userLocation;
-        })[0];
+      $scope.allBusinesses = competences;
+      setCompetencesAndBusiness();
 
-        $scope.settings.competences.selected = getFilteredArray($scope.competences, $scope.settings.competences);
-      });
+      $scope.locations = locations;
+      $scope.locations.selected = $scope.locations.filter(function (location) {
+        return location.id === $scope.settings.userLocation;
+      })[0];
+
+      $scope.settings.competences.selected = getFilteredArray($scope.competences, $scope.settings.competences);
     });
+
 
     $scope.croppedImg = null;
     $scope.srcImg = null;
@@ -64,15 +65,14 @@
 
       var data = $scope.croppedImg;
 
-
-      settingsService.user.update($scope.settings).$promise.then(function (response) {
-        if($scope.avatarCropped) {
-          (function(data, scope) {
+      settingsService.update($scope.settings).then(function (response) {
+        if ($scope.avatarCropped) {
+          (function (data, scope) {
             var cropped = dataURLtoBlob(data);
             settingsService.imageUpload(cropped).then(
-              function(success) {
+              function (success) {
                 window.location.reload();
-              }, function(fail) {
+              }, function (fail) {
                 window.alert('oh no!');
               });
           }(data, $scope));

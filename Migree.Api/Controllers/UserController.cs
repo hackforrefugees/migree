@@ -63,7 +63,7 @@ namespace Migree.Api.Controllers
                 UserLocation = new IntIdAndName { Id = Convert.ToInt32(user.UserLocation), Name = definitionsLanguage.UserLocation[user.UserLocation.ToString()] },
                 HasProfileImage = user.HasProfileImage,
                 IsPublic = user.IsPublic,
-                ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage),
+                ProfileImageUrl = UserServant.GetProfileImageUrl(user.Id, user.HasProfileImage, user.LastUpdated),
                 BusinessGroup = new IntIdAndName { Id = Convert.ToInt32(user.BusinessGroup), Name = definitionsLanguage.Business[user.BusinessGroup.ToString()] },
                 Competences = CompetenceServant.GetUserCompetences(user.Id).Select(x => new GuidIdAndName { Id = x.Id, Name = x.Name }).ToList(),
             };
@@ -91,7 +91,7 @@ namespace Migree.Api.Controllers
         [HttpPut, Route("")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
-            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, (UserLocation?)request.UserLocation?.Id, request.Description, request.IsPublic, request.BusinessGroup);
+            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, (UserLocation?)request.UserLocation?.Id, request.Description, request.IsPublic, (BusinessGroup?)request.BusinessGroup?.Id);
 
             if (request.Competences?.Count > 0)
             {

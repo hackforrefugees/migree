@@ -45,7 +45,7 @@ namespace Migree.Api.Controllers
             {
                 OtherUserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
-                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id, p.Value.HasProfileImage),
+                ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id, p.Value.HasProfileImage, p.Value.LastUpdated),
                 IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
                 LatestMessageContent = p.Key.LatestMessageContent,
                 LastUpdated = p.Key.LatestMessageCreated.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
@@ -69,7 +69,7 @@ namespace Migree.Api.Controllers
                 {
                     FullName = $"{messagesInThreadWithUser.Key.FirstName} {messagesInThreadWithUser.Key.LastName}",
                     UserLocation = LanguageServant.Get<Definition>().UserLocation[messagesInThreadWithUser.Key.UserLocation.ToString()],
-                    ProfileImageUrl = UserServant.GetProfileImageUrl(messagesInThreadWithUser.Key.Id, messagesInThreadWithUser.Key.HasProfileImage)
+                    ProfileImageUrl = UserServant.GetProfileImageUrl(messagesInThreadWithUser.Key.Id, messagesInThreadWithUser.Key.HasProfileImage, messagesInThreadWithUser.Key.LastUpdated)
                 },
                 Messages = messagesInThreadWithUser.Value.Select(p => new MessageResponse.MessageItem
                 {

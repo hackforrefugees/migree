@@ -31,6 +31,7 @@ namespace Migree.Core.Models
             newUser.PasswordResetVerificationKey = oldUser.PasswordResetVerificationKey;
             newUser.IsPublic = oldUser.IsPublic;
             newUser.BusinessGroup = oldUser.BusinessGroup;
+            newUser.LastUpdated = oldUser.LastUpdated;
             return newUser;
         }
 
@@ -41,6 +42,7 @@ namespace Migree.Core.Models
         {
             IsPublic = true;
             BusinessGroup = BusinessGroup.Developers;
+            LastUpdated = DateTime.UtcNow.Ticks;
         }
 
         /// <summary>
@@ -69,6 +71,7 @@ namespace Migree.Core.Models
         public bool HasProfileImage { get; set; }
         public bool IsPublic { get; set; }
         public long PasswordResetVerificationKey { get; set; }
+        public long LastUpdated { get; set; }
 
         public int UserLocationValue { get; set; }
         public int BusinessGroupValue { get; set; }        
