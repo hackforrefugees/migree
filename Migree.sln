@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.Api", "Migree.Api\Migree.Api.csproj", "{BDEE8935-E3FB-4945-86D8-1F6BA5B4B711}"
 EndProject
@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Resources", "GitHub 
 		Github Resources\migree-showcase-logo.png = Github Resources\migree-showcase-logo.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migree.ApiTests", "Migree.ApiTests\Migree.ApiTests.csproj", "{67889508-F816-4693-BBA5-332488A802E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{00CB8C5B-E367-422F-B619-4FF6BA7B8E01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9617A77C-6C89-4F35-888E-CF118B683B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9617A77C-6C89-4F35-888E-CF118B683B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67889508-F816-4693-BBA5-332488A802E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67889508-F816-4693-BBA5-332488A802E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67889508-F816-4693-BBA5-332488A802E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67889508-F816-4693-BBA5-332488A802E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
