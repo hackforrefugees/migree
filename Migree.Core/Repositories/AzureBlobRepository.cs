@@ -12,6 +12,7 @@ namespace Migree.Core.Repositories
     {
         private const string IMAGE_CONTAINER_NAME = "migree";
         private const string DEFAULT_IMAGE_NAME = "default-profile.jpg";
+        private const string JPEG_CONTENT_TYPE = "image/jpeg";
         private ISettingsServant SettingsServant { get; }
 
         public AzureBlobRepository(ISettingsServant settingsServant)
@@ -22,7 +23,10 @@ namespace Migree.Core.Repositories
         public async Task PutImageAsync(Guid userId, Stream fileStream, ImageType imageType)
         {
             fileStream.Position = 0;
-            await GetImageBlobReference(userId, imageType).UploadFromStreamAsync(fileStream);
+            var imageBlob = GetImageBlobReference(userId, imageType);
+            imageBlob.Properties.ContentType = JPEG_CONTENT_TYPE;
+            imageBlob.SetProperties();
+            await imageBlob.UploadFromStreamAsync(fileStream);
         }
 
         public string GetImageUrl(Guid? userId, ImageType imageType)

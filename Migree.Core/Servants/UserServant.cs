@@ -68,6 +68,7 @@ namespace Migree.Core.Servants
             user.Description = string.Empty;
             user.HasProfileImage = false;
             user.BusinessGroup = businessGroup;
+            user.LastUpdated = DateTime.UtcNow.Ticks;
             DataRepository.AddOrUpdate(user);
 
             await MailServant.SendRegisterMailAsync(email, user.FullName);
@@ -115,7 +116,8 @@ namespace Migree.Core.Servants
             {
                 user.BusinessGroup = businessGroup.Value;
             }
-            
+
+            user.LastUpdated = DateTime.UtcNow.Ticks;
             DataRepository.AddOrUpdate(user);
         }
 
@@ -138,12 +140,13 @@ namespace Migree.Core.Servants
             }
 
             user.HasProfileImage = true;
+            user.LastUpdated = DateTime.UtcNow.Ticks;
             DataRepository.AddOrUpdate(user);
         }
 
-        public string GetProfileImageUrl(Guid userId, bool hasProfileImage)
+        public string GetProfileImageUrl(Guid userId, bool hasProfileImage, long userLastUpdated)
         {
-            return ContentRepository.GetImageUrl(hasProfileImage ? userId : default(Guid?), ImageType.Profile);
+            return $"{ContentRepository.GetImageUrl(hasProfileImage ? userId : default(Guid?), ImageType.Profile)}?v={userLastUpdated}";
         }
 
         public async Task InitPasswordResetAsync(string email)
@@ -184,6 +187,7 @@ namespace Migree.Core.Servants
 
             user.PasswordResetVerificationKey = 0;
             user.Password = PasswordServant.CreatePasswordHash(newPassword);
+            user.LastUpdated = DateTime.UtcNow.Ticks;
             DataRepository.AddOrUpdate(user);
             await MailServant.SendFinishedPasswordResetAsync(user.Email);
         }        
