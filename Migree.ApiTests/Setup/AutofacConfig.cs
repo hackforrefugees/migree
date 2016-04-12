@@ -1,12 +1,10 @@
 ﻿using Autofac;
+using Autofac.Integration.WebApi;
+using Migree.ApiTests.Mocks;
 using Migree.Core.Autofac;
 using Migree.Core.Definitions;
 using Migree.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Migree.ApiTests.Setup
 {
@@ -16,8 +14,10 @@ namespace Migree.ApiTests.Setup
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule(new CoreRegistrationModule(ApplicationType.Runtime));
-            //builder.RegisterType<MockDataRepository>().As<IDataRepository>().InstancePerLifetimeScope();
-            //builder.RegisterType<MockPushNotificationRepository>().As<IPushNotificationRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MockDataRepository>().As<IDataRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MockContentRepository>().As<IContentRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MockMailRepository>().As<IMailRepository>().InstancePerLifetimeScope();
+            builder.RegisterApiControllers(Assembly.GetAssembly(typeof(CoreRegistrationModule)));
             return builder.Build();
         }
     }

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Migree.ApiTests.Controllers
+
+namespace Migree.Api.Controllers.Tests
 {
     public abstract class ControllerTest
     {
@@ -23,7 +24,7 @@ namespace Migree.ApiTests.Controllers
             }
         }
 
-        private ILifetimeScope Scope;
+        protected ILifetimeScope Scope { get; private set; }
 
         [TestInitialize]
         public void Setup()
