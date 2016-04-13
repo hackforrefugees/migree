@@ -32,7 +32,7 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
 
     $scope.savedSuccessfully = false;
     $scope.message = '';
-    $scope.aboutText = '';    
+    $scope.aboutText = '';
 
     var userId = null;
     var profileFile = null;
@@ -84,7 +84,7 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
         submitButtons.prop('disabled', false);
 
         authenticationService.login($scope.registration.email, $scope.registration.password).then(function (response) {
-          /*$scope.registerService.imageUpload(profileFile);*/
+          $scope.registerService.imageUpload(profileFile);
         }, function (err) {
           $scope.message = err.error_description;
         });
