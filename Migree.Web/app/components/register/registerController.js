@@ -3,6 +3,8 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
 
     var self = this;
 
+    $scope.allBusinesses = [];
+
     $scope.registration = {
       firstName: '',
       lastName: '',
@@ -11,30 +13,26 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
       city: { name: $scope.language.register.defaultTextLocation, id: 0 },
       work: { name: $scope.language.register.defaultTextWork, id: 0 },
       userType: 2,
-      competences: []
+      competences: [],
+      business: { id: 1, name: 'Developer'}
     };
 
     var promises = [
       registerService.competencePromise,
-      registerService.businessPromise,
       registerService.locationPromise
     ];
 
-    $q.all(promises).spread(function (competences, businesses, locations) {
+    $q.all(promises).spread(function (competences, locations) {
       $scope.competences = competences;
-      $scope.businesses = businesses;
       $scope.locations = locations;
+
+      $scope.allBusinesses = competences;
+      setCompetencesAndBusiness();
     });
 
     $scope.savedSuccessfully = false;
     $scope.message = '';
-    $scope.aboutText = '';
-
-    $scope.competence = [
-      { id: null, name: $scope.language.register.defaultTextCompetence1 },
-      { id: null, name: $scope.language.register.defaultTextCompetence2 },
-      { id: null, name: $scope.language.register.defaultTextCompetence3 }
-    ];
+    $scope.aboutText = '';    
 
     var userId = null;
     var profileFile = null;
@@ -57,13 +55,26 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
       });
     };
 
+    function setCompetencesAndBusiness() {
+      $scope.businesses = [];
+      $scope.competences = [];
+
+      $.each($scope.allBusinesses, function (key, businessGroup) {
+        $scope.businesses.push(businessGroup.business);
+
+        $.each(businessGroup.competences, function (innerKey, competence) {
+          $scope.competences.push(competence);
+        });
+      });
+    }
+
     var submitButtons = $('.step button');
     $scope.goToNext = function () {
 
       submitButtons.addClass('disabled');
       submitButtons.prop('disabled', true);
 
-      registerService.user.save($scope.registration).$promise.then(function (response) {
+      registerService.save($scope.registration).then(function () {
         $scope.savedSuccessfully = true;
 
         $('.step').prev().hide();
@@ -73,7 +84,7 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
         submitButtons.prop('disabled', false);
 
         authenticationService.login($scope.registration.email, $scope.registration.password).then(function (response) {
-          $scope.registerService.imageUpload(profileFile);
+          /*$scope.registerService.imageUpload(profileFile);*/
         }, function (err) {
           $scope.message = err.error_description;
         });
@@ -95,15 +106,15 @@ migree.controller('registerController', ['$scope', '$timeout', 'authenticationSe
       }, 2000);
     };
 
-    $scope.updateSkills = function () {      
-      if ($scope.registration.city.id && $scope.registration.competences.length>0 && $scope.registration.work.id && $scope.aboutText.length > 0) {
+    $scope.updateSkills = function () {
+      if ($scope.registration.city.id && $scope.registration.competences.length > 0 && $scope.registration.work.id && $scope.aboutText.length > 0) {
         var userInformation = {
           userLocation: $scope.registration.city,
           description: $scope.aboutText,
           competences: $scope.registration.competences
         };
 
-        registerService.user.update(userInformation);
+        registerService.update(userInformation);
         $state.go('thankyou');
       }
       else {
