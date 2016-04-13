@@ -41,7 +41,7 @@ namespace Migree.Api.Controllers
                 throw new ValidationException(HttpStatusCode.BadRequest, LanguageServant.Get<ErrorMessages>().UserInvalidRequest);
             }
 
-            var user = await UserServant.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.UserType, request.BusinessGroup);
+            var user = await UserServant.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.UserType, (BusinessGroup)request.BusinessGroup.Id);
             return CreateApiResponse(HttpStatusCode.OK, new RegisterResponse { UserId = user.Id });
         }
 

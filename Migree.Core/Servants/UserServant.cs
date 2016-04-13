@@ -52,7 +52,7 @@ namespace Migree.Core.Servants
 
         public async Task<IUser> RegisterAsync(string email, string password, string firstName, string lastName, UserType userType, BusinessGroup businessGroup)
         {
-            email = email.ToLower();
+            email = email.ToLower().Trim();
 
             if (DataRepository.GetAll<User>().Any(p => p.Email.Equals(email)))
             {
