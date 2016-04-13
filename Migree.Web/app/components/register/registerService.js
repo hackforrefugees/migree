@@ -1,4 +1,4 @@
-migree.factory('registerService', ['apiService', function (apiService) {
+migree.factory('registerService', ['apiService', function (apiService) {  
 
   var imageUpload = function (file) {
     var formData = new FormData();
@@ -6,11 +6,19 @@ migree.factory('registerService', ['apiService', function (apiService) {
     apiService.imageUpload(formData);
   };
 
+  var save = function (userData) {
+    return apiService.user.save(userData).$promise;
+  };
+
+  var update = function (userData) {
+    return apiService.user.update(userData).$promise;
+  };
+
   return {
-    user: apiService.user,
-    businessPromise: apiService.business.query().$promise,
+    save: save,
+    update: update,
     competencePromise: apiService.competence.query().$promise,
     locationPromise: apiService.location.query().$promise,
-    imageUpload: imageUpload
+    imageUpload: imageUpload,    
   };
 }]);
