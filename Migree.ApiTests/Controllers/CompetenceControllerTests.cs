@@ -17,7 +17,7 @@ namespace Migree.Api.Controllers.Tests
         public void GetCompetencesTest()
         {
             var controller = new CompetenceController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IBusinessServant>());
-            //var items = controller.GetCompetences();
+            var items = controller.GetCompetences();
             Assert.Fail();
         }
 

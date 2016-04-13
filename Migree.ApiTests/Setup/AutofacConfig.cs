@@ -14,6 +14,7 @@ namespace Migree.ApiTests.Setup
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule(new CoreRegistrationModule(ApplicationType.Runtime));
+            builder.RegisterType<MockSettingsServant>().As<ISettingsServant>().SingleInstance();
             builder.RegisterType<MockDataRepository>().As<IDataRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MockContentRepository>().As<IContentRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MockMailRepository>().As<IMailRepository>().InstancePerLifetimeScope();
