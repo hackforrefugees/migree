@@ -137,6 +137,7 @@
     <Compile Include="Controllers\MessageControllerTests.cs" />
     <Compile Include="Mocks\MockContentRepository.cs" />
     <Compile Include="Mocks\MockDataRepository.cs" />
+    <Compile Include="Mocks\MockLanguageServant.cs" />
     <Compile Include="Mocks\MockMailRepository.cs" />
     <Compile Include="Mocks\MockSettingsServant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
