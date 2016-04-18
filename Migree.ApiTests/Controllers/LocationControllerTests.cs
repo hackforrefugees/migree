@@ -1,12 +1,9 @@
 ﻿using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Migree.Api.Controllers;
+using Migree.Api.Models;
 using Migree.Core.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Migree.Api.Controllers.Tests
 {
@@ -17,8 +14,10 @@ namespace Migree.Api.Controllers.Tests
         public void GetAllTest()
         {
             var controller = new LocationController(Scope.Resolve<ILanguageServant>());
-            controller.GetAll();
-            Assert.Fail();
+            var result = GetResultFromRequest<IEnumerable<IntIdAndName>, LocationController>(controller, (ctrl) => { return ctrl.GetAll(); }).ToList();
+
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual("Other", result.Last().Name);
         }
     }
 }

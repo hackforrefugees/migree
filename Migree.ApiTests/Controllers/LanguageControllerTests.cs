@@ -1,20 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Migree.Api.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Autofac;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Migree.Core.Interfaces;
+using Migree.Core.Models.Language;
 
 namespace Migree.Api.Controllers.Tests
 {
     [TestClass()]
-    public class LanguageControllerTests
+    public class LanguageControllerTests : ControllerTest
     {
         [TestMethod()]
         public void GetTest()
-        {
-            Assert.Fail();
+        {            
+            var controller = new LanguageController(Scope.Resolve<ILanguageServant>());
+            var result = GetResultFromRequest<Client, LanguageController>(controller, (ctrl) => { return ctrl.Get("en"); });
+
+            Assert.AreEqual("Login", result.Home["loginButton"]);
+            Assert.AreEqual("Start conversation", result.Message["startThread"]);            
         }
     }
 }

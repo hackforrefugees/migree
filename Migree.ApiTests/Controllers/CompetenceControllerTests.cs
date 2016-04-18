@@ -18,12 +18,6 @@ namespace Migree.Api.Controllers.Tests
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual(5, result.First().Competences.Count);
             Assert.AreEqual("Developer", result.First().Business.Name);
-        }
-
-        [TestMethod()]
-        public void AddCompetenceTest()
-        {
-            Assert.Fail();
-        }
+        }        
     }
 }
