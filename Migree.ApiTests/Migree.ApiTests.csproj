@@ -87,6 +87,7 @@
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -137,7 +138,6 @@
     <Compile Include="Controllers\MessageControllerTests.cs" />
     <Compile Include="Mocks\MockContentRepository.cs" />
     <Compile Include="Mocks\MockDataRepository.cs" />
-    <Compile Include="Mocks\MockLanguageServant.cs" />
     <Compile Include="Mocks\MockMailRepository.cs" />
     <Compile Include="Mocks\MockSettingsServant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
