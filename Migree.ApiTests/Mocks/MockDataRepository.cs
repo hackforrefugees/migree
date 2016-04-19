@@ -15,7 +15,12 @@ namespace Migree.ApiTests.Mocks
             Fill();
         }
 
-        private List<StorageModel> MockModels { get; }
+        private List<StorageModel> MockModels { get; set; }
+
+        public IEnumerable<Model> GetMockModels<Model>() where Model : StorageModel
+        {
+            return MockModels.Where(p => p.GetType().Equals(typeof(Model))).Cast<Model>();
+        }
 
         public void AddOrUpdate<Model>(Model model) where Model : StorageModel, new()
         {
@@ -41,7 +46,7 @@ namespace Migree.ApiTests.Mocks
 
         public ICollection<Model> GetAll<Model>(Expression<Func<Model, bool>> where = null) where Model : StorageModel, new()
         {
-            var models = MockModels.Where(p => p.GetType().Equals(typeof(Model))).Cast<Model>();
+            var models = GetMockModels<Model>();
 
             if (models != null)
             {
@@ -76,7 +81,7 @@ namespace Migree.ApiTests.Mocks
                 LastName = "FirstLast",
                 HasProfileImage = false,
                 IsPublic = true,
-                UserLocation = Core.Definitions.UserLocation.GothenburgArea                
+                UserLocation = Core.Definitions.UserLocation.GothenburgArea
             });
         }
     }

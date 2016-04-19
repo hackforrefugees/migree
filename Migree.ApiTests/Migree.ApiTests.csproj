@@ -139,6 +139,7 @@
     <Compile Include="Mocks\MockContentRepository.cs" />
     <Compile Include="Mocks\MockDataRepository.cs" />
     <Compile Include="Mocks\MockMailRepository.cs" />
+    <Compile Include="Mocks\MockSessionProvider.cs" />
     <Compile Include="Mocks\MockSettingsServant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\AutofacConfig.cs" />

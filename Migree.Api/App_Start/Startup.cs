@@ -79,6 +79,7 @@ namespace Migree.Api
             var builder = new ContainerBuilder();
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
             builder.RegisterModule(new CoreRegistrationModule(ApplicationType.Web));
+            builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterControllers(executingAssembly);
             builder.RegisterApiControllers(executingAssembly);
 

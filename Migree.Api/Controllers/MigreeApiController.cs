@@ -27,25 +27,6 @@ namespace Migree.Api.Controllers
         {
             string uri = Url.Link(attributeRouteName, route);
             return new Uri(uri);
-        }
-
-        protected Guid CurrentUserId
-        {
-            get
-            {
-                try
-                {
-                    var requestContext = Request.GetRequestContext();
-                    var principal = requestContext.Principal as System.Security.Claims.ClaimsPrincipal;
-                    var userIdClaim = principal.Claims.FirstOrDefault(p => p.Type == Global.ClaimUserId)?.Value ?? null;
-
-                    if (!string.IsNullOrEmpty(userIdClaim))
-                        return Guid.Parse(userIdClaim);
-                }
-                catch { }
-
-                throw new ValidationException(HttpStatusCode.BadRequest, "User not found");
-            }
-        }
+        }        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Migree.Api.Models;
 using Migree.Api.Models.Requests;
 using Migree.Api.Models.Responses;
+using Migree.Api.Providers;
 using Migree.Core.Definitions;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
@@ -20,12 +21,14 @@ namespace Migree.Api.Controllers
         private IUserServant UserServant { get; }
         private ICompetenceServant CompetenceServant { get; }
         private ILanguageServant LanguageServant { get; }
+        private ISessionProvider SessionProvider { get; }
 
-        public UserController(IUserServant userServant, ICompetenceServant comptenceServant, ILanguageServant languageServant)
+        public UserController(IUserServant userServant, ICompetenceServant comptenceServant, ILanguageServant languageServant, ISessionProvider sessionProvider)
         {
             UserServant = userServant;
             CompetenceServant = comptenceServant;
             LanguageServant = languageServant;
+            SessionProvider = sessionProvider;
         }
 
         [HttpPost, Route(""), AllowAnonymous]
@@ -48,7 +51,7 @@ namespace Migree.Api.Controllers
         [HttpGet, Route("")]
         public HttpResponseMessage GetUser()
         {
-            var user = UserServant.GetUser(CurrentUserId);
+            var user = UserServant.GetUser(SessionProvider.CurrentUserId);
 
             var definitionsLanguage = LanguageServant.Get<Definition>();
 
@@ -82,7 +85,7 @@ namespace Migree.Api.Controllers
             var content = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
             using (var imageStream = await content.Contents.First().ReadAsStreamAsync())
             {
-                await UserServant.UploadProfileImageAsync(CurrentUserId, imageStream);
+                await UserServant.UploadProfileImageAsync(SessionProvider.CurrentUserId, imageStream);
             }
 
             return CreateApiResponse(HttpStatusCode.Accepted);
@@ -91,11 +94,11 @@ namespace Migree.Api.Controllers
         [HttpPut, Route("")]
         public HttpResponseMessage Update(UpdateUserRequest request)
         {
-            UserServant.UpdateUser(CurrentUserId, request.FirstName, request.LastName, request.UserType, (UserLocation?)request.UserLocation?.Id, request.Description, request.IsPublic, (BusinessGroup?)request.BusinessGroup?.Id);
+            UserServant.UpdateUser(SessionProvider.CurrentUserId, request.FirstName, request.LastName, request.UserType, (UserLocation?)request.UserLocation?.Id, request.Description, request.IsPublic, (BusinessGroup?)request.BusinessGroup?.Id);
 
             if (request.Competences?.Count > 0)
             {
-                CompetenceServant.AddCompetencesToUser(CurrentUserId, request.Competences.Select(p => p.Id).ToList());
+                CompetenceServant.AddCompetencesToUser(SessionProvider.CurrentUserId, request.Competences.Select(p => p.Id).ToList());
             }
 
             return CreateApiResponse(HttpStatusCode.NoContent);
