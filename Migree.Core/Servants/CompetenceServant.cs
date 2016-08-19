@@ -122,6 +122,12 @@ namespace Migree.Core.Servants
             var user = DataRepository.GetAll<User>(x => x.RowKey.Equals(User.GetRowKey(userId))).First();
             var competences = GetCompetences(user.BusinessGroup);
             var userCompetences = DataRepository.GetAll<UserCompetence>(p => p.RowKey.Equals(UserCompetence.GetRowKey(userId))).OrderBy(p => p.SortOrder);
+
+            if (competences.Count == 0)
+            {
+                return new List<ICompetence>();
+            }
+
             return userCompetences.Select(p => new IdAndName { Id = p.CompetenceId, Name = competences.First(q => q.Id.Equals(p.CompetenceId)).Name }).ToList<ICompetence>();
         }
     }
