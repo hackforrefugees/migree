@@ -19,7 +19,7 @@ namespace Migree.ApiTests.Setup
             builder.RegisterType<MockDataRepository>().As<IDataRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MockContentRepository>().As<IContentRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MockMailRepository>().As<IMailRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<MockSessionProvider>().As<ISessionProvider>();
+            builder.RegisterType<MockSessionProvider>().As<ISessionProvider>().InstancePerLifetimeScope();
             builder.RegisterApiControllers(Assembly.GetAssembly(typeof(CoreRegistrationModule)));
             return builder.Build();
         }

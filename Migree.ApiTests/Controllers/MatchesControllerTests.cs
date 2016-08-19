@@ -12,13 +12,25 @@ namespace Migree.Api.Controllers.Tests
     public class MatchesControllerTests : ControllerTest
     {
         [TestMethod()]
-        public void GetMatchesTest()
+        public void GetMatchesHelperTest()
         {
-            SetUserAsLoggedIn();
+            SetUserAsLoggedIn(Core.Definitions.UserType.Helper);
             var controller = new MatchesController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IUserServant>(), Scope.Resolve<ILanguageServant>(), Scope.Resolve<ISessionProvider>());
             var result = GetResultFromRequest<IEnumerable<UserResponse>, MatchesController>(controller, (ctrl) => { return ctrl.GetMatches(); }).ToList();
 
-            Assert.Fail();
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("Second SecondLast", result.First().FullName);
+        }
+
+        [TestMethod()]
+        public void GetMatchesNeedHelpTest()
+        {
+            SetUserAsLoggedIn(Core.Definitions.UserType.NeedsHelp);
+            var controller = new MatchesController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IUserServant>(), Scope.Resolve<ILanguageServant>(), Scope.Resolve<ISessionProvider>());
+            var result = GetResultFromRequest<IEnumerable<UserResponse>, MatchesController>(controller, (ctrl) => { return ctrl.GetMatches(); }).ToList();
+
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("First FirstLast", result.First().FullName);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Migree.ApiTests.Mocks
         {
             var models = GetMockModels<Model>();
 
-            if (models != null)
+            if (models != null && where != null)
             {
                 models = models.AsQueryable().Where(where);
             }
@@ -63,26 +63,51 @@ namespace Migree.ApiTests.Mocks
 
         private void Fill()
         {
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "App development" });
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Frontend" });
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Backend" });
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Database" });
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Built in system" });
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Marketing) { Name = "Copy" });
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Marketing) { Name = "Design" });
-            MockModels.Add(new Competence(Core.Definitions.BusinessGroup.Marketing) { Name = "Copywriter" });
-
-            MockModels.Add(new User(Core.Definitions.UserType.Helper)
+            var competences = new List<Competence>
             {
-                BusinessGroup = Core.Definitions.BusinessGroup.Developers,
-                Description = "Description one",
-                Email = "one@mail.com",
-                FirstName = "First",
-                LastName = "FirstLast",
-                HasProfileImage = false,
-                IsPublic = true,
-                UserLocation = Core.Definitions.UserLocation.GothenburgArea
-            });
+                new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "App development" },
+                new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Frontend" },
+                new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Backend" },
+                new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Database" },
+                new Competence(Core.Definitions.BusinessGroup.Developers) { Name = "Built in system" },
+                new Competence(Core.Definitions.BusinessGroup.Marketing) { Name = "Copy" },
+                new Competence(Core.Definitions.BusinessGroup.Marketing) { Name = "Design" },
+                new Competence(Core.Definitions.BusinessGroup.Marketing) { Name = "Copywriter" }
+            };
+
+            MockModels.AddRange(competences);
+
+            var users = new List<User>
+            {
+                new User(Core.Definitions.UserType.Helper)
+                {
+                    BusinessGroup = Core.Definitions.BusinessGroup.Developers,
+                    Description = "Description one",
+                    Email = "one@mail.com",
+                    FirstName = "First",
+                    LastName = "FirstLast",
+                    HasProfileImage = false,
+                    IsPublic = true,
+                    UserLocation = Core.Definitions.UserLocation.GothenburgArea
+                },
+                new User(Core.Definitions.UserType.NeedsHelp)
+                {
+                    BusinessGroup = Core.Definitions.BusinessGroup.Developers,
+                    Description = "Description two",
+                    Email = "two@mail.com",
+                    FirstName = "Second",
+                    LastName = "SecondLast",
+                    HasProfileImage = false,
+                    IsPublic = true,
+                    UserLocation = Core.Definitions.UserLocation.GothenburgArea
+                }
+            };
+
+            MockModels.AddRange(users);
+
+            MockModels.Add(new UserCompetence(users[0].Id, competences[0].Id));
+            MockModels.Add(new UserCompetence(users[0].Id, competences[1].Id));
+            MockModels.Add(new UserCompetence(users[1].Id, competences[0].Id));
         }
     }
 }

@@ -34,10 +34,10 @@ namespace Migree.Api.Controllers.Tests
             Scope = Container.BeginLifetimeScope();
         }
 
-        protected void SetUserAsLoggedIn()
+        protected void SetUserAsLoggedIn(Core.Definitions.UserType userType)
         {
             var dataRepository = Scope.Resolve<IDataRepository>() as MockDataRepository;
-            var user = dataRepository.GetMockModels<User>().First();
+            var user = dataRepository.GetMockModels<User>().First(x => x.UserType == userType);
             (Scope.Resolve<ISessionProvider>() as MockSessionProvider).CurrentUserId = user.Id;
         }
 
