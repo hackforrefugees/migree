@@ -1,5 +1,6 @@
 ﻿using Migree.Api.Models;
 using Migree.Api.Models.Responses;
+using Migree.Api.Providers;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
 using System.Linq;
@@ -17,19 +18,21 @@ namespace Migree.Api.Controllers
         private ICompetenceServant CompetenceServant { get; }
         private IUserServant UserServant { get; }        
         private ILanguageServant LanguageServant { get; }
+        private ISessionProvider SessionProvider { get; }
 
-        public MatchesController(ICompetenceServant compentenceServant, IUserServant userServant, ILanguageServant languageServant)
+        public MatchesController(ICompetenceServant compentenceServant, IUserServant userServant, ILanguageServant languageServant, ISessionProvider sessionProvider)
         {
             CompetenceServant = compentenceServant;
             UserServant = userServant;
             LanguageServant = languageServant;
+            SessionProvider = sessionProvider;
         }
 
         [HttpGet, Route("")]
         public HttpResponseMessage GetMatches()
         {
-            var userMatches = CompetenceServant.GetUserCompetences(CurrentUserId).Select(p => p.Id).ToList();
-            var matchedUsers = CompetenceServant.GetMatches(CurrentUserId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
+            var userMatches = CompetenceServant.GetUserCompetences(SessionProvider.CurrentUserId).Select(p => p.Id).ToList();
+            var matchedUsers = CompetenceServant.GetMatches(SessionProvider.CurrentUserId, userMatches, NUMBER_OF_MATCHES_TO_TAKE);
 
             var adminUser = UserServant.GetAdminUser();
 

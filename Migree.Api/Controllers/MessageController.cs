@@ -1,5 +1,6 @@
 ﻿using Migree.Api.Models.Requests;
 using Migree.Api.Models.Responses;
+using Migree.Api.Providers;
 using Migree.Core.Exceptions;
 using Migree.Core.Interfaces;
 using Migree.Core.Models.Language;
@@ -18,11 +19,13 @@ namespace Migree.Api.Controllers
         private IMessageServant MessageServant { get; }
         private IUserServant UserServant { get; }
         private ILanguageServant LanguageServant { get; }
-        public MessageController(IMessageServant messageServant, IUserServant userServant, ILanguageServant languageServant)
+        private ISessionProvider SessionProvider { get; }
+        public MessageController(IMessageServant messageServant, IUserServant userServant, ILanguageServant languageServant, ISessionProvider sessionProvider)
         {
             MessageServant = messageServant;
             UserServant = userServant;
             LanguageServant = languageServant;
+            SessionProvider = sessionProvider;
         }
 
         [HttpPost, Route("")]
@@ -33,20 +36,20 @@ namespace Migree.Api.Controllers
                 throw new ValidationException(HttpStatusCode.BadRequest, LanguageServant.Get<ErrorMessages>().MessageRequiredFieldsMissing);
             }
 
-            await MessageServant.SendMessageToUserAsync(CurrentUserId, request.ReceiverUserId, request.Message);
+            await MessageServant.SendMessageToUserAsync(SessionProvider.CurrentUserId, request.ReceiverUserId, request.Message);
             return CreateApiResponse(HttpStatusCode.Accepted);
         }
 
         [HttpGet, Route("")]
         public HttpResponseMessage GetMessageThreads()
         {
-            var messageThreads = MessageServant.GetMessageThreads(CurrentUserId);
+            var messageThreads = MessageServant.GetMessageThreads(SessionProvider.CurrentUserId);
             var response = messageThreads.Select(p => new MessageThreadResponse
             {
                 OtherUserId = p.Value.Id,
                 FullName = $"{p.Value.FirstName} {p.Value.LastName}",
                 ProfileImageUrl = UserServant.GetProfileImageUrl(p.Value.Id, p.Value.HasProfileImage, p.Value.LastUpdated),
-                IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
+                IsRead = p.Key.LatestMessageCreated < (p.Key.UserId1.Equals(SessionProvider.CurrentUserId) ? p.Key.LatestReadUser1 : p.Key.LatestReadUser2),
                 LatestMessageContent = p.Key.LatestMessageContent,
                 LastUpdated = p.Key.LatestMessageCreated.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>())
             });
@@ -56,11 +59,11 @@ namespace Migree.Api.Controllers
         [HttpGet, Route("{otherUserId:guid}")]
         public HttpResponseMessage GetMessageThread(Guid otherUserId)
         {
-            var messagesInThreadWithUser = MessageServant.GetMessageThread(CurrentUserId, otherUserId);
+            var messagesInThreadWithUser = MessageServant.GetMessageThread(SessionProvider.CurrentUserId, otherUserId);
 
             if (messagesInThreadWithUser.Value.Count > 0)
             {
-                MessageServant.SetMessageThreadAsRead(CurrentUserId, otherUserId);
+                MessageServant.SetMessageThreadAsRead(SessionProvider.CurrentUserId, otherUserId);
             }
 
             var message = new MessageResponse
@@ -75,7 +78,7 @@ namespace Migree.Api.Controllers
                 {
                     Content = p.Content,
                     Created = p.Created.ToRelativeDateTimeString(LanguageServant.Get<RelativeDateTimeStrings>()),
-                    IsCurrentUser = p.UserId.Equals(CurrentUserId)
+                    IsCurrentUser = p.UserId.Equals(SessionProvider.CurrentUserId)
                 }).ToList()
             };
 
