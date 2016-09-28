@@ -13,11 +13,16 @@ namespace Migree.Api.Controllers.Tests
         [TestMethod()]
         public void GetAllTest()
         {
-            var controller = new LocationController(Scope.Resolve<ILanguageServant>());
+            var controller = GetLocationController();
             var result = GetResultFromRequest<IEnumerable<IntIdAndName>, LocationController>(controller, (ctrl) => { return ctrl.GetAll(); }).ToList();
 
             Assert.AreEqual(4, result.Count);
             Assert.AreEqual("Other", result.Last().Name);
+        }
+
+        private LocationController GetLocationController()
+        {
+            return new LocationController(Scope.Resolve<ILanguageServant>());
         }
     }
 }

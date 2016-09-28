@@ -10,12 +10,17 @@ namespace Migree.Api.Controllers.Tests
     {
         [TestMethod()]
         public void GetTest()
-        {            
-            var controller = new LanguageController(Scope.Resolve<ILanguageServant>());
+        {
+            var controller = GetLanguageController();
             var result = GetResultFromRequest<Client, LanguageController>(controller, (ctrl) => { return ctrl.Get("en"); });
 
             Assert.AreEqual("Login", result.Home["loginButton"]);
-            Assert.AreEqual("Start conversation", result.Message["startThread"]);            
+            Assert.AreEqual("Start conversation", result.Message["startThread"]);
+        }
+
+        private LanguageController GetLanguageController()
+        {
+            return new LanguageController(Scope.Resolve<ILanguageServant>()); 
         }
     }
 }

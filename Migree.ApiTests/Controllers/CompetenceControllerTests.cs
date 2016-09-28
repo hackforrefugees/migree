@@ -12,12 +12,17 @@ namespace Migree.Api.Controllers.Tests
         [TestMethod()]
         public void GetCompetencesTest()
         {
-            var controller = new CompetenceController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IBusinessServant>());
+            var controller = GetCompetenceController();
             var result = GetResultFromRequest<GroupedCompetencesResponse, CompetenceController>(controller, (ctrl) => { return ctrl.GetCompetences(); });
 
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual(5, result.First().Competences.Count);
             Assert.AreEqual("Developer", result.First().Business.Name);
-        }        
+        }
+
+        private CompetenceController GetCompetenceController()
+        {
+            return new CompetenceController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IBusinessServant>());
+        }
     }
 }

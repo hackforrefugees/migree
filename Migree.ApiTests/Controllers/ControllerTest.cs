@@ -7,7 +7,9 @@ using Migree.Core.Interfaces;
 using Migree.Core.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
@@ -49,6 +51,19 @@ namespace Migree.Api.Controllers.Tests
             var result = action(controller);
             var json = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<JsonObject>(json);
+        }
+
+        protected void SetRequest<Controller>(ref Controller controller)
+            where Controller : MigreeApiController
+        {
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+        }
+
+        protected IEnumerable<Model> GetMockModels<Model>()
+          where Model : StorageModel
+        {
+            return ((MockDataRepository)Scope.Resolve<IDataRepository>()).GetMockModels<Model>();
         }
 
         [TestCleanup]

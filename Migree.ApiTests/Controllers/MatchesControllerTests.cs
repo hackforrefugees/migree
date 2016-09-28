@@ -15,7 +15,7 @@ namespace Migree.Api.Controllers.Tests
         public void GetMatchesHelperTest()
         {
             SetUserAsLoggedIn(Core.Definitions.UserType.Helper);
-            var controller = new MatchesController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IUserServant>(), Scope.Resolve<ILanguageServant>(), Scope.Resolve<ISessionProvider>());
+            var controller = GetMatchesController();
             var result = GetResultFromRequest<IEnumerable<UserResponse>, MatchesController>(controller, (ctrl) => { return ctrl.GetMatches(); }).ToList();
 
             Assert.AreEqual(1, result.Count);
@@ -26,11 +26,16 @@ namespace Migree.Api.Controllers.Tests
         public void GetMatchesNeedHelpTest()
         {
             SetUserAsLoggedIn(Core.Definitions.UserType.NeedsHelp);
-            var controller = new MatchesController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IUserServant>(), Scope.Resolve<ILanguageServant>(), Scope.Resolve<ISessionProvider>());
+            var controller = GetMatchesController();
             var result = GetResultFromRequest<IEnumerable<UserResponse>, MatchesController>(controller, (ctrl) => { return ctrl.GetMatches(); }).ToList();
 
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual("First FirstLast", result.First().FullName);
+        }
+
+        private MatchesController GetMatchesController()
+        {
+            return new MatchesController(Scope.Resolve<ICompetenceServant>(), Scope.Resolve<IUserServant>(), Scope.Resolve<ILanguageServant>(), Scope.Resolve<ISessionProvider>());
         }
     }
 }
